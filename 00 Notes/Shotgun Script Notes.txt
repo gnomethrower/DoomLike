@@ -1,0 +1,41 @@
+Shotgun notes:
+
+Variables:
+Animator
+
+magazineCapacity
+bulletsInMag
+spareBullets
+
+pumpedAfterShot
+chamberedBullet
+spentShellChambered
+
+pelletDamage
+pelletNumber
+pelletSpread
+
+
+SHOOT
+
+	If chamberdBullet is true then FIRE
+		Else play click sound.
+	If mouse button not held AND we have not pumped after shot AND the chamberdBullet is false then PUMP
+
+FIRE
+	Raycast magic and projectile stuffs
+	set spentShellChambered to true
+
+PUMP 
+	If bulletsInMag is not zero then
+		play pumpAnimation
+		if spentShellChambered true then eject spentShell (particle system?)
+		set spentShellChambered to false
+		reduce bulletsInMag by 1
+		chamberedBullet is set to true
+
+RELOAD
+	If reloadButton is pressed and bulletsInMag are lower than magazineCapacity
+		subtract one bullet from spareBullets
+		play shotgunShellReloadAnim
+		if chamberedBullet is false then PUMP
