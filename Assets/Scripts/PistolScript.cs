@@ -67,7 +67,6 @@ public class PistolScript : MonoBehaviour
 
     void Shoot()
     {
-        Debug.Log("Shot Fired!");
         chamberedRound = false;
         
         //spread
@@ -82,6 +81,7 @@ public class PistolScript : MonoBehaviour
 
         for (int i = 0; i < bulletsPerTap; i++)
         {
+            Debug.Log("RAYCAST");
             RaycastHit hit;
             //Raycast and Decal production
             if (Physics.Raycast(playerCam.transform.position, playerCam.transform.forward, out hit, range, target | ground))
