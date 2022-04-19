@@ -5,7 +5,7 @@ using UnityEngine;
 public class AudioController : MonoBehaviour
 {
     public static AudioController audioInstance;
-    public AudioSource ammoPickup, bloodBagPickup, sgShoot, sgLoadShell, sgPumping, sgReady, gunEmpty;
+    public AudioSource ammoPickup, bloodBagPickup, sgShoot, sgLoadShell, sgPumping, sgReady, gunEmpty, pistolShoot;
 
     // Start is called before the first frame update
     void Start()
@@ -59,5 +59,11 @@ public class AudioController : MonoBehaviour
     {
         gunEmpty.Stop();
         gunEmpty.Play();
+    }
+
+    public void PlayPistolShoot()
+    {
+        pistolShoot.Stop();
+        pistolShoot.Play();
     }
 }

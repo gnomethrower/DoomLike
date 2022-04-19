@@ -10,10 +10,10 @@ public class sg_Script : MonoBehaviour
 
 
 
-    public int magazineCapacity = 5;
-    public static int spareBullets = 0;
-    public static int bulletsInMag = 5;
-    public static int maxSpareAmmo = 42;
+    public int magSize = 5;
+    public int ammoSpare = 0;
+    public int bulletsInMag = 5;
+    public int maxSpareAmmo = 42;
 
     public int pelletNumber;
     public float pelletSpread;
@@ -60,9 +60,9 @@ public class sg_Script : MonoBehaviour
 
     void AmmoCheck()
     {
-        if (spareBullets > maxSpareAmmo)
+        if (ammoSpare > maxSpareAmmo)
         {
-            spareBullets = maxSpareAmmo;
+            ammoSpare = maxSpareAmmo;
         }
     }
 
@@ -105,16 +105,16 @@ public class sg_Script : MonoBehaviour
             if (Physics.Raycast(playerCam.transform.position, GetShootingDirection(), out hit, range, enemyMask | groundMask))
             {
                 Mortal mortalObj = hit.transform.GetComponent<Mortal>(); // we create a new variable "mortalObj" of the class Mortal, which we define as what the raycasthit "hit" has found.
+
+                GameObject obj = Instantiate(_bulletHolePrefab, hit.point, Quaternion.LookRotation(hit.normal));
+                obj.transform.parent = hit.transform;
+                obj.transform.position += obj.transform.forward / 1000;
+
                 if (mortalObj != null) // if the mortalObj should not be of type
                 {
                     mortalObj.TakeDamage(pelletDamage);
                     //Bodyhitdecals/blood particle system at the hit location.
                     Debug.Log("you hit " + mortalObj.name);
-                }
-                else
-                {
-                    GameObject obj = Instantiate(_bulletHolePrefab, hit.point, Quaternion.LookRotation(hit.normal));
-                    obj.transform.position += obj.transform.forward / 1000;
                 }
 
             }
@@ -168,16 +168,16 @@ public class sg_Script : MonoBehaviour
 
     IEnumerator Reload()
     {
-        if (Input.GetKeyDown(KeyCode.R) && bulletsInMag < magazineCapacity && spareBullets > 0 && !isReloading && !isPumping)
+        if (Input.GetKeyDown(KeyCode.R) && bulletsInMag < magSize && ammoSpare > 0 && !isReloading && !isPumping)
         {
             isReloading = true;
 
-            while (bulletsInMag < magazineCapacity && spareBullets > 0)
+            while (bulletsInMag < magSize && ammoSpare > 0)
             {
                 shotgunAnimator.Play("UI_Shotgun_Reload");
                 AudioController.audioInstance.PlaySgLoadShell();
                 yield return new WaitForSeconds(reloadShellTime);
-                spareBullets--;
+                ammoSpare--;
                 bulletsInMag++;
             }
 

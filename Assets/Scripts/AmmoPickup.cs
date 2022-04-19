@@ -11,7 +11,10 @@ public class AmmoPickup : MonoBehaviour
 
     private SpriteRenderer mySpriteRenderer;
     private SphereCollider mySCollider;
-    bool respawning = false;
+    public bool respawning;
+
+    GameObject shotgun;
+
     private void Start()
     {
         mySpriteRenderer = GetComponent<SpriteRenderer>();
@@ -20,13 +23,6 @@ public class AmmoPickup : MonoBehaviour
 
     void Update()
     {
-
-        if (respawning)
-        {
-            respawning = false;
-            Invoke("Reactivate", respawnTime);
-        }
-
     }
 
     void Reactivate()
@@ -38,18 +34,23 @@ public class AmmoPickup : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player" && sg_Script.spareBullets < sg_Script.maxSpareAmmo)
+        shotgun = WeaponSwitching.shotgunInit;
+
+        if (other.tag == "Player" && shotgun.GetComponent<sg_Script>().ammoSpare < shotgun.GetComponent<sg_Script>().maxSpareAmmo)
         {
             mySCollider.enabled = false;
             mySpriteRenderer.enabled = false;
 
-            sg_Script.spareBullets += shellAmount;
+            shotgun.GetComponent<sg_Script>().ammoSpare += shellAmount;
 
             AudioController.audioInstance.PlayAmmoPickup();
             Debug.Log("Picked up some " + gameObject.name);
 
-            respawning = true;
+            if (respawning) Invoke("Reactivate", respawnTime);
+
+
         }
     }
-
 }
+
+

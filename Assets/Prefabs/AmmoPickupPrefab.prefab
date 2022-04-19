@@ -140,6 +140,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shellAmount: 20
+  respawning: 0
 --- !u!1 &1507139989656736103
 GameObject:
   m_ObjectHideFlags: 0

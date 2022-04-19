@@ -17,9 +17,9 @@ using TMPro;
 
 public class GunScript : MonoBehaviour
 {
-    public int magazineSize = 5;
-    public static int bulletsInMag = 5;
-    public static int ammoSpare = 25;
+    public int magSize = 5;
+    public int bulletsInMag = 5;
+    public int ammoSpare = 25;
 
     public float damage;
     public float range;
@@ -54,7 +54,7 @@ public class GunScript : MonoBehaviour
         StartCoroutine(ReloadGun());
     }
 
-    IEnumerator Shoot ()
+    IEnumerator Shoot()
     {
 
         if (bulletsInMag != 0 && readyToShoot == true)
@@ -63,7 +63,7 @@ public class GunScript : MonoBehaviour
             bulletsInMag -= 1;
             shotgunAnim.SetTrigger("ShotgunShoot");
             AudioController.audioInstance.PlaySgShoot();
-            
+
 
             RaycastHit hit; //the RaycastHit variable gives back info on what the raycast has hit.
             if (Physics.Raycast(shootCameraOrigin.transform.position, shootCameraOrigin.transform.forward, out hit, range)) // IF statement only gets called if it hits anything in range.
@@ -80,28 +80,30 @@ public class GunScript : MonoBehaviour
             yield return new WaitForSeconds(0.35f);
             AudioController.audioInstance.PlaySgPumping();
             canReload = true;
-        } else
-        
-        { if (readyToShoot == true)
+        }
+        else
+
+        {
+            if (readyToShoot == true)
             {
                 AudioController.audioInstance.PlayGunEmpty();
-            }    
+            }
         }
     }
 
-    IEnumerator ReloadGun ()
+    IEnumerator ReloadGun()
     {
 
         //++++++++++++++++++++++++++++ TODO Reload canceling (by shooting, or select methods) - ADD SOUNDS! ADD MORE GUNS
         //if your bulletCount is less than magazine size and you have more than zero spare Bullets, reload.
-        if (Input.GetButtonDown("Reload") && ammoSpare!=0 && bulletsInMag < magazineSize && isReloading == false & canReload == true)
+        if (Input.GetButtonDown("Reload") && ammoSpare != 0 && bulletsInMag < magSize && isReloading == false & canReload == true)
         {
             //play sound Reload initiation
             Debug.Log("Initiating Reload");
             readyToShoot = false;
             isReloading = true;
 
-            while (ammoSpare >= 1 && bulletsInMag < magazineSize)
+            while (ammoSpare >= 1 && bulletsInMag < magSize)
             {
                 shotgunAnim.SetTrigger("ShotgunReload");
                 AudioController.audioInstance.PlaySgLoadShell();

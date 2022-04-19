@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 4c761eb777abba942a0c846e76367d0d
+guid: 7736f9180734d344ab375bbb21155cf6
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -114,18 +114,56 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Handgun_multisprite w reload 1_5
+      rect:
+        serializedVersion: 2
+        x: 771
+        y: 0
+        width: 91
+        height: 88
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 29dacc574c44d0f4f8fd718959f3e17c
+      internalID: -632352112
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 1cf916184b975dc49adb2ea4cb3ac929
     internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Handgun_multisprite w reload 1_8: 44320461
+      Handgun_multisprite w reload 1_13: 7938028
+      Handgun_multisprite w reload 1_3: -1130445524
+      Handgun_multisprite w reload 1_5: -632352112
+      Handgun_multisprite w reload 1_16: -21310681
+      Handgun_multisprite w reload 1_7: -1503200668
+      Handgun_multisprite w reload 1_15: 1662790971
+      Handgun_multisprite w reload 1_10: 472297854
+      Handgun_multisprite w reload 1_12: -1775358894
+      Handgun_multisprite w reload 1_14: 32033005
+      Handgun_multisprite w reload 1_2: 591327664
+      Handgun_multisprite w reload 1_1: -556836695
+      Handgun_multisprite w reload 1_4: 952779451
+      Handgun_multisprite w reload 1_6: 489243497
+      Handgun_multisprite w reload 1_11: -1457291223
+      Handgun_multisprite w reload 1_0: -682016646
+      Handgun_multisprite w reload 1_9: 994520287
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

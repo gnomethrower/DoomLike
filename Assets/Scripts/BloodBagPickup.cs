@@ -7,28 +7,18 @@ public class BloodBagPickup : MonoBehaviour
 
     public int healthAmount = 25;
     public static bool pickupActive = true;
-    float respawnTime = 5f;
+    public float respawnTime;
     public bool respawnable;
 
     private SpriteRenderer mySpriteRenderer;
     private SphereCollider mySCollider;
-    bool respawning = false;
+
     private void Start()
     {
         mySpriteRenderer = GetComponent<SpriteRenderer>();
         mySCollider = GetComponent<SphereCollider>();
     }
 
-    void Update()
-    {
-
-        if (respawning && respawnable)
-        {
-            respawning = false;
-            Invoke("Reactivate", respawnTime);
-        }
-
-    }
 
     void Reactivate()
     {
@@ -49,8 +39,9 @@ public class BloodBagPickup : MonoBehaviour
             AudioController.audioInstance.PlayBloodBagPickup();
             Debug.Log("Picked up some " + gameObject.name);
 
-            respawning = true;
+            if (respawnable) Invoke("Reactivate", respawnTime);
         }
     }
 
 }
+

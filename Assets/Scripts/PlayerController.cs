@@ -16,8 +16,11 @@ public class PlayerController : MonoBehaviour
     public float gravity = -12f;
     public float jumpHeight = .0001f;
 
-    private float xAxis;
-    private float zAxis;
+    public static float xAxis;
+    public static float zAxis;
+
+    public static float spreadMultiplier;
+    float jumpingSpread;
 
     public CharacterController controller;
     Vector3 playerVelocity;
@@ -33,14 +36,21 @@ public class PlayerController : MonoBehaviour
     public bool isGrounded;
     public bool hasDied;
 
+    private void Start()
+    {
+
+    }
 
     void Update()
     {
+        //Debug.Log("SpreadMultiplier is " + spreadMultiplier);
+
         if (currentHealth > maxHealth) currentHealth = maxHealth;
 
         if (!hasDied)
         {
             GetInput();
+            CalculateSpreadMP();
             FPSMovement();
         }
     }
@@ -51,12 +61,18 @@ public class PlayerController : MonoBehaviour
         zAxis = Input.GetAxis("Vertical");
     }
 
-
+    void CalculateSpreadMP()
+    {
+        spreadMultiplier = Mathf.Clamp(((Mathf.Abs(zAxis)) + (Mathf.Abs(xAxis))), 0, 1) + jumpingSpread;
+    }
 
     void FPSMovement()
     {
         // jumping with groundcheck
         isGrounded = Physics.CheckBox(groundCheck.position, new Vector3(groundCheckSize, groundCheckSize, groundCheckSize), groundCheck.transform.rotation, groundMask);
+        if (isGrounded) jumpingSpread = 1f;
+        else jumpingSpread = 3f;
+
         if (isGrounded && playerVelocity.y < 0)
         {
             playerVelocity.y = -2f;
