@@ -62,7 +62,7 @@ public class GunScript : MonoBehaviour
             //Cast a ray from the origin of the camera into a direction, until we either impact something, or if we don't, the range is exhausted.
             bulletsInMag -= 1;
             shotgunAnim.SetTrigger("ShotgunShoot");
-            AudioController.audioInstance.PlaySgShoot();
+            AudioController_Script.audioInstance.PlaySgShoot();
 
 
             RaycastHit hit; //the RaycastHit variable gives back info on what the raycast has hit.
@@ -70,7 +70,7 @@ public class GunScript : MonoBehaviour
             {
                 //This gets called if anything has been hit with the ray
 
-                Mortal mortal = hit.transform.GetComponent<Mortal>();
+                Mortality_Script mortal = hit.transform.GetComponent<Mortality_Script>();
                 if (mortal != null)
                 {
                     mortal.TakeDamage(damage);
@@ -78,7 +78,7 @@ public class GunScript : MonoBehaviour
             }
             canReload = false;
             yield return new WaitForSeconds(0.35f);
-            AudioController.audioInstance.PlaySgPumping();
+            AudioController_Script.audioInstance.PlaySgPumping();
             canReload = true;
         }
         else
@@ -86,7 +86,7 @@ public class GunScript : MonoBehaviour
         {
             if (readyToShoot == true)
             {
-                AudioController.audioInstance.PlayGunEmpty();
+                AudioController_Script.audioInstance.PlayGunEmpty();
             }
         }
     }
@@ -106,7 +106,7 @@ public class GunScript : MonoBehaviour
             while (ammoSpare >= 1 && bulletsInMag < magSize)
             {
                 shotgunAnim.SetTrigger("ShotgunReload");
-                AudioController.audioInstance.PlaySgLoadShell();
+                AudioController_Script.audioInstance.PlaySgLoadShell();
                 yield return new WaitForSeconds(reloadTimePerShell);
                 ammoSpare--;
                 bulletsInMag++;
@@ -115,7 +115,7 @@ public class GunScript : MonoBehaviour
             readyToShoot = true;
             isReloading = false;
 
-            AudioController.audioInstance.PlaySgPumping();
+            AudioController_Script.audioInstance.PlaySgPumping();
         }
 
     }

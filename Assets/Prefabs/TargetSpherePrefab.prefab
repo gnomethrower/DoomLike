@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7575870814882041698}
   - component: {fileID: 7575870814882041697}
   - component: {fileID: 7575870814882041696}
-  - component: {fileID: 7575870814882041699}
+  - component: {fileID: 1358306782153122158}
   m_Layer: 7
   m_Name: TargetSpherePrefab
   m_TagString: Untagged
@@ -98,7 +98,7 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &7575870814882041699
+--- !u!114 &1358306782153122158
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -107,7 +107,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 7575870814882041710}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb800b41c59e29045a3aecc66e886294, type: 3}
+  m_Script: {fileID: 11500000, guid: 4b10e19852e336442970ae99dc072e07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  respawningTarget: 1
+  targetRespawntime: 2
   health: 100
