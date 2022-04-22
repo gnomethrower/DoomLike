@@ -5,7 +5,7 @@ using UnityEngine;
 public class AudioController_Script : MonoBehaviour
 {
     public static AudioController_Script audioInstance;
-    public AudioSource ammoPickup, bloodBagPickup, sgShoot, sgLoadShell, sgPumping, sgReady, gunEmpty, pistolShoot, pistolSlideRelease, pistolRackSlide, pistolMagEject, pistolMagInsert;
+    public AudioSource ammoPickup, bloodBagPickup, sgShoot, sgLoadShell, sgPumping, sgReady, gunEmpty, pistolShoot, pistolSlideRelease, pistolRackSlide, pistolMagEject, pistolMagInsert, shellCollision, casingCollision;
 
     // Start is called before the first frame update
     void Start()
@@ -107,4 +107,15 @@ public class AudioController_Script : MonoBehaviour
         pistolMagInsert.PlayDelayed(.4f);
     }
 
+    public void PlayShellCollision()
+    {
+        shellCollision.Play();
+        shellCollision.Play();
+    }
+
+    public void PlayCasingCollision()
+    {
+        casingCollision.Play();
+        casingCollision.Play();
+    }
 }

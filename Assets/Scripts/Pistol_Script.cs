@@ -32,16 +32,14 @@ public class Pistol_Script : MonoBehaviour
     public AudioController_Script audioInstance;
     public Animator animator;
     public ShakeRecoil_Script camShakeRecoil;
+    public ParticleSystem shellParticle;
 
 
     [SerializeField] private GameObject _bulletHolePrefab;
 
     PlayerController_Script playerScript;
 
-    private void OnEnable()
-    {
-        AudioController_Script.audioInstance.PlayPistolRackSlide();
-    }
+    private void OnEnable() => AudioController_Script.audioInstance.PlayPistolRackSlide();
 
     private void Start()
     {
@@ -91,6 +89,7 @@ public class Pistol_Script : MonoBehaviour
 
         animator.SetTrigger("PistolShot");
         camShakeRecoil.Recoil(recoilX, recoilY, recoilZ);
+        shellParticle.Emit(1);
 
         for (int i = 0; bulletsPerTap > i; i++)
         {

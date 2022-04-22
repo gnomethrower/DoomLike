@@ -38,6 +38,8 @@ public class Shotgun_Script : MonoBehaviour
     public Animator shotgunAnimator;
     public ShakeRecoil_Script camShakeRecoil;
     public AudioController_Script audioInstance;
+    public ParticleSystem shellParticle;
+
 
     [SerializeField] private GameObject _bulletHolePrefab;
 
@@ -152,17 +154,21 @@ public class Shotgun_Script : MonoBehaviour
             AudioController_Script.audioInstance.PlaySgPumping();
             Invoke("CyclingAction", pumpDuration);
             shotgunAnimator.Play("UI_Shotgun_Pump");
+            Invoke("ShellEmit", .5f);
         }
     }
 
-
-    public void CyclingAction()
+    public void ShellEmit()
     {
         if (spentShellChambered == true)
         {
-            //EJECT SHELL HERE +++ Particlesystemmagix4tehwinzors
+            shellParticle.Emit(1);
             spentShellChambered = false;
         }
+    }
+
+        public void CyclingAction()
+    {
 
         if (bulletsInMag >= 1)
         {
