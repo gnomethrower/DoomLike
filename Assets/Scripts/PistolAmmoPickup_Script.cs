@@ -43,7 +43,10 @@ public class PistolAmmoPickup_Script : MonoBehaviour
     {
         if (other.tag == "Player" && playerScript.pistolMaxAmmo > playerScript.pistolSpareAmmo)
         {
-            playerScript.pistolSpareAmmo += shellAmount;
+            //playerScript.pistolSpareAmmo += shellAmount;
+
+            playerScript.pistolSpareAmmo = Mathf.Min(playerScript.pistolSpareAmmo + shellAmount, playerScript.pistolMaxAmmo);
+
             myCollider.enabled = false;
             myRenderer.enabled = false;
 
@@ -52,8 +55,6 @@ public class PistolAmmoPickup_Script : MonoBehaviour
 
             if (respawning) Invoke("Reactivate", respawnTime);
         }
-
-        playerScript.ShotgunAmmoCheck();
     }
 
 

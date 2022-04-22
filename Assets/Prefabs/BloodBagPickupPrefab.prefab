@@ -139,8 +139,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 613a3ee5c9399fe46b7a294af10893d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthAmount: 5
+  healthAmount: 2
+  respawnTime: 0
   respawnable: 0
+  audioInstance: {fileID: 0}
 --- !u!1 &1507139989656736103
 GameObject:
   m_ObjectHideFlags: 0

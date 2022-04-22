@@ -123,6 +123,68 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &4080827
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 2077012708}
+    m_Modifications:
+    - target: {fileID: 3694247188054421321, guid: b1fbc71241a89df49b54b949ad8fbbcc, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3694247188054421321, guid: b1fbc71241a89df49b54b949ad8fbbcc, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3694247188054421321, guid: b1fbc71241a89df49b54b949ad8fbbcc, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3694247188054421321, guid: b1fbc71241a89df49b54b949ad8fbbcc, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3694247188054421321, guid: b1fbc71241a89df49b54b949ad8fbbcc, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3694247188054421321, guid: b1fbc71241a89df49b54b949ad8fbbcc, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3694247188054421321, guid: b1fbc71241a89df49b54b949ad8fbbcc, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3694247188054421321, guid: b1fbc71241a89df49b54b949ad8fbbcc, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3694247188054421321, guid: b1fbc71241a89df49b54b949ad8fbbcc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3694247188054421321, guid: b1fbc71241a89df49b54b949ad8fbbcc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3694247188054421321, guid: b1fbc71241a89df49b54b949ad8fbbcc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3694247188054421326, guid: b1fbc71241a89df49b54b949ad8fbbcc, type: 3}
+      propertyPath: m_Name
+      value: SubParticle_ShotgunShell 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b1fbc71241a89df49b54b949ad8fbbcc, type: 3}
+--- !u!198 &4080828 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 3694247188054421320, guid: b1fbc71241a89df49b54b949ad8fbbcc, type: 3}
+  m_PrefabInstance: {fileID: 4080827}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &27093327
 GameObject:
   m_ObjectHideFlags: 0
@@ -433,6 +495,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 92590437}
   m_CullTransparentMesh: 1
+--- !u!198 &113380718 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 3694247188054421320, guid: 894730d876f6dd24d823acb0edd4cb9d, type: 3}
+  m_PrefabInstance: {fileID: 1266804388}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &121934846
 GameObject:
   m_ObjectHideFlags: 0
@@ -619,12 +686,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "TODO: \n- Rework Sound so it plays during points in the  animation.\n-
-    Fix Recoil.\n- ADS: Glock and Shotgun need ADS Code implementation\n- ADS Usability
-    - Statemachine?\n- WeaponPickup (spritework with gunsideview)\n\t- all weapons
-    also need equip animation.\n- Grenade\n\t-spritework for idle, throw)\n\t-code\n\n-
-    Playerdamage + Sound when strong hit vs light hit.\n- smaller Healthpickup\n-
-    smaller Ammopickup (spritework)\n\n\n\n"
+  m_text: "TODO: \n- Rework Sound so it plays during points in the  animation.\n\n-
+    Grenade\n\t-spritework for idle, throw)\n\t-code\n\n- Playerdamage + Sound when
+    strong hit vs light hit.\n- smaller Healthpickup\n- smaller Ammopickup (spritework)\n\n-
+    ADS: Glock and Shotgun need ADS Code implementation\n- ADS Usability - Statemachine?"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1878,7 +1943,7 @@ MonoBehaviour:
   recoilX: 20
   recoilY: 10
   recoilZ: 2
-  pelletNumber: 8
+  pelletNumber: 12
   pelletSpread: 4
   pelletDamage: 10
   range: 100
@@ -1929,10 +1994,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingGun: 0
-  shotgunSpareAmmo: 30
-  shotgunMaxAmmo: 99
-  pistolSpareAmmo: 64
-  pistolMaxAmmo: 99
+  shotgunSpareAmmo: 29
+  shotgunMaxAmmo: 30
+  pistolSpareAmmo: 89
+  pistolMaxAmmo: 90
   grenadesSpare: 0
   grenadesMax: 0
   playerSpeed: 5
@@ -2225,6 +2290,18 @@ PrefabInstance:
     - target: {fileID: 3694247188054421320, guid: 894730d876f6dd24d823acb0edd4cb9d, type: 3}
       propertyPath: CollisionModule.collisionMessages
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3694247188054421320, guid: 894730d876f6dd24d823acb0edd4cb9d, type: 3}
+      propertyPath: SubModule.subEmitters.Array.data[0].emitter
+      value: 
+      objectReference: {fileID: 113380718}
+    - target: {fileID: 3694247188054421320, guid: 894730d876f6dd24d823acb0edd4cb9d, type: 3}
+      propertyPath: CollisionModule.m_EnergyLossOnCollision.scalar
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3694247188054421320, guid: 894730d876f6dd24d823acb0edd4cb9d, type: 3}
+      propertyPath: SubModule.subEmitters.Array.data[0].properties
+      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 3694247188054421321, guid: 894730d876f6dd24d823acb0edd4cb9d, type: 3}
       propertyPath: m_RootOrder
@@ -2636,8 +2713,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20dc38785ffdaf945bac10ca7676efbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShellCasingFall: {fileID: 8300000, guid: c50dcf401ede9422da7805612256b5ac, type: 3}
-  shotShell: {fileID: 0}
+  audioInstance: {fileID: 0}
+  shotShell: {fileID: 712826615}
 --- !u!1 &830992779
 GameObject:
   m_ObjectHideFlags: 0
@@ -4302,13 +4379,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e31f76892c7a4ba4ea0eddb31ed5809d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  magSize: 17
-  bulletsInMag: 17
-  recoilX: 5
-  recoilY: 2
+  magSize: 19
+  bulletsInMag: 19
+  recoilX: 1
+  recoilY: 1
   recoilZ: 1
   bulletDamage: 34
-  shotCooldown: 0.05
+  shotCooldown: 0.06
   timeBetweenShots: 0
   spread: 0
   spreadMultiplierMoving: 0
@@ -4597,6 +4674,67 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b51ac2796fe769e4d91dd15c8838a4e4, type: 3}
+--- !u!1001 &1266804388
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 712826616}
+    m_Modifications:
+    - target: {fileID: 3694247188054421320, guid: 894730d876f6dd24d823acb0edd4cb9d, type: 3}
+      propertyPath: SubModule.enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3694247188054421321, guid: 894730d876f6dd24d823acb0edd4cb9d, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3694247188054421321, guid: 894730d876f6dd24d823acb0edd4cb9d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3694247188054421321, guid: 894730d876f6dd24d823acb0edd4cb9d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3694247188054421321, guid: 894730d876f6dd24d823acb0edd4cb9d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3694247188054421321, guid: 894730d876f6dd24d823acb0edd4cb9d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3694247188054421321, guid: 894730d876f6dd24d823acb0edd4cb9d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3694247188054421321, guid: 894730d876f6dd24d823acb0edd4cb9d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3694247188054421321, guid: 894730d876f6dd24d823acb0edd4cb9d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3694247188054421321, guid: 894730d876f6dd24d823acb0edd4cb9d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3694247188054421321, guid: 894730d876f6dd24d823acb0edd4cb9d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3694247188054421321, guid: 894730d876f6dd24d823acb0edd4cb9d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3694247188054421326, guid: 894730d876f6dd24d823acb0edd4cb9d, type: 3}
+      propertyPath: m_Name
+      value: SubParticle_9mmCasing
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 894730d876f6dd24d823acb0edd4cb9d, type: 3}
 --- !u!1 &1268509931
 GameObject:
   m_ObjectHideFlags: 0
@@ -6920,7 +7058,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 7895da85d30883846b3843bc7f1be90c, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.5
+  m_Volume: 0.35
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -7077,8 +7215,28 @@ PrefabInstance:
     m_TransformParent: {fileID: 442877891}
     m_Modifications:
     - target: {fileID: 3694247188054421320, guid: 2e30f529fe929aa4a97a2c7faec2ef91, type: 3}
+      propertyPath: SubModule.enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3694247188054421320, guid: 2e30f529fe929aa4a97a2c7faec2ef91, type: 3}
+      propertyPath: EmissionModule.enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3694247188054421320, guid: 2e30f529fe929aa4a97a2c7faec2ef91, type: 3}
       propertyPath: CollisionModule.collisionMessages
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3694247188054421320, guid: 2e30f529fe929aa4a97a2c7faec2ef91, type: 3}
+      propertyPath: SubModule.subEmitters.Array.data[0].emitter
+      value: 
+      objectReference: {fileID: 4080828}
+    - target: {fileID: 3694247188054421320, guid: 2e30f529fe929aa4a97a2c7faec2ef91, type: 3}
+      propertyPath: CollisionModule.m_EnergyLossOnCollision.scalar
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3694247188054421320, guid: 2e30f529fe929aa4a97a2c7faec2ef91, type: 3}
+      propertyPath: SubModule.subEmitters.Array.data[0].properties
+      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 3694247188054421321, guid: 2e30f529fe929aa4a97a2c7faec2ef91, type: 3}
       propertyPath: m_RootOrder
@@ -7152,8 +7310,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20dc38785ffdaf945bac10ca7676efbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShellCasingFall: {fileID: 8300000, guid: 33d4dab8261010b4aa99a9885cc13f48, type: 3}
-  shotShell: {fileID: 0}
+  audioInstance: {fileID: 0}
+  shotShell: {fileID: 2077012707}
 --- !u!1 &2116253102
 GameObject:
   m_ObjectHideFlags: 0

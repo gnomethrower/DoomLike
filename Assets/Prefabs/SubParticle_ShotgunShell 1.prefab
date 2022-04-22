@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3694247188054421320}
   - component: {fileID: 3694247188054421327}
   m_Layer: 0
-  m_Name: Particle_ShotgunShell
+  m_Name: SubParticle_ShotgunShell 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -660,7 +660,7 @@ ParticleSystem:
         m_RotationOrder: 4
   ShapeModule:
     serializedVersion: 6
-    enabled: 1
+    enabled: 0
     type: 4
     angle: 2.96
     length: 5
@@ -862,7 +862,7 @@ ParticleSystem:
           m_PostInfinity: 2
           m_RotationOrder: 4
   EmissionModule:
-    enabled: 1
+    enabled: 0
     serializedVersion: 4
     rateOverTime:
       serializedVersion: 2

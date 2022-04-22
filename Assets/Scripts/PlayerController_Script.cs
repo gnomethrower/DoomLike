@@ -148,25 +148,6 @@ public class PlayerController_Script : MonoBehaviour
             currentHealth = maxHealth;
         }
     }
-
-    public void ShotgunAmmoCheck()
-    {
-        if (shotgunSpareAmmo > shotgunMaxAmmo)
-        {
-            Debug.Log("Shotgunammo has been balanced");
-
-            shotgunSpareAmmo = shotgunMaxAmmo;
-        }
-    }
-    public void PistolAmmoCheck()
-    {
-        if (pistolSpareAmmo > pistolMaxAmmo)
-        {
-            Debug.Log("PistolAmmo has been balanced");
-
-            pistolSpareAmmo = pistolMaxAmmo;
-        }
-    }
 }
 
 

@@ -41,7 +41,8 @@ public class ShotgunAmmoPickup_Script : MonoBehaviour
     {
         if (other.tag == "Player" && playerScript.shotgunMaxAmmo > playerScript.shotgunSpareAmmo)
         {
-            playerScript.shotgunSpareAmmo += shellAmount;
+            playerScript.shotgunSpareAmmo = Mathf.Min(playerScript.shotgunSpareAmmo + shellAmount, playerScript.shotgunMaxAmmo);
+
             mySCollider.enabled = false;
             mySpriteRenderer.enabled = false;
 
@@ -50,8 +51,6 @@ public class ShotgunAmmoPickup_Script : MonoBehaviour
 
             if (respawning) Invoke("Reactivate", respawnTime);
         }
-
-        playerScript.ShotgunAmmoCheck();
     }
 
 

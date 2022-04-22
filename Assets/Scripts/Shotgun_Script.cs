@@ -129,7 +129,7 @@ public class Shotgun_Script : MonoBehaviour
                 {
                     mortalObj.TakeDamage(pelletDamage);
                     //Bodyhitdecals/blood particle system at the hit location.
-                    Debug.Log("you hit " + mortalObj.name);
+                    //Debug.Log("you hit " + mortalObj.name);
                 }
 
             }

@@ -10,7 +10,7 @@ public class DestroyAfterTime_Script : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Invoke("Destroy", 5);
+        Invoke("Destroy", destroyDelay);
     }
 
     // Update is called once per frame

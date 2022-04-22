@@ -64,8 +64,8 @@ public class Pistol_Script : MonoBehaviour
 
     void GetInput()
     {
-        if (Input.GetButtonDown("Fire1")) Debug.Log("Clicked Mouse1");
-        if (Input.GetButton("Fire1")) Debug.Log("Holding Mouse1");
+        //if (Input.GetButtonDown("Fire1")) Debug.Log("Clicked Mouse1");
+        //if (Input.GetButton("Fire1")) Debug.Log("Holding Mouse1");
 
         if (!rapidFire) isShooting = Input.GetButtonDown("Fire1");
         if (rapidFire) isShooting = Input.GetButton("Fire1");
@@ -84,6 +84,17 @@ public class Pistol_Script : MonoBehaviour
 
             Invoke("Reload", reloadTime);
         }
+
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            animator.SetTrigger("PistolFireMode");
+            Debug.Log("fire mode switched");
+            audioInstance.PlayGunEmpty();
+            if (rapidFire) rapidFire = false;
+            else rapidFire = true;
+        }
+
+
     }
 
     void Shoot()

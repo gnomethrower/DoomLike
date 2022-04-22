@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class CollisionAudioPlay_Script : MonoBehaviour
 {
-    public AudioClip ShellCasingFall;
+    public AudioController_Script audioInstance;
     public ParticleSystem shotShell;
-
 
     public List<ParticleCollisionEvent> collisionEvents;
 
@@ -14,21 +13,15 @@ public class CollisionAudioPlay_Script : MonoBehaviour
     {
         shotShell = GetComponent<ParticleSystem>();
         collisionEvents = new List<ParticleCollisionEvent>();
+
+        GameObject AudioController = GameObject.FindGameObjectWithTag("AudioController");
+        audioInstance = AudioController.GetComponent<AudioController_Script>();
     }
 
     void OnParticleCollision(GameObject other)
     {
-        int numCollisionEvents = shotShell.GetCollisionEvents(other, collisionEvents);
-
-        MeshCollider mc = other.GetComponent<MeshCollider>();
-        int i = 0;
-
-
-        if (mc)
-        {
-            Debug.Log("Shell fell on " + mc.name);
-        }
-
+        if (gameObject.name == "Particle_9mmCasing") audioInstance.PlayCasingCollision();
+        if (gameObject.name == "Particle_ShotgunShell") audioInstance.PlayShellCollision();
     }
 }
 
