@@ -16,6 +16,8 @@ public class PistolAmmoPickup_Script : MonoBehaviour
 
     GameObject player;
     public PlayerController_Script playerScript;
+    public AudioController_Script audioInstance;
+
 
     private void Start()
     {
@@ -24,6 +26,9 @@ public class PistolAmmoPickup_Script : MonoBehaviour
 
         player = GameObject.FindGameObjectWithTag("Player");
         playerScript = player.GetComponent<PlayerController_Script>();
+
+        GameObject AudioController = GameObject.FindGameObjectWithTag("AudioController");
+        audioInstance = AudioController.GetComponent<AudioController_Script>();
     }
 
 
@@ -42,7 +47,7 @@ public class PistolAmmoPickup_Script : MonoBehaviour
             myCollider.enabled = false;
             myRenderer.enabled = false;
 
-            AudioController_Script.audioInstance.PlayAmmoPickup();
+            audioInstance.PlayAmmoPickup();
             Debug.Log("Picked up some " + gameObject.name);
 
             if (respawning) Invoke("Reactivate", respawnTime);

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AudioController_Script : MonoBehaviour
 {
-    public static AudioController_Script audioInstance;
+    public AudioController_Script audioInstance;
     public AudioSource ammoPickup, bloodBagPickup, sgShoot, sgLoadShell, sgPumping, sgReady, gunEmpty, pistolShoot, pistolSlideRelease, pistolRackSlide, pistolMagEject, pistolMagInsert, shellCollision, casingCollision;
 
     // Start is called before the first frame update

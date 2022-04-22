@@ -51,6 +51,9 @@ public class Shotgun_Script : MonoBehaviour
     {
         GameObject PlayerController = GameObject.FindGameObjectWithTag("Player");
         playerScript = PlayerController.GetComponent<PlayerController_Script>();
+
+        GameObject AudioController = GameObject.FindGameObjectWithTag("AudioController");
+        audioInstance = AudioController.GetComponent<AudioController_Script>();
     }
 
     private void OnEnable()
@@ -101,7 +104,7 @@ public class Shotgun_Script : MonoBehaviour
         spentShellChambered = true;
 
         shotgunAnimator.Play("UI_Shotgun_SimpleShot");
-        AudioController_Script.audioInstance.PlaySgShoot();
+        audioInstance.PlaySgShoot();
 
         StartCoroutine(camShakeRecoil.Shaking(.15f, .5f));
         camShakeRecoil.Recoil(recoilX, recoilY, recoilZ);
@@ -140,7 +143,7 @@ public class Shotgun_Script : MonoBehaviour
     {
         if (Input.GetButtonDown("Fire1") && !chamberedBullet)                // if chamber is empty
         {
-            AudioController_Script.audioInstance.PlayGunEmpty();
+            audioInstance.PlayGunEmpty();
         }
     }
 
@@ -151,7 +154,7 @@ public class Shotgun_Script : MonoBehaviour
         {
             isPumping = true;
             //Debug.Log("Pumping!");
-            AudioController_Script.audioInstance.PlaySgPumping();
+            audioInstance.PlaySgPumping();
             Invoke("CyclingAction", pumpDuration);
             shotgunAnimator.Play("UI_Shotgun_Pump");
             Invoke("ShellEmit", .5f);
@@ -167,7 +170,7 @@ public class Shotgun_Script : MonoBehaviour
         }
     }
 
-        public void CyclingAction()
+    public void CyclingAction()
     {
 
         if (bulletsInMag >= 1)
@@ -191,7 +194,7 @@ public class Shotgun_Script : MonoBehaviour
             while (bulletsInMag < magSize && playerScript.shotgunSpareAmmo > 0)
             {
                 shotgunAnimator.Play("UI_Shotgun_Reload");
-                AudioController_Script.audioInstance.PlaySgLoadShell();
+                audioInstance.PlaySgLoadShell();
                 yield return new WaitForSeconds(reloadShellTime);
                 playerScript.shotgunSpareAmmo--;
                 bulletsInMag++;

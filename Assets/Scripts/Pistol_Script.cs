@@ -39,13 +39,22 @@ public class Pistol_Script : MonoBehaviour
 
     PlayerController_Script playerScript;
 
-    private void OnEnable() => AudioController_Script.audioInstance.PlayPistolRackSlide();
+
 
     private void Start()
     {
         chamberedRound = true;
+
         GameObject PlayerController = GameObject.FindGameObjectWithTag("Player");
         playerScript = PlayerController.GetComponent<PlayerController_Script>();
+
+        GameObject AudioController = GameObject.FindGameObjectWithTag("AudioController");
+        audioInstance = AudioController.GetComponent<AudioController_Script>();
+    }
+
+    private void OnEnable()
+    {
+        audioInstance.PlayPistolRackSlide();
     }
 
     private void Update()
@@ -63,7 +72,7 @@ public class Pistol_Script : MonoBehaviour
 
         if (chamberedRound && isShooting && !isReloading)
         {
-            AudioController_Script.audioInstance.PlayPistolShoot();
+            audioInstance.PlayPistolShoot();
             Shoot();
         }
 

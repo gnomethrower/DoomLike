@@ -12,11 +12,16 @@ public class BloodBagPickup_Script : MonoBehaviour
 
     private SpriteRenderer mySpriteRenderer;
     private SphereCollider mySCollider;
+    public AudioController_Script audioInstance;
+
 
     private void Start()
     {
         mySpriteRenderer = GetComponent<SpriteRenderer>();
         mySCollider = GetComponent<SphereCollider>();
+
+        GameObject AudioController = GameObject.FindGameObjectWithTag("AudioController");
+        audioInstance = AudioController.GetComponent<AudioController_Script>();
     }
 
 
@@ -36,7 +41,7 @@ public class BloodBagPickup_Script : MonoBehaviour
 
             PlayerController_Script.currentHealth += healthAmount;
 
-            AudioController_Script.audioInstance.PlayBloodBagPickup();
+            audioInstance.PlayBloodBagPickup();
             Debug.Log("Picked up some " + gameObject.name);
 
             if (respawnable) Invoke("Reactivate", respawnTime);

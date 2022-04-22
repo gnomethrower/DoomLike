@@ -2222,6 +2222,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 442877891}
     m_Modifications:
+    - target: {fileID: 3694247188054421320, guid: 894730d876f6dd24d823acb0edd4cb9d, type: 3}
+      propertyPath: CollisionModule.collisionMessages
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3694247188054421321, guid: 894730d876f6dd24d823acb0edd4cb9d, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -2294,7 +2298,7 @@ GameObject:
   - component: {fileID: 799884936}
   m_Layer: 0
   m_Name: AudioController
-  m_TagString: Untagged
+  m_TagString: AudioController
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2311,6 +2315,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11e7b8c81eea1744687639fe2c44ec95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioInstance: {fileID: 0}
   ammoPickup: {fileID: 1571174031}
   bloodBagPickup: {fileID: 415915551}
   sgShoot: {fileID: 807506113}
@@ -2632,6 +2637,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShellCasingFall: {fileID: 8300000, guid: c50dcf401ede9422da7805612256b5ac, type: 3}
+  shotShell: {fileID: 0}
 --- !u!1 &830992779
 GameObject:
   m_ObjectHideFlags: 0
@@ -3101,6 +3107,10 @@ PrefabInstance:
       propertyPath: healthAmount
       value: 25
       objectReference: {fileID: 0}
+    - target: {fileID: 8255766273374600928, guid: 8e884ec12abb3854b948a49eb1bcb8ba, type: 3}
+      propertyPath: audioInstance
+      value: 
+      objectReference: {fileID: 799884936}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8e884ec12abb3854b948a49eb1bcb8ba, type: 3}
 --- !u!1 &963194225
@@ -3339,6 +3349,14 @@ PrefabInstance:
       propertyPath: respawning
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1507139988873480172, guid: 274e533ece4fb5f4e99df7a20243e8b8, type: 3}
+      propertyPath: playerScript
+      value: 
+      objectReference: {fileID: 689455982}
+    - target: {fileID: 1507139988873480172, guid: 274e533ece4fb5f4e99df7a20243e8b8, type: 3}
+      propertyPath: audioInstance
+      value: 
+      objectReference: {fileID: 799884936}
     - target: {fileID: 1507139989656736102, guid: 274e533ece4fb5f4e99df7a20243e8b8, type: 3}
       propertyPath: m_RootOrder
       value: 17
@@ -4284,20 +4302,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e31f76892c7a4ba4ea0eddb31ed5809d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  magSize: 30
-  bulletsInMag: 30
+  magSize: 17
+  bulletsInMag: 17
   recoilX: 5
   recoilY: 2
   recoilZ: 1
   bulletDamage: 34
-  shotCooldown: 0.1
+  shotCooldown: 0.05
   timeBetweenShots: 0
   spread: 0
   spreadMultiplierMoving: 0
   range: 100
   reloadTime: 1.5
   bulletsPerTap: 1
-  rapidFire: 1
+  rapidFire: 0
   playerCam: {fileID: 963194227}
   attackPoint: {fileID: 963194228}
   target:
@@ -6760,7 +6778,7 @@ MonoBehaviour:
   healthText: {fileID: 830992781}
   shotgun: {fileID: 656633044}
   pistol: {fileID: 1183790412}
-  player: {fileID: 0}
+  player: {fileID: 689455981}
 --- !u!1 &1987667814
 GameObject:
   m_ObjectHideFlags: 0
@@ -7041,6 +7059,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: PistolAmmoPickupPrefab
       objectReference: {fileID: 0}
+    - target: {fileID: 1583040536649023493, guid: 953f80e94dd48684fb5eb92dad281a00, type: 3}
+      propertyPath: playerScript
+      value: 
+      objectReference: {fileID: 689455982}
+    - target: {fileID: 1583040536649023493, guid: 953f80e94dd48684fb5eb92dad281a00, type: 3}
+      propertyPath: audioInstance
+      value: 
+      objectReference: {fileID: 799884936}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 953f80e94dd48684fb5eb92dad281a00, type: 3}
 --- !u!1001 &2077012706
@@ -7050,6 +7076,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 442877891}
     m_Modifications:
+    - target: {fileID: 3694247188054421320, guid: 2e30f529fe929aa4a97a2c7faec2ef91, type: 3}
+      propertyPath: CollisionModule.collisionMessages
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3694247188054421321, guid: 2e30f529fe929aa4a97a2c7faec2ef91, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -7123,6 +7153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShellCasingFall: {fileID: 8300000, guid: 33d4dab8261010b4aa99a9885cc13f48, type: 3}
+  shotShell: {fileID: 0}
 --- !u!1 &2116253102
 GameObject:
   m_ObjectHideFlags: 0
