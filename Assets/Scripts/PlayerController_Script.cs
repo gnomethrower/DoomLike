@@ -21,8 +21,7 @@ public class PlayerController_Script : MonoBehaviour
     //public bool gotPistol;
     //public bool gotGrenade;
 
-    //+++++++++++++++++++++++     Weapon Ammo    +++++++++++++++++++++++++++++
-    [Header("Gun Ammo Settings")]
+    [Header("Weapon Ammo Settings")]
     public int shotgunSpareAmmo;
     public int shotgunMaxAmmo;
 
@@ -32,34 +31,36 @@ public class PlayerController_Script : MonoBehaviour
     public int grenadesSpare;
     public int grenadesMax;
 
-    //+++++++++++++++++++++++     Unchangables    +++++++++++++++++++++++++++++
-    public float playerSpeed = 12f;
+    [Header("Player Movement Speed Changables")]
+    public float baseSpeed = 12f;
+    public float sprintMultiplier = 1.25f;
     public float gravity = -12f;
-    public float jumpHeight = .0001f;
 
+
+    float playerSpeed;
+    float sMp = 1f;
+
+    public float jumpHeight = .0001f;
     public static float xAxis;
     public static float zAxis;
 
     public static float spreadMultiplier;
     float jumpingSpread;
 
-    //+++++++++++++++++++++++     Obj References    +++++++++++++++++++++++++++++
-
+    [Header("Object References")]
     public CharacterController controller;
-    Vector3 playerVelocity;
+    public Vector3 playerVelocity;
     public Transform groundCheck;
     public float groundCheckSize = 0.5f;
     public LayerMask groundMask;
-
     public Animator viewCamAnim;
     public GameObject deathScreen;
 
-    //+++++++++++++++++++++++     Checkbools    +++++++++++++++++++++++++++++
-
-    public bool isGrounded;
-    public bool hasDied;
-    public bool isMoving;
-
+    [Header("Checkbools")]
+    [SerializeField] private bool isGrounded;
+    [SerializeField] private bool hasDied;
+    [SerializeField] private bool isMoving;
+    [SerializeField] private bool isSprinting;
 
     private void Start()
     {
@@ -68,7 +69,8 @@ public class PlayerController_Script : MonoBehaviour
 
     void Update()
     {
-        //Debug.Log("SpreadMultiplier is " + spreadMultiplier);
+
+        DebugMsg();
 
         if (currentHealth > maxHealth) currentHealth = maxHealth;
 
@@ -78,17 +80,33 @@ public class PlayerController_Script : MonoBehaviour
             CalculateSpreadMP();
             FPSMovement();
         }
+    }
 
-        if (isMoving)
-        {
-            Debug.Log("Player is moving");
-        }
+    void DebugMsg()
+    {
+        //Debug.Log("Sprint MP is " + sprintMultiplier);
+        //Debug.Log("Speed is " + playerSpeed);
     }
 
     void GetInput()
     {
         xAxis = Input.GetAxis("Horizontal");
         zAxis = Input.GetAxis("Vertical");
+        Sprinting();
+    }
+
+    void Sprinting()
+    {
+        if (Input.GetButton("Sprint"))
+        {
+            isSprinting = true;
+            sMp = sprintMultiplier;
+        }
+        else
+        {
+            isSprinting = false;
+            sMp = 1f;
+        }
     }
 
     void CalculateSpreadMP()
@@ -121,9 +139,11 @@ public class PlayerController_Script : MonoBehaviour
             move /= move.magnitude;
         }
 
+        // playerSpeed is always multiplied by sprintmultiplier
+        playerSpeed = baseSpeed * sMp;
 
         //setting up the movement with the playerspeed and correcting for executiontime
-        controller.Move(move * playerSpeed * Time.deltaTime);
+        controller.Move((move * playerSpeed) * Time.deltaTime);
 
 
         //gravity

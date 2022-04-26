@@ -14,6 +14,9 @@ public class Shotgun_Script : MonoBehaviour
     public int magSize;
 
     public float recoilX, recoilY, recoilZ;
+    public float adsMultiplier = .5f;
+    float recoilADS = 1f;
+
     public int pelletNumber;
     public float pelletSpread;
     public float pelletDamage;
@@ -31,6 +34,7 @@ public class Shotgun_Script : MonoBehaviour
     public bool canFire = true;
     public bool isPumping = false;
     public bool isReloading = false;
+    bool isADS = false;
 
     // Object references
 
@@ -39,6 +43,8 @@ public class Shotgun_Script : MonoBehaviour
     public ShakeRecoil_Script camShakeRecoil;
     public AudioController_Script audioInstance;
     public ParticleSystem shellParticle;
+    public GameObject reticle;
+    Image reticleImage;
 
 
     [SerializeField] private GameObject _bulletHolePrefab;
@@ -54,6 +60,9 @@ public class Shotgun_Script : MonoBehaviour
 
         GameObject AudioController = GameObject.FindGameObjectWithTag("AudioController");
         audioInstance = AudioController.GetComponent<AudioController_Script>();
+
+        reticle = GameObject.FindWithTag("Reticle");
+        reticleImage = reticle.GetComponent<Image>();
     }
 
     private void OnEnable()
@@ -63,7 +72,12 @@ public class Shotgun_Script : MonoBehaviour
 
     void Update()
     {
-        //Input
+        GetInput();
+        StartCoroutine(Reload());
+    }
+
+    void GetInput()
+    {
         if (Input.GetButtonDown("Fire1") && canFire && !isReloading)
         {
             Fire();
@@ -74,9 +88,14 @@ public class Shotgun_Script : MonoBehaviour
             Pump();
         }
 
-        StartCoroutine(Reload());
-    }
+        if (Input.GetButtonDown("Fire2"))
+        {
+            Debug.Log("ADS!");
+        }
 
+        StartCoroutine("Reload");
+
+    }
 
     public void Fire()
     {
@@ -107,7 +126,7 @@ public class Shotgun_Script : MonoBehaviour
         audioInstance.PlaySgShoot();
 
         StartCoroutine(camShakeRecoil.Shaking(.15f, .5f));
-        camShakeRecoil.Recoil(recoilX, recoilY, recoilZ);
+        camShakeRecoil.Recoil(recoilX, recoilY, recoilZ, recoilADS);
 
 
         LayerMask enemyMask = LayerMask.GetMask("Enemy");
@@ -206,6 +225,28 @@ public class Shotgun_Script : MonoBehaviour
     }
 
 
+    void ChangeADSMode()
+    {
+        if (!isADS)
+        {
+            shotgunAnimator.SetBool("PistolADS", true);
+            shotgunAnimator.SetTrigger("PistolAiming");
+            isADS = true;
+            recoilADS = adsMultiplier;
+            Invoke("ReticleToggle", .2f);
+            //Debug.Log("Aiming down Sights is + " + isADS);
+        }
+        else if (isADS)
+        {
+            shotgunAnimator.SetBool("PistolADS", false);
+            shotgunAnimator.SetTrigger("PistolAiming");
+            isADS = false;
+            recoilADS = 1f;
+            Invoke("ReticleToggle", .05f);
+            //Debug.Log("Aiming down Sights is + " + isADS);
+        }
+    }
+
     Vector3 GetShootingDirection() //gives us a direction which has a randomized targetposition.
     {
         Vector3 targetPos = playerCam.transform.position + playerCam.transform.forward * range;
@@ -217,4 +258,8 @@ public class Shotgun_Script : MonoBehaviour
         Vector3 direction = targetPos - playerCam.transform.position;
         return direction.normalized;
     }
+
 }
+
+
+

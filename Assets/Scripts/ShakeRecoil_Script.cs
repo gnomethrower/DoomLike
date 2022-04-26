@@ -34,12 +34,12 @@ public class ShakeRecoil_Script : MonoBehaviour
         transform.localRotation = Quaternion.Euler(currentRotation);
     }
 
-    public void Recoil(float recoilX, float recoilY, float recoilZ)
+    public void Recoil(float recoilX, float recoilY, float recoilZ, float adsMP)
     {
         //Debug.Log("Recoil!");
-        targetRotation += new Vector3(Random.Range((-.75f * recoilX * PlayerController_Script.spreadMultiplier), (-1.25f * recoilX * PlayerController_Script.spreadMultiplier)),
-                                      Random.Range((0.25f * recoilY * PlayerController_Script.spreadMultiplier), recoilY * PlayerController_Script.spreadMultiplier),
-                                      Random.Range(-recoilZ * PlayerController_Script.spreadMultiplier, recoilZ * PlayerController_Script.spreadMultiplier));
+        targetRotation += new Vector3(Random.Range((-.75f * recoilX * PlayerController_Script.spreadMultiplier * adsMP), (-1.25f * recoilX * PlayerController_Script.spreadMultiplier) * adsMP),
+                                      Random.Range((0.25f * recoilY * PlayerController_Script.spreadMultiplier * adsMP), recoilY * PlayerController_Script.spreadMultiplier * adsMP),
+                                      Random.Range(-recoilZ * (PlayerController_Script.spreadMultiplier / 2) * adsMP, (recoilZ * PlayerController_Script.spreadMultiplier / 2)) * adsMP);
     }
 
     //public void Recoil(float recoilStrength)

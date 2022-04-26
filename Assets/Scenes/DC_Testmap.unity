@@ -1943,6 +1943,7 @@ MonoBehaviour:
   recoilX: 20
   recoilY: 10
   recoilZ: 2
+  adsMultiplier: 1
   pelletNumber: 12
   pelletSpread: 4
   pelletDamage: 10
@@ -1962,6 +1963,7 @@ MonoBehaviour:
   camShakeRecoil: {fileID: 1050720587}
   audioInstance: {fileID: 799884936}
   shellParticle: {fileID: 2077012707}
+  reticle: {fileID: 0}
   _bulletHolePrefab: {fileID: 3357249260988248500, guid: 89355dbbbf5d83448ab337843fb47786, type: 3}
 --- !u!1 &689455981
 GameObject:
@@ -2000,7 +2002,8 @@ MonoBehaviour:
   pistolMaxAmmo: 90
   grenadesSpare: 0
   grenadesMax: 0
-  playerSpeed: 5
+  baseSpeed: 5
+  sprintMultiplier: 2
   gravity: -35
   jumpHeight: 1
   controller: {fileID: 689455983}
@@ -2014,6 +2017,7 @@ MonoBehaviour:
   isGrounded: 0
   hasDied: 0
   isMoving: 0
+  isSprinting: 0
 --- !u!143 &689455983
 CharacterController:
   m_ObjectHideFlags: 0
@@ -4386,8 +4390,7 @@ MonoBehaviour:
   recoilX: 2
   recoilY: 1
   recoilZ: 1
-  recoilMPMoving: 0
-  RecoilMPAiming: 0.5
+  adsMultiplier: 1
   bulletDamage: 34
   shotCooldown: 0.06
   timeBetweenShots: 0
@@ -4407,6 +4410,8 @@ MonoBehaviour:
   animator: {fileID: 1183790417}
   camShakeRecoil: {fileID: 1050720587}
   shellParticle: {fileID: 712826615}
+  reticle: {fileID: 0}
+  reticleImage: {fileID: 0}
   _bulletHolePrefab: {fileID: 3357249260988248500, guid: 89355dbbbf5d83448ab337843fb47786, type: 3}
 --- !u!1001 &1191961509
 PrefabInstance:
@@ -4555,8 +4560,8 @@ GameObject:
   - component: {fileID: 1219440987}
   - component: {fileID: 1219440986}
   m_Layer: 5
-  m_Name: UI_Aimdot
-  m_TagString: Untagged
+  m_Name: UI_Reticle
+  m_TagString: Reticle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4594,7 +4599,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0, b: 0.11746788, a: 0.5019608}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

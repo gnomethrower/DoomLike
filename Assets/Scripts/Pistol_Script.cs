@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
 
 public class Pistol_Script : MonoBehaviour
 {
@@ -9,7 +11,9 @@ public class Pistol_Script : MonoBehaviour
     public int magSize;
     public int bulletsInMag;
 
-    public float recoilX, recoilY, recoilZ, recoilMPMoving, RecoilMPAiming;
+    public float recoilX, recoilY, recoilZ;
+    public float adsMultiplier = .5f;
+    float recoilADS = 1f;
 
     public int bulletDamage;
     public float shotCooldown, timeBetweenShots, range, reloadTime;
@@ -33,7 +37,8 @@ public class Pistol_Script : MonoBehaviour
     public Animator animator;
     public ShakeRecoil_Script camShakeRecoil;
     public ParticleSystem shellParticle;
-
+    public GameObject reticle;
+    public Image reticleImage;
 
     [SerializeField] private GameObject _bulletHolePrefab;
 
@@ -51,11 +56,14 @@ public class Pistol_Script : MonoBehaviour
         GameObject AudioController = GameObject.FindGameObjectWithTag("AudioController");
         audioInstance = AudioController.GetComponent<AudioController_Script>();
 
+        reticle = GameObject.FindWithTag("Reticle");
+        reticleImage = reticle.GetComponent<Image>();
     }
 
     private void OnEnable()
     {
         audioInstance.PlayPistolRackSlide();
+        isADS = false;
     }
 
     private void Update()
@@ -79,11 +87,7 @@ public class Pistol_Script : MonoBehaviour
 
         if (Input.GetButtonDown("Reload") && playerScript.pistolSpareAmmo > 0 && bulletsInMag < magSize && !isShooting)
         {
-            animator.SetTrigger("PistolReloading");
-
-            audioInstance.PlayPistolFullReload();
-
-            Invoke("Reload", reloadTime);
+            Reload();
         }
 
         if (Input.GetKeyDown(KeyCode.B))
@@ -95,9 +99,9 @@ public class Pistol_Script : MonoBehaviour
             else rapidFire = true;
         }
 
-        if (Input.GetButtonDown("Fire2") && !isShooting && !isReloading)
+        if (Input.GetButtonDown("Fire2") && !isShooting)
         {
-            AimDownSights();
+            ChangeADSMode();
         }
 
     }
@@ -109,7 +113,7 @@ public class Pistol_Script : MonoBehaviour
         EjectCasing();
 
         animator.SetTrigger("PistolShot");
-        camShakeRecoil.Recoil(recoilX, recoilY, recoilZ);
+        camShakeRecoil.Recoil(recoilX, recoilY, recoilZ, recoilADS);
         for (int i = 0; bulletsPerTap > i; i++)
         {
 
@@ -156,6 +160,13 @@ public class Pistol_Script : MonoBehaviour
 
     void Reload() // +++++++++++++++++++++++++ GOT TO MAKE IT SO THE SPARE AMMO IS ALWAYS CORRECTLY SUBTRACTED, ACCORDING TO MAG SIZE AND FILL.+++++++++++++++++++++++++++++++++++
     {
+        animator.SetTrigger("PistolReloading");
+        audioInstance.PlayPistolFullReload();
+        Invoke("ReloadAmmoRefresh", reloadTime);
+    }
+
+    void ReloadAmmoRefresh()
+    {
         if (playerScript.pistolSpareAmmo > 0)
         {
             if (playerScript.pistolSpareAmmo < magSize)
@@ -172,27 +183,40 @@ public class Pistol_Script : MonoBehaviour
                 playerScript.pistolSpareAmmo = playerScript.pistolSpareAmmo - bulletsLeftMag;
                 bulletsInMag = magSize;
             }
-
-
         }
 
         if (!chamberedRound)
         {
             ChamberRound();
         }
+
     }
 
-    void AimDownSights()
+    void ChangeADSMode()
     {
         if (!isADS)
         {
-            Debug.Log("AimingDownSights");
+            animator.SetBool("PistolADS", true);
+            animator.SetTrigger("PistolAiming");
             isADS = true;
+            recoilADS = adsMultiplier;
+            Invoke("ReticleToggle", .2f);
+            //Debug.Log("Aiming down Sights is + " + isADS);
         }
         else if (isADS)
         {
-            Debug.Log("Hipfiring");
+            animator.SetBool("PistolADS", false);
+            animator.SetTrigger("PistolAiming");
             isADS = false;
+            recoilADS = 1f;
+            Invoke("ReticleToggle", .05f);
+            //Debug.Log("Aiming down Sights is + " + isADS);
         }
+    }
+
+    void ReticleToggle()
+    {
+        if (isADS) reticleImage.enabled = false;
+        else reticleImage.enabled = true;
     }
 }
