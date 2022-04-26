@@ -162,6 +162,7 @@ public class Pistol_Script : MonoBehaviour
     {
         animator.SetTrigger("PistolReloading");
         audioInstance.PlayPistolFullReload();
+        isReloading = true;
         Invoke("ReloadAmmoRefresh", reloadTime);
     }
 
@@ -190,6 +191,7 @@ public class Pistol_Script : MonoBehaviour
             ChamberRound();
         }
 
+        isReloading = false;
     }
 
     void ChangeADSMode()
