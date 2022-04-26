@@ -168,23 +168,12 @@ public class Pistol_Script : MonoBehaviour
 
     void ReloadAmmoRefresh()
     {
-        if (playerScript.pistolSpareAmmo > 0)
-        {
-            if (playerScript.pistolSpareAmmo < magSize)
-            {
-                //Debug.Log("Ammo left is smaller than MagSize");
-                bulletsInMag = playerScript.pistolSpareAmmo;
-                playerScript.pistolSpareAmmo = 0;
-            }
 
-            if (playerScript.pistolSpareAmmo >= magSize)
-            {
-                //Debug.Log("Enough ammo for a full mag reload");
-                int bulletsLeftMag = magSize - bulletsInMag;
-                playerScript.pistolSpareAmmo = playerScript.pistolSpareAmmo - bulletsLeftMag;
-                bulletsInMag = magSize;
-            }
-        }
+        int bulletsMissing = magSize - bulletsInMag;
+        int bulletsToReload = Mathf.Min(playerScript.pistolSpareAmmo, bulletsMissing);
+
+        bulletsInMag += bulletsToReload;
+        playerScript.pistolSpareAmmo -= bulletsToReload;
 
         if (!chamberedRound)
         {

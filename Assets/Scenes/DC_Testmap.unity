@@ -686,10 +686,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "TODO: \n- Rework Sound so it plays during points in the  animation.\n\n-
-    Grenade\n\t-spritework for idle, throw)\n\t-code\n\n- Playerdamage + Sound when
-    strong hit vs light hit.\n- smaller Healthpickup\n- smaller Ammopickup (spritework)\n\n-
-    ADS: Glock and Shotgun need ADS Code implementation\n- ADS Usability - Statemachine?"
+  m_text: "TODO: \n- Grenade\n\t-spritework for idle, throw)\n\t-code\n- Rework Sound
+    with Animationevents\n- Playerdamage + Sound when strong hit vs light hit.\n-
+    smaller Healthpickup\n- smaller Ammopickup (spritework)\n\n- ADS: Glock and Shotgun
+    need ADS Code implementation\n- ADS Usability - Statemachine?"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1998,7 +1998,7 @@ MonoBehaviour:
   startingGun: 0
   shotgunSpareAmmo: 29
   shotgunMaxAmmo: 30
-  pistolSpareAmmo: 89
+  pistolSpareAmmo: 10
   pistolMaxAmmo: 90
   grenadesSpare: 0
   grenadesMax: 0
@@ -2007,6 +2007,7 @@ MonoBehaviour:
   gravity: -35
   jumpHeight: 1
   controller: {fileID: 689455983}
+  playerVelocity: {x: 0, y: 0, z: 0}
   groundCheck: {fileID: 1282724003}
   groundCheckSize: 0.4
   groundMask:
