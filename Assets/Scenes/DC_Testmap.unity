@@ -687,10 +687,10 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "TODO: \n-Shotgun ADS\n- Grenade\n\t-spritework for idle, throw)\n\t-code\n\n-
-    Enemy Behaviour\n- Enemy Spritework\n\n- Rework Sound with Animationevents\n-
-    Playerdamage + Sound when strong hit vs light hit.\n- smaller Healthpickup\n-
-    smaller Ammopickup (spritework)\n\n- ADS: Glock and Shotgun need ADS Code implementation\n-
-    ADS Usability - Statemachine?"
+    Head- and Weaponbobbing\n- Enemy Behaviour\n- Enemy Spritework\n\n- Rework Sound
+    with Animationevents\n- Playerdamage + Sound when strong hit vs light hit.\n-
+    smaller Healthpickup\n- smaller Ammopickup (spritework)\n\n- ADS: Glock and Shotgun
+    need ADS Code implementation\n- ADS Usability - Statemachine?"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1274,7 +1274,7 @@ GameObject:
   - component: {fileID: 416674913}
   - component: {fileID: 416674912}
   - component: {fileID: 416674911}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3485,7 +3485,7 @@ GameObject:
   - component: {fileID: 997014677}
   - component: {fileID: 997014676}
   - component: {fileID: 997014675}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Eye (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5464,7 +5464,7 @@ GameObject:
   - component: {fileID: 1411572303}
   - component: {fileID: 1411572302}
   - component: {fileID: 1411572301}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: EyeBrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5861,7 +5861,7 @@ GameObject:
   - component: {fileID: 1534721678}
   - component: {fileID: 1534721677}
   - component: {fileID: 1534721676}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: EyeBrow (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6602,7 +6602,7 @@ GameObject:
   - component: {fileID: 1675795353}
   - component: {fileID: 1675795352}
   - component: {fileID: 1675795351}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Eye
   m_TagString: Untagged
   m_Icon: {fileID: 0}
