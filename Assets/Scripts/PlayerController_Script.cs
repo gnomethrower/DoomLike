@@ -58,7 +58,7 @@ public class PlayerController_Script : MonoBehaviour
 
     public bool isGrounded;
     public bool hasDied;
-
+    public bool isMoving;
 
 
     private void Start()
@@ -77,6 +77,11 @@ public class PlayerController_Script : MonoBehaviour
             GetInput();
             CalculateSpreadMP();
             FPSMovement();
+        }
+
+        if (isMoving)
+        {
+            Debug.Log("Player is moving");
         }
     }
 

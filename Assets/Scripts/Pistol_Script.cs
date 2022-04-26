@@ -9,17 +9,17 @@ public class Pistol_Script : MonoBehaviour
     public int magSize;
     public int bulletsInMag;
 
-    public float recoilX, recoilY, recoilZ;
+    public float recoilX, recoilY, recoilZ, recoilMPMoving, RecoilMPAiming;
 
     public int bulletDamage;
-    public float shotCooldown, timeBetweenShots, spread, spreadMultiplierMoving, range, reloadTime;
+    public float shotCooldown, timeBetweenShots, range, reloadTime;
     public int bulletsPerTap = 1;
 
 
     public bool rapidFire;
 
     // control bools
-    bool isShooting, isReloading, canReload, chamberedRound, isMoving;
+    bool isShooting, isReloading, canReload, chamberedRound, isMoving, isADS;
     float movingX;
     float movingZ;
 
@@ -50,6 +50,7 @@ public class Pistol_Script : MonoBehaviour
 
         GameObject AudioController = GameObject.FindGameObjectWithTag("AudioController");
         audioInstance = AudioController.GetComponent<AudioController_Script>();
+
     }
 
     private void OnEnable()
@@ -94,6 +95,10 @@ public class Pistol_Script : MonoBehaviour
             else rapidFire = true;
         }
 
+        if (Input.GetButtonDown("Fire2") && !isShooting && !isReloading)
+        {
+            AimDownSights();
+        }
 
     }
 
@@ -101,16 +106,10 @@ public class Pistol_Script : MonoBehaviour
     {
         chamberedRound = false;
 
-        //spread
-        float x = Random.Range(-spread, spread) * PlayerController_Script.spreadMultiplier;
-        float y = Random.Range(-spread, spread) * PlayerController_Script.spreadMultiplier;
-
-        //EjectCasing();
+        EjectCasing();
 
         animator.SetTrigger("PistolShot");
         camShakeRecoil.Recoil(recoilX, recoilY, recoilZ);
-        shellParticle.Emit(1);
-
         for (int i = 0; bulletsPerTap > i; i++)
         {
 
@@ -152,7 +151,7 @@ public class Pistol_Script : MonoBehaviour
 
     void EjectCasing()
     {
-        //eject a casing prefab
+        shellParticle.Emit(1);
     }
 
     void Reload() // +++++++++++++++++++++++++ GOT TO MAKE IT SO THE SPARE AMMO IS ALWAYS CORRECTLY SUBTRACTED, ACCORDING TO MAG SIZE AND FILL.+++++++++++++++++++++++++++++++++++
@@ -183,4 +182,17 @@ public class Pistol_Script : MonoBehaviour
         }
     }
 
+    void AimDownSights()
+    {
+        if (!isADS)
+        {
+            Debug.Log("AimingDownSights");
+            isADS = true;
+        }
+        else if (isADS)
+        {
+            Debug.Log("Hipfiring");
+            isADS = false;
+        }
+    }
 }

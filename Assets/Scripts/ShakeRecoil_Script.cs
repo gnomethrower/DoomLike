@@ -12,8 +12,8 @@ public class ShakeRecoil_Script : MonoBehaviour
     Vector3 currentXRotation;
     Vector3 targetRotation;
 
-    //hipfireRecoil
-
+    //Object Reference
+    public PlayerController_Script playerScript;
 
     //Settings
     [SerializeField] private float snappiness;
@@ -21,19 +21,25 @@ public class ShakeRecoil_Script : MonoBehaviour
 
     //Script courtesy of this guy: -https://www.youtube.com/watch?v=geieixA4Mqc
 
+    private void Start()
+    {
+        playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController_Script>();
+        ;
+    }
 
     private void Update()
     {
         targetRotation = Vector3.Lerp(targetRotation, Vector3.zero, returnSpeed * Time.deltaTime);
         currentRotation = Vector3.Slerp(currentRotation, targetRotation, snappiness * Time.deltaTime);
-
         transform.localRotation = Quaternion.Euler(currentRotation);
     }
 
     public void Recoil(float recoilX, float recoilY, float recoilZ)
     {
         //Debug.Log("Recoil!");
-        targetRotation += new Vector3(Random.Range((-.75f * recoilX), (-1.25f * recoilX)), Random.Range((0.25f * recoilY), recoilY), Random.Range(-recoilZ, recoilZ));
+        targetRotation += new Vector3(Random.Range((-.75f * recoilX * PlayerController_Script.spreadMultiplier), (-1.25f * recoilX * PlayerController_Script.spreadMultiplier)),
+                                      Random.Range((0.25f * recoilY * PlayerController_Script.spreadMultiplier), recoilY * PlayerController_Script.spreadMultiplier),
+                                      Random.Range(-recoilZ * PlayerController_Script.spreadMultiplier, recoilZ * PlayerController_Script.spreadMultiplier));
     }
 
     //public void Recoil(float recoilStrength)

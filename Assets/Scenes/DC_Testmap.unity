@@ -2013,6 +2013,7 @@ MonoBehaviour:
   deathScreen: {fileID: 0}
   isGrounded: 0
   hasDied: 0
+  isMoving: 0
 --- !u!143 &689455983
 CharacterController:
   m_ObjectHideFlags: 0
@@ -3413,6 +3414,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerBody: {fileID: 689455984}
   xRotation: 0
+  playerScript: {fileID: 0}
   snappiness: 20
   returnSpeed: 5
 --- !u!1001 &1070557589
@@ -4381,14 +4383,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   magSize: 19
   bulletsInMag: 19
-  recoilX: 1
+  recoilX: 2
   recoilY: 1
   recoilZ: 1
+  recoilMPMoving: 0
+  RecoilMPAiming: 0.5
   bulletDamage: 34
   shotCooldown: 0.06
   timeBetweenShots: 0
-  spread: 0
-  spreadMultiplierMoving: 0
   range: 100
   reloadTime: 1.5
   bulletsPerTap: 1
