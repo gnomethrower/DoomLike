@@ -5,7 +5,7 @@ using UnityEngine;
 public class WeaponSwitching_Script : MonoBehaviour
 {
 
-    public static int selectedWeapon;
+    public int selectedWeapon;
     string weaponEnum;
     public static GameObject shotgunInit;
     GameObject player;

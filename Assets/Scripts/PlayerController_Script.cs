@@ -86,6 +86,7 @@ public class PlayerController_Script : MonoBehaviour
     {
         //Debug.Log("Sprint MP is " + sprintMultiplier);
         //Debug.Log("Speed is " + playerSpeed);
+        if(isSprinting) Debug.Log("Player is Sprinting: " + isSprinting);
     }
 
     void GetInput()

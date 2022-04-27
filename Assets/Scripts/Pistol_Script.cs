@@ -37,8 +37,10 @@ public class Pistol_Script : MonoBehaviour
     public Animator animator;
     public ShakeRecoil_Script camShakeRecoil;
     public ParticleSystem shellParticle;
-    public GameObject reticle;
-    public Image reticleImage;
+    public Image chamberIndicator;
+
+    GameObject reticle;
+    Image reticleImage;
 
     [SerializeField] private GameObject _bulletHolePrefab;
 
@@ -109,6 +111,7 @@ public class Pistol_Script : MonoBehaviour
     void Shoot()
     {
         chamberedRound = false;
+        chamberIndicator.enabled = false;
 
         EjectCasing();
 
@@ -149,7 +152,8 @@ public class Pistol_Script : MonoBehaviour
         {
             bulletsInMag -= bulletsPerTap;
             chamberedRound = true;
-        }
+            chamberIndicator.enabled = true;
+}
         //else //Set the Idle animation to emptyGun Idle, if available.
     }
 

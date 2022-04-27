@@ -26,7 +26,6 @@ public class Shotgun_Script : MonoBehaviour
     public float pumpDuration;
     public float reloadShellTime;
 
-    public Image chamberIndicator;
 
     public bool isFiring = false;
     public bool chamberedBullet = true;
@@ -37,7 +36,7 @@ public class Shotgun_Script : MonoBehaviour
     bool isADS = false;
 
     // Object references
-
+    public Image chamberIndicator;
     public Camera playerCam;
     public Animator shotgunAnimator;
     public ShakeRecoil_Script camShakeRecoil;
@@ -65,16 +64,19 @@ public class Shotgun_Script : MonoBehaviour
         reticleImage = reticle.GetComponent<Image>();
     }
 
+
     private void OnEnable()
     {
         audioInstance.PlaySgReady();
     }
+
 
     void Update()
     {
         GetInput();
         StartCoroutine(Reload());
     }
+
 
     void GetInput()
     {
@@ -88,14 +90,12 @@ public class Shotgun_Script : MonoBehaviour
             Pump();
         }
 
-        if (Input.GetButtonDown("Fire2"))
-        {
-            Debug.Log("ADS!");
-        }
+        ChangeADSMode();
 
         StartCoroutine("Reload");
 
     }
+
 
     public void Fire()
     {
@@ -122,7 +122,7 @@ public class Shotgun_Script : MonoBehaviour
         chamberedBullet = false;
         spentShellChambered = true;
 
-        shotgunAnimator.Play("UI_Shotgun_SimpleShot");
+        shotgunAnimator.SetTrigger("ShotgunShoot");
         audioInstance.PlaySgShoot();
 
         StartCoroutine(camShakeRecoil.Shaking(.15f, .5f));
@@ -180,6 +180,7 @@ public class Shotgun_Script : MonoBehaviour
         }
     }
 
+
     public void ShellEmit()
     {
         if (spentShellChambered == true)
@@ -188,6 +189,7 @@ public class Shotgun_Script : MonoBehaviour
             spentShellChambered = false;
         }
     }
+
 
     public void CyclingAction()
     {
@@ -208,6 +210,8 @@ public class Shotgun_Script : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.R) && bulletsInMag < magSize && playerScript.shotgunSpareAmmo > 0 && !isReloading && !isPumping)
         {
+            bool wasADS = isADS;
+            isADS = false;
             isReloading = true;
 
             while (bulletsInMag < magSize && playerScript.shotgunSpareAmmo > 0)
@@ -219,33 +223,53 @@ public class Shotgun_Script : MonoBehaviour
                 bulletsInMag++;
             }
 
-            if (!chamberedBullet) Pump();
-            isReloading = false;
+            if (chamberedBullet) ReloadFinished();
+            else Pump(); Invoke("ReloadFinished", pumpDuration);
+
+            if (wasADS) isADS = true;
         }
+    }
+
+
+    void ReloadFinished()
+    {
+        shotgunAnimator.SetTrigger("ReloadDone");
+        isReloading = false;
     }
 
 
     void ChangeADSMode()
     {
-        if (!isADS)
+        if(Input.GetButtonDown("Fire2") && !isReloading && !isFiring && !isPumping)
         {
-            shotgunAnimator.SetBool("PistolADS", true);
-            shotgunAnimator.SetTrigger("PistolAiming");
-            isADS = true;
-            recoilADS = adsMultiplier;
-            Invoke("ReticleToggle", .2f);
-            //Debug.Log("Aiming down Sights is + " + isADS);
-        }
-        else if (isADS)
-        {
-            shotgunAnimator.SetBool("PistolADS", false);
-            shotgunAnimator.SetTrigger("PistolAiming");
-            isADS = false;
-            recoilADS = 1f;
-            Invoke("ReticleToggle", .05f);
-            //Debug.Log("Aiming down Sights is + " + isADS);
+            if (!isADS)
+            {
+                shotgunAnimator.SetBool("ShotgunAiming", true);
+                shotgunAnimator.SetTrigger("ShotgunADS");
+                isADS = true;
+                recoilADS = adsMultiplier;
+                Invoke("ReticleToggle", .2f);
+                //Debug.Log("Aiming down Sights is + " + isADS);
+            }
+            else if (isADS)
+            {
+                shotgunAnimator.SetBool("ShotgunAiming", false);
+                shotgunAnimator.SetTrigger("ShotgunADS");
+                isADS = false;
+                recoilADS = 1f;
+                Invoke("ReticleToggle", .05f);
+                //Debug.Log("Aiming down Sights is + " + isADS);
+            }
         }
     }
+
+
+    void ReticleToggle()
+    {
+        if (isADS) reticleImage.enabled = false;
+        else reticleImage.enabled = true;
+    }
+
 
     Vector3 GetShootingDirection() //gives us a direction which has a randomized targetposition.
     {

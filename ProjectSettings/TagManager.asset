@@ -9,6 +9,7 @@ TagManager:
   - AudioController
   - MouseDebug
   - Reticle
+  - SwitchingScript
   layers:
   - Default
   - TransparentFX
