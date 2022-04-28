@@ -2031,7 +2031,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &656633045
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2135,7 +2135,7 @@ MonoBehaviour:
   shotDelay: 0.25
   pumpDuration: 1
   reloadShellTime: 0.5
-  isFiring: 0
+  isShooting: 0
   chamberedBullet: 1
   spentShellChambered: 0
   canFire: 1
@@ -4662,7 +4662,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1183790413
 RectTransform:
   m_ObjectHideFlags: 0

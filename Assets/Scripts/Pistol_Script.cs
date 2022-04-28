@@ -73,7 +73,7 @@ public class Pistol_Script : MonoBehaviour
         {
             ChamberRound();
         }
-        animator.SetTrigger("UI_Pistol_Idle");
+
         audioInstance.PlayPistolRackSlide();
         isADS = false;
     }
@@ -233,6 +233,11 @@ public class Pistol_Script : MonoBehaviour
     public void ToggleIsSwitchingFireMode() //only called in Firemode Toggle Anim Event.
     {
         isSwitchingFireMode = !isSwitchingFireMode;
+    }
+
+    public void PistolIdleAnimation()
+    {
+        animator.Play("UI_Pistol_Idle");
     }
 
 }
