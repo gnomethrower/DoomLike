@@ -670,10 +670,10 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: ReloadDone
+    m_ConditionEvent: ShotgunAiming
     m_EventTreshold: 0
   - m_ConditionMode: 1
-    m_ConditionEvent: ShotgunAiming
+    m_ConditionEvent: ReloadDone
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 8712789274012748397}

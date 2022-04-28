@@ -18,75 +18,115 @@ public class UIDisplay_Script : MonoBehaviour
     [Header("Text References")]
     public TextMeshProUGUI ammoMagText, ammoSpareText, healthText;
 
+    [Header("Ammo Icon prefabs")]
+    public GameObject shellIcon;
+    public GameObject bulletIcon;
+    public GameObject grenadeIcon;
+
+    public float iconOffset = .5f;
+
+    //[Header("Ammo background vars")]
+    private int _maxPistolBullets;
+    private int _maxShells;
+    private int _maxGrenades;
+
+    private int ammoInMag;
+    private int ammoSpare;
+    private int pistolMagFill;
+    private int shotgunMagFill;
+    private int nadeMagFill;
+
     [Header("Object References")]
-    public GameObject grenades;
+    public GameObject grenade;
     public GameObject shotgun;
     public GameObject pistol;
     public GameObject player;
-    public Transform bulletIndicatorImageStart;
-    public GameObject _ammoUI;
-    public Transform _ammoUIContainer;
-    [SerializeField] private GameObject weaponHolder;
 
-    [Header("Ammo arrays")]
-    [SerializeField] private GameObject[] _pistolBulletImages;
-    [SerializeField] private GameObject[] _shellImages;
-    [SerializeField] private GameObject[] _grenadeImages;
+    public Transform ammoIconStartLocationParent;
+    public Transform ammoIconStartLocation;
 
-    [Header("Ammo background vars")]
-    [SerializeField] private int _maxPistolBullets;
-    [SerializeField] private int _maxShells;
-    [SerializeField] private int _maxGrenades;
+    private GameObject ammoIcon;
+    private GameObject weaponHolder;
 
-    [Header("Script References")]
-    [SerializeField] private PlayerController_Script playerScript;
-    [SerializeField] private WeaponSwitching_Script switchingScript;
+    //[Header("Script References")]
+    public PlayerController_Script playerScript;
+    public WeaponSwitching_Script weapSwitchScript;
+    public Pistol_Script pistolScript;
+    public Shotgun_Script shotgunScript;
+    //private Grenade_Script grenadeScript;
+
 
     // Start is called before the first frame update
     void Start()
     {
-        weaponHolder = GameObject.Find("WeaponHolder");
-        switchingScript = weaponHolder.GetComponent<WeaponSwitching_Script>();
-
-        player = GameObject.FindGameObjectWithTag("Player");
-        playerScript = player.GetComponent<PlayerController_Script>();
-
-        _pistolBulletImages = new GameObject[_maxPistolBullets];
-        //shells
-        //grenades
+        InitializeObjScr();
     }
 
-    // trying to use an Ammocounter like: https://mike-87852.medium.com/create-a-visual-ammo-counter-in-unity-63e640675ea2
-    void SetAmmoUI (int magAmount)
+    void InitializeObjScr()
     {
-        int total = 0;
-        float imageOffset = 1.5f;
-        foreach (var image in _pistolBulletImages)
-        {
-            Vector3 newPos = bulletIndicatorImageStart.position;
-            newPos.x += total * imageOffset;
-            GameObject newImage = Instantiate(_ammoUI, newPos, Quaternion.identity, transform.parent);
-        }
+        //weaponHolder = GameObject.Find("WeaponHolder");
+        //player = GameObject.FindGameObjectWithTag("Player");
+        //pistol = GameObject.FindGameObjectWithTag("Pistol");
+        //shotgun = GameObject.FindGameObjectWithTag("Shotgun");
+        ////grenade = GameObject.FindGameObjectWithTag("Grenade");
+
+        //Debug.Log(pistol);
+
+        //weapSwitchScript = weaponHolder.GetComponent<WeaponSwitching_Script>();
+        //playerScript = player.GetComponent<PlayerController_Script>();
+        //pistolScript = pistol.GetComponent<Pistol_Script>(); // +++++++++ nullref here at initialization ! +++++++++ $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+        //shotgunScript = shotgun.GetComponent<Shotgun_Script>();
+        ////grenadeScript = grenade.GetComponent<Grenade_Script>();
     }
 
-    // Update is called once per frame
+
     void Update()
     {
+        if (weapSwitchScript.selectedWeapon == 0) //pistol
+        {
+            ammoInMag = pistolScript.bulletsInMag;
+            ammoSpare = playerScript.pistolSpareAmmo;
+        }
+        if (weapSwitchScript.selectedWeapon == 1) //shotgun
+        {
+            ammoInMag = shotgunScript.bulletsInMag;
+            ammoSpare = playerScript.shotgunSpareAmmo;
+        }
+
+        //if (weapSwitchScript.selectedWeapon == 2) //nades
+        //{
+        //    ammoInMag = grenadeScript.bulletsInMag;
+        //    ammoSpare = playerScript.grenadeSpareAmmo;
+
+        //}
+
+
+        ammoMagText.text = ammoInMag.ToString();
+        ammoSpareText.text = ammoSpare.ToString();
+
+        if (Input.GetKeyDown(KeyCode.H)) UIAmmoIconCreation();
+
         healthText.text = PlayerController_Script.currentHealth.ToString();
 
-        //if (WeaponSwitching.selectedWeapon == 1) equippedWeapon = shotgun.GetComponent<sg_Script>();
-        //if (WeaponSwitching.selectedWeapon == 0) equippedWeapon = pistol.GetComponent<PistolScript>();
 
-        if (switchingScript.selectedWeapon == 0) //pistol
-        {
-            ammoMagText.text = pistol.GetComponent<Pistol_Script>().bulletsInMag.ToString();
-            ammoSpareText.text = playerScript.pistolSpareAmmo.ToString();
-        }
-        if (switchingScript.selectedWeapon == 1) //shotgun
-        {
-            ammoMagText.text = shotgun.GetComponent<Shotgun_Script>().bulletsInMag.ToString();
-            ammoSpareText.text = playerScript.shotgunSpareAmmo.ToString();
-        }
 
     }
+
+    //Ammocounter like https://www.youtube.com/watch?v=3uyolYVsiWc
+    // I need the following ammoIconStartLocation, ammoIcon, iconOffset, shellIcon, bulletIcon
+    void UIAmmoIconCreation()
+    {
+        if (weapSwitchScript.selectedWeapon == 0) ammoIcon = bulletIcon; ammoInMag = pistolScript.bulletsInMag;
+        if (weapSwitchScript.selectedWeapon == 1) ammoIcon = shellIcon; ammoInMag = shotgunScript.bulletsInMag;
+        //if (switchingScript.selectedWeapon == 2) ammoIcon = grenadeIcon;
+
+        //für jede patrone/granate im Magazin, soll ein prefab startend ab ammIconStartLocation instanziert werden, mit dem vorgegebenen iconOffset.
+        for (int i = 0; i < ammoInMag; i++)
+        {
+            GameObject _newAmmoIcon = Instantiate(ammoIcon, ammoIconStartLocation.position + (new Vector3(iconOffset, 0f, 0f) * i), ammoIconStartLocation.rotation, ammoIconStartLocationParent);
+        }
+    }
+
+
+
 }

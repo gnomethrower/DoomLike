@@ -4,12 +4,13 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - pistol
-  - shotgun
   - AudioController
   - MouseDebug
   - Reticle
   - SwitchingScript
+  - Pistol
+  - Shotgun
+  - Grenade
   layers:
   - Default
   - TransparentFX

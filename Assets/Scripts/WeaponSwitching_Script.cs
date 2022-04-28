@@ -20,7 +20,7 @@ public class WeaponSwitching_Script : MonoBehaviour
         weaponEnum = playerScript.startingGun.ToString();
 
         StartingGun();
-        shotgunInit = GameObject.FindGameObjectWithTag("shotgun");
+        shotgunInit = GameObject.FindGameObjectWithTag("Shotgun");
         SelectWeapon();
     }
 

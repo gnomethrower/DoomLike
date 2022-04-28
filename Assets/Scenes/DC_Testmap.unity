@@ -324,7 +324,7 @@ GameObject:
   - component: {fileID: 43193824}
   - component: {fileID: 43193826}
   m_Layer: 5
-  m_Name: bulletCounterOrigin
+  m_Name: ammoIconStartLocation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -347,7 +347,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -33, y: -49}
+  m_AnchoredPosition: {x: -33, y: -34.2}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &43193826
@@ -539,82 +539,6 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 92590437}
-  m_CullTransparentMesh: 1
---- !u!1 &105935647
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 105935648}
-  - component: {fileID: 105935650}
-  - component: {fileID: 105935649}
-  m_Layer: 5
-  m_Name: shellImage
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &105935648
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 105935647}
-  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 407998177}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -22, y: -155.86017}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &105935649
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 105935647}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 229c64348792b494e8020689de7a5bd0, type: 3}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &105935650
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 105935647}
   m_CullTransparentMesh: 1
 --- !u!198 &113380718 stripped
 ParticleSystem:
@@ -810,8 +734,9 @@ MonoBehaviour:
   m_text: "TODO: \n-Shotgun ADS Pumping\n- Grenade\n\t-spritework for idle, throw)\n\t-code\n\n-
     Head- and Weaponbobbing\n- Enemy Behaviour\n- Enemy Spritework\n\n- Rework Sound
     with Animationevents\n- Playerdamage + Sound when strong hit vs light hit.\n-
-    smaller Healthpickup\n- smaller Ammopickup (spritework)\n\n- ADS: Glock and Shotgun
-    need ADS Code implementation\n- ADS Usability - Statemachine?"
+    smaller Healthpickup\n- smaller Ammopickup (spritework)\n\n- Shadable Pixelart:
+    https://www.youtube.com/watch?v=DI9bSVTBlsA\n\n- ADS: Glock and Shotgun need
+    ADS Code implementation\n- ADS Usability - Statemachine?"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -838,8 +763,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 25.83
-  m_fontSizeBase: 25.83
+  m_fontSize: 20
+  m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1120,82 +1045,6 @@ Transform:
   m_Father: {fileID: 1894614568}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &273299287
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 273299288}
-  - component: {fileID: 273299290}
-  - component: {fileID: 273299289}
-  m_Layer: 5
-  m_Name: bulletImage
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &273299288
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 273299287}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.27585447, y: 0.27585447, z: 0.27585447}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 407998177}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -50.59839, y: -155.86017}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &273299289
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 273299287}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: c56b8f4bc87ea5945877a9f7258e3855, type: 3}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &273299290
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 273299287}
-  m_CullTransparentMesh: 1
 --- !u!1 &306779786
 GameObject:
   m_ObjectHideFlags: 0
@@ -1341,7 +1190,7 @@ GameObject:
   m_Component:
   - component: {fileID: 407998177}
   m_Layer: 5
-  m_Name: VisualAmmoCounter
+  m_Name: ammoIconStartLocationParent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1360,8 +1209,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 43193824}
-  - {fileID: 273299288}
-  - {fileID: 105935648}
   m_Father: {fileID: 1878587238}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1511,7 +1358,7 @@ GameObject:
   - component: {fileID: 416674912}
   - component: {fileID: 416674911}
   m_Layer: 7
-  m_Name: Enemy
+  m_Name: TestEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2180,7 +2027,7 @@ GameObject:
   - component: {fileID: 656633051}
   m_Layer: 5
   m_Name: UI_Shotgun
-  m_TagString: shotgun
+  m_TagString: Shotgun
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2332,10 +2179,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1adbd9014a2a6bd4cbb802eb934df741, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingGun: 1
+  startingGun: 0
   shotgunSpareAmmo: 29
   shotgunMaxAmmo: 30
-  pistolSpareAmmo: 10
+  pistolSpareAmmo: 90
   pistolMaxAmmo: 90
   grenadesSpare: 0
   grenadesMax: 0
@@ -4811,7 +4658,7 @@ GameObject:
   - component: {fileID: 1183790418}
   m_Layer: 5
   m_Name: UI_Pistol
-  m_TagString: pistol
+  m_TagString: Pistol
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7411,7 +7258,7 @@ GameObject:
   - component: {fileID: 1764232835}
   m_Layer: 5
   m_Name: UI_Grenade
-  m_TagString: Untagged
+  m_TagString: Grenade
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7958,22 +7805,20 @@ MonoBehaviour:
   ammoMagText: {fileID: 634504864}
   ammoSpareText: {fileID: 866231218}
   healthText: {fileID: 830992781}
-  grenades: {fileID: 0}
+  shellIcon: {fileID: 8035207191504835744, guid: 97d945e71c39737478e5d232f3cee3cb, type: 3}
+  bulletIcon: {fileID: 3355250643700054378, guid: a72bf9eaf719e8e4f8bb13fc59672f51, type: 3}
+  grenadeIcon: {fileID: 0}
+  iconOffset: 0.5
+  grenade: {fileID: 0}
   shotgun: {fileID: 656633044}
   pistol: {fileID: 1183790412}
   player: {fileID: 689455981}
-  bulletIndicatorImageStart: {fileID: 0}
-  _ammoUI: {fileID: 0}
-  _ammoUIContainer: {fileID: 0}
-  weaponHolder: {fileID: 0}
-  _pistolBulletImages: []
-  _shellImages: []
-  _grenadeImages: []
-  _maxPistolBullets: 0
-  _maxShells: 0
-  _maxGrenades: 0
-  playerScript: {fileID: 0}
-  switchingScript: {fileID: 0}
+  ammoIconStartLocationParent: {fileID: 407998177}
+  ammoIconStartLocation: {fileID: 43193824}
+  playerScript: {fileID: 689455982}
+  weapSwitchScript: {fileID: 1397038543}
+  pistolScript: {fileID: 1183790418}
+  shotgunScript: {fileID: 656633051}
 --- !u!1 &1987667814
 GameObject:
   m_ObjectHideFlags: 0

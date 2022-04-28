@@ -23,7 +23,7 @@ public class Pistol_Script : MonoBehaviour
     public bool rapidFire;
 
     // control bools
-    bool isShooting, isReloading, canReload, chamberedRound, isMoving, isADS;
+    bool isShooting, isReloading, canReload, chamberedRound, isMoving, isADS, isSwitchingFireMode;
     float movingX;
     float movingZ;
 
@@ -81,18 +81,29 @@ public class Pistol_Script : MonoBehaviour
         if (!rapidFire) isShooting = Input.GetButtonDown("Fire1");
         if (rapidFire) isShooting = Input.GetButton("Fire1");
 
-        if (chamberedRound && isShooting && !isReloading)
+        if (chamberedRound && isShooting && !isReloading && !isSwitchingFireMode)
         {
             audioInstance.PlayPistolShoot();
             Shoot();
         }
 
-        if (Input.GetButtonDown("Reload") && playerScript.pistolSpareAmmo > 0 && bulletsInMag < magSize && !isShooting)
+        if (Input.GetButtonDown("Reload") && playerScript.pistolSpareAmmo > 0 && bulletsInMag < magSize && !isShooting && !isSwitchingFireMode)
         {
             Reload();
         }
 
-        if (Input.GetKeyDown(KeyCode.B))
+        ToggleFireMode();
+
+        if (Input.GetButtonDown("Fire2") && !isShooting && !isReloading)
+        {
+            ChangeADSMode();
+        }
+
+    }
+
+    void ToggleFireMode()
+    {
+        if (Input.GetKeyDown(KeyCode.B) && !isShooting && !isReloading && !isSwitchingFireMode)
         {
             animator.SetTrigger("PistolFireMode");
             Debug.Log("fire mode switched");
@@ -100,12 +111,6 @@ public class Pistol_Script : MonoBehaviour
             if (rapidFire) rapidFire = false;
             else rapidFire = true;
         }
-
-        if (Input.GetButtonDown("Fire2") && !isShooting)
-        {
-            ChangeADSMode();
-        }
-
     }
 
     void Shoot()
@@ -153,7 +158,7 @@ public class Pistol_Script : MonoBehaviour
             bulletsInMag -= bulletsPerTap;
             chamberedRound = true;
             chamberIndicator.enabled = true;
-}
+        }
         //else //Set the Idle animation to emptyGun Idle, if available.
     }
 
@@ -214,4 +219,10 @@ public class Pistol_Script : MonoBehaviour
         if (isADS) reticleImage.enabled = false;
         else reticleImage.enabled = true;
     }
+
+    public void ToggleIsSwitchingFireMode() //only called in Firemode Toggle Anim Event.
+    {
+        isSwitchingFireMode = !isSwitchingFireMode;
+    }
+
 }

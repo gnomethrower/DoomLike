@@ -67,6 +67,7 @@ public class Shotgun_Script : MonoBehaviour
 
     private void OnEnable()
     {
+        isADS = false;
         audioInstance.PlaySgReady();
     }
 
@@ -174,14 +175,13 @@ public class Shotgun_Script : MonoBehaviour
             isPumping = true;
             //Debug.Log("Pumping!");
             audioInstance.PlaySgPumping();
-            Invoke("CyclingAction", pumpDuration);
             shotgunAnimator.Play("UI_Shotgun_Pump");
-            Invoke("ShellEmit", .5f);
+
         }
     }
 
 
-    public void ShellEmit()
+    public void ShellEmit() // called in pump animation event
     {
         if (spentShellChambered == true)
         {
@@ -191,7 +191,7 @@ public class Shotgun_Script : MonoBehaviour
     }
 
 
-    public void CyclingAction()
+    public void CyclingAction() // called in pump animation event
     {
 
         if (bulletsInMag >= 1)
@@ -240,7 +240,7 @@ public class Shotgun_Script : MonoBehaviour
 
     void ChangeADSMode()
     {
-        if(Input.GetButtonDown("Fire2") && !isReloading && !isFiring && !isPumping)
+        if (Input.GetButtonDown("Fire2") && !isReloading && !isFiring && !isPumping)
         {
             if (!isADS)
             {
