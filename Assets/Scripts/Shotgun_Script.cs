@@ -27,7 +27,7 @@ public class Shotgun_Script : MonoBehaviour
     public float reloadShellTime;
 
 
-    public bool isFiring = false;
+    public bool isShooting = false;
     public bool chamberedBullet = true;
     public bool spentShellChambered = false;
     public bool canFire = true;
@@ -68,8 +68,12 @@ public class Shotgun_Script : MonoBehaviour
     private void OnEnable()
     {
         isADS = false;
-        audioInstance.PlaySgReady();
+        isReloading = false;
         isPumping = false;
+        isShooting = false;
+
+        audioInstance.PlaySgReady();
+
         if (!chamberedBullet && bulletsInMag > 0) Pump();
     }
 
@@ -121,7 +125,7 @@ public class Shotgun_Script : MonoBehaviour
 
     void LiveShot()
     {
-        isFiring = true;
+        isShooting = true;
         chamberedBullet = false;
         spentShellChambered = true;
 
@@ -157,7 +161,7 @@ public class Shotgun_Script : MonoBehaviour
             }
         }
 
-        isFiring = false;
+        isShooting = false;
     }
 
 
@@ -242,7 +246,7 @@ public class Shotgun_Script : MonoBehaviour
 
     void ChangeADSMode()
     {
-        if (Input.GetButtonDown("Fire2") && !isReloading && !isFiring && !isPumping)
+        if (Input.GetButtonDown("Fire2") && !isReloading && !isShooting && !isPumping)
         {
             if (!isADS)
             {

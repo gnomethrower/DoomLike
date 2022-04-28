@@ -64,6 +64,15 @@ public class Pistol_Script : MonoBehaviour
 
     private void OnEnable()
     {
+        isShooting = false;
+        isReloading = false;
+        isADS = false;
+        isSwitchingFireMode = false;
+
+        if (!chamberedRound)
+        {
+            ChamberRound();
+        }
         audioInstance.PlayPistolRackSlide();
         isADS = false;
     }
