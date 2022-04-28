@@ -2179,8 +2179,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1adbd9014a2a6bd4cbb802eb934df741, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingGun: 0
-  shotgunSpareAmmo: 29
+  startingGun: 1
+  shotgunSpareAmmo: 30
   shotgunMaxAmmo: 30
   pistolSpareAmmo: 90
   pistolMaxAmmo: 90
@@ -7808,7 +7808,6 @@ MonoBehaviour:
   shellIcon: {fileID: 8035207191504835744, guid: 97d945e71c39737478e5d232f3cee3cb, type: 3}
   bulletIcon: {fileID: 3355250643700054378, guid: a72bf9eaf719e8e4f8bb13fc59672f51, type: 3}
   grenadeIcon: {fileID: 0}
-  iconOffset: 0.5
   grenade: {fileID: 0}
   shotgun: {fileID: 656633044}
   pistol: {fileID: 1183790412}

@@ -23,7 +23,7 @@ public class UIDisplay_Script : MonoBehaviour
     public GameObject bulletIcon;
     public GameObject grenadeIcon;
 
-    public float iconOffset = .5f;
+    private float iconOffset;
 
     //[Header("Ammo background vars")]
     private int _maxPistolBullets;
@@ -60,6 +60,7 @@ public class UIDisplay_Script : MonoBehaviour
     void Start()
     {
         InitializeObjScr();
+        UIAmmoIconCreation();
     }
 
     void InitializeObjScr()
@@ -80,18 +81,25 @@ public class UIDisplay_Script : MonoBehaviour
     }
 
 
-    void Update()
+    void CheckSelectedWeapon()
     {
         if (weapSwitchScript.selectedWeapon == 0) //pistol
         {
+            iconOffset = 30;
             ammoInMag = pistolScript.bulletsInMag;
             ammoSpare = playerScript.pistolSpareAmmo;
         }
         if (weapSwitchScript.selectedWeapon == 1) //shotgun
         {
+            iconOffset = 80;
             ammoInMag = shotgunScript.bulletsInMag;
             ammoSpare = playerScript.shotgunSpareAmmo;
         }
+    }
+
+    void Update()
+    {
+        CheckSelectedWeapon();
 
         //if (weapSwitchScript.selectedWeapon == 2) //nades
         //{
@@ -104,7 +112,7 @@ public class UIDisplay_Script : MonoBehaviour
         ammoMagText.text = ammoInMag.ToString();
         ammoSpareText.text = ammoSpare.ToString();
 
-        if (Input.GetKeyDown(KeyCode.H)) UIAmmoIconCreation();
+        //if (Input.GetKeyDown(KeyCode.H)) UIAmmoIconCreation();
 
         healthText.text = PlayerController_Script.currentHealth.ToString();
 
@@ -116,14 +124,25 @@ public class UIDisplay_Script : MonoBehaviour
     // I need the following ammoIconStartLocation, ammoIcon, iconOffset, shellIcon, bulletIcon
     void UIAmmoIconCreation()
     {
-        if (weapSwitchScript.selectedWeapon == 0) ammoIcon = bulletIcon; ammoInMag = pistolScript.bulletsInMag;
-        if (weapSwitchScript.selectedWeapon == 1) ammoIcon = shellIcon; ammoInMag = shotgunScript.bulletsInMag;
+        if (weapSwitchScript.selectedWeapon == 0)
+        {
+            ammoIcon = bulletIcon;
+            ammoInMag = pistolScript.bulletsInMag;
+        }
+        if (weapSwitchScript.selectedWeapon == 1)
+        {
+            ammoIcon = shellIcon;
+            ammoInMag = shotgunScript.bulletsInMag;
+        }
         //if (switchingScript.selectedWeapon == 2) ammoIcon = grenadeIcon;
 
         //für jede patrone/granate im Magazin, soll ein prefab startend ab ammIconStartLocation instanziert werden, mit dem vorgegebenen iconOffset.
         for (int i = 0; i < ammoInMag; i++)
         {
-            GameObject _newAmmoIcon = Instantiate(ammoIcon, ammoIconStartLocation.position + (new Vector3(iconOffset, 0f, 0f) * i), ammoIconStartLocation.rotation, ammoIconStartLocationParent);
+            GameObject _newAmmoIcon = Instantiate(ammoIcon,
+                                                  ammoIconStartLocation.position + (new Vector3(iconOffset, 0f, 0f) * i),
+                                                  ammoIconStartLocation.rotation,
+                                                  ammoIconStartLocationParent);
         }
     }
 

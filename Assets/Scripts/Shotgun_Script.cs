@@ -69,6 +69,8 @@ public class Shotgun_Script : MonoBehaviour
     {
         isADS = false;
         audioInstance.PlaySgReady();
+        isPumping = false;
+        if (!chamberedBullet && bulletsInMag > 0) Pump();
     }
 
 
