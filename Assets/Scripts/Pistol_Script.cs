@@ -73,6 +73,7 @@ public class Pistol_Script : MonoBehaviour
         {
             ChamberRound();
         }
+        animator.SetTrigger("UI_Pistol_Idle");
         audioInstance.PlayPistolRackSlide();
         isADS = false;
     }
@@ -178,9 +179,9 @@ public class Pistol_Script : MonoBehaviour
 
     void Reload() // +++++++++++++++++++++++++ GOT TO MAKE IT SO THE SPARE AMMO IS ALWAYS CORRECTLY SUBTRACTED, ACCORDING TO MAG SIZE AND FILL.+++++++++++++++++++++++++++++++++++
     {
+        isReloading = true;
         animator.SetTrigger("PistolReloading");
         audioInstance.PlayPistolFullReload();
-        isReloading = true;
         Invoke("ReloadAmmoRefresh", reloadTime);
     }
 
