@@ -420,7 +420,10 @@ AnimatorStateTransition:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: 
-  m_Conditions: []
+  m_Conditions:
+  - m_ConditionMode: 2
+    m_ConditionEvent: PistolADS
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 7842686602642017843}
   m_Solo: 0
@@ -696,10 +699,10 @@ AnimatorStateMachine:
     m_Position: {x: 900, y: 260, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 7842686602642017843}
-    m_Position: {x: 180, y: -70, z: 0}
+    m_Position: {x: 200, y: 70, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -334341281578553622}
-    m_Position: {x: 980, y: 610, z: 0}
+    m_Position: {x: 770, y: 460, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 4450825662438911136}
     m_Position: {x: 190, y: 340, z: 0}

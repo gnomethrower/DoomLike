@@ -69,13 +69,9 @@ public class Pistol_Script : MonoBehaviour
         isADS = false;
         isSwitchingFireMode = false;
 
-        if (!chamberedRound)
-        {
-            ChamberRound();
-        }
-
         audioInstance.PlayPistolRackSlide();
-        isADS = false;
+
+        if (!chamberedRound) ChamberRound();
     }
 
     private void Update()
@@ -93,7 +89,6 @@ public class Pistol_Script : MonoBehaviour
 
         if (chamberedRound && isShooting && !isReloading && !isSwitchingFireMode)
         {
-            audioInstance.PlayPistolShoot();
             Shoot();
         }
 
@@ -102,9 +97,12 @@ public class Pistol_Script : MonoBehaviour
             Reload();
         }
 
-        ToggleFireMode();
+        if (Input.GetKeyDown(KeyCode.B) && !isShooting && !isReloading && !isSwitchingFireMode)
+        {
+            ToggleFireMode();
+        }
 
-        if (Input.GetButtonDown("Fire2") && !isShooting && !isReloading)
+        if (Input.GetButtonDown("Fire2") && !isShooting && !isReloading && !isSwitchingFireMode)
         {
             ChangeADSMode();
         }
@@ -113,14 +111,13 @@ public class Pistol_Script : MonoBehaviour
 
     void ToggleFireMode()
     {
-        if (Input.GetKeyDown(KeyCode.B) && !isShooting && !isReloading && !isSwitchingFireMode)
-        {
+            isSwitchingFireMode = !isSwitchingFireMode;
             animator.SetTrigger("PistolFireMode");
             Debug.Log("fire mode switched");
             audioInstance.PlayGunEmpty();
             if (rapidFire) rapidFire = false;
             else rapidFire = true;
-        }
+            isSwitchingFireMode = !isSwitchingFireMode;
     }
 
     void Shoot()
@@ -129,6 +126,8 @@ public class Pistol_Script : MonoBehaviour
         chamberIndicator.enabled = false;
 
         EjectCasing();
+
+        audioInstance.PlayPistolShoot();
 
         animator.SetTrigger("PistolShot");
         camShakeRecoil.Recoil(recoilX, recoilY, recoilZ, recoilADS);
@@ -206,23 +205,34 @@ public class Pistol_Script : MonoBehaviour
     {
         if (!isADS)
         {
-            animator.SetBool("PistolADS", true);
-            animator.SetTrigger("PistolAiming");
-            isADS = true;
-            recoilADS = adsMultiplier;
-            Invoke("ReticleToggle", .2f);
-            //Debug.Log("Aiming down Sights is + " + isADS);
+            ADSon();
         }
         else if (isADS)
         {
-            animator.SetBool("PistolADS", false);
-            animator.SetTrigger("PistolAiming");
-            isADS = false;
-            recoilADS = 1f;
-            Invoke("ReticleToggle", .05f);
-            //Debug.Log("Aiming down Sights is + " + isADS);
+            ADSoff();
         }
     }
+
+    void ADSon()
+    {
+        animator.SetBool("PistolADS", true);
+        animator.SetTrigger("PistolAiming");
+        isADS = true;
+        recoilADS = adsMultiplier;
+        Invoke("ReticleToggle", .2f);
+        Debug.Log("Aiming down Sights is + " + isADS);
+    }
+
+    void ADSoff()
+    {
+        animator.SetBool("PistolADS", false);
+        animator.SetTrigger("PistolAiming");
+        isADS = false;
+        recoilADS = 1f;
+        Invoke("ReticleToggle", .05f);
+        Debug.Log("Aiming down Sights is + " + isADS);
+    }
+
 
     void ReticleToggle()
     {
