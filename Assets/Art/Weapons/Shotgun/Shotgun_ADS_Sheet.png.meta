@@ -66,7 +66,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 8192
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -232,6 +232,153 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Shotgun_ADS_Sheet_5
+      rect:
+        serializedVersion: 2
+        x: 1992
+        y: 0
+        width: 143
+        height: 137
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ff3a106bd4cdc0a4189b0ce0e184230b
+      internalID: -1587106331
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shotgun_ADS_Sheet_6
+      rect:
+        serializedVersion: 2
+        x: 2376
+        y: 0
+        width: 143
+        height: 137
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9b565fa3ba191c741b2394ef8754865e
+      internalID: 1824948067
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shotgun_ADS_Sheet_7
+      rect:
+        serializedVersion: 2
+        x: 2760
+        y: 0
+        width: 143
+        height: 137
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 473575c34ed49014d98cbec31fb8a4e2
+      internalID: -1466039928
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shotgun_ADS_Sheet_8
+      rect:
+        serializedVersion: 2
+        x: 3144
+        y: 0
+        width: 143
+        height: 137
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ab6e799eef6319a4185f9552a6469d57
+      internalID: -765345005
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shotgun_ADS_Sheet_9
+      rect:
+        serializedVersion: 2
+        x: 3528
+        y: 0
+        width: 143
+        height: 137
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2b0de72eb31b62146bf37acb9d62a533
+      internalID: -712090218
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shotgun_ADS_Sheet_10
+      rect:
+        serializedVersion: 2
+        x: 3912
+        y: 0
+        width: 143
+        height: 137
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 275ecf4946e534a43b94c046b49b73d1
+      internalID: -1384359702
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shotgun_ADS_Sheet_11
+      rect:
+        serializedVersion: 2
+        x: 4296
+        y: 0
+        width: 143
+        height: 137
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cf0ebea008f27f9448c793360596e879
+      internalID: -1294954712
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -243,11 +390,18 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      Shotgun_ADS_Sheet_11: -1294954712
+      Shotgun_ADS_Sheet_10: -1384359702
       Shotgun_ADS_Sheet_0: -1761187530
       Shotgun_ADS_Sheet_1: 1932649347
+      Shotgun_ADS_Sheet_7: -1466039928
+      Shotgun_ADS_Sheet_5: -1587106331
       Shotgun_ADS_Sheet_2: -91572543
+      Shotgun_ADS_Sheet_9: -712090218
       Shotgun_ADS_Sheet_4: 2101784067
       Shotgun_ADS_Sheet_3: 100720935
+      Shotgun_ADS_Sheet_6: 1824948067
+      Shotgun_ADS_Sheet_8: -765345005
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

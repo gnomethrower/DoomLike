@@ -38,9 +38,10 @@ public class Shotgun_Script : MonoBehaviour
     // Object references
     public Image chamberIndicator;
     public Camera playerCam;
-    public Animator shotgunAnimator;
+    public Animator animator;
     public ShakeRecoil_Script camShakeRecoil;
     public AudioController_Script audioInstance;
+    public AnimationEvent shotgunAnimSounds;
     public ParticleSystem shellParticle;
     public GameObject reticle;
     Image reticleImage;
@@ -117,6 +118,7 @@ public class Shotgun_Script : MonoBehaviour
         else
         {
             EmptyShot();
+            Debug.Log("sad click");
         }
 
         Invoke("Pump", shotDelay);
@@ -129,7 +131,7 @@ public class Shotgun_Script : MonoBehaviour
         chamberedBullet = false;
         spentShellChambered = true;
 
-        shotgunAnimator.SetTrigger("ShotgunShoot");
+        animator.SetTrigger("ShotgunShoot");
         audioInstance.PlaySgShoot();
 
         StartCoroutine(camShakeRecoil.Shaking(.15f, .5f));
@@ -180,10 +182,77 @@ public class Shotgun_Script : MonoBehaviour
         {
             isPumping = true;
             //Debug.Log("Pumping!");
-            audioInstance.PlaySgPumping();
-            shotgunAnimator.Play("UI_Shotgun_Pump");
-
+            animator.SetTrigger("ShotgunPump");
         }
+    }
+
+
+    IEnumerator Reload()
+    {
+        if (Input.GetKeyDown(KeyCode.R) && bulletsInMag < magSize && playerScript.shotgunSpareAmmo > 0 && !isReloading && !isPumping)
+        {
+            bool wasADS = isADS;
+            isADS = false;
+            isReloading = true;
+
+            while (bulletsInMag < magSize && playerScript.shotgunSpareAmmo > 0)
+            {
+                animator.SetTrigger("ShotgunReload");
+                audioInstance.PlaySgLoadShell();
+                yield return new WaitForSeconds(reloadShellTime);
+                playerScript.shotgunSpareAmmo--;
+                bulletsInMag++;
+            }
+
+            if (chamberedBullet) ReloadFinished();
+            else
+            {
+                Pump();
+                Invoke("ReloadFinished", pumpDuration);
+            }
+            if (wasADS) isADS = true;
+        }
+    }
+
+
+    void ReloadFinished()
+    {
+        animator.SetTrigger("ReloadDone");
+        Debug.Log("ReloadFinished");
+        isReloading = false;
+    }
+
+
+    void ChangeADSMode()
+    {
+        if (Input.GetButtonDown("Fire2") && !isReloading && !isShooting && !isPumping)
+        {
+            if (!isADS)
+            {
+                animator.SetBool("ShotgunAiming", true);
+                animator.SetTrigger("ShotgunADS");
+                isADS = true;
+                recoilADS = adsMultiplier;
+                Invoke("ReticleToggle", .2f);
+                //Debug.Log("Aiming down Sights is + " + isADS);
+            }
+            else if (isADS)
+            {
+                animator.SetBool("ShotgunAiming", false);
+                animator.SetTrigger("ShotgunADS");
+                isADS = false;
+                recoilADS = 1f;
+                Invoke("ReticleToggle", .05f);
+                //Debug.Log("Aiming down Sights is + " + isADS);
+            }
+        }
+    }
+
+
+    void ReticleToggle()
+    {
+        if (isADS) reticleImage.enabled = false;
+        else reticleImage.enabled = true;
     }
 
 
@@ -205,81 +274,16 @@ public class Shotgun_Script : MonoBehaviour
             bulletsInMag--;
             chamberedBullet = true;
             chamberIndicator.enabled = true;
-
         }
         canFire = true;
         isPumping = false;
     }
 
 
-    IEnumerator Reload()
+    void AudioPumpSound() // called in pump animation event
     {
-        if (Input.GetKeyDown(KeyCode.R) && bulletsInMag < magSize && playerScript.shotgunSpareAmmo > 0 && !isReloading && !isPumping)
-        {
-            bool wasADS = isADS;
-            isADS = false;
-            isReloading = true;
-
-            while (bulletsInMag < magSize && playerScript.shotgunSpareAmmo > 0)
-            {
-                shotgunAnimator.Play("UI_Shotgun_Reload");
-                audioInstance.PlaySgLoadShell();
-                yield return new WaitForSeconds(reloadShellTime);
-                playerScript.shotgunSpareAmmo--;
-                bulletsInMag++;
-            }
-
-            if (chamberedBullet) ReloadFinished();
-            else
-            {
-                Pump();
-                Invoke("ReloadFinished", pumpDuration);
-            }
-            if (wasADS) isADS = true;
-        }
+        audioInstance.PlaySgPumping();
     }
-
-
-    void ReloadFinished()
-    {
-        shotgunAnimator.SetTrigger("ReloadDone");
-        Debug.Log("ReloadFinished");
-        isReloading = false;
-    }
-
-
-    void ChangeADSMode()
-    {
-        if (Input.GetButtonDown("Fire2") && !isReloading && !isShooting && !isPumping)
-        {
-            if (!isADS)
-            {
-                shotgunAnimator.SetBool("ShotgunAiming", true);
-                shotgunAnimator.SetTrigger("ShotgunADS");
-                isADS = true;
-                recoilADS = adsMultiplier;
-                Invoke("ReticleToggle", .2f);
-                //Debug.Log("Aiming down Sights is + " + isADS);
-            }
-            else if (isADS)
-            {
-                shotgunAnimator.SetBool("ShotgunAiming", false);
-                shotgunAnimator.SetTrigger("ShotgunADS");
-                isADS = false;
-                recoilADS = 1f;
-                Invoke("ReticleToggle", .05f);
-                //Debug.Log("Aiming down Sights is + " + isADS);
-            }
-        }
-    }
-
-
-    void ReticleToggle()
-    {
-        if (isADS) reticleImage.enabled = false;
-        else reticleImage.enabled = true;
-    }
-
 
     Vector3 GetShootingDirection() //gives us a direction which has a randomized targetposition.
     {
