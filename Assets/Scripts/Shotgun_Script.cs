@@ -230,8 +230,11 @@ public class Shotgun_Script : MonoBehaviour
             }
 
             if (chamberedBullet) ReloadFinished();
-            else Pump(); Invoke("ReloadFinished", pumpDuration);
-
+            else
+            {
+                Pump();
+                Invoke("ReloadFinished", pumpDuration);
+            }
             if (wasADS) isADS = true;
         }
     }
@@ -240,6 +243,7 @@ public class Shotgun_Script : MonoBehaviour
     void ReloadFinished()
     {
         shotgunAnimator.SetTrigger("ReloadDone");
+        Debug.Log("ReloadFinished");
         isReloading = false;
     }
 
