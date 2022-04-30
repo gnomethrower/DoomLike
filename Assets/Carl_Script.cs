@@ -33,7 +33,6 @@ public class Carl_Script : MonoBehaviour
             playerScript.currentHealth -= damage;
             if (playerScript.currentHealth <= 0) playerScript.Death();
             canAttack = false;
-            Debug.Log("Carl has attacked. Carl is tired now.");
             Invoke("ResetCooldown", atkCoolDown);
         }
 
@@ -42,6 +41,5 @@ public class Carl_Script : MonoBehaviour
     void ResetCooldown()
     {
         canAttack = true;
-        Debug.Log("Carl is ready to attack again");
     }
 }

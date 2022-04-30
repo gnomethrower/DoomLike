@@ -25,7 +25,7 @@ public class MouseLook_Script : MonoBehaviour
         float mouseY = Input.GetAxis("Mouse Y") * mouseSens;
 
         xRotation -= mouseY; // you subtract the mouseY input from the xRotation variable.
-        xRotation = Mathf.Clamp(xRotation, -90f, 90f); // Clamping so we don't over-rotate our camera.
+        xRotation = Mathf.Clamp(xRotation, -89.5f, 89.5f); // Clamping so we don't over-rotate our camera.
 
         transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
         PlayerBody.Rotate(Vector3.up * mouseX);

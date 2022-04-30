@@ -215,7 +215,6 @@ public class Shotgun_Script : MonoBehaviour
     void ReloadFinished()
     {
         animator.SetTrigger("ReloadDone");
-        Debug.Log("ReloadFinished");
         isReloading = false;
     }
 
