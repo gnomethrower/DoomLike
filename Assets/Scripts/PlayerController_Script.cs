@@ -8,8 +8,8 @@ public class PlayerController_Script : MonoBehaviour
 
     //+++++++++++++++++++++++     Changing variables throughout play    +++++++++++++++++++++++++++++
     [Header("Health Settings")]
-    public static int maxHealth = 100;
-    public static int currentHealth = 50;
+    public int maxHealth = 100;
+    public int currentHealth = 50;
 
     //+++++++++++++++++++++++     Weapon Inventory    +++++++++++++++++++++++++++++
 
@@ -71,8 +71,6 @@ public class PlayerController_Script : MonoBehaviour
     {
 
         DebugMsg();
-
-        if (currentHealth > maxHealth) currentHealth = maxHealth;
 
         if (!hasDied)
         {
@@ -156,22 +154,24 @@ public class PlayerController_Script : MonoBehaviour
 
     }
 
-    public void TakeDamage(int damageAmount)
-    {
-        currentHealth -= damageAmount;
-        if (currentHealth <= 0)
-        {
-            hasDied = true;
-            deathScreen.SetActive(true);
-        }
-    }
-
     public void GetHealth(int healAmount)
     {
         currentHealth += healAmount;
         if (currentHealth > maxHealth)
         {
             currentHealth = maxHealth;
+        }
+    }
+
+    public void Death()
+    {
+        if (!hasDied)
+        {
+            hasDied = true;
+            Debug.Log("YOU DIED! GIT GUD!");
+            //Call deathscreen
+            //call death anim
+            //call text mocking player
         }
     }
 }

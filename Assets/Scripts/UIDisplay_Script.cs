@@ -114,7 +114,7 @@ public class UIDisplay_Script : MonoBehaviour
 
         //if (Input.GetKeyDown(KeyCode.H)) UIAmmoIconCreation();
 
-        healthText.text = PlayerController_Script.currentHealth.ToString();
+        healthText.text = playerScript.currentHealth.ToString();
 
 
 
