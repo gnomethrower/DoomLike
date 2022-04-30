@@ -28,7 +28,7 @@ public class Shotgun_Script : MonoBehaviour
 
 
     public bool isShooting = false;
-    public bool chamberedBullet = true;
+    public bool chamberedRound = true;
     public bool spentShellChambered = false;
     public bool canFire = true;
     public bool isPumping = false;
@@ -75,7 +75,10 @@ public class Shotgun_Script : MonoBehaviour
 
         audioInstance.PlaySgReady();
 
-        if (!chamberedBullet && bulletsInMag > 0) Pump();
+        if (chamberedRound) chamberIndicator.enabled = true;
+        else chamberIndicator.enabled = false;
+
+        if (!chamberedRound && bulletsInMag > 0) Pump();
     }
 
 
@@ -109,7 +112,7 @@ public class Shotgun_Script : MonoBehaviour
     {
         canFire = false;
 
-        if (chamberedBullet)                                                           // if a bullet is in the Chamber
+        if (chamberedRound)                                                           // if a bullet is in the Chamber
         {
             LiveShot();
             chamberIndicator.enabled = false;
@@ -127,7 +130,7 @@ public class Shotgun_Script : MonoBehaviour
     void LiveShot()
     {
         isShooting = true;
-        chamberedBullet = false;
+        chamberedRound = false;
         spentShellChambered = true;
 
         animator.SetTrigger("ShotgunShoot");
@@ -199,8 +202,8 @@ public class Shotgun_Script : MonoBehaviour
                 bulletsInMag++;
             }
 
-            if (chamberedBullet) ReloadFinished();
-            if (!chamberedBullet)
+            if (chamberedRound) ReloadFinished();
+            if (!chamberedRound)
             {
                 animator.SetTrigger("ShotgunPump");
             }
@@ -266,7 +269,7 @@ public class Shotgun_Script : MonoBehaviour
         if (bulletsInMag >= 1)
         {
             bulletsInMag--;
-            chamberedBullet = true;
+            chamberedRound = true;
             chamberIndicator.enabled = true;
         }
 

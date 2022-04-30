@@ -69,6 +69,9 @@ public class Pistol_Script : MonoBehaviour
         isADS = false;
         isSwitchingFireMode = false;
 
+        if (chamberedRound) chamberIndicator.enabled = true;
+        else chamberIndicator.enabled = true;
+
         audioInstance.PlayPistolRackSlide();
 
         if (!chamberedRound) ChamberRound();
