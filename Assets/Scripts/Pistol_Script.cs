@@ -70,7 +70,7 @@ public class Pistol_Script : MonoBehaviour
         isSwitchingFireMode = false;
 
         if (chamberedRound) chamberIndicator.enabled = true;
-        else chamberIndicator.enabled = true;
+        else chamberIndicator.enabled = false;
 
         audioInstance.PlayPistolRackSlide();
 
@@ -95,7 +95,7 @@ public class Pistol_Script : MonoBehaviour
             Shoot();
         }
 
-        if (Input.GetButtonDown("Reload") && playerScript.pistolSpareAmmo > 0 && bulletsInMag < magSize && !isShooting && !isSwitchingFireMode)
+        if (Input.GetButtonDown("Reload") && playerScript.pistolSpareAmmo > 0 && bulletsInMag < magSize && !isShooting && !isSwitchingFireMode && !isReloading)
         {
             Reload();
         }
