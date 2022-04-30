@@ -37,7 +37,7 @@ public class ShotgunAmmoPickup_Script : MonoBehaviour
         mySCollider.enabled = true;
     }
 
-    public void OnTriggerEnter(Collider other)
+    public void OnTriggerStay(Collider other)
     {
         if (other.tag == "Player" && playerScript.shotgunMaxAmmo > playerScript.shotgunSpareAmmo)
         {

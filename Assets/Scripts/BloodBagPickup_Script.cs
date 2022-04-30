@@ -36,7 +36,7 @@ public class BloodBagPickup_Script : MonoBehaviour
         mySCollider.enabled = true;
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         if (other.tag == "Player" && playerScript.currentHealth < playerScript.maxHealth)
         {

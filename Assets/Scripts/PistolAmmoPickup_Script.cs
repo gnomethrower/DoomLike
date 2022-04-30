@@ -39,7 +39,7 @@ public class PistolAmmoPickup_Script : MonoBehaviour
         myCollider.enabled = true;
     }
 
-    public void OnTriggerEnter(Collider other)
+    public void OnTriggerStay(Collider other)
     {
         if (other.tag == "Player" && playerScript.pistolMaxAmmo > playerScript.pistolSpareAmmo)
         {
