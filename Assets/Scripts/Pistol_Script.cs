@@ -183,10 +183,10 @@ public class Pistol_Script : MonoBehaviour
         isReloading = true;
         animator.SetTrigger("PistolReloading");
         audioInstance.PlayPistolFullReload();
-        Invoke("ReloadAmmoRefresh", reloadTime);
+        //Invoke("ReloadAmmoRefresh", reloadTime);
     }
 
-    void ReloadAmmoRefresh()
+    void ReloadAmmoRefresh() //called in reload animation event
     {
 
         int bulletsMissing = magSize - bulletsInMag;
