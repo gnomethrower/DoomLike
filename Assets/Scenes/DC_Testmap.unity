@@ -2031,7 +2031,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &656633045
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4663,7 +4663,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1183790413
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4767,6 +4767,13 @@ MonoBehaviour:
   reloadTime: 1.5
   bulletsPerTap: 1
   rapidFire: 0
+  isShooting: 0
+  isReloading: 0
+  canReload: 0
+  chamberedRound: 0
+  isMoving: 0
+  isADS: 0
+  isSwitchingFireMode: 0
   playerCam: {fileID: 963194227}
   attackPoint: {fileID: 963194228}
   target:

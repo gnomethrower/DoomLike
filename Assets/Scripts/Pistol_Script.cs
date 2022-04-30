@@ -113,7 +113,6 @@ public class Pistol_Script : MonoBehaviour
     {
         isSwitchingFireMode = !isSwitchingFireMode;
         animator.SetTrigger("PistolFireMode");
-        Debug.Log("fire mode switched");
         audioInstance.PlayGunEmpty();
         if (rapidFire) rapidFire = false;
         else rapidFire = true;

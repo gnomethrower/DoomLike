@@ -118,7 +118,6 @@ public class Shotgun_Script : MonoBehaviour
         else
         {
             EmptyShot();
-            Debug.Log("sad click");
         }
 
         Invoke("Pump", shotDelay);
@@ -169,10 +168,8 @@ public class Shotgun_Script : MonoBehaviour
 
     void EmptyShot()
     {
-        if (Input.GetButtonDown("Fire1") && !chamberedBullet)                // if chamber is empty
-        {
-            audioInstance.PlayGunEmpty();
-        }
+        Debug.Log("sad empty gun noises");
+        audioInstance.PlayGunEmpty();
     }
 
 
@@ -201,8 +198,6 @@ public class Shotgun_Script : MonoBehaviour
                 playerScript.shotgunSpareAmmo--;
                 bulletsInMag++;
             }
-
-            Debug.Log("Bullet in chamber after reload = " + chamberedBullet);
 
             if (chamberedBullet) ReloadFinished();
             if (!chamberedBullet)
