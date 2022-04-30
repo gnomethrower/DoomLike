@@ -23,7 +23,7 @@ public class Pistol_Script : MonoBehaviour
     public bool rapidFire;
 
     // control bools
-    bool isShooting, isReloading, canReload, chamberedRound, isMoving, isADS, isSwitchingFireMode;
+    public bool isShooting, isReloading, canReload, chamberedRound, isMoving, isADS, isSwitchingFireMode;
     float movingX;
     float movingZ;
 
@@ -111,13 +111,13 @@ public class Pistol_Script : MonoBehaviour
 
     void ToggleFireMode()
     {
-            isSwitchingFireMode = !isSwitchingFireMode;
-            animator.SetTrigger("PistolFireMode");
-            Debug.Log("fire mode switched");
-            audioInstance.PlayGunEmpty();
-            if (rapidFire) rapidFire = false;
-            else rapidFire = true;
-            isSwitchingFireMode = !isSwitchingFireMode;
+        isSwitchingFireMode = !isSwitchingFireMode;
+        animator.SetTrigger("PistolFireMode");
+        Debug.Log("fire mode switched");
+        audioInstance.PlayGunEmpty();
+        if (rapidFire) rapidFire = false;
+        else rapidFire = true;
+        isSwitchingFireMode = !isSwitchingFireMode;
     }
 
     void Shoot()

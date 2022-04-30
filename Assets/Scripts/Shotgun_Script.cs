@@ -178,7 +178,7 @@ public class Shotgun_Script : MonoBehaviour
 
     void Pump()
     {
-        if (!Input.GetButton("Fire1") && !isPumping)
+        if (!isPumping && !Input.GetButton("Fire1"))
         {
             isPumping = true;
             //Debug.Log("Pumping!");
@@ -191,8 +191,6 @@ public class Shotgun_Script : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.R) && bulletsInMag < magSize && playerScript.shotgunSpareAmmo > 0 && !isReloading && !isPumping)
         {
-            bool wasADS = isADS;
-            isADS = false;
             isReloading = true;
 
             while (bulletsInMag < magSize && playerScript.shotgunSpareAmmo > 0)
@@ -204,13 +202,14 @@ public class Shotgun_Script : MonoBehaviour
                 bulletsInMag++;
             }
 
+            Debug.Log("Bullet in chamber after reload = " + chamberedBullet);
+
             if (chamberedBullet) ReloadFinished();
-            else
+            if (!chamberedBullet)
             {
-                Pump();
-                Invoke("ReloadFinished", pumpDuration);
+                animator.SetTrigger("ShotgunPump");
             }
-            if (wasADS) isADS = true;
+
         }
     }
 
@@ -275,10 +274,11 @@ public class Shotgun_Script : MonoBehaviour
             chamberedBullet = true;
             chamberIndicator.enabled = true;
         }
-        canFire = true;
-        isPumping = false;
-    }
 
+        if (isReloading) ReloadFinished();
+        isPumping = false;
+        canFire = true;
+    }
 
     void AudioPumpSound() // called in pump animation event
     {
