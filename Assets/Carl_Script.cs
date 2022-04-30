@@ -14,7 +14,8 @@ public class Carl_Script : MonoBehaviour
 
     public SphereCollider personalSpace;
     public PlayerController_Script playerScript;
-
+    public ShakeRecoil_Script shakingScript;
+    public AudioController_Script audioInstance;
     private void Start()
     {
 
@@ -28,10 +29,15 @@ public class Carl_Script : MonoBehaviour
 
     void Attack(GameObject attackee)
     {
-        if (attackee.CompareTag("Player") && canAttack)
+        if (attackee.CompareTag("Player") && canAttack && !playerScript.hasDied)
         {
             playerScript.currentHealth -= damage;
+            StartCoroutine(shakingScript.Shaking(.25f, 3f));
+
+            audioInstance.PlayDemonAttack();
             if (playerScript.currentHealth <= 0) playerScript.Death();
+            if (playerScript.hasDied) playerScript.currentHealth = 0;
+
             canAttack = false;
             Invoke("ResetCooldown", atkCoolDown);
         }

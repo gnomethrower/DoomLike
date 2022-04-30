@@ -55,10 +55,12 @@ public class PlayerController_Script : MonoBehaviour
     public LayerMask groundMask;
     public Animator viewCamAnim;
     public GameObject deathScreen;
+    public AudioController_Script audioInstance;
+    public GameObject uiCanvas;
 
     [Header("Checkbools")]
     [SerializeField] private bool isGrounded;
-    [SerializeField] private bool hasDied;
+    [SerializeField] public bool hasDied;
     [SerializeField] private bool isMoving;
     [SerializeField] private bool isSprinting;
 
@@ -169,6 +171,8 @@ public class PlayerController_Script : MonoBehaviour
         {
             hasDied = true;
             Debug.Log("YOU DIED! GIT GUD!");
+            audioInstance.PlayPlayerDeath();
+            Destroy(uiCanvas);
             //Call deathscreen
             //call death anim
             //call text mocking player
