@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Carl_Script : MonoBehaviour
+public class enemyMeleeScript : MonoBehaviour
 {
 
     // Carl attacks you when you enter his special personal sphere collider (he's very private like that).

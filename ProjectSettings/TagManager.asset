@@ -11,6 +11,7 @@ TagManager:
   - Pistol
   - Shotgun
   - Grenade
+  - EyeGlow
   layers:
   - Default
   - TransparentFX

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy_Movement_Script : MonoBehaviour
+public class Carl_State_Script : MonoBehaviour
 {
     //3 zones:
     //1. Aggro Zone
@@ -31,7 +31,7 @@ public class Enemy_Movement_Script : MonoBehaviour
     //Variables to fiddle with
 
     public int startingState = 0;
-    int state;
+    public int state;
     [Header("Variables for Peaceful State")]
 
     [Header("Rotation Angles")]
@@ -55,11 +55,15 @@ public class Enemy_Movement_Script : MonoBehaviour
     public bool rotationFinished;
     public bool isCooldownFinished;
 
+    [Header("Variables for Wary State")]
+    public float waryToPeaceful;
 
-
+    //objects
+    GameObject player;
 
     private void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player");
         startingAngle = transform.rotation.y;
         SetRotationTarget(0);
         int state = startingState;
@@ -68,6 +72,7 @@ public class Enemy_Movement_Script : MonoBehaviour
     private void Update()
     {
         if (state == 0) Peaceful();
+        if (state == 1) Wary();
     }
 
     void Peaceful()
@@ -84,6 +89,10 @@ public class Enemy_Movement_Script : MonoBehaviour
             float newIdleAngle = Random.Range(-maxGazingVariation, maxGazingVariation);
             SetRotationTarget(newIdleAngle);
         }
+
+        //Create checksphere.
+        //OnTriggerStay cooldown.
+
     }
 
     void SetRotationTarget(float newRotAngle)
@@ -100,9 +109,9 @@ public class Enemy_Movement_Script : MonoBehaviour
         _targetRotation = Quaternion.Euler(0, newRotAngle, 0);
     }
 
-    void wary()
+    void Wary()
     {
-
+        // set red eyes
     }
 
     void aggressive()

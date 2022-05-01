@@ -222,7 +222,7 @@ public class Pistol_Script : MonoBehaviour
         isADS = true;
         recoilADS = adsMultiplier;
         Invoke("ReticleToggle", .2f);
-        Debug.Log("Aiming down Sights is + " + isADS);
+        //Debug.Log("Aiming down Sights is + " + isADS);
     }
 
     void ADSoff()
@@ -232,7 +232,7 @@ public class Pistol_Script : MonoBehaviour
         isADS = false;
         recoilADS = 1f;
         Invoke("ReticleToggle", .05f);
-        Debug.Log("Aiming down Sights is + " + isADS);
+        //Debug.Log("Aiming down Sights is + " + isADS);
     }
 
 
