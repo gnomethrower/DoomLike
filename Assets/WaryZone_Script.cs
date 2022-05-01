@@ -49,7 +49,7 @@ public class WaryZone_Script : MonoBehaviour
     void CalmingProcess()
     {
         currentTime += Time.deltaTime;
-        if (timeWhenCalmed > currentTime) Debug.Log(currentTime);
+
         if (timeWhenCalmed <= currentTime)
         {
             carlStates.state = 0;

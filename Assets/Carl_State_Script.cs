@@ -71,8 +71,14 @@ public class Carl_State_Script : MonoBehaviour
 
     private void Update()
     {
-        if (state == 0) Peaceful();
-        if (state == 1) Wary();
+        if (state == 0)
+        {
+            Peaceful();
+        }
+        if (state == 1)
+        {
+            Wary();
+        }
     }
 
     void Peaceful()
@@ -111,7 +117,7 @@ public class Carl_State_Script : MonoBehaviour
 
     void Wary()
     {
-        // set red eyes
+        transform.LookAt(player.transform, player.transform.up);
     }
 
     void aggressive()
