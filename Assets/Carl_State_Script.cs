@@ -117,7 +117,10 @@ public class Carl_State_Script : MonoBehaviour
 
     void Wary()
     {
-        transform.LookAt(player.transform, player.transform.up);
+        Vector3 angleToPlayer = player.transform.position - transform.position;
+        angleToPlayer.y = 0f;
+        Debug.Log(angleToPlayer);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(angleToPlayer), 4 * turnSpeed * Time.deltaTime);
     }
 
     void aggressive()
