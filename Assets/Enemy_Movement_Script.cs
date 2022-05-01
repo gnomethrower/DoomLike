@@ -63,7 +63,6 @@ public class Enemy_Movement_Script : MonoBehaviour
         startingAngle = transform.rotation.y;
         SetRotationTarget(0);
         int state = startingState;
-        Debug.Log(state);
     }
 
     private void Update()
