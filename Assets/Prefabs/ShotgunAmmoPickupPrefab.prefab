@@ -142,8 +142,8 @@ MonoBehaviour:
   shellAmount: 20
   respawnTime: 2
   respawning: 1
-  playerScript: {fileID: 0}
-  audioInstance: {fileID: 0}
+  playerScript: {fileID: 2671576168419438555, guid: fcd3db3d0587fb845951a7ec66b36e5c, type: 3}
+  audioInstance: {fileID: 3361993904347699568, guid: a44b8d0e9f7254b4b8b67ec15fdfd4dc, type: 3}
 --- !u!1 &1507139989656736103
 GameObject:
   m_ObjectHideFlags: 0
