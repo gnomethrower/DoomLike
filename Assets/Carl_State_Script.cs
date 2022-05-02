@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Carl_State_Script : MonoBehaviour
 {
@@ -32,38 +33,54 @@ public class Carl_State_Script : MonoBehaviour
 
     public int startingState = 0;
     public int state;
-    [Header("Variables for Peaceful State")]
 
     [Header("Rotation Angles")]
     [SerializeField] float currentAngle;
     [SerializeField] float startingAngle;
     [SerializeField] float targetAngle;
 
-    public float minCoolDown, maxCooldown;
-    float coolDown;
-    float coolDownControl;
-    public float maxGazingVariation;
+    [Header("Timed Variables")]
 
+
+    public float minCoolDown, maxCooldown;
+    private float coolDown;
+    private float coolDownControl;
+    public float maxGazingVariation;
     public float turnSpeed;
+    public float rotatingAngle;
+    public float sightRange, attackRange;
 
     Quaternion _targetRotation;
-    public float rotatingAngle;
-    [SerializeField] private float turnTime;
-    [SerializeField] private float timeControl;
 
-    //controlbools
+    //Checkbools
     public bool rotationFinished;
     public bool isCooldownFinished;
 
-    [Header("Variables for Wary State")]
     public float waryToPeaceful;
 
     //objects
-    GameObject player;
+    public Transform playerTransform;
+    GameObject playerObj;
 
-    private void Start()
+    //masks
+    public LayerMask whatIsGround, whatIsPlayer;
+
+    //patrolling vars
+    public NavMeshAgent agent;
+    public Vector3 walkPoint;
+    bool isWalkPointSet = false;
+    public float walkPointRange;
+    public bool playerInSightRange, playerInAttackRange;
+
+
+    [Header("Debug Variables")]
+    public float debugLineDuration;
+
+    private void Awake()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
+        playerObj = GameObject.FindGameObjectWithTag("Player");
+        playerTransform = playerObj.transform;
+        agent = GetComponent<NavMeshAgent>();
         startingAngle = transform.rotation.y;
         SetRotationTarget(0);
         int state = startingState;
@@ -83,6 +100,9 @@ public class Carl_State_Script : MonoBehaviour
 
     void Peaceful()
     {
+
+        PeacefulPatroling();
+
         transform.rotation = Quaternion.RotateTowards(transform.rotation, _targetRotation, turnSpeed * Time.deltaTime);
 
         if (transform.rotation == _targetRotation && !rotationFinished) rotationFinished = true;
@@ -96,8 +116,42 @@ public class Carl_State_Script : MonoBehaviour
             SetRotationTarget(newIdleAngle);
         }
 
+        //PeacefulPatrolling
+        //Determine New Waypoint
+        //Turn Towards the Waypoint
+        //MoveTowards the Waypoint
+
         //Create checksphere.
         //OnTriggerStay cooldown.
+
+    }
+
+    void PeacefulPatroling()
+    {
+        if (!isWalkPointSet)
+        {
+            SearchWalkPoint();
+        }
+
+    }
+
+    void SearchWalkPoint()
+    {
+        RaycastHit hit;
+        float randomZ = Random.Range(-walkPointRange, walkPointRange);
+        float randomX = Random.Range(-walkPointRange, walkPointRange);
+
+        walkPoint = new Vector3(randomX, transform.position.y, randomZ);
+        Debug.DrawLine(transform.position, walkPoint, Color.red, debugLineDuration);
+
+
+        if (Physics.Raycast(walkPoint, -Vector3.up, out hit, 2f, whatIsGround))
+        {
+            Debug.DrawLine(walkPoint, hit.point, Color.green, debugLineDuration);
+
+            isWalkPointSet = true;
+        }
+        if (isWalkPointSet) Debug.Log("New Walkpoint: " + walkPoint);
 
     }
 
@@ -117,13 +171,14 @@ public class Carl_State_Script : MonoBehaviour
 
     void Wary()
     {
-        Vector3 angleToPlayer = player.transform.position - transform.position;
+        Vector3 angleToPlayer = playerObj.transform.position - transform.position;
         angleToPlayer.y = 0f;
-        Debug.Log(angleToPlayer);
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(angleToPlayer), 4 * turnSpeed * Time.deltaTime);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(angleToPlayer), 2 * turnSpeed * Time.deltaTime);
+
+
     }
 
-    void aggressive()
+    void Aggro()
     {
 
     }
