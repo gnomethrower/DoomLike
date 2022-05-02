@@ -11,7 +11,6 @@ Material:
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
   m_ValidKeywords:
   - _ALPHATEST_ON
-  - _METALLICGLOSSMAP
   - _NORMALMAP
   - _PARALLAXMAP
   m_InvalidKeywords: []
@@ -50,11 +49,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
-        m_Texture: {fileID: 2800000, guid: 91d39104594912c4aac37183f407b2e9, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
-        m_Texture: {fileID: 2800000, guid: eb62b5d700a8f704584530ae0393c9fa, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
@@ -63,16 +62,16 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _BumpScale: 1
-    - _Cutoff: 0.605
+    - _BumpScale: 0.25
+    - _Cutoff: 0.11
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
-    - _GlossMapScale: 0.673
+    - _GlossMapScale: 0.723
     - _Glossiness: 0.5
     - _GlossyReflections: 1
     - _Metallic: 0.379
     - _Mode: 1
-    - _OcclusionStrength: 0.067
+    - _OcclusionStrength: 0
     - _Parallax: 0.08
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
