@@ -142,7 +142,7 @@ public class Carl_State_Script : MonoBehaviour
         }
 
         Vector3 distanceToWalkPoint = transform.position - walkPoint;
-        if (distanceToWalkPoint.magnitude < 1f) isWalkPointSet = false;
+        if (distanceToWalkPoint.magnitude < 2f) isWalkPointSet = false;
     }
 
     void SearchWalkPoint()
@@ -153,21 +153,13 @@ public class Carl_State_Script : MonoBehaviour
 
         walkPoint = new Vector3(currentPos.x + randomX, currentPos.y, currentPos.z + randomZ);
 
-
-        if (Physics.Raycast(currentPos, walkPoint, out hitCollider, whatIsGround))
+        if (Physics.Raycast(currentPos, walkPoint - currentPos, out hitCollider, 2f * walkPointRange, whatIsGround))
         {
             Vector3 walkingVector = walkPoint - currentPos;
+            Debug.Log(walkingVector);
+            //walkingVector.y = 0f;
             walkPoint = hitCollider.point - walkingVector.normalized;
             Debug.DrawLine(currentPos, walkPoint, Color.red, debugLineDuration);
-            Debug.Log("I shot a ray and hit " + hitCollider.transform);
-            if (agent.CalculatePath(walkPoint, path))
-            {
-                isWalkPointSet = true;
-                Debug.Log("I CAN go to " + walkPoint);
-            }
-
-            return;
-
         }
 
 
@@ -175,7 +167,6 @@ public class Carl_State_Script : MonoBehaviour
         {
             Debug.DrawLine(walkPoint, hitGroundCheck.point, Color.green, debugLineDuration);
             isWalkPointSet = true;
-
         }
     }
 

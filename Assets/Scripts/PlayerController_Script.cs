@@ -62,7 +62,7 @@ public class PlayerController_Script : MonoBehaviour
     [SerializeField] private bool isGrounded;
     [SerializeField] public bool hasDied;
     [SerializeField] private bool isMoving;
-    [SerializeField] private bool isSprinting;
+    //[SerializeField] private bool isSprinting;
 
     private void Start()
     {
@@ -100,12 +100,12 @@ public class PlayerController_Script : MonoBehaviour
     {
         if (Input.GetButton("Sprint"))
         {
-            isSprinting = true;
+            //isSprinting = true;
             sMp = sprintMultiplier;
         }
         else
         {
-            isSprinting = false;
+            //isSprinting = false;
             sMp = 1f;
         }
     }
