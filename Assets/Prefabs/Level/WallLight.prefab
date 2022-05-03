@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8080722802366234795}
   - component: {fileID: 3078108677990496824}
   - component: {fileID: 7541448243689618334}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Stick
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -109,7 +109,7 @@ GameObject:
   - component: {fileID: 601154952762935426}
   - component: {fileID: 5702635123614521821}
   - component: {fileID: 8002430339799359557}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: WallLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -210,7 +210,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8501845407072552744}
   - component: {fileID: 3250710253934800566}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Spot Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -304,7 +304,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1406295877309676}
   - component: {fileID: 3112269498458050661}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Spot Light (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -400,7 +400,7 @@ GameObject:
   - component: {fileID: 1522532137461554510}
   - component: {fileID: 2649917773641169173}
   - component: {fileID: 4659996458380340768}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Wallholder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -497,7 +497,7 @@ GameObject:
   - component: {fileID: 5743869261195984883}
   - component: {fileID: 8900471691624262258}
   - component: {fileID: 3850871065946196782}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: WallLight (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
