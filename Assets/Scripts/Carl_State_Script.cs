@@ -66,12 +66,15 @@ public class Carl_State_Script : MonoBehaviour
     public LayerMask whatIsGround, whatIsPlayer;
 
     //patrolling vars
-    public NavMeshAgent agent;
     public Vector3 walkPoint;
     bool isWalkPointSet = false;
     public float walkPointRange, maxWalkPointCooldown;
     public bool playerInSightRange, playerInAttackRange;
-    public bool canSetWalkPoint = true;
+
+    RaycastHit hitCollider;
+    RaycastHit hitGroundCheck;
+    NavMeshPath path;
+    public NavMeshAgent agent;
 
     [Header("Debug Variables")]
     public float debugLineDuration;
@@ -103,18 +106,18 @@ public class Carl_State_Script : MonoBehaviour
 
         PeacefulPatroling();
 
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, _targetRotation, turnSpeed * Time.deltaTime);
+        //transform.rotation = Quaternion.RotateTowards(transform.rotation, _targetRotation, turnSpeed * Time.deltaTime);
 
-        if (transform.rotation == _targetRotation && !rotationFinished) rotationFinished = true;
+        //if (transform.rotation == _targetRotation && !rotationFinished) rotationFinished = true;
 
-        if (rotationFinished && coolDownControl > 0f) coolDownControl -= Time.deltaTime;
+        //if (rotationFinished && coolDownControl > 0f) coolDownControl -= Time.deltaTime;
 
-        if (rotationFinished && !isCooldownFinished && coolDownControl <= 0f)
-        {
-            isCooldownFinished = true;
-            float newIdleAngle = Random.Range(-maxGazingVariation, maxGazingVariation);
-            SetRotationTarget(newIdleAngle);
-        }
+        //if (rotationFinished && !isCooldownFinished && coolDownControl <= 0f)
+        //{
+        //    isCooldownFinished = true;
+        //    float newIdleAngle = Random.Range(-maxGazingVariation, maxGazingVariation);
+        //    SetRotationTarget(newIdleAngle);
+        //}
 
         //PeacefulPatrolling
         //Determine New Waypoint
@@ -144,21 +147,39 @@ public class Carl_State_Script : MonoBehaviour
 
     void SearchWalkPoint()
     {
+        Vector3 currentPos = transform.position;
         float randomZ = Random.Range(-walkPointRange, walkPointRange);
         float randomX = Random.Range(-walkPointRange, walkPointRange);
 
-        walkPoint = new Vector3(randomX, transform.position.y, randomZ);
-        Debug.DrawLine(transform.position, walkPoint, Color.red, debugLineDuration);
+        walkPoint = new Vector3(currentPos.x + randomX, currentPos.y, currentPos.z + randomZ);
 
-        RaycastHit hit;
-        if (Physics.Raycast(walkPoint, -Vector3.up, out hit, 2f, whatIsGround))
+
+        if (Physics.Raycast(currentPos, walkPoint, out hitCollider, whatIsGround))
         {
-            Debug.DrawLine(walkPoint, hit.point, Color.green, debugLineDuration);
+            Vector3 walkingVector = walkPoint - currentPos;
+            walkPoint = hitCollider.point - walkingVector.normalized;
+            Debug.DrawLine(currentPos, walkPoint, Color.red, debugLineDuration);
+            Debug.Log("I shot a ray and hit " + hitCollider.transform);
+            if (agent.CalculatePath(walkPoint, path))
+            {
+                isWalkPointSet = true;
+                Debug.Log("I CAN go to " + walkPoint);
+            }
 
+            return;
+
+        }
+
+
+        if (Physics.Raycast(walkPoint, -Vector3.up, out hitGroundCheck, 2f, whatIsGround))
+        {
+            Debug.DrawLine(walkPoint, hitGroundCheck.point, Color.green, debugLineDuration);
             isWalkPointSet = true;
-            canSetWalkPoint = true;
+
         }
     }
+
+
 
     void SetRotationTarget(float newRotAngle)
     {

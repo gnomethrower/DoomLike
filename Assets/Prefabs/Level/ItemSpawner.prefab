@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4479911414087540198}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SpawnBaseLight (1)
   m_TagString: Untagged
   m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
@@ -42,7 +42,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4479911414317259808}
   - component: {fileID: 4479911414317259809}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: OrangeLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -139,7 +139,7 @@ GameObject:
   - component: {fileID: 4479911414335525453}
   - component: {fileID: 4479911414335525452}
   - component: {fileID: 4479911414335525427}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: LampBulb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -792,7 +792,7 @@ GameObject:
   - component: {fileID: 4479911414379613449}
   - component: {fileID: 4479911414379613448}
   - component: {fileID: 4479911414379613455}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: StepSpawnBase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1135,7 +1135,7 @@ GameObject:
   - component: {fileID: 4479911414446320453}
   - component: {fileID: 4479911414446320452}
   - component: {fileID: 4479911414446320459}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: LampCylinder1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1784,7 +1784,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4479911414490910550}
   - component: {fileID: 4479911414490910551}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BlueLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1881,7 +1881,7 @@ GameObject:
   - component: {fileID: 4479911414529115855}
   - component: {fileID: 4479911414529115854}
   - component: {fileID: 4479911414529115853}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: LampBulb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2533,7 +2533,7 @@ GameObject:
   - component: {fileID: 4479911414870370452}
   - component: {fileID: 4479911414870370459}
   - component: {fileID: 4479911414870370458}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: LampCylinder1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3181,7 +3181,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4479911415270577822}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SpawnBaseLight
   m_TagString: Untagged
   m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
@@ -3218,7 +3218,7 @@ GameObject:
   - component: {fileID: 4479911415406870620}
   - component: {fileID: 4479911415406870595}
   - component: {fileID: 4479911415406870594}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: IteMSpawnBase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3565,7 +3565,7 @@ GameObject:
   - component: {fileID: 4479911415433006392}
   - component: {fileID: 4479911415433006399}
   - component: {fileID: 4479911415433006398}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ItemSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}

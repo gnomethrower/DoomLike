@@ -235,7 +235,6 @@ public class Pistol_Script : MonoBehaviour
         //Debug.Log("Aiming down Sights is + " + isADS);
     }
 
-
     void ReticleToggle()
     {
         if (isADS) reticleImage.enabled = false;
