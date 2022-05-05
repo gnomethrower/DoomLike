@@ -36,21 +36,22 @@ public class Shotgun_Script : MonoBehaviour
     bool isADS = false;
 
     // Object references
-    public Image chamberIndicator;
+    public Image shellIndicator;
     public Camera playerCam;
-    public Animator animator;
+    public Animator sgAnimator;
+    public Animator sgUIShell;
     public ShakeRecoil_Script camShakeRecoil;
     public AudioController_Script audioInstance;
     public AnimationEvent shotgunAnimSounds;
     public ParticleSystem shellParticle;
     public GameObject reticle;
+
     Image reticleImage;
 
 
     [SerializeField] private GameObject _bulletHolePrefab;
 
     PlayerController_Script playerScript;
-
 
 
     private void Start()
@@ -75,8 +76,9 @@ public class Shotgun_Script : MonoBehaviour
 
         audioInstance.PlaySgReady();
 
-        if (chamberedRound) chamberIndicator.enabled = true;
-        else chamberIndicator.enabled = false;
+        if (chamberedRound) sgUIShell.SetBool("FreshShellChambered", true);
+
+        else //shellIndicator.enabled = false;
 
         if (!chamberedRound && bulletsInMag > 0) Pump();
     }
@@ -115,7 +117,7 @@ public class Shotgun_Script : MonoBehaviour
         if (chamberedRound)                                                           // if a bullet is in the Chamber
         {
             LiveShot();
-            chamberIndicator.enabled = false;
+            sgUIShell.SetTrigger("Shoot");
             //Debug.Log("Shots fired!");
         }
         else
@@ -133,7 +135,10 @@ public class Shotgun_Script : MonoBehaviour
         chamberedRound = false;
         spentShellChambered = true;
 
-        animator.SetTrigger("ShotgunShoot");
+
+        sgUIShell.SetBool("FreshShellChambered", false);
+        sgUIShell.SetBool("SpentShellChambered", true);
+        sgAnimator.SetTrigger("ShotgunShoot");
         audioInstance.PlaySgShoot();
 
         StartCoroutine(camShakeRecoil.Shaking(.15f, .5f));
@@ -171,7 +176,7 @@ public class Shotgun_Script : MonoBehaviour
 
     void EmptyShot()
     {
-        Debug.Log("sad empty gun noises");
+        //Debug.Log("sad empty gun noises");
         audioInstance.PlayGunEmpty();
     }
 
@@ -182,7 +187,7 @@ public class Shotgun_Script : MonoBehaviour
         {
             isPumping = true;
             //Debug.Log("Pumping!");
-            animator.SetTrigger("ShotgunPump");
+            sgAnimator.SetTrigger("ShotgunPump");
         }
     }
 
@@ -195,7 +200,7 @@ public class Shotgun_Script : MonoBehaviour
 
             while (bulletsInMag < magSize && playerScript.shotgunSpareAmmo > 0)
             {
-                animator.SetTrigger("ShotgunReload");
+                sgAnimator.SetTrigger("ShotgunReload");
                 audioInstance.PlaySgLoadShell();
                 yield return new WaitForSeconds(reloadShellTime);
                 playerScript.shotgunSpareAmmo--;
@@ -205,7 +210,7 @@ public class Shotgun_Script : MonoBehaviour
             if (chamberedRound) ReloadFinished();
             if (!chamberedRound)
             {
-                animator.SetTrigger("ShotgunPump");
+                sgAnimator.SetTrigger("ShotgunPump");
             }
 
         }
@@ -214,7 +219,7 @@ public class Shotgun_Script : MonoBehaviour
 
     void ReloadFinished()
     {
-        animator.SetTrigger("ReloadDone");
+        sgAnimator.SetTrigger("ReloadDone");
         isReloading = false;
     }
 
@@ -225,8 +230,8 @@ public class Shotgun_Script : MonoBehaviour
         {
             if (!isADS)
             {
-                animator.SetBool("ShotgunAiming", true);
-                animator.SetTrigger("ShotgunADS");
+                sgAnimator.SetBool("ShotgunAiming", true);
+                sgAnimator.SetTrigger("ShotgunADS");
                 isADS = true;
                 recoilADS = adsMultiplier;
                 Invoke("ReticleToggle", .2f);
@@ -234,8 +239,8 @@ public class Shotgun_Script : MonoBehaviour
             }
             else if (isADS)
             {
-                animator.SetBool("ShotgunAiming", false);
-                animator.SetTrigger("ShotgunADS");
+                sgAnimator.SetBool("ShotgunAiming", false);
+                sgAnimator.SetTrigger("ShotgunADS");
                 isADS = false;
                 recoilADS = 1f;
                 Invoke("ReticleToggle", .05f);
@@ -256,6 +261,8 @@ public class Shotgun_Script : MonoBehaviour
     {
         if (spentShellChambered == true)
         {
+            sgUIShell.SetTrigger("EjectSpentShell");
+            sgUIShell.SetBool("SpentShellChambered", false);
             shellParticle.Emit(1);
             spentShellChambered = false;
         }
@@ -268,8 +275,10 @@ public class Shotgun_Script : MonoBehaviour
         if (bulletsInMag >= 1)
         {
             bulletsInMag--;
+            sgUIShell.SetTrigger("ChambFreshRound");
+            sgUIShell.SetBool("FreshShellChambered", true);
             chamberedRound = true;
-            chamberIndicator.enabled = true;
+            //shellIndicator.enabled = true;
         }
 
         if (isReloading) ReloadFinished();

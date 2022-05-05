@@ -60,7 +60,7 @@ public class UIDisplay_Script : MonoBehaviour
     void Start()
     {
         InitializeObjScr();
-        UIAmmoIconCreation();
+        //UIAmmoIconCreation();
     }
 
     void InitializeObjScr()
@@ -122,29 +122,29 @@ public class UIDisplay_Script : MonoBehaviour
 
     //Ammocounter like https://www.youtube.com/watch?v=3uyolYVsiWc
     // I need the following ammoIconStartLocation, ammoIcon, iconOffset, shellIcon, bulletIcon
-    void UIAmmoIconCreation()
-    {
-        if (weapSwitchScript.selectedWeapon == 0)
-        {
-            ammoIcon = bulletIcon;
-            ammoInMag = pistolScript.bulletsInMag;
-        }
-        if (weapSwitchScript.selectedWeapon == 1)
-        {
-            ammoIcon = shellIcon;
-            ammoInMag = shotgunScript.bulletsInMag;
-        }
-        //if (switchingScript.selectedWeapon == 2) ammoIcon = grenadeIcon;
+    //void UIAmmoIconCreation()
+    //{
+    //    if (weapSwitchScript.selectedWeapon == 0)
+    //    {
+    //        ammoIcon = bulletIcon;
+    //        ammoInMag = pistolScript.bulletsInMag;
+    //    }
+    //    if (weapSwitchScript.selectedWeapon == 1)
+    //    {
+    //        ammoIcon = shellIcon;
+    //        ammoInMag = shotgunScript.bulletsInMag;
+    //    }
+    //    //if (switchingScript.selectedWeapon == 2) ammoIcon = grenadeIcon;
 
-        //für jede patrone/granate im Magazin, soll ein prefab startend ab ammIconStartLocation instanziert werden, mit dem vorgegebenen iconOffset.
-        for (int i = 0; i < ammoInMag; i++)
-        {
-            GameObject _newAmmoIcon = Instantiate(ammoIcon,
-                                                  ammoIconStartLocation.position + (new Vector3(iconOffset, 0f, 0f) * i),
-                                                  ammoIconStartLocation.rotation,
-                                                  ammoIconStartLocationParent);
-        }
-    }
+    //    //für jede patrone/granate im Magazin, soll ein prefab startend ab ammIconStartLocation instanziert werden, mit dem vorgegebenen iconOffset.
+    //    for (int i = 0; i < ammoInMag; i++)
+    //    {
+    //        GameObject _newAmmoIcon = Instantiate(ammoIcon,
+    //                                              ammoIconStartLocation.position + (new Vector3(iconOffset, 0f, 0f) * i),
+    //                                              ammoIconStartLocation.rotation,
+    //                                              ammoIconStartLocationParent);
+    //    }
+    //}
 
 
 
