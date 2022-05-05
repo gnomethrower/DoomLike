@@ -12,6 +12,7 @@ TagManager:
   - Shotgun
   - Grenade
   - EyeGlow
+  - uiShell
   layers:
   - Default
   - TransparentFX

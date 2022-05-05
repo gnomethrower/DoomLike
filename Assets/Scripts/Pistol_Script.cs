@@ -34,10 +34,11 @@ public class Pistol_Script : MonoBehaviour
     public LayerMask target;
     public LayerMask ground;
     public AudioController_Script audioInstance;
-    public Animator animator;
+    public Animator pistolAnimator;
+    public Animator uiBulletAnimator;
     public ShakeRecoil_Script camShakeRecoil;
     public ParticleSystem shellParticle;
-    public Image chamberIndicator;
+    public Image uiBullet;
 
     GameObject reticle;
     Image reticleImage;
@@ -69,8 +70,13 @@ public class Pistol_Script : MonoBehaviour
         isADS = false;
         isSwitchingFireMode = false;
 
-        if (chamberedRound) chamberIndicator.enabled = true;
-        else chamberIndicator.enabled = false;
+        if (chamberedRound)
+        {
+            uiBullet.enabled = true;
+            uiBulletAnimator.SetBool("Empty", false);
+            uiBulletAnimator.SetTrigger("Chamber");
+        }
+        else uiBullet.enabled = false;
 
         audioInstance.PlayPistolRackSlide();
 
@@ -115,7 +121,7 @@ public class Pistol_Script : MonoBehaviour
     void ToggleFireMode()
     {
         isSwitchingFireMode = !isSwitchingFireMode;
-        animator.SetTrigger("PistolFireMode");
+        pistolAnimator.SetTrigger("PistolFireMode");
         audioInstance.PlayGunEmpty();
         if (rapidFire) rapidFire = false;
         else rapidFire = true;
@@ -125,13 +131,15 @@ public class Pistol_Script : MonoBehaviour
     void Shoot()
     {
         chamberedRound = false;
-        chamberIndicator.enabled = false;
+        if (bulletsInMag > 1) uiBulletAnimator.SetTrigger("Shoot");
+        if (bulletsInMag == 1) uiBulletAnimator.SetTrigger("ShootLastBullet");
+        uiBulletAnimator.SetBool("Empty", true);
 
         EjectCasing();
 
         audioInstance.PlayPistolShoot();
 
-        animator.SetTrigger("PistolShot");
+        pistolAnimator.SetTrigger("PistolShot");
         camShakeRecoil.Recoil(recoilX, recoilY, recoilZ, recoilADS);
         for (int i = 0; bulletsPerTap > i; i++)
         {
@@ -168,7 +176,9 @@ public class Pistol_Script : MonoBehaviour
         {
             bulletsInMag -= bulletsPerTap;
             chamberedRound = true;
-            chamberIndicator.enabled = true;
+            uiBulletAnimator.SetBool("Empty", false);
+            uiBulletAnimator.SetTrigger("ChamberingBetweenShots");
+            uiBullet.enabled = true;
         }
         //else //Set the Idle animation to emptyGun Idle, if available.
     }
@@ -181,7 +191,7 @@ public class Pistol_Script : MonoBehaviour
     void Reload() // +++++++++++++++++++++++++ GOT TO MAKE IT SO THE SPARE AMMO IS ALWAYS CORRECTLY SUBTRACTED, ACCORDING TO MAG SIZE AND FILL.+++++++++++++++++++++++++++++++++++
     {
         isReloading = true;
-        animator.SetTrigger("PistolReloading");
+        pistolAnimator.SetTrigger("PistolReloading");
         audioInstance.PlayPistolFullReload();
         //Invoke("ReloadAmmoRefresh", reloadTime);
     }
@@ -198,6 +208,7 @@ public class Pistol_Script : MonoBehaviour
         if (!chamberedRound)
         {
             ChamberRound();
+            uiBulletAnimator.SetTrigger("Chamber");
         }
 
         isReloading = false;
@@ -217,8 +228,8 @@ public class Pistol_Script : MonoBehaviour
 
     void ADSon()
     {
-        animator.SetBool("PistolADS", true);
-        animator.SetTrigger("PistolAiming");
+        pistolAnimator.SetBool("PistolADS", true);
+        pistolAnimator.SetTrigger("PistolAiming");
         isADS = true;
         recoilADS = adsMultiplier;
         Invoke("ReticleToggle", .2f);
@@ -227,8 +238,8 @@ public class Pistol_Script : MonoBehaviour
 
     void ADSoff()
     {
-        animator.SetBool("PistolADS", false);
-        animator.SetTrigger("PistolAiming");
+        pistolAnimator.SetBool("PistolADS", false);
+        pistolAnimator.SetTrigger("PistolAiming");
         isADS = false;
         recoilADS = 1f;
         Invoke("ReticleToggle", .05f);
@@ -248,7 +259,7 @@ public class Pistol_Script : MonoBehaviour
 
     public void PistolIdleAnimation()
     {
-        animator.Play("UI_Pistol_Idle");
+        pistolAnimator.Play("UI_Pistol_Idle");
     }
 
 }

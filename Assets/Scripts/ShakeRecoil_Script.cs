@@ -13,7 +13,7 @@ public class ShakeRecoil_Script : MonoBehaviour
     Vector3 targetRotation;
 
     //Object Reference
-    public PlayerController_Script playerScript;
+    PlayerController_Script playerScript;
 
     //Settings
     [SerializeField] private float snappiness;
@@ -24,7 +24,6 @@ public class ShakeRecoil_Script : MonoBehaviour
     private void Start()
     {
         playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController_Script>();
-        ;
     }
 
     private void Update()

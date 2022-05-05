@@ -1,15 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class WeaponSwitching_Script : MonoBehaviour
 {
 
     public int selectedWeapon;
     string weaponEnum;
+
     public static GameObject shotgunInit;
     GameObject player;
     PlayerController_Script playerScript;
+    public Image uiShell;
+    public Image uiBullet;
 
 
     // Start is called before the first frame update
@@ -43,7 +47,6 @@ public class WeaponSwitching_Script : MonoBehaviour
         }
     }
 
-
     void SelectWeapon()
     {
         int i = 0;
@@ -55,6 +58,21 @@ public class WeaponSwitching_Script : MonoBehaviour
                 weapon.gameObject.SetActive(false);
             i++;
         }
+
+        if (selectedWeapon == 0)
+        {
+            uiBullet.enabled = true;
+            uiShell.enabled = false;
+            //uiGrenade.enabled = false;
+        }
+
+        if (selectedWeapon == 1)
+        {
+            uiBullet.enabled = false;
+            uiShell.enabled = true;
+            //uiGrenade.enabled = false;
+        }
+
     }
 
     void GetInput()
@@ -73,5 +91,17 @@ public class WeaponSwitching_Script : MonoBehaviour
             if (selectedWeapon < 0) selectedWeapon = 1;
             SelectWeapon();
         }
+
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            selectedWeapon = 0;
+            SelectWeapon();
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            selectedWeapon = 1;
+            SelectWeapon();
+        }
     }
+
 }

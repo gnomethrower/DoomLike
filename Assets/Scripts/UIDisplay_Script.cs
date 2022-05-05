@@ -26,15 +26,15 @@ public class UIDisplay_Script : MonoBehaviour
     private float iconOffset;
 
     //[Header("Ammo background vars")]
-    private int _maxPistolBullets;
-    private int _maxShells;
-    private int _maxGrenades;
+    //private int _maxPistolBullets;
+    //private int _maxShells;
+    //private int _maxGrenades;
 
     private int ammoInMag;
     private int ammoSpare;
-    private int pistolMagFill;
-    private int shotgunMagFill;
-    private int nadeMagFill;
+    //private int pistolMagFill;
+    //private int shotgunMagFill;
+    //private int nadeMagFill;
 
     [Header("Object References")]
     public GameObject grenade;
@@ -45,7 +45,6 @@ public class UIDisplay_Script : MonoBehaviour
     public Transform ammoIconStartLocationParent;
     public Transform ammoIconStartLocation;
 
-    private GameObject ammoIcon;
     private GameObject weaponHolder;
 
     //[Header("Script References")]

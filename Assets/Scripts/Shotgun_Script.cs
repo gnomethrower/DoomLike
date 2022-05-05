@@ -36,7 +36,7 @@ public class Shotgun_Script : MonoBehaviour
     bool isADS = false;
 
     // Object references
-    public Image shellIndicator;
+    public Image uiShell;
     public Camera playerCam;
     public Animator sgAnimator;
     public Animator sgUIShell;
@@ -76,9 +76,10 @@ public class Shotgun_Script : MonoBehaviour
 
         audioInstance.PlaySgReady();
 
-        if (chamberedRound) sgUIShell.SetBool("FreshShellChambered", true);
+        uiShell.enabled = true;
 
-        else //shellIndicator.enabled = false;
+        if (chamberedRound) sgUIShell.SetBool("FreshShellChambered", true);
+        else sgUIShell.SetBool("FreshShellChambered", false);
 
         if (!chamberedRound && bulletsInMag > 0) Pump();
     }
