@@ -231,10 +231,10 @@ AnimatorStateMachine:
   m_ChildStateMachines:
   - serializedVersion: 1
     m_StateMachine: {fileID: -4417113063463900958}
-    m_Position: {x: 390, y: -470, z: 0}
+    m_Position: {x: 280, y: -10, z: 0}
   - serializedVersion: 1
     m_StateMachine: {fileID: 3083430640193885005}
-    m_Position: {x: 400, y: -10, z: 0}
+    m_Position: {x: 10, y: -10, z: 0}
   m_AnyStateTransitions:
   - {fileID: 5971125526954285735}
   - {fileID: -4273609616438819932}
@@ -889,7 +889,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: Shoot
+    m_ConditionEvent: ShotgunShoot
     m_EventTreshold: 0
   - m_ConditionMode: 1
     m_ConditionEvent: ShotgunAiming

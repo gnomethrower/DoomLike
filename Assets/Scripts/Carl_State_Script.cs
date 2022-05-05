@@ -41,7 +41,6 @@ public class Carl_State_Script : MonoBehaviour
 
     [Header("Timed Variables")]
 
-
     public float minCoolDown, maxCooldown;
     private float coolDown;
     private float coolDownControl;
@@ -55,21 +54,28 @@ public class Carl_State_Script : MonoBehaviour
     //Checkbools
     public bool rotationFinished;
     public bool isCooldownFinished;
+    public bool hasPlayedChangeSound;
+    bool isSpeedSet;
 
     public float waryToPeaceful;
 
     //objects
     public Transform playerTransform;
     GameObject playerObj;
+    GameObject audioController;
+    AudioController_Script audioController_Script;
 
     //masks
     public LayerMask whatIsGround, whatIsPlayer;
 
     //patrolling vars
+    public float calmSpeed;
+    public float aggroSpeed;
     public Vector3 walkPoint;
     bool isWalkPointSet = false;
     public float walkPointRange, maxWalkPointCooldown;
     public bool playerInSightRange, playerInAttackRange;
+    bool isStateChanged;
 
     RaycastHit hitCollider;
     RaycastHit hitGroundCheck;
@@ -78,6 +84,12 @@ public class Carl_State_Script : MonoBehaviour
 
     [Header("Debug Variables")]
     public float debugLineDuration;
+
+    private void Start()
+    {
+        audioController = GameObject.FindGameObjectWithTag("AudioController");
+        audioController_Script = audioController.GetComponent<AudioController_Script>();
+    }
 
     private void Awake()
     {
@@ -89,16 +101,23 @@ public class Carl_State_Script : MonoBehaviour
         int state = startingState;
     }
 
+    private void OnDestroy()
+    {
+        audioController_Script.PlayEnemyDeath();
+    }
     private void Update()
     {
-        if (state == 0)
-        {
-            Peaceful();
-        }
-        if (state == 1)
-        {
-            Wary();
-        }
+        StateChangeCheck();
+        if (state == 0) Peaceful();
+        if (state == 1) Wary();
+        if (state == 2) Aggro();
+        SetSpeed();
+    }
+
+    void StateChangeCheck()
+    {
+        // Check if the state has been changed since the last time the frame has been called!
+        //if still the same state, skip the rest of the frame update.
     }
 
     void Peaceful()
@@ -170,8 +189,6 @@ public class Carl_State_Script : MonoBehaviour
         }
     }
 
-
-
     void SetRotationTarget(float newRotAngle)
     {
         rotationFinished = false;
@@ -188,9 +205,11 @@ public class Carl_State_Script : MonoBehaviour
 
     void Wary()
     {
+        if (!isSpeedSet) SetSpeed();
         Vector3 angleToPlayer = playerObj.transform.position - transform.position;
         angleToPlayer.y = 0f;
         transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(angleToPlayer), 2 * turnSpeed * Time.deltaTime);
+        //PlayWarySound
 
         //To stop him patrolling and gaze suspiciously
         if (state == 1 && isWalkPointSet)
@@ -204,6 +223,19 @@ public class Carl_State_Script : MonoBehaviour
     void Aggro()
     {
 
+        agent.SetDestination(playerObj.transform.position);
     }
 
+    void SetSpeed()
+    {
+        if (state == 0 || state == 1)
+        {
+            agent.speed = calmSpeed;
+        }
+
+        if (state == 2)
+        {
+            agent.speed = aggroSpeed;
+        }
+    }
 }

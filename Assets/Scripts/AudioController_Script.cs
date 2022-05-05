@@ -5,7 +5,39 @@ using UnityEngine;
 public class AudioController_Script : MonoBehaviour
 {
     public AudioController_Script audioInstance;
-    public AudioSource playerDeath, ammoPickup, bloodBagPickup, sgShoot, sgLoadShell, sgPumping, sgReady, gunEmpty, pistolShoot, pistolSlideRelease, pistolRackSlide, pistolMagEject, pistolMagInsert, shellCollision, casingCollision, demonAttack;
+
+    [Header("Player")]
+    public AudioSource playerDeath;
+    public AudioSource playerHurt;
+    public AudioSource playerHurtBad;
+    public AudioSource bloodBagPickup;
+    public AudioSource footStep;
+
+    [Header("PistolSounds")]
+    public AudioSource pistolShoot;
+    public AudioSource pistolSlideRelease;
+    public AudioSource pistolRackSlide;
+    public AudioSource pistolMagEject;
+    public AudioSource pistolMagInsert;
+
+    [Header("ShotgunSounds")]
+    public AudioSource sgShoot;
+    public AudioSource sgLoadShell;
+    public AudioSource sgPumping;
+    public AudioSource sgReady;
+
+    [Header("AmmoSounds")]
+    public AudioSource ammoPickup;
+    public AudioSource gunEmpty;
+    public AudioSource shellCollision;
+    public AudioSource casingCollision;
+
+    [Header("Enemies")]
+    public AudioSource enemyAggro;
+    public AudioSource enemyMelee;
+    public AudioSource enemyWary;
+    public AudioSource enemyDeath;
+
 
     // Start is called before the first frame update
     void Start()
@@ -30,11 +62,6 @@ public class AudioController_Script : MonoBehaviour
         bloodBagPickup.Play();
     }
 
-    //++++++++++++++++++++Player
-
-    //++++++++++++++++++++ GUNS
-
-    // +++++++++++++++++ Shotgun
     public void PlaySgReady()
     {
         sgReady.Stop();
@@ -119,10 +146,10 @@ public class AudioController_Script : MonoBehaviour
         casingCollision.Play();
     }
 
-    public void PlayDemonAttack()
+    public void PlayEnemyMelee()
     {
-        demonAttack.Stop();
-        demonAttack.Play();
+        enemyMelee.Stop();
+        enemyMelee.Play();
     }
 
     public void PlayPlayerDeath()
@@ -131,4 +158,38 @@ public class AudioController_Script : MonoBehaviour
         playerDeath.Play();
     }
 
+    public void PlayEnemyAggro()
+    {
+        enemyAggro.Stop();
+        enemyAggro.Play();
+    }
+
+    public void PlayEnemyWary()
+    {
+        enemyWary.Stop();
+        enemyWary.Play();
+    }
+
+    public void PlayEnemyDeath()
+    {
+        enemyDeath.Stop();
+        enemyDeath.Play();
+    }
+
+    public void PlayFootStep()
+    {
+        footStep.Stop();
+        footStep.Play();
+    }
+
+    public void PlayPlayerHurt()
+    {
+        playerHurt.Stop();
+        playerHurt.Play();
+    }
+    public void PlayPlayerHurtBad()
+    {
+        playerHurtBad.Stop();
+        playerHurtBad.Play();
+    }
 }

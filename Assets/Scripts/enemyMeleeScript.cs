@@ -34,7 +34,7 @@ public class enemyMeleeScript : MonoBehaviour
             playerScript.currentHealth -= damage;
             StartCoroutine(shakingScript.Shaking(.25f, 3f));
 
-            audioInstance.PlayDemonAttack();
+            audioInstance.PlayEnemyMelee();
             if (playerScript.currentHealth <= 0) playerScript.Death();
             if (playerScript.hasDied) playerScript.currentHealth = 0;
 
