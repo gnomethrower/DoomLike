@@ -23,7 +23,7 @@ public class UIDisplay_Script : MonoBehaviour
     public GameObject bulletIcon;
     public GameObject grenadeIcon;
 
-    private float iconOffset;
+    //private float iconOffset;
 
     //[Header("Ammo background vars")]
     //private int _maxPistolBullets;
@@ -84,13 +84,11 @@ public class UIDisplay_Script : MonoBehaviour
     {
         if (weapSwitchScript.selectedWeapon == 0) //pistol
         {
-            iconOffset = 30;
             ammoInMag = pistolScript.bulletsInMag;
             ammoSpare = playerScript.pistolSpareAmmo;
         }
         if (weapSwitchScript.selectedWeapon == 1) //shotgun
         {
-            iconOffset = 80;
             ammoInMag = shotgunScript.bulletsInMag;
             ammoSpare = playerScript.shotgunSpareAmmo;
         }
@@ -98,6 +96,11 @@ public class UIDisplay_Script : MonoBehaviour
 
     void Update()
     {
+        ammoMagText.text = ammoInMag.ToString();
+        ammoSpareText.text = ammoSpare.ToString();
+
+        healthText.text = playerScript.currentHealth.ToString();
+
         CheckSelectedWeapon();
 
         //if (weapSwitchScript.selectedWeapon == 2) //nades
@@ -107,16 +110,7 @@ public class UIDisplay_Script : MonoBehaviour
 
         //}
 
-
-        ammoMagText.text = ammoInMag.ToString();
-        ammoSpareText.text = ammoSpare.ToString();
-
         //if (Input.GetKeyDown(KeyCode.H)) UIAmmoIconCreation();
-
-        healthText.text = playerScript.currentHealth.ToString();
-
-
-
     }
 
     //Ammocounter like https://www.youtube.com/watch?v=3uyolYVsiWc

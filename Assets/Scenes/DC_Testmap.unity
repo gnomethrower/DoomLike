@@ -7763,7 +7763,6 @@ MonoBehaviour:
   hasPlayedChangeSound: 0
   waryToPeaceful: 4
   playerTransform: {fileID: 2671576167779464297}
-  audioController: {fileID: 799884935}
   whatIsGround:
     serializedVersion: 2
     m_Bits: 64
@@ -7771,7 +7770,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   calmSpeed: 2.5
-  aggroSpeed: 4
+  aggroSpeed: 6
   walkPoint: {x: 0, y: 0, z: 0}
   walkPointRange: 75
   maxWalkPointCooldown: 5
@@ -54133,6 +54132,10 @@ PrefabInstance:
     - target: {fileID: 3652629694288729511, guid: c930de6a8fb1bc14db91e48900abef5e, type: 3}
       propertyPath: playerScript
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3652629694288729511, guid: c930de6a8fb1bc14db91e48900abef5e, type: 3}
+      propertyPath: aggroDuration
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5551043764273356089, guid: c930de6a8fb1bc14db91e48900abef5e, type: 3}
       propertyPath: m_Radius

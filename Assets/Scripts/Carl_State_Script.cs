@@ -98,31 +98,39 @@ public class Carl_State_Script : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         startingAngle = transform.rotation.y;
         SetRotationTarget(0);
-        int state = startingState;
+        state = startingState;
     }
 
     private void OnDestroy()
     {
         audioController_Script.PlayEnemyDeath();
     }
+
     private void Update()
     {
         StateChangeCheck();
         if (state == 0) Peaceful();
+        if (state == 3) TransitionToWary();
         if (state == 1) Wary();
+        if (state == 4) TransitionToAggro();
         if (state == 2) Aggro();
         SetSpeed();
     }
 
     void StateChangeCheck()
     {
-        // Check if the state has been changed since the last time the frame has been called!
-        //if still the same state, skip the rest of the frame update.
+       
+    }
+
+    void TransitionToWary()
+    {
+
+        Wary();
     }
 
     void Peaceful()
     {
-
+        CheckAggroSphere();
         PeacefulPatroling();
 
         //transform.rotation = Quaternion.RotateTowards(transform.rotation, _targetRotation, turnSpeed * Time.deltaTime);
@@ -145,7 +153,6 @@ public class Carl_State_Script : MonoBehaviour
 
         //Create checksphere.
         //OnTriggerStay cooldown.
-
     }
 
     void PeacefulPatroling()
@@ -205,6 +212,7 @@ public class Carl_State_Script : MonoBehaviour
 
     void Wary()
     {
+        CheckAggroSphere();
         if (!isSpeedSet) SetSpeed();
         Vector3 angleToPlayer = playerObj.transform.position - transform.position;
         angleToPlayer.y = 0f;
@@ -218,11 +226,27 @@ public class Carl_State_Script : MonoBehaviour
             agent.SetDestination(walkPoint);
             isWalkPointSet = false;
         }
+        //Start Countdown. If player is still in wary zone when countdown ends, switch to aggro
+    }
+
+    void CheckAggroSphere()
+    {
+        if (Physics.CheckSphere(transform.position, 5f, whatIsPlayer))
+        {
+            Debug.Log("Entered AggroSphere");
+            state = 5;
+        }
+    }
+
+    void TransitionToAggro()
+    {
+        //Play Aggro Sound
+        state = 2;
     }
 
     void Aggro()
     {
-
+        
         agent.SetDestination(playerObj.transform.position);
     }
 

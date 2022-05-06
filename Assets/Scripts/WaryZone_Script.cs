@@ -11,8 +11,13 @@ public class WaryZone_Script : MonoBehaviour
 
     public float calmingDuration;
     public float timeWhenCalmed;
+    public float aggroDuration;
+    public float timeWhenAggro;
     public float currentTime;
+
+
     public bool calmingDown = false;
+    public bool aggroing = false;
 
     private void Start()
     {
@@ -22,6 +27,8 @@ public class WaryZone_Script : MonoBehaviour
     private void Update()
     {
         if (calmingDown) CalmingProcess();
+        if (aggroing) AggroProcess();
+
     }
 
     private void OnTriggerStay(Collider other)
@@ -31,6 +38,22 @@ public class WaryZone_Script : MonoBehaviour
             Debug.Log("I'm wary now!");
             carlStates.state = 1;
             calmingDown = false;
+            aggroing = true;
+
+            currentTime = Time.deltaTime;
+            timeWhenAggro = currentTime + aggroDuration;
+
+        }
+    }
+
+    void AggroProcess()
+    {
+        currentTime += Time.deltaTime;
+
+        if (timeWhenAggro <= currentTime)
+        {
+            carlStates.state = 2;
+            Debug.Log("I'm aggro now!");
         }
     }
 
@@ -39,6 +62,7 @@ public class WaryZone_Script : MonoBehaviour
         if (other.CompareTag("Player") && carlStates.state == 1)
         {
             calmingDown = true;
+            aggroing = false;
             Debug.Log("I'm starting to calm down!");
             currentTime = Time.deltaTime;
             timeWhenCalmed = currentTime + calmingDuration;
