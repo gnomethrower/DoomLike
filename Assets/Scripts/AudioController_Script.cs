@@ -37,7 +37,7 @@ public class AudioController_Script : MonoBehaviour
     public AudioSource enemyMelee;
     public AudioSource enemyWary;
     public AudioSource enemyDeath;
-
+    public AudioSource enemyPeace;
 
     // Start is called before the first frame update
     void Start()
@@ -162,6 +162,12 @@ public class AudioController_Script : MonoBehaviour
     {
         enemyAggro.Stop();
         enemyAggro.Play();
+    }
+
+    public void PlayEnemyPeace()
+    {
+        enemyPeace.Stop();
+        enemyPeace.Play();
     }
 
     public void PlayEnemyWary()
