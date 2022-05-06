@@ -57,19 +57,18 @@ public class Carl_State_Script : MonoBehaviour
     public bool hasPlayedChangeSound;
     bool isSpeedSet;
 
+    public float waryToPeaceful;
+
     //objects
     public Transform playerTransform;
     GameObject playerObj;
     GameObject audioController;
     AudioController_Script audioController_Script;
-    Mortality_Script mortality;
 
     //masks
     public LayerMask whatIsGround, whatIsPlayer;
 
-    //vars
-    public float waryToAggroTime;
-    public float waryToPeacefulTime;
+    //patrolling vars
     public float calmSpeed;
     public float aggroSpeed;
     public Vector3 walkPoint;
@@ -82,7 +81,6 @@ public class Carl_State_Script : MonoBehaviour
     RaycastHit hitGroundCheck;
     NavMeshPath path;
     public NavMeshAgent agent;
-    WaryZone_Script waryScript;
 
     [Header("Debug Variables")]
     public float debugLineDuration;
@@ -91,8 +89,6 @@ public class Carl_State_Script : MonoBehaviour
     {
         audioController = GameObject.FindGameObjectWithTag("AudioController");
         audioController_Script = audioController.GetComponent<AudioController_Script>();
-
-        mortality = this.GetComponent<Mortality_Script>();
     }
 
     private void Awake()
@@ -114,12 +110,10 @@ public class Carl_State_Script : MonoBehaviour
     {
         StateChangeCheck();
         if (state == 0) Peaceful();
-        if (state == 1) Wary();
-        if (state == 2) Aggro();
         if (state == 3) TransitionToWary();
+        if (state == 1) Wary();
         if (state == 4) TransitionToAggro();
-        if (state == 5) TransitionToPeaceful();
-        if (mortality.hasBeenAttacked) TransitionToAggro();
+        if (state == 2) Aggro();
         SetSpeed();
     }
 
@@ -128,22 +122,10 @@ public class Carl_State_Script : MonoBehaviour
        
     }
 
-    void TransitionToPeaceful()
-    {
-        audioController_Script.PlayEnemyPeace();
-        state = 0;
-    }
-
     void TransitionToWary()
     {
-        audioController_Script.PlayEnemyWary();
-        state = 1;
-    }
 
-    void TransitionToAggro()
-    {
-        audioController_Script.PlayEnemyAggro();
-        state = 2;
+        Wary();
     }
 
     void Peaceful()
@@ -249,11 +231,17 @@ public class Carl_State_Script : MonoBehaviour
 
     void CheckAggroSphere()
     {
-        if (Physics.CheckSphere(transform.position, 1f, whatIsPlayer))
+        if (Physics.CheckSphere(transform.position, 5f, whatIsPlayer))
         {
             Debug.Log("Entered AggroSphere");
             state = 5;
         }
+    }
+
+    void TransitionToAggro()
+    {
+        //Play Aggro Sound
+        state = 2;
     }
 
     void Aggro()

@@ -13,8 +13,6 @@ public class Mortality_Script : MonoBehaviour
     MeshRenderer targetRenderer;
     SphereCollider targetCollider;
 
-    public bool hasBeenAttacked = false;
-
     private void Start()
     {
         GetMaxHealth();
@@ -29,7 +27,6 @@ public class Mortality_Script : MonoBehaviour
 
     public void TakeDamage(float amount)
     {
-        hasBeenAttacked = true;
         health -= amount;
         if (health <= 0f)
         {

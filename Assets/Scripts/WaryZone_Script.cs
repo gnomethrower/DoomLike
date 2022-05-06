@@ -9,25 +9,26 @@ public class WaryZone_Script : MonoBehaviour
     public Carl_State_Script carlStates;
     public SphereCollider warySphere;
 
-    public float calmingCountdown;
+    public float calmingDuration;
     public float timeWhenCalmed;
-    public float aggroCountdown;
+    public float aggroDuration;
     public float timeWhenAggro;
     public float currentTime;
+
 
     public bool calmingDown = false;
     public bool aggroing = false;
 
     private void Start()
     {
-        calmingCountdown = carlStates.waryToPeacefulTime;
-        aggroCountdown = carlStates.waryToAggroTime;
+        calmingDuration = carlStates.waryToPeaceful;
     }
 
     private void Update()
     {
-        if (calmingDown) CalmingCountdown();
-        if (aggroing) WaryToAggroCountdown();
+        if (calmingDown) CalmingProcess();
+        if (aggroing) AggroProcess();
+
     }
 
     private void OnTriggerStay(Collider other)
@@ -35,24 +36,23 @@ public class WaryZone_Script : MonoBehaviour
         if (other.CompareTag("Player") && carlStates.state == 0)
         {
             Debug.Log("I'm wary now!");
-            carlStates.state = 3;
+            carlStates.state = 1;
             calmingDown = false;
             aggroing = true;
 
             currentTime = Time.deltaTime;
-            timeWhenAggro = currentTime + aggroCountdown;
+            timeWhenAggro = currentTime + aggroDuration;
+
         }
     }
 
-    void WaryToAggroCountdown()
+    void AggroProcess()
     {
         currentTime += Time.deltaTime;
 
         if (timeWhenAggro <= currentTime)
         {
-            calmingDown = false;
-            aggroing = false;
-            carlStates.state = 4;
+            carlStates.state = 2;
             Debug.Log("I'm aggro now!");
         }
     }
@@ -65,17 +65,18 @@ public class WaryZone_Script : MonoBehaviour
             aggroing = false;
             Debug.Log("I'm starting to calm down!");
             currentTime = Time.deltaTime;
-            timeWhenCalmed = currentTime + calmingCountdown;
+            timeWhenCalmed = currentTime + calmingDuration;
+
         }
     }
 
-    void CalmingCountdown()
+    void CalmingProcess()
     {
         currentTime += Time.deltaTime;
 
         if (timeWhenCalmed <= currentTime)
         {
-            carlStates.state = 5;
+            carlStates.state = 0;
             calmingDown = false;
             Debug.Log("I've calmed down!");
         }
