@@ -1,7 +1,0 @@
-creating an ammo counter with Ui image prefabs
-
-spawnPoint empty on UI
-bulletImage
-bulletsToDisplay (magazine)
-chamberedBulletToDisplay
-horizontalOffset
