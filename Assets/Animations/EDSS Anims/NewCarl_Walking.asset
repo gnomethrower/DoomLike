@@ -15,7 +15,7 @@ MonoBehaviour:
   animName: Carl_Walking
   animType: 1
   animMode: 1
-  speed: 1
+  speed: 6
   frameList:
   - sprites:
     - {fileID: 1449673669, guid: cb703d33615804a46be12fe2927de45f, type: 3}

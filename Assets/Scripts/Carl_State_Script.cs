@@ -55,6 +55,7 @@ public class Carl_State_Script : MonoBehaviour
     public bool rotationFinished;
     public bool isCooldownFinished;
     public bool hasPlayedChangeSound;
+    public bool isWalking = false;
     bool isSpeedSet;
 
     public float waryToPeaceful;
@@ -109,6 +110,7 @@ public class Carl_State_Script : MonoBehaviour
 
     private void Update()
     {
+        if (agent.velocity != Vector3.zero) isWalking = true;
         StateChangeCheck();
         if (state == 0) Peaceful();
         if (state == 3) TransitionToWary();
@@ -125,7 +127,6 @@ public class Carl_State_Script : MonoBehaviour
 
     void TransitionToWary()
     {
-
         Wary();
     }
 
@@ -184,7 +185,7 @@ public class Carl_State_Script : MonoBehaviour
         if (Physics.Raycast(currentPos, walkPoint - currentPos, out hitCollider, 2f * walkPointRange, whatIsGround))
         {
             Vector3 walkingVector = walkPoint - currentPos;
-            Debug.Log(walkingVector);
+            //Debug.Log(walkingVector);
             //walkingVector.y = 0f;
             walkPoint = hitCollider.point - walkingVector.normalized;
             Debug.DrawLine(currentPos, walkPoint, Color.red, debugLineDuration);

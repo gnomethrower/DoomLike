@@ -31,7 +31,7 @@ public class Pistol_Script : MonoBehaviour
     public Camera playerCam;
     public Transform attackPoint;
     public RaycastHit hit;
-    public LayerMask target;
+    public LayerMask enemy;
     public LayerMask ground;
     public AudioController_Script audioInstance;
     public Animator pistolAnimator;
@@ -61,6 +61,9 @@ public class Pistol_Script : MonoBehaviour
 
         reticle = GameObject.FindWithTag("Reticle");
         reticleImage = reticle.GetComponent<Image>();
+
+        ground = LayerMask.GetMask("Ground");
+        enemy = LayerMask.GetMask("Enemy");
     }
 
     private void OnEnable()
@@ -145,18 +148,9 @@ public class Pistol_Script : MonoBehaviour
         {
 
             //Raycast and Decal production
-            if (Physics.Raycast(playerCam.transform.position, playerCam.transform.forward, out RaycastHit hit, range, target | ground))
+            if (Physics.Raycast(playerCam.transform.position, playerCam.transform.forward, out RaycastHit hit, range, enemy | ground))
             {
-
-                //Debug.Log("You hit " + hit.transform.name);
-
                 Mortality_Script mortalObj = hit.transform.GetComponent<Mortality_Script>(); // we create a new variable "mortalObj" of the class Mortal, which we define as what the raycasthit "hit" has found.
-
-                GameObject obj = Instantiate(_bulletHolePrefab, hit.point, Quaternion.LookRotation(hit.normal));
-
-                obj.transform.parent = hit.transform;
-                obj.transform.position += obj.transform.forward / 1000;
-
                 if (mortalObj != null) // if the mortalObj should not be of type
                 {
                     mortalObj.TakeDamage(bulletDamage);
@@ -164,6 +158,12 @@ public class Pistol_Script : MonoBehaviour
                     //Debug.Log("you hit " + mortalObj.name);
                 }
 
+                if (Physics.Raycast(playerCam.transform.position, playerCam.transform.forward, range, ground))
+                {
+                    GameObject obj = Instantiate(_bulletHolePrefab, hit.point, Quaternion.LookRotation(hit.normal));
+                    obj.transform.parent = hit.transform;
+                    obj.transform.position += obj.transform.forward / 1000;
+                }
             }
         }
 

@@ -5,11 +5,12 @@ using System.Collections;
 namespace EightDirectionalSpriteSystem
 {
     [ExecuteInEditMode]
-    public class DemoActor : MonoBehaviour
+    public class EnemyActor : MonoBehaviour
     {
-        public enum State { NONE, IDLE, WALKING, SHOOT, PAIN, DIE};
+        public enum State { NONE, IDLE, WALKING, SHOOT, PAIN, DIE };
 
         public ActorBillboard actorBillboard;
+        public Carl_State_Script carlStateScript;
 
         public ActorAnimation idleAnim;
         public ActorAnimation walkAnim;
@@ -17,6 +18,14 @@ namespace EightDirectionalSpriteSystem
         public ActorAnimation painAnim;
         public ActorAnimation dieAnim;
 
+        bool switchToIdle = false;
+        bool switchToWalking = false;
+        bool switchToShooting = false;
+        bool switchToPain = false;
+        bool switchToDie = false;
+
+        bool currentlyWalking = false;
+        bool currentlyIdle = false;
 
         private Transform myTransform;
         private ActorAnimation currentAnimation = null;
@@ -45,51 +54,50 @@ namespace EightDirectionalSpriteSystem
 
         void Update()
         {
+            ActorListener();
+
+            if (!carlStateScript.isWalking) Debug.Log("Carl is not walking");
+
             if (actorBillboard != null)
             {
                 actorBillboard.SetActorForwardVector(myTransform.forward);
             }
 
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (switchToWalking)
             {
-                State nextState = currentState;
-                switch (currentState)
-                {
-                    case State.NONE:
-                        nextState = State.IDLE;
-                        break;
-
-                    case State.IDLE:
-                        nextState = State.WALKING;
-                        break;
-
-                    case State.WALKING:
-                        nextState = State.SHOOT;
-                        break;
-
-                    case State.SHOOT:
-                        nextState = State.PAIN;
-                        break;
-
-                    case State.PAIN:
-                        nextState = State.DIE;
-                        break;
-
-                    case State.DIE:
-                        nextState = State.IDLE;
-                        break;
-
-                    default:
-                        nextState = State.IDLE;
-                        break;
-                }
-
-                SetCurrentState(nextState);
+                switchToWalking = false;
+                SetCurrentState(State.WALKING);
             }
-           
+
+            if (switchToIdle)
+            {
+                switchToIdle = false;
+                SetCurrentState(State.IDLE);
+            }
         }
 
-        private void SetCurrentState(State newState)
+        void ActorListener()
+        {
+            //Debug.Log(currentlyWalking);
+            //WalkingListener
+            if (carlStateScript.isWalking && !currentlyWalking && carlStateScript.state != 1)
+            {
+                currentlyWalking = true;
+                currentlyIdle = false;
+
+                switchToWalking = true;
+            }
+
+            if (carlStateScript.state == 1 && !currentlyIdle)
+            {
+                currentlyWalking = false;
+                currentlyIdle = true;
+
+                switchToIdle = true;
+            }
+        }
+
+        void SetCurrentState(State newState)
         {
             currentState = newState;
             switch (currentState)
@@ -124,3 +132,4 @@ namespace EightDirectionalSpriteSystem
 
     }
 }
+
