@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: cb703d33615804a46be12fe2927de45f
+guid: 9269b6a1b66247844b65bcebf94f6911
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -47,7 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 55
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -116,95 +116,11 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Imp_0
+      name: Imp_Mirrored_0
       rect:
         serializedVersion: 2
-        x: 3
-        y: 1082
-        width: 83
-        height: 115
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9876940c82064a840849b92902a5bd88
-      internalID: 1449673669
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Imp_1
-      rect:
-        serializedVersion: 2
-        x: 89
-        y: 1086
-        width: 81
-        height: 111
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 5e88cda05b7b5514589568f9c234610e
-      internalID: -893678943
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Imp_2
-      rect:
-        serializedVersion: 2
-        x: 172
-        y: 1098
-        width: 73
-        height: 99
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0563fd326f488924e985c07773db0277
-      internalID: -716519097
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Imp_3
-      rect:
-        serializedVersion: 2
-        x: 248
-        y: 1102
-        width: 61
-        height: 95
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0711a9cf401c28e4b92abbc80f87c35e
-      internalID: 968352963
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Imp_4
-      rect:
-        serializedVersion: 2
-        x: 312
-        y: 1098
+        x: 514
+        y: 1097
         width: 71
         height: 99
       alignment: 0
@@ -214,18 +130,186 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 13c0fefa5f7717f479dec85832dc2857
-      internalID: -1696217776
+      spriteID: e4978c62d1be38747b7a1100ab4615cb
+      internalID: -86912190
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Imp_5
+      name: Imp_Mirrored_1
       rect:
         serializedVersion: 2
-        x: 3
-        y: 967
+        x: 588
+        y: 1101
+        width: 61
+        height: 95
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0cbdbcf32a56c59419f63644e6b9d687
+      internalID: 94892929
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Imp_Mirrored_2
+      rect:
+        serializedVersion: 2
+        x: 652
+        y: 1097
+        width: 73
+        height: 99
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: efe5b3de9bd03634c87a22670eaae518
+      internalID: 920629555
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Imp_Mirrored_3
+      rect:
+        serializedVersion: 2
+        x: 727
+        y: 1085
+        width: 81
+        height: 111
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f760127a856f7e04c8e5c0bfb5ea6a9c
+      internalID: -1934373476
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Imp_Mirrored_4
+      rect:
+        serializedVersion: 2
+        x: 811
+        y: 1081
+        width: 83
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 090191a1930c86e4eaac7ee64c9ec116
+      internalID: 861792379
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Imp_Mirrored_5
+      rect:
+        serializedVersion: 2
+        x: 516
+        y: 985
+        width: 67
+        height: 93
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 17d43dc7d1609e94f96af4cd19887b98
+      internalID: 994457122
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Imp_Mirrored_6
+      rect:
+        serializedVersion: 2
+        x: 586
+        y: 983
+        width: 67
+        height: 95
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b04f6885e6542174e9c47500c7453fe7
+      internalID: -578457941
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Imp_Mirrored_7
+      rect:
+        serializedVersion: 2
+        x: 656
+        y: 975
+        width: 77
+        height: 103
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 587b1c13df86ca6458b90bbb5119f435
+      internalID: -678011424
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Imp_Mirrored_8
+      rect:
+        serializedVersion: 2
+        x: 735
+        y: 964
+        width: 77
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a37176f7ccac7634ca36ca43b544eda6
+      internalID: -179911847
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Imp_Mirrored_9
+      rect:
+        serializedVersion: 2
+        x: 815
+        y: 966
         width: 79
         height: 112
       alignment: 0
@@ -235,186 +319,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6c7fdbd5ffa1a064c80a9ab882febcf5
-      internalID: -144355371
+      spriteID: 5479479d226e65e429909d8c19a522cb
+      internalID: -337791040
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Imp_6
+      name: Imp_Mirrored_10
       rect:
         serializedVersion: 2
-        x: 85
-        y: 965
-        width: 77
-        height: 114
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f011041785991ee4b91969460d1155db
-      internalID: 77308324
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Imp_7
-      rect:
-        serializedVersion: 2
-        x: 164
-        y: 976
-        width: 77
-        height: 103
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0183a45a084ea5348849c1eeec76c999
-      internalID: -1772320650
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Imp_8
-      rect:
-        serializedVersion: 2
-        x: 244
-        y: 984
-        width: 67
-        height: 95
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a649b2a9e90d9e14c873eb73027f4a04
-      internalID: 2001407840
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Imp_9
-      rect:
-        serializedVersion: 2
-        x: 314
-        y: 986
-        width: 67
-        height: 93
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c9800888fae35cb4599cc20f70029e27
-      internalID: 2070429645
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Imp_10
-      rect:
-        serializedVersion: 2
-        x: 3
-        y: 841
-        width: 79
-        height: 121
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ebc20106731b4e044ab36a28460f9ec5
-      internalID: 534906817
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Imp_11
-      rect:
-        serializedVersion: 2
-        x: 85
-        y: 845
-        width: 83
-        height: 117
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7d23d2022c126054490427184a8d12c3
-      internalID: -1302043479
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Imp_12
-      rect:
-        serializedVersion: 2
-        x: 170
-        y: 855
-        width: 63
-        height: 107
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2e5514a3a42969f49a3d89e3039daa09
-      internalID: 615881141
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Imp_13
-      rect:
-        serializedVersion: 2
-        x: 237
-        y: 859
-        width: 56
-        height: 103
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 56cf1cd56939fb44b8e468e26d6326cb
-      internalID: -1761669866
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Imp_14
-      rect:
-        serializedVersion: 2
-        x: 296
-        y: 863
+        x: 530
+        y: 862
         width: 71
         height: 99
       alignment: 0
@@ -424,20 +340,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e71991f5f31d7434b995b6a4ec889481
-      internalID: 1883861960
+      spriteID: c166296f4b00ee34e941590bc511620b
+      internalID: -569595790
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Imp_15
+      name: Imp_Mirrored_11
       rect:
         serializedVersion: 2
-        x: 3
-        y: 724
-        width: 75
-        height: 114
+        x: 604
+        y: 858
+        width: 56
+        height: 103
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -445,20 +361,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bc20a71571e74ac44a53becc76415832
-      internalID: -385639477
+      spriteID: 985c8a96046b8994a92792c3f1b2f1d5
+      internalID: -247098576
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Imp_16
+      name: Imp_Mirrored_12
       rect:
         serializedVersion: 2
-        x: 81
-        y: 728
-        width: 91
-        height: 110
+        x: 664
+        y: 854
+        width: 63
+        height: 107
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -466,20 +382,41 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 080c81a4c0c6c5047a540c4bc9519068
-      internalID: 1042354787
+      spriteID: 8c8b484ae9722fc4ea960bcd518efff6
+      internalID: 820479301
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Imp_17
+      name: Imp_Mirrored_13
       rect:
         serializedVersion: 2
-        x: 174
-        y: 742
+        x: 729
+        y: 844
+        width: 83
+        height: 117
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8697e55a3a6956441846ecd35c091819
+      internalID: 1163704787
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Imp_Mirrored_14
+      rect:
+        serializedVersion: 2
+        x: 815
+        y: 840
         width: 79
-        height: 96
+        height: 121
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -487,39 +424,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7f6753d180ba3744ebc6dfdc6be524a2
-      internalID: 1753088627
+      spriteID: bd4303f7d26caa0438513270426a57ac
+      internalID: -2106610095
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Imp_18
+      name: Imp_Mirrored_15
       rect:
         serializedVersion: 2
-        x: 256
-        y: 746
-        width: 61
-        height: 92
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e1d3d6e8e2f16c7418b16da592b27d79
-      internalID: -1654692900
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Imp_19
-      rect:
-        serializedVersion: 2
-        x: 320
-        y: 746
+        x: 511
+        y: 745
         width: 66
         height: 92
       alignment: 0
@@ -529,20 +445,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8e973e18061dfe84ba2c279a7c7b30b9
-      internalID: -878010752
+      spriteID: 65959987072134e498cea757c3660be6
+      internalID: 55031535
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Imp_20
+      name: Imp_Mirrored_16
       rect:
         serializedVersion: 2
-        x: 3
-        y: 600
-        width: 99
-        height: 121
+        x: 580
+        y: 745
+        width: 61
+        height: 92
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -550,41 +466,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fff0c5271fa797a49a6cbcf2145bf1f9
-      internalID: -1482798250
+      spriteID: 59dfbeda021fbea489f0c9359fe51c8c
+      internalID: -838375080
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Imp_21
+      name: Imp_Mirrored_17
       rect:
         serializedVersion: 2
-        x: 105
-        y: 608
-        width: 65
-        height: 113
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b33959c2ac8671d4b8b01ee4bc3a890e
-      internalID: 574440761
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Imp_22
-      rect:
-        serializedVersion: 2
-        x: 172
-        y: 622
+        x: 644
+        y: 741
         width: 79
-        height: 99
+        height: 96
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -592,20 +487,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: aeacc1e24bd37da4d98f16906fd64076
-      internalID: -2048430703
+      spriteID: afc94c2f11370224491cc94d1d91887f
+      internalID: 1907199078
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Imp_23
+      name: Imp_Mirrored_18
       rect:
         serializedVersion: 2
-        x: 254
-        y: 626
-        width: 69
-        height: 95
+        x: 725
+        y: 727
+        width: 91
+        height: 110
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -613,20 +508,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f71e007f86643904e87ed3e7c78e266a
-      internalID: -1774823327
+      spriteID: 46192424d8431b34492ca5983a44d335
+      internalID: 183572414
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Imp_24
+      name: Imp_Mirrored_19
       rect:
         serializedVersion: 2
-        x: 326
-        y: 624
-        width: 76
-        height: 97
+        x: 819
+        y: 723
+        width: 75
+        height: 114
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -634,20 +529,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 085bbf6cca7b8f54981e8014bff28f59
-      internalID: -951708086
+      spriteID: cd3889f546eed814e95d4f9c3b23a7b6
+      internalID: 606330125
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Imp_25
+      name: Imp_Mirrored_20
       rect:
         serializedVersion: 2
-        x: 405
-        y: 620
-        width: 73
-        height: 101
+        x: 246
+        y: 609
+        width: 85
+        height: 111
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -655,18 +550,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: db02151bf1146454aae5866ea2d5ee97
-      internalID: 790115774
+      spriteID: 6bb0645948b969045b361c911cb7844f
+      internalID: 1947472474
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Imp_26
+      name: Imp_Mirrored_21
       rect:
         serializedVersion: 2
-        x: 481
-        y: 616
+        x: 333
+        y: 615
         width: 83
         height: 105
       alignment: 0
@@ -676,103 +571,61 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3d57826a27015974ca591107c04434b5
-      internalID: -1902477755
+      spriteID: bf4073773d235b447b0e0f189488e728
+      internalID: -800299002
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Imp_27
+      name: Imp_Mirrored_22
       rect:
         serializedVersion: 2
-        x: 566
-        y: 610
-        width: 85
-        height: 111
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 62c9dc8da1cfc0a4f9f97fc517ae73cc
-      internalID: -1285286322
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Imp_28
-      rect:
-        serializedVersion: 2
-        x: 3
-        y: 487
-        width: 89
-        height: 111
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: fb80f4096f9aaad4ebc9a3edc0b174ec
-      internalID: 1342961855
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Imp_29
-      rect:
-        serializedVersion: 2
-        x: 95
-        y: 489
-        width: 91
-        height: 109
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 05bc26fe2764fc545b5fff1fe6c8a94d
-      internalID: 153954285
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Imp_30
-      rect:
-        serializedVersion: 2
-        x: 188
-        y: 499
-        width: 85
-        height: 99
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 445e629ba86b3fd45b385681187652d3
-      internalID: -1772160714
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Imp_31
-      rect:
-        serializedVersion: 2
-        x: 276
-        y: 503
+        x: 419
+        y: 619
         width: 73
+        height: 101
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1b58b3276f8310d45bce1a9d332f09d2
+      internalID: 1203341761
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Imp_Mirrored_23
+      rect:
+        serializedVersion: 2
+        x: 495
+        y: 623
+        width: 76
+        height: 97
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 251bf368f430112439dbce18aaba8d03
+      internalID: 91814944
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Imp_Mirrored_24
+      rect:
+        serializedVersion: 2
+        x: 574
+        y: 625
+        width: 69
         height: 95
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -781,61 +634,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bb47f071b9528584fb1aafd353d7f491
-      internalID: -1187469798
+      spriteID: 1fa3ca0d6a04f1e4092481617b23a05c
+      internalID: -1225057740
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Imp_32
+      name: Imp_Mirrored_25
       rect:
         serializedVersion: 2
-        x: 351
-        y: 505
-        width: 67
-        height: 93
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9eefc63cda7ae2c47874f1a6140bb89c
-      internalID: -493894830
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Imp_33
-      rect:
-        serializedVersion: 2
-        x: 421
-        y: 505
-        width: 85
-        height: 93
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7bf062e862d7e9e43b54d4e8918e5ab0
-      internalID: -954803989
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Imp_34
-      rect:
-        serializedVersion: 2
-        x: 509
-        y: 499
-        width: 102
+        x: 646
+        y: 621
+        width: 79
         height: 99
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -844,18 +655,60 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c3a7db008f67bad4a80c09e346b44ae9
-      internalID: -212562062
+      spriteID: 93c8ccab58cfeb64eb12e03b4889f972
+      internalID: -2009216318
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Imp_35
+      name: Imp_Mirrored_26
       rect:
         serializedVersion: 2
-        x: 614
-        y: 491
+        x: 727
+        y: 607
+        width: 65
+        height: 113
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9f4fa91fd7ba2a246956b377c5032263
+      internalID: -1758345910
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Imp_Mirrored_27
+      rect:
+        serializedVersion: 2
+        x: 795
+        y: 599
+        width: 99
+        height: 121
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: af515e0e2bf052e4985bd5ef2aebbc6a
+      internalID: 1408010455
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Imp_Mirrored_28
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 490
         width: 79
         height: 107
       alignment: 0
@@ -865,103 +718,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c03b609ef2ad17848a46ede0de47ecbf
-      internalID: -415384226
+      spriteID: cbd489bef46ae4d4792c18aed99b9143
+      internalID: 2069981101
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Imp_36
+      name: Imp_Mirrored_29
       rect:
         serializedVersion: 2
-        x: 3
-        y: 373
-        width: 65
-        height: 111
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7a0f00cb8d6c45542a085834ff7023f3
-      internalID: 2027008734
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Imp_37
-      rect:
-        serializedVersion: 2
-        x: 71
-        y: 373
-        width: 111
-        height: 111
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0587018e496699c469d0b3e156c04668
-      internalID: 1804214239
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Imp_38
-      rect:
-        serializedVersion: 2
-        x: 184
-        y: 381
-        width: 119
-        height: 103
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: abf52d5e8492dcb4c8501434977609c9
-      internalID: 690535967
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Imp_39
-      rect:
-        serializedVersion: 2
-        x: 306
-        y: 389
-        width: 92
-        height: 95
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 92d83d39f8591484cbd670ab32f01f3d
-      internalID: -1341595083
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Imp_40
-      rect:
-        serializedVersion: 2
-        x: 401
-        y: 385
-        width: 63
+        x: 286
+        y: 498
+        width: 102
         height: 99
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -970,18 +739,186 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dec1ce30a8fbfdd448bd3498fd872eb5
-      internalID: -1850874472
+      spriteID: 05f852d30dbe5d04e940bd0d98246853
+      internalID: 958374991
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Imp_41
+      name: Imp_Mirrored_30
       rect:
         serializedVersion: 2
-        x: 467
-        y: 391
+        x: 391
+        y: 504
+        width: 85
+        height: 93
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cc5c207fd9ab51345ac526499629c937
+      internalID: -1887474783
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Imp_Mirrored_31
+      rect:
+        serializedVersion: 2
+        x: 479
+        y: 504
+        width: 67
+        height: 93
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0df5d6b888ed88b4baec3441bda3c1fd
+      internalID: 917729068
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Imp_Mirrored_32
+      rect:
+        serializedVersion: 2
+        x: 548
+        y: 502
+        width: 73
+        height: 95
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7ea24e6981e8498468cfdf0929460b54
+      internalID: -412014625
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Imp_Mirrored_33
+      rect:
+        serializedVersion: 2
+        x: 624
+        y: 498
+        width: 85
+        height: 99
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d502ea4058b94404da15cb70d69c9e43
+      internalID: -2105601216
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Imp_Mirrored_34
+      rect:
+        serializedVersion: 2
+        x: 711
+        y: 488
+        width: 91
+        height: 109
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 625a2dd241d48774e8b2cbd8ee40741a
+      internalID: -1072522270
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Imp_Mirrored_35
+      rect:
+        serializedVersion: 2
+        x: 805
+        y: 486
+        width: 89
+        height: 111
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0333eef401a2cbc4ea24056b83c556e4
+      internalID: -1016432178
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Imp_Mirrored_36
+      rect:
+        serializedVersion: 2
+        x: 109
+        y: 380
+        width: 115
+        height: 103
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1d830b22ad5c6a74cb2d17910a28fb8a
+      internalID: -444880421
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Imp_Mirrored_37
+      rect:
+        serializedVersion: 2
+        x: 228
+        y: 388
+        width: 117
+        height: 95
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cfb8c14dc1e61ba4b93cb8cd88f152eb
+      internalID: -1280641913
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Imp_Mirrored_38
+      rect:
+        serializedVersion: 2
+        x: 347
+        y: 390
         width: 83
         height: 93
       alignment: 0
@@ -991,19 +928,40 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6108b18fa9f59d445963499181336852
-      internalID: 661428533
+      spriteID: 7dfb26e6a35ab87489df566769516f4d
+      internalID: 612129623
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Imp_42
+      name: Imp_Mirrored_39
       rect:
         serializedVersion: 2
-        x: 552
-        y: 389
-        width: 117
+        x: 433
+        y: 384
+        width: 63
+        height: 99
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 04eb96c5cf2b68346bc6cf5bd56cff92
+      internalID: -2140042833
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Imp_Mirrored_40
+      rect:
+        serializedVersion: 2
+        x: 499
+        y: 388
+        width: 92
         height: 95
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -1012,19 +970,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1dfe6258f8eb0ea4ebc6405ba1fc23c4
-      internalID: 519903454
+      spriteID: d3f83b27f45ba894b91633ecb7abda70
+      internalID: -807535750
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Imp_43
+      name: Imp_Mirrored_41
       rect:
         serializedVersion: 2
-        x: 673
-        y: 381
-        width: 115
+        x: 594
+        y: 380
+        width: 119
         height: 103
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -1033,19 +991,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5d3682b9b8768eb49bafc7678b5e8ccb
-      internalID: -912617833
+      spriteID: d02c7b44e146c6f4697bdaa245cd29d7
+      internalID: 2122738413
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Imp_44
+      name: Imp_Mirrored_42
       rect:
         serializedVersion: 2
-        x: 3
-        y: 260
-        width: 83
+        x: 715
+        y: 372
+        width: 111
         height: 111
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -1054,20 +1012,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 316629f5d55d60a45ab2f2916c32a661
-      internalID: -1707708771
+      spriteID: d797f81d0ba1e4d46bbc7a0a5ddaa384
+      internalID: 45176658
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Imp_45
+      name: Imp_Mirrored_43
       rect:
         serializedVersion: 2
-        x: 89
-        y: 258
-        width: 63
-        height: 113
+        x: 829
+        y: 372
+        width: 65
+        height: 111
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1075,60 +1033,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 33aeed1b060636f4b8caf5313b990224
-      internalID: 808303795
+      spriteID: 0c960de2e74f4b249b3fd5d509e70f9c
+      internalID: -725929597
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Imp_46
+      name: Imp_Mirrored_44
       rect:
         serializedVersion: 2
-        x: 155
-        y: 257
-        width: 74
-        height: 114
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7ee8a505d3ea1274fa53cf1578d5524d
-      internalID: -1978624150
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Imp_47
-      rect:
-        serializedVersion: 2
-        x: 226
-        y: 258
-        width: 69
-        height: 113
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 89c0518f8e1d1a04e945c8401d50d63d
-      internalID: 1567758311
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Imp_48
-      rect:
-        serializedVersion: 2
-        x: 298
-        y: 256
+        x: 520
+        y: 255
         width: 79
         height: 115
       alignment: 0
@@ -1138,20 +1054,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c237916ed885b8141b6cdb11cf437c5e
-      internalID: 1517312928
+      spriteID: 1f9732ec31be2994bb098d4bb7f4261c
+      internalID: -1081445262
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Imp_49
+      name: Imp_Mirrored_45
       rect:
         serializedVersion: 2
-        x: 3
-        y: 129
-        width: 85
-        height: 124
+        x: 602
+        y: 257
+        width: 69
+        height: 113
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1159,20 +1075,62 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: aa1e7603986ed7b4b828ed51994bf417
-      internalID: 1759164749
+      spriteID: 0d041ea4fb525cb44be0bfc868bb571d
+      internalID: -4828051
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Imp_50
+      name: Imp_Mirrored_46
       rect:
         serializedVersion: 2
-        x: 91
-        y: 135
+        x: 668
+        y: 256
+        width: 74
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: acfa24deea4318746a91c99fce452205
+      internalID: -434842754
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Imp_Mirrored_47
+      rect:
+        serializedVersion: 2
+        x: 745
+        y: 257
+        width: 63
+        height: 113
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f567ec1275aebd742aca61bb708d1be7
+      internalID: 1584686489
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Imp_Mirrored_48
+      rect:
+        serializedVersion: 2
+        x: 811
+        y: 259
         width: 83
-        height: 118
+        height: 111
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1180,39 +1138,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d1c36b668ea37ee419c448b637fdb18d
-      internalID: 76647215
+      spriteID: 4fd090ae28fae0d4e989eae977b0659f
+      internalID: -1949562617
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Imp_51
+      name: Imp_Mirrored_49
       rect:
         serializedVersion: 2
-        x: 176
-        y: 145
-        width: 81
-        height: 108
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c575e22eede2d614297c58d6dba5160e
-      internalID: -1548194107
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Imp_54
-      rect:
-        serializedVersion: 2
-        x: 359
-        y: 208
+        x: 421
+        y: 207
         width: 117
         height: 45
       alignment: 0
@@ -1222,18 +1159,81 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 49a942b5b33ebf04fb2cf68755c688a2
-      internalID: -1455766711
+      spriteID: 54bfa433525ec704cae2cec13348ce72
+      internalID: -124011989
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Imp_55
+      name: Imp_Mirrored_52
       rect:
         serializedVersion: 2
-        x: 260
-        y: 161
+        x: 640
+        y: 144
+        width: 81
+        height: 108
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1e706b7ec2b26a84eb2a4f34dcccea99
+      internalID: -1328454374
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Imp_Mirrored_53
+      rect:
+        serializedVersion: 2
+        x: 723
+        y: 134
+        width: 83
+        height: 118
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 46410c7b6cc9e2a419885b222c696378
+      internalID: -1726940739
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Imp_Mirrored_54
+      rect:
+        serializedVersion: 2
+        x: 809
+        y: 128
+        width: 85
+        height: 124
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 090c6be7825e4094aaed5c38bd161ab5
+      internalID: 1706819537
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Imp_Mirrored_55
+      rect:
+        serializedVersion: 2
+        x: 540
+        y: 160
         width: 97
         height: 92
       alignment: 0
@@ -1243,144 +1243,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7f4e8022f5aa69548a443c794d75822e
-      internalID: -1631657176
+      spriteID: 8156632c0158b6e449866ac97b572a29
+      internalID: -1937952933
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Imp_56
+      name: Imp_Mirrored_56
       rect:
         serializedVersion: 2
         x: 3
-        y: 7
-        width: 93
-        height: 119
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8c6d0071d5b70344ca342a7b39e3274e
-      internalID: 840862506
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Imp_57
-      rect:
-        serializedVersion: 2
-        x: 99
-        y: 3
-        width: 99
-        height: 123
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e358ccfc110595b40b560bb69f91ac1f
-      internalID: 643369414
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Imp_58
-      rect:
-        serializedVersion: 2
-        x: 200
-        y: 3
-        width: 111
-        height: 123
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 046fc1e46191a4a4a8745ef2c11e03c2
-      internalID: -840614952
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Imp_63
-      rect:
-        serializedVersion: 2
-        x: 431
-        y: 37
-        width: 115
-        height: 89
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0815a32a00e0aea498fcab0c6ea52146
-      internalID: 2019514131
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Imp_64
-      rect:
-        serializedVersion: 2
-        x: 548
-        y: 57
-        width: 115
-        height: 69
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e4cb2125f655af046857c57dc7761453
-      internalID: -143407589
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Imp_65
-      rect:
-        serializedVersion: 2
-        x: 666
-        y: 63
-        width: 112
-        height: 63
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: da983939be3b787428b1e4bba24c0534
-      internalID: -1535252622
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Imp_66
-      rect:
-        serializedVersion: 2
-        x: 781
-        y: 89
+        y: 88
         width: 113
         height: 37
       alignment: 0
@@ -1390,20 +1264,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 89fb1479756331e4db6520e80e82ad0b
-      internalID: -1545321882
+      spriteID: e3a9580eb51e4dd43a7aa859d6893863
+      internalID: 95586399
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Imp_67
+      name: Imp_Mirrored_57
       rect:
         serializedVersion: 2
-        x: 314
-        y: 3
-        width: 104
-        height: 122
+        x: 119
+        y: 62
+        width: 112
+        height: 63
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1411,8 +1285,134 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 358f32252c87aaf48b67a34b45f6dc9c
-      internalID: 1709134305
+      spriteID: 222765981c63df548bb969d5d491e4d4
+      internalID: -2022770026
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Imp_Mirrored_58
+      rect:
+        serializedVersion: 2
+        x: 234
+        y: 56
+        width: 115
+        height: 69
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ae6c725681223334185fd0956944f176
+      internalID: 1478552449
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Imp_Mirrored_59
+      rect:
+        serializedVersion: 2
+        x: 351
+        y: 36
+        width: 115
+        height: 89
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3f52009ed397fc44c8f051cbd7b809be
+      internalID: -959356693
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Imp_Mirrored_64
+      rect:
+        serializedVersion: 2
+        x: 586
+        y: 2
+        width: 111
+        height: 123
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dcb90b34eda7e8448b93e20b47479f6e
+      internalID: -1875894621
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Imp_Mirrored_65
+      rect:
+        serializedVersion: 2
+        x: 699
+        y: 2
+        width: 99
+        height: 123
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b1d646a50f60fca4abe26ecc36831bea
+      internalID: 155737190
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Imp_Mirrored_66
+      rect:
+        serializedVersion: 2
+        x: 801
+        y: 6
+        width: 93
+        height: 119
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6486920ab438a1140959bc0a150f6752
+      internalID: -1927766260
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Imp_Mirrored_67
+      rect:
+        serializedVersion: 2
+        x: 469
+        y: 2
+        width: 114
+        height: 123
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 60b0cf9115827be42bd995172dcc7e2a
+      internalID: 582442623
       vertices: []
       indices: 
       edges: []
@@ -1420,7 +1420,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 4473441dee93478428c5404e5923dfe8
+    spriteID: d0160e3fb3742f24cb57c3b9ee8239aa
     internalID: 0
     vertices: []
     indices: 
@@ -1428,75 +1428,75 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Imp_0: 1449673669
-      Imp_37: 1804214239
-      Imp_21: 574440761
-      Imp_13: -1761669866
-      Imp_42: 519903454
-      Imp_57: 643369414
-      Imp_27: -1285286322
-      Imp_20: -1482798250
-      Imp_12: 615881141
-      Imp_64: -143407589
-      Imp_50: 76647215
-      Imp_68: -1266844487
-      Imp_54: -1455766711
-      Imp_5: -144355371
-      Imp_31: -1187469798
-      Imp_39: -1341595083
-      Imp_14: 1883861960
-      Imp_8: 2001407840
-      Imp_22: -2048430703
-      Imp_46: -1978624150
-      Imp_1: -893678943
-      Imp_52: 197257757
-      Imp_58: -840614952
-      Imp_66: -1545321882
-      Imp_53: 1645786263
-      Imp_16: 1042354787
-      Imp_18: -1654692900
-      Imp_23: -1774823327
-      Imp_9: 2070429645
-      Imp_45: 808303795
-      Imp_60: -1473631824
-      Imp_35: -415384226
-      Imp_49: 1759164749
-      Imp_48: 1517312928
-      Imp_26: -1902477755
-      Imp_59: 1497069892
-      Imp_38: 690535967
-      Imp_47: 1567758311
-      Imp_61: 2078916766
-      Imp_51: -1548194107
-      Imp_10: 534906817
-      Imp_6: 77308324
-      Imp_7: -1772320650
-      Imp_28: 1342961855
-      Imp_30: -1772160714
-      Imp_40: -1850874472
-      Imp_56: 840862506
-      Imp_67: 1709134305
-      Imp_4: -1696217776
-      Imp_25: 790115774
-      Imp_41: 661428533
-      Imp_3: 968352963
-      Imp_33: -954803989
-      Imp_55: -1631657176
-      Imp_34: -212562062
-      Imp_15: -385639477
-      Imp_63: 2019514131
-      Imp_24: -951708086
-      Imp_32: -493894830
-      Imp_44: -1707708771
-      Imp_2: -716519097
-      Imp_29: 153954285
-      Imp_11: -1302043479
-      Imp_17: 1753088627
-      Imp_62: -446649638
-      Imp_43: -912617833
-      Imp_36: 2027008734
-      Imp_19: -878010752
-      Imp_65: -1535252622
+      Imp_Mirrored_36: -444880421
+      Imp_Mirrored_15: 55031535
+      Imp_Mirrored_68: 1302550295
+      Imp_Mirrored_1: 94892929
+      Imp_Mirrored_47: 1584686489
+      Imp_Mirrored_46: -434842754
+      Imp_Mirrored_25: -2009216318
+      Imp_Mirrored_59: -959356693
+      Imp_Mirrored_33: -2105601216
+      Imp_Mirrored_52: -1328454374
+      Imp_Mirrored_12: 820479301
+      Imp_Mirrored_56: 95586399
+      Imp_Mirrored_22: 1203341761
+      Imp_Mirrored_6: -578457941
+      Imp_Mirrored_41: 2122738413
+      Imp_Mirrored_42: 45176658
+      Imp_Mirrored_9: -337791040
+      Imp_Mirrored_17: 1907199078
+      Imp_Mirrored_45: -4828051
+      Imp_Mirrored_29: 958374991
+      Imp_Mirrored_30: -1887474783
+      Imp_Mirrored_66: -1927766260
+      Imp_Mirrored_58: 1478552449
+      Imp_Mirrored_60: -81518780
+      Imp_Mirrored_8: -179911847
+      Imp_Mirrored_16: -838375080
+      Imp_Mirrored_11: -247098576
+      Imp_Mirrored_0: -86912190
+      Imp_Mirrored_35: -1016432178
+      Imp_Mirrored_61: 494816562
+      Imp_Mirrored_20: 1947472474
+      Imp_Mirrored_48: -1949562617
+      Imp_Mirrored_53: -1726940739
+      Imp_Mirrored_27: 1408010455
+      Imp_Mirrored_19: 606330125
+      Imp_Mirrored_54: 1706819537
+      Imp_Mirrored_18: 183572414
+      Imp_Mirrored_10: -569595790
+      Imp_Mirrored_32: -412014625
+      Imp_Mirrored_38: 612129623
+      Imp_Mirrored_24: -1225057740
+      Imp_Mirrored_5: 994457122
+      Imp_Mirrored_51: 1099274083
+      Imp_Mirrored_13: 1163704787
+      Imp_Mirrored_57: -2022770026
+      Imp_Mirrored_63: 356229716
+      Imp_Mirrored_49: -124011989
+      Imp_Mirrored_44: -1081445262
+      Imp_Mirrored_3: -1934373476
+      Imp_Mirrored_4: 861792379
+      Imp_Mirrored_50: 1221023045
+      Imp_Mirrored_64: -1875894621
+      Imp_Mirrored_34: -1072522270
+      Imp_Mirrored_21: -800299002
+      Imp_Mirrored_39: -2140042833
+      Imp_Mirrored_7: -678011424
+      Imp_Mirrored_31: 917729068
+      Imp_Mirrored_2: 920629555
+      Imp_Mirrored_55: -1937952933
+      Imp_Mirrored_65: 155737190
+      Imp_Mirrored_23: 91814944
+      Imp_Mirrored_28: 2069981101
+      Imp_Mirrored_40: -807535750
+      Imp_Mirrored_67: 582442623
+      Imp_Mirrored_62: 391399491
+      Imp_Mirrored_37: -1280641913
+      Imp_Mirrored_26: -1758345910
+      Imp_Mirrored_14: -2106610095
+      Imp_Mirrored_43: -725929597
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

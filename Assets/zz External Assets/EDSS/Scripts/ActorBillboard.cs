@@ -156,7 +156,7 @@ namespace EightDirectionalSpriteSystem
                     }
                 }
             }
-            
+
 
             frameChangeDelay += 1.0f / currentAnimation.Speed;
         }

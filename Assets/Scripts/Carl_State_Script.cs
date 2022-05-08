@@ -64,6 +64,7 @@ public class Carl_State_Script : MonoBehaviour
     GameObject playerObj;
     GameObject audioController;
     AudioController_Script audioController_Script;
+    GameObject actorBillboard;
 
     //masks
     public LayerMask whatIsGround, whatIsPlayer;
@@ -119,7 +120,7 @@ public class Carl_State_Script : MonoBehaviour
 
     void StateChangeCheck()
     {
-       
+
     }
 
     void TransitionToWary()
@@ -165,6 +166,7 @@ public class Carl_State_Script : MonoBehaviour
         if (isWalkPointSet)
         {
             agent.SetDestination(walkPoint);
+
         }
 
         Vector3 distanceToWalkPoint = transform.position - walkPoint;
@@ -246,7 +248,7 @@ public class Carl_State_Script : MonoBehaviour
 
     void Aggro()
     {
-        
+
         agent.SetDestination(playerObj.transform.position);
     }
 

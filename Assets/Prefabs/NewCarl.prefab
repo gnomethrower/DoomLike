@@ -126,6 +126,7 @@ GameObject:
   - component: {fileID: 2270582393648526752}
   - component: {fileID: 2270582393648526763}
   - component: {fileID: 3413167734920565544}
+  - component: {fileID: 3123278736644778727}
   m_Layer: 7
   m_Name: NewCarl
   m_TagString: Untagged
@@ -140,7 +141,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2270582393541956733}
-  m_LocalRotation: {x: -0, y: -0.71192336, z: -0, w: 0.70225716}
+  m_LocalRotation: {x: 0, y: -0.23472129, z: -0, w: 0.97206277}
   m_LocalPosition: {x: 13.71, y: 1.08, z: -4.95}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -298,6 +299,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &3123278736644778727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2270582393541956733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63da1ab208435de458b8c2828a5884e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actorTransform: {fileID: 2270582393541956673}
 --- !u!1 &2270582394674160025
 GameObject:
   m_ObjectHideFlags: 0

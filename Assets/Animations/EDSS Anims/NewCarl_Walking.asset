@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a0cf37e99fcb584dbdf7be0944f8cbf, type: 3}
+  m_Name: NewCarl_Walking
+  m_EditorClassIdentifier: 
+  animName: Carl_Walking
+  animType: 1
+  animMode: 1
+  speed: 1
+  frameList:
+  - sprites:
+    - {fileID: 1449673669, guid: cb703d33615804a46be12fe2927de45f, type: 3}
+    - {fileID: -893678943, guid: cb703d33615804a46be12fe2927de45f, type: 3}
+    - {fileID: -716519097, guid: cb703d33615804a46be12fe2927de45f, type: 3}
+    - {fileID: 968352963, guid: cb703d33615804a46be12fe2927de45f, type: 3}
+    - {fileID: -1696217776, guid: cb703d33615804a46be12fe2927de45f, type: 3}
+    - {fileID: 94892929, guid: 9269b6a1b66247844b65bcebf94f6911, type: 3}
+    - {fileID: 920629555, guid: 9269b6a1b66247844b65bcebf94f6911, type: 3}
+    - {fileID: -1934373476, guid: 9269b6a1b66247844b65bcebf94f6911, type: 3}
+  - sprites:
+    - {fileID: -144355371, guid: cb703d33615804a46be12fe2927de45f, type: 3}
+    - {fileID: 77308324, guid: cb703d33615804a46be12fe2927de45f, type: 3}
+    - {fileID: -1772320650, guid: cb703d33615804a46be12fe2927de45f, type: 3}
+    - {fileID: 2001407840, guid: cb703d33615804a46be12fe2927de45f, type: 3}
+    - {fileID: 2070429645, guid: cb703d33615804a46be12fe2927de45f, type: 3}
+    - {fileID: -578457941, guid: 9269b6a1b66247844b65bcebf94f6911, type: 3}
+    - {fileID: -678011424, guid: 9269b6a1b66247844b65bcebf94f6911, type: 3}
+    - {fileID: -179911847, guid: 9269b6a1b66247844b65bcebf94f6911, type: 3}
+  - sprites:
+    - {fileID: 534906817, guid: cb703d33615804a46be12fe2927de45f, type: 3}
+    - {fileID: -1302043479, guid: cb703d33615804a46be12fe2927de45f, type: 3}
+    - {fileID: 615881141, guid: cb703d33615804a46be12fe2927de45f, type: 3}
+    - {fileID: -1761669866, guid: cb703d33615804a46be12fe2927de45f, type: 3}
+    - {fileID: 1883861960, guid: cb703d33615804a46be12fe2927de45f, type: 3}
+    - {fileID: -247098576, guid: 9269b6a1b66247844b65bcebf94f6911, type: 3}
+    - {fileID: 820479301, guid: 9269b6a1b66247844b65bcebf94f6911, type: 3}
+    - {fileID: 1163704787, guid: 9269b6a1b66247844b65bcebf94f6911, type: 3}
