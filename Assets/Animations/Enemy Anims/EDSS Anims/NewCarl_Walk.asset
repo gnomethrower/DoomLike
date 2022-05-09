@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4a0cf37e99fcb584dbdf7be0944f8cbf, type: 3}
-  m_Name: NewCarl_Walking
+  m_Name: NewCarl_Walk
   m_EditorClassIdentifier: 
-  animName: Carl_Walking
+  animName: NewCarl_Walk
   animType: 1
   animMode: 1
   speed: 6

@@ -13,6 +13,9 @@ public class Mortality_Script : MonoBehaviour
     MeshRenderer targetRenderer;
     SphereCollider targetCollider;
 
+    public bool hasDeathPrefab;
+    public GameObject deathPrefab;
+
     private void Start()
     {
         GetMaxHealth();
@@ -39,7 +42,11 @@ public class Mortality_Script : MonoBehaviour
     {
         //Die gets called, this happens:
         Destroy(gameObject);
-
+        //Instantiating the deathPrefab, if the object has such a thing.
+        if (hasDeathPrefab)
+        {
+            Instantiate(deathPrefab, transform.position, transform.rotation);
+        }
     }
     void Reactivate()
     {

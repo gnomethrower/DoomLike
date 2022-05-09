@@ -141,7 +141,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2270582393541956733}
-  m_LocalRotation: {x: 0, y: -0.23472129, z: -0, w: 0.97206277}
+  m_LocalRotation: {x: 0, y: -0.68878883, z: -0, w: 0.7249621}
   m_LocalPosition: {x: 13.71, y: 1.08, z: -4.95}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -181,6 +181,8 @@ MonoBehaviour:
   targetRespawntime: 0
   maxHealth: 150
   health: 150
+  hasDeathPrefab: 1
+  deathPrefab: {fileID: 8464093561451247221, guid: 5e26eada28b27184c9b7383bbff30a5a, type: 3}
 --- !u!114 &2270582393648526752
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -208,6 +210,7 @@ MonoBehaviour:
   rotationFinished: 0
   isCooldownFinished: 0
   hasPlayedChangeSound: 0
+  isWalking: 0
   waryToPeaceful: 4
   playerTransform: {fileID: 0}
   whatIsGround:
