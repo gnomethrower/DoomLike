@@ -40,13 +40,11 @@ public class Mortality_Script : MonoBehaviour
 
     void Die()
     {
-        //Die gets called, this happens:
-        Destroy(gameObject);
-        //Instantiating the deathPrefab, if the object has such a thing.
         if (hasDeathPrefab)
         {
             Instantiate(deathPrefab, transform.position, transform.rotation);
         }
+        Destroy(gameObject);
     }
     void Reactivate()
     {
