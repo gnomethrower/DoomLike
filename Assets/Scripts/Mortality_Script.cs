@@ -9,10 +9,12 @@ public class Mortality_Script : MonoBehaviour
 
     public float maxHealth = 100f;
     public float health;
+    public float painDuration;
 
     MeshRenderer targetRenderer;
     SphereCollider targetCollider;
 
+    public bool gotHurt = false;
     public bool hasDeathPrefab;
     public GameObject deathPrefab;
 
@@ -23,6 +25,10 @@ public class Mortality_Script : MonoBehaviour
         targetCollider = GetComponent<SphereCollider>();
     }
 
+    private void LateUpdate()
+    {
+    }
+
     void GetMaxHealth()
     {
         health = maxHealth;
@@ -31,6 +37,8 @@ public class Mortality_Script : MonoBehaviour
     public void TakeDamage(float amount)
     {
         health -= amount;
+        gotHurt = true;
+
         if (health <= 0f)
         {
             if (respawningTarget) SetInactive();

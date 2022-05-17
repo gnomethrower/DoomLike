@@ -167,7 +167,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: Shoot
+    m_ConditionEvent: ShotgunShoot
     m_EventTreshold: 0
   - m_ConditionMode: 2
     m_ConditionEvent: ShotgunAiming

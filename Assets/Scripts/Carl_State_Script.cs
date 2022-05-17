@@ -33,6 +33,7 @@ public class Carl_State_Script : MonoBehaviour
 
     public int startingState = 0;
     public int state;
+    public int previousState;
 
     [Header("Rotation Angles")]
     [SerializeField] float currentAngle;
@@ -73,16 +74,20 @@ public class Carl_State_Script : MonoBehaviour
     //patrolling vars
     public float calmSpeed;
     public float aggroSpeed;
+    float timeForPainStop;
     public Vector3 walkPoint;
     bool isWalkPointSet = false;
     public float walkPointRange, maxWalkPointCooldown;
     public bool playerInSightRange, playerInAttackRange;
     bool isStateChanged;
+    float currentTime;
 
     RaycastHit hitCollider;
     RaycastHit hitGroundCheck;
     NavMeshPath path;
     public NavMeshAgent agent;
+
+    public Mortality_Script mortality;
 
     [Header("Debug Variables")]
     public float debugLineDuration;
@@ -91,6 +96,7 @@ public class Carl_State_Script : MonoBehaviour
     {
         audioController = GameObject.FindGameObjectWithTag("AudioController");
         audioController_Script = audioController.GetComponent<AudioController_Script>();
+        mortality = this.GetComponent<Mortality_Script>();
     }
 
     private void Awake()
@@ -110,18 +116,33 @@ public class Carl_State_Script : MonoBehaviour
 
     private void Update()
     {
-        if (agent.velocity != Vector3.zero) isWalking = true;
-        StateChangeCheck();
+        if (mortality.gotHurt) SetStaggered();
+        if (state == 5)
+        {
+            mortality.gotHurt = false;
+            agent.SetDestination(transform.position);
+
+            if (currentTime >= timeForPainStop)
+            {
+                Debug.Log("unstaggered!");
+                state = previousState;
+            }
+            else
+            {
+                currentTime += Time.deltaTime;
+                return;
+            }
+        }
+
+        Debug.Log(agent.velocity);
+        //if (agent.velocity != Vector3.zero) isWalking = true;
         if (state == 0) Peaceful();
         if (state == 3) TransitionToWary();
         if (state == 1) Wary();
         if (state == 4) TransitionToAggro();
         if (state == 2) Aggro();
         SetSpeed();
-    }
 
-    void StateChangeCheck()
-    {
 
     }
 
@@ -167,11 +188,19 @@ public class Carl_State_Script : MonoBehaviour
         if (isWalkPointSet)
         {
             agent.SetDestination(walkPoint);
-
         }
 
         Vector3 distanceToWalkPoint = transform.position - walkPoint;
         if (distanceToWalkPoint.magnitude < 2f) isWalkPointSet = false;
+    }
+
+    void SetStaggered()
+    {
+        previousState = state;
+        state = 5;
+        currentTime = Time.time;
+        timeForPainStop = currentTime + mortality.painDuration;
+        Debug.Log(currentTime + " " + " " + timeForPainStop);
     }
 
     void SearchWalkPoint()

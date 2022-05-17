@@ -18,7 +18,7 @@ public class enemyMeleeScript : MonoBehaviour
     public AudioController_Script audioInstance;
     private void Start()
     {
-
+        audioInstance = GameObject.FindGameObjectWithTag("AudioController").GetComponent<AudioController_Script>();
     }
 
     private void OnTriggerStay(Collider other)

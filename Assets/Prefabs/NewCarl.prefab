@@ -27,7 +27,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3794228366018843673}
-  m_LocalRotation: {x: -0, y: -0.7073992, z: -0, w: 0.7068143}
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -37,7 +37,7 @@ Transform:
   - {fileID: 7330530431539232857}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: -90.047, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!136 &3794228366018843672
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -68,6 +68,8 @@ MonoBehaviour:
   targetRespawntime: 0
   maxHealth: 150
   health: 150
+  painDuration: 0.25
+  gotHurt: 0
   hasDeathPrefab: 1
   deathPrefab: {fileID: 2760767980871981412, guid: eddca1be0c1015943a1121afcba93980, type: 3}
 --- !u!114 &3794228366127510980
@@ -109,11 +111,13 @@ MonoBehaviour:
   calmSpeed: 2.5
   aggroSpeed: 6
   walkPoint: {x: 0, y: 0, z: 0}
+  isStaggered: 0
   walkPointRange: 75
   maxWalkPointCooldown: 5
   playerInSightRange: 0
   playerInAttackRange: 0
   agent: {fileID: 3794228366127510991}
+  mortality: {fileID: 0}
   debugLineDuration: 10
 --- !u!195 &3794228366127510991
 NavMeshAgent:
@@ -162,7 +166,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3794228366184573434}
-  m_LocalRotation: {x: -0, y: 0.6582167, z: -0, w: 0.75282854}
+  m_LocalRotation: {x: -0, y: 0.93159974, z: -0, w: 0.3634857}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -211,7 +215,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -716519097, guid: cb703d33615804a46be12fe2927de45f, type: 3}
+  m_Sprite: {fileID: -893678943, guid: cb703d33615804a46be12fe2927de45f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -282,10 +286,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actorBillboard: {fileID: 3794228366184573433}
   carlStateScript: {fileID: 3794228366127510980}
+  mortalityScript: {fileID: 3794228366127510981}
   idleAnim: {fileID: 11400000, guid: 4b7a7a3f5f934b24e91a97e630aa8170, type: 2}
   walkAnim: {fileID: 11400000, guid: 84869ec235686dd47ac832feff7b48d1, type: 2}
   shootAnim: {fileID: 0}
-  painAnim: {fileID: 0}
+  painAnim: {fileID: 11400000, guid: 534918212fdbbd64aab30a73c740d509, type: 2}
   dieAnim: {fileID: 0}
 --- !u!1 &3794228367119589885
 GameObject:

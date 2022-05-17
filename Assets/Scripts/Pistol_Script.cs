@@ -158,7 +158,7 @@ public class Pistol_Script : MonoBehaviour
                     //Debug.Log("you hit " + mortalObj.name);
                 }
 
-                if (Physics.Raycast(playerCam.transform.position, playerCam.transform.forward, range, ground))
+                if (Physics.Raycast(playerCam.transform.position, playerCam.transform.forward, out hit, range, ground))
                 {
                     GameObject obj = Instantiate(_bulletHolePrefab, hit.point, Quaternion.LookRotation(hit.normal));
                     obj.transform.parent = hit.transform;

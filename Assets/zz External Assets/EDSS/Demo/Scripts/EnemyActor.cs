@@ -11,6 +11,7 @@ namespace EightDirectionalSpriteSystem
 
         public ActorBillboard actorBillboard;
         public Carl_State_Script carlStateScript;
+        public Mortality_Script mortalityScript;
 
         public ActorAnimation idleAnim;
         public ActorAnimation walkAnim;
@@ -20,9 +21,10 @@ namespace EightDirectionalSpriteSystem
 
         bool switchToIdle = false;
         bool switchToWalking = false;
-        bool switchToShooting = false;
         bool switchToPain = false;
-        bool switchToDie = false;
+        //bool switchToShooting = false;
+        //bool switchToPain = false;
+        //bool switchToDie = false;
 
         bool currentlyWalking = false;
         bool currentlyIdle = false;
@@ -52,11 +54,10 @@ namespace EightDirectionalSpriteSystem
                 SetCurrentState(currentState);
         }
 
+
         void Update()
         {
             ActorListener();
-
-            if (!carlStateScript.isWalking) Debug.Log("Carl is not walking");
 
             if (actorBillboard != null)
             {
@@ -73,6 +74,12 @@ namespace EightDirectionalSpriteSystem
             {
                 switchToIdle = false;
                 SetCurrentState(State.IDLE);
+            }
+
+            if (switchToPain)
+            {
+                switchToPain = false;
+                SetCurrentState(State.PAIN);
             }
         }
 
@@ -94,6 +101,11 @@ namespace EightDirectionalSpriteSystem
                 currentlyIdle = true;
 
                 switchToIdle = true;
+            }
+
+            if (carlStateScript.state == 5)
+            {
+                switchToPain = true;
             }
         }
 
