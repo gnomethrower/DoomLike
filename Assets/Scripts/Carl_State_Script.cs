@@ -134,7 +134,7 @@ public class Carl_State_Script : MonoBehaviour
             }
         }
 
-        Debug.Log(agent.velocity);
+        //Debug.Log(agent.velocity);
         //if (agent.velocity != Vector3.zero) isWalking = true;
         if (state == 0) Peaceful();
         if (state == 3) TransitionToWary();
