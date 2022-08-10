@@ -7,7 +7,7 @@ AnimatorStateMachine:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Base Layer
+  m_Name: GrenadeAnimator
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: 7427539056212117571}
@@ -39,7 +39,7 @@ AnimatorController:
   m_AnimatorParameters: []
   m_AnimatorLayers:
   - serializedVersion: 5
-    m_Name: Base Layer
+    m_Name: GrenadeAnimator
     m_StateMachine: {fileID: -6834696205337491407}
     m_Mask: {fileID: 0}
     m_Motions: []

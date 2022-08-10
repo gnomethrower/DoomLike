@@ -14,6 +14,8 @@ public class WeaponSwitching_Script : MonoBehaviour
     PlayerController_Script playerScript;
     public Image uiShell;
     public Image uiBullet;
+    public Image uiGrenade;
+
 
 
     // Start is called before the first frame update
@@ -45,6 +47,11 @@ public class WeaponSwitching_Script : MonoBehaviour
         {
             selectedWeapon = 1;
         }
+
+        if (weaponEnum == "Grenade")
+        {
+            selectedWeapon = 2;
+        }
     }
 
     void SelectWeapon()
@@ -63,14 +70,21 @@ public class WeaponSwitching_Script : MonoBehaviour
         {
             uiBullet.enabled = true;
             uiShell.enabled = false;
-            //uiGrenade.enabled = false;
+            uiGrenade.enabled = false;
         }
 
         if (selectedWeapon == 1)
         {
             uiBullet.enabled = false;
             uiShell.enabled = true;
-            //uiGrenade.enabled = false;
+            uiGrenade.enabled = false;
+        }
+
+        if (selectedWeapon == 2)
+        {
+            uiBullet.enabled = false;
+            uiShell.enabled = false;
+            uiGrenade.enabled = true;
         }
 
     }
@@ -100,6 +114,11 @@ public class WeaponSwitching_Script : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             selectedWeapon = 1;
+            SelectWeapon();
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            selectedWeapon = 2;
             SelectWeapon();
         }
     }
