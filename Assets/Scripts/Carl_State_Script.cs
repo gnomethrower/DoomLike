@@ -278,7 +278,6 @@ public class Carl_State_Script : MonoBehaviour
 
     void Aggro()
     {
-
         agent.SetDestination(playerObj.transform.position);
     }
 
