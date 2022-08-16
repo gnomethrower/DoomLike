@@ -133,9 +133,9 @@ public class Pistol_Script : MonoBehaviour
 
     void Shoot()
     {
+        if (bulletsInMag > 0) uiBulletAnimator.SetTrigger("Shoot");
+        if (bulletsInMag == 0) uiBulletAnimator.SetTrigger("ShootLastBullet");
         chamberedRound = false;
-        if (bulletsInMag > 1) uiBulletAnimator.SetTrigger("Shoot");
-        if (bulletsInMag == 1) uiBulletAnimator.SetTrigger("ShootLastBullet");
         uiBulletAnimator.SetBool("Empty", true);
 
         EjectCasing();
