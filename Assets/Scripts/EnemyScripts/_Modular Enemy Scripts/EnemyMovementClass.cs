@@ -13,9 +13,11 @@ public class EnemyMovementClass : MonoBehaviour
     Vector3 spawnPos;
     LayerMask groundLayer;
     NavMeshAgent agent;
+    GameObject playerObjRef;
+    Vector3 playerPos;
 
     // Public Movement Variables
-    public float moveSpeed;
+    public float enemySpeed;
     public float patrolRange;
 
     void Start()
@@ -24,20 +26,20 @@ public class EnemyMovementClass : MonoBehaviour
         enemy = gameObject.transform;
         //Defining the current location as the spawnPosition. We will need this for Patrol().
         spawnPos = transform.position;
+        //offset the positon on y by 1 so the raycast doesnt intersect with the floor.
         spawnPos.y += 1;
+        //defining what we mean by groundlayer
         groundLayer = LayerMask.GetMask("Ground");
-        
+        //defining the agent variable by making it look for the navmeshagent component on this object.
         agent = GetComponent<NavMeshAgent>();
+        //defining a set reference to the player
+        playerObjRef = GameObject.FindGameObjectWithTag("Player");
     }
 
     private void Update()
     {
-        if (Input.GetButtonDown("Submit"))
-        {
-            GetNewPatrolPoint(patrolRange, groundLayer);
-        }
+        
     }
-
     public void NoMove()
     {
         agent.SetDestination(transform.position);
@@ -51,15 +53,19 @@ public class EnemyMovementClass : MonoBehaviour
          */
     }
 
-    public void AggroMovement(float aggroSpeedMod, float meleeRange, Transform target)
+    public void AggroMovement(float aggroSpeed, float meleeRange, Vector3 playerPos)
     {
-        float aggroSpeed = moveSpeed * aggroSpeedMod;
+        enemySpeed = aggroSpeed;
+        agent.speed = enemySpeed;
+        agent.SetDestination(playerPos);
         // The movement needed to close distance to the enemy player, according to the meleeRange.
     }
 
-    public void GetNewPatrolPoint(float patrolRange, LayerMask layermaskCollider)
+    public void GetNewPatrolPoint(float patrolRange, float patrolSpeed, LayerMask layermaskCollider)
     {
-        agent.speed = moveSpeed;
+        patrolSpeed = 5f;
+        enemySpeed = patrolSpeed;
+        agent.speed = enemySpeed;
         /*
          * Simple Patrolling behaviour, where entity patrols around their spawn spot, "searching" for the player.
          * Enter Conditions:

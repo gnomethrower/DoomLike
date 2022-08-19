@@ -4,15 +4,61 @@ using UnityEngine;
 
 public class _EnemyBase : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+
+    public GameObject playerObj;
+    public GameObject thisEnemyObj;
+
+    EnemyMovementClass moveScript;
+
+    int currentState = 0;
+    int nextState = 0;
+    private void Awake()
     {
-        
+        EnemyMovementClass moveScript = new EnemyMovementClass();
     }
 
-    // Update is called once per frame
-    void Update()
+    public int GetNextState(int nextState)
     {
-        
+        int enemyState;
+        switch(currentState){
+            case 0: enemyState = 0; //idle
+                        break;
+
+            case 1: enemyState = 1; //patrol
+                        break;
+
+            case 2:
+                    enemyState = 2;     //aggro
+                        break;
+
+            default:
+                    enemyState = 0;     //default:Idle
+                        break;
+
+        } 
+        return enemyState;
     }
+
+    private void Update()
+    {
+        if(currentState != nextState)
+        {
+            GetNextState(nextState);
+        }
+
+        if(currentState == 0)
+        {
+            //IdleAlgo
+        }
+
+        if(currentState == 1)
+        {
+            //PatrolAlgo
+        }
+
+        if (currentState == 2)
+        {
+            //AggroAlgo
+        }
+    }    
 }
