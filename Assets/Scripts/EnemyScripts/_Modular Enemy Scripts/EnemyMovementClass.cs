@@ -16,8 +16,7 @@ public class EnemyMovementClass : MonoBehaviour
 
     // Public Movement Variables
     public float moveSpeed;
-    public float enemyHeight;
-    public bool canFly;
+    public float patrolRange;
 
     void Start()
     {
@@ -25,14 +24,18 @@ public class EnemyMovementClass : MonoBehaviour
         enemy = gameObject.transform;
         //Defining the current location as the spawnPosition. We will need this for Patrol().
         spawnPos = transform.position;
+        spawnPos.y += 1;
         groundLayer = LayerMask.GetMask("Ground");
-        moveSpeed = 10f;
+        
         agent = GetComponent<NavMeshAgent>();
     }
 
     private void Update()
     {
-
+        if (Input.GetButtonDown("Submit"))
+        {
+            GetNewPatrolPoint(patrolRange, groundLayer);
+        }
     }
 
     public void NoMove()
@@ -48,14 +51,15 @@ public class EnemyMovementClass : MonoBehaviour
          */
     }
 
-    public void AggroMovement(float aggroSpeedMod, float meleeRange)
+    public void AggroMovement(float aggroSpeedMod, float meleeRange, Transform target)
     {
         float aggroSpeed = moveSpeed * aggroSpeedMod;
         // The movement needed to close distance to the enemy player, according to the meleeRange.
     }
 
-    public void GetNewPatrolPoint(float patrolRange, float listenRange, float aggroRange, LayerMask layermaskCollider)
+    public void GetNewPatrolPoint(float patrolRange, LayerMask layermaskCollider)
     {
+        agent.speed = moveSpeed;
         /*
          * Simple Patrolling behaviour, where entity patrols around their spawn spot, "searching" for the player.
          * Enter Conditions:
@@ -99,7 +103,11 @@ public class EnemyMovementClass : MonoBehaviour
             Vector3 correctedPatrolPoint = hit.point - (spawnToHitPoint.normalized*.9f);
 
             patrolPoint = correctedPatrolPoint;
-        }
+        } Debug.DrawLine(spawnPos, patrolPoint, Color.green, 5f);
+
+        agent.SetDestination(patrolPoint);
 
     }
+
+
 }
