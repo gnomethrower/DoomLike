@@ -5,60 +5,39 @@ using UnityEngine;
 public class _EnemyBase : MonoBehaviour
 {
 
-    public GameObject playerObj;
-    public GameObject thisEnemyObj;
+    /* This class is supposed to bind together the movement, health and attack classes into a single enemy behavior.
+     * The enemy should be controlled with a Finite State Machine.
+     * 1) If State 0 is active, the enemy is supposed to be idle and not do anything.
+     * 2) If State 1 is active, the enemy is supposed to patrol around their spawnpoint.
+     * 3) If State 2 is active, the enemy is supposed to follow and attack the player.
+     */
 
-    EnemyMovementClass moveScript;
+    int state;
 
-    int currentState = 0;
-    int nextState = 0;
-    private void Awake()
+    public float baseEnemySpeed;
+    public float baseEnemyPatrolRange;
+
+    private void Start()
     {
-        EnemyMovementClass moveScript = new EnemyMovementClass();
-    }
+        state = 0; //Idle is the default state.
 
-    public int GetNextState(int nextState)
-    {
-        int enemyState;
-        switch(currentState){
-            case 0: enemyState = 0; //idle
-                        break;
-
-            case 1: enemyState = 1; //patrol
-                        break;
-
-            case 2:
-                    enemyState = 2;     //aggro
-                        break;
-
-            default:
-                    enemyState = 0;     //default:Idle
-                        break;
-
-        } 
-        return enemyState;
+        //In order to be able to use the movement methods from EnemyMovementClass, we need to instantiate a moveScript object according to EnemyMovementClass.
+        EnemyMovementClass enemyMove1 = new EnemyMovementClass();
+        enemyMove1.enemySpeed = baseEnemySpeed;
+        enemyMove1.patrolRange = baseEnemyPatrolRange;
     }
 
     private void Update()
     {
-        if(currentState != nextState)
+        if (state == 0)
         {
-            GetNextState(nextState);
-        }
-
-        if(currentState == 0)
+            
+        } else if (state == 1)
         {
-            //IdleAlgo
-        }
-
-        if(currentState == 1)
+            // Patrol
+        } else if (state == 2)
         {
-            //PatrolAlgo
+            // Aggro
         }
-
-        if (currentState == 2)
-        {
-            //AggroAlgo
-        }
-    }    
+    }
 }
