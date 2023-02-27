@@ -40,6 +40,7 @@ public class EnemyMovementClass : MonoBehaviour
     {
         
     }
+
     public void NoMove()
     {
         agent.SetDestination(transform.position);
@@ -66,6 +67,7 @@ public class EnemyMovementClass : MonoBehaviour
         patrolSpeed = 5f;
         enemySpeed = patrolSpeed;
         agent.speed = enemySpeed;
+        
         /*
          * Simple Patrolling behaviour, where entity patrols around their spawn spot, "searching" for the player.
          * Enter Conditions:

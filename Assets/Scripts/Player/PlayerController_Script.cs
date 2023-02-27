@@ -1,4 +1,4 @@
-/**using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -110,10 +110,8 @@ public class PlayerController_Script : MonoBehaviour
         }
     }
 
-    
     void CalculateSpreadMP()
     {
-        //Used to calculate the weapon spread based.
         spreadMultiplier = Mathf.Clamp(((Mathf.Abs(zAxis)) + (Mathf.Abs(xAxis))), 0, 1) + jumpingSpread;
     }
 
@@ -183,4 +181,3 @@ public class PlayerController_Script : MonoBehaviour
 }
 
 
-**/

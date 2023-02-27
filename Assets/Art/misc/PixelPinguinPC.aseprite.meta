@@ -1,0 +1,347 @@
+fileFormatVersion: 2
+guid: a4a9dafd25be5a044b113ed5e98c1c09
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 62a9f0aa5b59740cfbadc7e5f9823bb0, type: 3}
+  textureImporterSettings:
+    alphaSource: 1
+    mipMapMode: 0
+    enableMipMap: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+    convertToNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    isReadable: 0
+    streamingMipmaps: 0
+    streamingMipmapsPriority: 0
+    vTOnly: 0
+    ignoreMasterTextureLimit: 0
+    nPOTScale: 1
+    sRGBTexture: 1
+    spriteMode: 2
+    spriteExtrude: 1
+    spriteMeshType: 1
+    alignment: 0
+    spritePivot: {x: 0.5, y: 0.5}
+    spritePixelsToUnits: 100
+    spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+    spriteGenerateFallbackPhysicsShape: 0
+    generateCubemap: 6
+    cubemapConvolution: 0
+    seamlessCubemap: 0
+    alphaIsTransparency: 1
+    spriteTessellationDetail: -1
+    textureType: 8
+    textureShape: 1
+    singleChannelComponent: 0
+    flipbookRows: 0
+    flipbookColumns: 0
+    ignorePngGamma: 0
+    cookieMode: 0
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+    normalMap: 0
+    textureFormat: 0
+    maxTextureSize: 0
+    lightmap: 0
+    compressionQuality: 0
+    linearTexture: 0
+    grayScaleToAlpha: 0
+    rGBM: 0
+    cubemapConvolutionSteps: 0
+    cubemapConvolutionExponent: 0
+    maxTextureSizeSet: 0
+    compressionQualitySet: 0
+    textureFormatSet: 0
+    applyGammaDecoding: 0
+  previousAsepriteImporterSettings:
+    importHiddenLayers: 0
+    layerImportMode: 1
+    defaultPivotSpace: 0
+    defaultPivotAlignment: 7
+    customPivotPosition: {x: 0.5, y: 0.5}
+    generateModelPrefab: 1
+    generateAnimationClips: 1
+    addShadowCasters: 0
+  asepriteImporterSettings:
+    importHiddenLayers: 0
+    layerImportMode: 1
+    defaultPivotSpace: 0
+    defaultPivotAlignment: 7
+    customPivotPosition: {x: 0.5, y: 0.5}
+    generateModelPrefab: 1
+    generateAnimationClips: 1
+    addShadowCasters: 0
+  importFileNodeState: 1
+  platformSettingsDirtyTick: 0
+  textureAssetName: 
+  singleSpriteImportData:
+  - name: 
+    originalName: 
+    pivot: {x: 0, y: 0}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    spriteID: 
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  multiSpriteImportData:
+  - name: PixelPinguinPC_0
+    originalName: 
+    pivot: {x: 0.4166667, y: -0.08888889}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 58
+      y: 4
+      width: 48
+      height: 45
+    spriteID: 5952f69b8ab7f984d86b9421f66d0a6a
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 58, y: 4}
+  - name: PixelPinguinPC_1
+    originalName: 
+    pivot: {x: 0.39130434, y: -0.06}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 63
+      width: 46
+      height: 50
+    spriteID: d297b789e38a6ec4a95e521f2e21319e
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 63}
+  - name: PixelPinguinPC_2
+    originalName: 
+    pivot: {x: 0.45000002, y: -0.07692308}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 58
+      y: 115
+      width: 40
+      height: 52
+    spriteID: 5e11fa810d031e4489e04fdb3f78d60a
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 58, y: 115}
+  - name: PixelPinguinPC_3
+    originalName: 
+    pivot: {x: 0.5, y: -0.04}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 58
+      y: 57
+      width: 42
+      height: 50
+    spriteID: 08f7466d8b774d94290ea896895c95f4
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 58, y: 57}
+  - name: PixelPinguinPC_4
+    originalName: 
+    pivot: {x: 0.51111114, y: -0.08888889}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 58
+      y: 175
+      width: 45
+      height: 45
+    spriteID: f2e6502af5146614b8e1b47063d73db0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 58, y: 175}
+  - name: PixelPinguinPC_5
+    originalName: 
+    pivot: {x: 0.43478262, y: -0.058823533}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 4
+      width: 46
+      height: 51
+    spriteID: ef5184cc131fa0147a610d628a707c1f
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 4}
+  - name: PixelPinguinPC_6
+    originalName: 
+    pivot: {x: 0.4390244, y: -0.07692308}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 181
+      width: 41
+      height: 52
+    spriteID: 088075057f7a60c46901aa7460969ed8
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 181}
+  - name: PixelPinguinPC_7
+    originalName: 
+    pivot: {x: 0.41860464, y: -0.03846154}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 121
+      width: 43
+      height: 52
+    spriteID: bdea9ea941b262b41af6bf787fe7a60e
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 121}
+  asepriteLayers:
+  - layerIndex: 0
+    name: PixelPinguinPC
+    layerFlags: 0
+    layerType: 0
+    cells:
+    - name: PixelPinguinPC_0
+      frameIndex: 0
+      cellRect:
+        x: 12
+        y: 4
+        width: 48
+        height: 45
+      spriteId: 5952f69b8ab7f984d86b9421f66d0a6a
+    - name: PixelPinguinPC_1
+      frameIndex: 1
+      cellRect:
+        x: 14
+        y: 3
+        width: 46
+        height: 50
+      spriteId: d297b789e38a6ec4a95e521f2e21319e
+    - name: PixelPinguinPC_2
+      frameIndex: 2
+      cellRect:
+        x: 14
+        y: 4
+        width: 40
+        height: 52
+      spriteId: 5e11fa810d031e4489e04fdb3f78d60a
+    - name: PixelPinguinPC_3
+      frameIndex: 3
+      cellRect:
+        x: 11
+        y: 2
+        width: 42
+        height: 50
+      spriteId: 08f7466d8b774d94290ea896895c95f4
+    - name: PixelPinguinPC_4
+      frameIndex: 4
+      cellRect:
+        x: 9
+        y: 4
+        width: 45
+        height: 45
+      spriteId: f2e6502af5146614b8e1b47063d73db0
+    - name: PixelPinguinPC_5
+      frameIndex: 5
+      cellRect:
+        x: 12
+        y: 3
+        width: 46
+        height: 51
+      spriteId: ef5184cc131fa0147a610d628a707c1f
+    - name: PixelPinguinPC_6
+      frameIndex: 6
+      cellRect:
+        x: 14
+        y: 4
+        width: 41
+        height: 52
+      spriteId: 088075057f7a60c46901aa7460969ed8
+    - name: PixelPinguinPC_7
+      frameIndex: 7
+      cellRect:
+        x: 14
+        y: 2
+        width: 43
+        height: 52
+      spriteId: bdea9ea941b262b41af6bf787fe7a60e
+    linkedCells: []
+  platformSettings: []
+  secondarySpriteTextures: []
+  spritePackingTag: 
