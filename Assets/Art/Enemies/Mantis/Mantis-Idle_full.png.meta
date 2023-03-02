@@ -1,0 +1,1203 @@
+fileFormatVersion: 2
+guid: 55d6cd5e3e7f8cf4cac7153cc1c0f135
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 55
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Windows Store Apps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Mantis-Idle_full_0
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 686
+        width: 96
+        height: 69
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d8ecd134ba870174e9ec0ddd69880ce1
+      internalID: 924435746
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mantis-Idle_full_1
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 686
+        width: 96
+        height: 70
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8b9f2b790868a104d83b87837e6a9864
+      internalID: 918803606
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mantis-Idle_full_2
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 686
+        width: 96
+        height: 71
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a647e92675bad7d458613e1bad70cf5f
+      internalID: -728441346
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mantis-Idle_full_3
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 686
+        width: 96
+        height: 72
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d9e376d8442d13047b267057d9a1eec2
+      internalID: 382718155
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mantis-Idle_full_4
+      rect:
+        serializedVersion: 2
+        x: 672
+        y: 686
+        width: 96
+        height: 71
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dd879dc3dfb40f049adfdf855921811d
+      internalID: -1576881364
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mantis-Idle_full_5
+      rect:
+        serializedVersion: 2
+        x: 832
+        y: 686
+        width: 96
+        height: 70
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ab99ed6cf1b38f748bd333353b06b4b7
+      internalID: 1634884814
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mantis-Idle_full_6
+      rect:
+        serializedVersion: 2
+        x: 31
+        y: 590
+        width: 116
+        height: 69
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 568f8f75961a4464caa8078f2d6d0f64
+      internalID: -1876204698
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mantis-Idle_full_7
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 590
+        width: 115
+        height: 70
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fc4c6d1943b21ac4b85b491e64bfce89
+      internalID: 1524870
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mantis-Idle_full_8
+      rect:
+        serializedVersion: 2
+        x: 353
+        y: 590
+        width: 114
+        height: 71
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e122943536814da4cb3465d37fc196e0
+      internalID: 1196597134
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mantis-Idle_full_9
+      rect:
+        serializedVersion: 2
+        x: 513
+        y: 590
+        width: 114
+        height: 72
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a32a76026dc05ae4b88b3193ed262c44
+      internalID: 164970381
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mantis-Idle_full_10
+      rect:
+        serializedVersion: 2
+        x: 673
+        y: 590
+        width: 114
+        height: 71
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ad0acb70aa1435d438399da6c7475672
+      internalID: -1419101469
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mantis-Idle_full_11
+      rect:
+        serializedVersion: 2
+        x: 832
+        y: 590
+        width: 115
+        height: 70
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f4719c4a323afc842b919e69cdfdac43
+      internalID: 738159286
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mantis-Idle_full_12
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 494
+        width: 111
+        height: 69
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 10d06fd522ce9304c8a9f799d5cb3a1f
+      internalID: 2023584254
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mantis-Idle_full_13
+      rect:
+        serializedVersion: 2
+        x: 190
+        y: 494
+        width: 111
+        height: 70
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5b4efc36a11eae6448186e7e8ccf8871
+      internalID: -239461145
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mantis-Idle_full_14
+      rect:
+        serializedVersion: 2
+        x: 351
+        y: 494
+        width: 110
+        height: 71
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7ea8f9d7aa4f54848b4e4fcbd05cdee0
+      internalID: 1116103084
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mantis-Idle_full_15
+      rect:
+        serializedVersion: 2
+        x: 511
+        y: 494
+        width: 110
+        height: 72
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ce21dcef07747874e91678594adef290
+      internalID: 97262654
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mantis-Idle_full_16
+      rect:
+        serializedVersion: 2
+        x: 671
+        y: 494
+        width: 110
+        height: 71
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0bdf4651e3bc9964f969ac94bbd7e743
+      internalID: -1940360722
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mantis-Idle_full_17
+      rect:
+        serializedVersion: 2
+        x: 830
+        y: 494
+        width: 111
+        height: 70
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c75cf1f1c6d85344da0130627a2f805c
+      internalID: -1633779826
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mantis-Idle_full_18
+      rect:
+        serializedVersion: 2
+        x: 29
+        y: 398
+        width: 115
+        height: 69
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a85c63e16fd3cd241995841c2df0d567
+      internalID: -373705949
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mantis-Idle_full_19
+      rect:
+        serializedVersion: 2
+        x: 189
+        y: 398
+        width: 115
+        height: 70
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 97a696365a5cc3140a1ccb8557e7b1aa
+      internalID: 1663181653
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mantis-Idle_full_20
+      rect:
+        serializedVersion: 2
+        x: 350
+        y: 398
+        width: 114
+        height: 71
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f7ea04d271368ea4e8b9223ab0433c9e
+      internalID: 614929753
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mantis-Idle_full_21
+      rect:
+        serializedVersion: 2
+        x: 511
+        y: 398
+        width: 113
+        height: 72
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1bad1e7dc3f0dbe4895495fef6a68dfd
+      internalID: 299797438
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mantis-Idle_full_22
+      rect:
+        serializedVersion: 2
+        x: 670
+        y: 398
+        width: 114
+        height: 71
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d75b3698fb4061342a2b2b1be3f67fae
+      internalID: 1670660130
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mantis-Idle_full_23
+      rect:
+        serializedVersion: 2
+        x: 829
+        y: 398
+        width: 115
+        height: 70
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5aecffe34dc89ba469663cb209481d55
+      internalID: -1687692437
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mantis-Idle_full_24
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 302
+        width: 96
+        height: 69
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fbc32b8d5cb37024bbeeae0fc512e826
+      internalID: 216770269
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mantis-Idle_full_25
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 302
+        width: 96
+        height: 70
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3f6db05bdd1e34b4caa53e01e6cadef7
+      internalID: 1279421240
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mantis-Idle_full_26
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 302
+        width: 96
+        height: 71
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 63285896f664b6744af8cf8e29e1f20f
+      internalID: 658109559
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mantis-Idle_full_27
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 302
+        width: 96
+        height: 72
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1a7c5e38a7b48d641a3485f50ac10f22
+      internalID: 1606409442
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mantis-Idle_full_28
+      rect:
+        serializedVersion: 2
+        x: 672
+        y: 302
+        width: 96
+        height: 71
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9ef4b57574c91d845a7b62c449499176
+      internalID: -1110748649
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mantis-Idle_full_29
+      rect:
+        serializedVersion: 2
+        x: 832
+        y: 302
+        width: 96
+        height: 70
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eee21ea3ee2df8044a8556834fc08d61
+      internalID: -2080989448
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mantis-Idle_full_30
+      rect:
+        serializedVersion: 2
+        x: 13
+        y: 206
+        width: 116
+        height: 69
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 54ade38cff8b62e45bc61fe023107d86
+      internalID: 1020374917
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mantis-Idle_full_31
+      rect:
+        serializedVersion: 2
+        x: 173
+        y: 206
+        width: 115
+        height: 70
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5fa5c28a500bd4e4bbb83de5dfe24504
+      internalID: 860864302
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mantis-Idle_full_32
+      rect:
+        serializedVersion: 2
+        x: 333
+        y: 206
+        width: 114
+        height: 71
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fc6c4169edf3daa438061540986aa863
+      internalID: 1391534459
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mantis-Idle_full_33
+      rect:
+        serializedVersion: 2
+        x: 493
+        y: 206
+        width: 114
+        height: 72
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e993ba63cfab1a6439d25933b6bd1908
+      internalID: -2101185978
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mantis-Idle_full_34
+      rect:
+        serializedVersion: 2
+        x: 653
+        y: 206
+        width: 114
+        height: 71
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1295f4e1cb866584cb8ea55e15a2cd4b
+      internalID: 313451580
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mantis-Idle_full_35
+      rect:
+        serializedVersion: 2
+        x: 813
+        y: 206
+        width: 115
+        height: 70
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 425c673f5797e4e4baafbae7671447a8
+      internalID: -1428564936
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mantis-Idle_full_36
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 110
+        width: 111
+        height: 69
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5d5ecc46e04ab1348861afda8bca593c
+      internalID: -477331673
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mantis-Idle_full_37
+      rect:
+        serializedVersion: 2
+        x: 179
+        y: 110
+        width: 111
+        height: 70
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3d04b8f1794a93c4a908da2ddbac9671
+      internalID: -1383818801
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mantis-Idle_full_38
+      rect:
+        serializedVersion: 2
+        x: 339
+        y: 110
+        width: 110
+        height: 71
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 111970bddd938dd49a7693c03a0b018e
+      internalID: -412881354
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mantis-Idle_full_39
+      rect:
+        serializedVersion: 2
+        x: 499
+        y: 110
+        width: 110
+        height: 72
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7704fc1672901de4799c29ab4123e0be
+      internalID: 155372219
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mantis-Idle_full_40
+      rect:
+        serializedVersion: 2
+        x: 659
+        y: 110
+        width: 110
+        height: 71
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0ecd4af14f31cf145a52f97005b8af31
+      internalID: 1441760381
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mantis-Idle_full_41
+      rect:
+        serializedVersion: 2
+        x: 819
+        y: 110
+        width: 111
+        height: 70
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e6b06d657f6fa354d86e66d69c6e6f90
+      internalID: -1311233879
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mantis-Idle_full_42
+      rect:
+        serializedVersion: 2
+        x: 13
+        y: 14
+        width: 116
+        height: 69
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bba81d9b46546274bb0a68793e0b4ce7
+      internalID: -269502601
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mantis-Idle_full_43
+      rect:
+        serializedVersion: 2
+        x: 173
+        y: 14
+        width: 115
+        height: 70
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d16b194e0555da647afeb9e064db4e5d
+      internalID: -1118974132
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mantis-Idle_full_44
+      rect:
+        serializedVersion: 2
+        x: 333
+        y: 14
+        width: 114
+        height: 71
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9e341c19d02955540b908bc24eea0cc9
+      internalID: 453217228
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mantis-Idle_full_45
+      rect:
+        serializedVersion: 2
+        x: 493
+        y: 14
+        width: 114
+        height: 72
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: de656929e7774f849857b1b89872a2c0
+      internalID: 289757715
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mantis-Idle_full_46
+      rect:
+        serializedVersion: 2
+        x: 653
+        y: 14
+        width: 114
+        height: 71
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a8880f526790e7a4584fad169276df38
+      internalID: -817561788
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mantis-Idle_full_47
+      rect:
+        serializedVersion: 2
+        x: 813
+        y: 14
+        width: 115
+        height: 70
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 39d8bf14de5034c4e8007e2589b4865a
+      internalID: -1049459276
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Mantis-Idle_full_0: 924435746
+      Mantis-Idle_full_1: 918803606
+      Mantis-Idle_full_10: -1419101469
+      Mantis-Idle_full_11: 738159286
+      Mantis-Idle_full_12: 2023584254
+      Mantis-Idle_full_13: -239461145
+      Mantis-Idle_full_14: 1116103084
+      Mantis-Idle_full_15: 97262654
+      Mantis-Idle_full_16: -1940360722
+      Mantis-Idle_full_17: -1633779826
+      Mantis-Idle_full_18: -373705949
+      Mantis-Idle_full_19: 1663181653
+      Mantis-Idle_full_2: -728441346
+      Mantis-Idle_full_20: 614929753
+      Mantis-Idle_full_21: 299797438
+      Mantis-Idle_full_22: 1670660130
+      Mantis-Idle_full_23: -1687692437
+      Mantis-Idle_full_24: 216770269
+      Mantis-Idle_full_25: 1279421240
+      Mantis-Idle_full_26: 658109559
+      Mantis-Idle_full_27: 1606409442
+      Mantis-Idle_full_28: -1110748649
+      Mantis-Idle_full_29: -2080989448
+      Mantis-Idle_full_3: 382718155
+      Mantis-Idle_full_30: 1020374917
+      Mantis-Idle_full_31: 860864302
+      Mantis-Idle_full_32: 1391534459
+      Mantis-Idle_full_33: -2101185978
+      Mantis-Idle_full_34: 313451580
+      Mantis-Idle_full_35: -1428564936
+      Mantis-Idle_full_36: -477331673
+      Mantis-Idle_full_37: -1383818801
+      Mantis-Idle_full_38: -412881354
+      Mantis-Idle_full_39: 155372219
+      Mantis-Idle_full_4: -1576881364
+      Mantis-Idle_full_40: 1441760381
+      Mantis-Idle_full_41: -1311233879
+      Mantis-Idle_full_42: -269502601
+      Mantis-Idle_full_43: -1118974132
+      Mantis-Idle_full_44: 453217228
+      Mantis-Idle_full_45: 289757715
+      Mantis-Idle_full_46: -817561788
+      Mantis-Idle_full_47: -1049459276
+      Mantis-Idle_full_5: 1634884814
+      Mantis-Idle_full_6: -1876204698
+      Mantis-Idle_full_7: 1524870
+      Mantis-Idle_full_8: 1196597134
+      Mantis-Idle_full_9: 164970381
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
