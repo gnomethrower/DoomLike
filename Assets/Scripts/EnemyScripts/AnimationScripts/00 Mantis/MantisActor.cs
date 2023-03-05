@@ -10,7 +10,7 @@ namespace EightDirectionalSpriteSystem
         public enum State { NONE, IDLE, AGGRO, WALKING, SPRINTING, HURT, JUMPANTICIPATION, INAIR, ATTACK, DEATH };
 
         public ActorBillboard actorBillboard;
-        public MantisEnemyScript mantisEnemyScript;
+        public MantisEnemyAI mantisEnemyAI;
 
         public ActorAnimation idleAnim;
         public ActorAnimation aggroAnim;
@@ -94,30 +94,9 @@ namespace EightDirectionalSpriteSystem
 
         void ActorListener()
         {
-            /*
-            //Debug.Log(currentlyWalking);
-            //WalkingListener
-            if (carlStateScript.isWalking && !currentlyWalking && carlStateScript.state != 1)
-            {
-                currentlyWalking = true;
-                currentlyIdle = false;
 
-                switchToWalking = true;
-            }
 
-            if (carlStateScript.state == 1 && !currentlyIdle)
-            {
-                currentlyWalking = false;
-                currentlyIdle = true;
 
-                switchToIdle = true;
-            }
-
-            if (carlStateScript.state == 5)
-            {
-                switchToHurt = true;
-            }
-            */
         }
 
         void SetCurrentState(State newState)

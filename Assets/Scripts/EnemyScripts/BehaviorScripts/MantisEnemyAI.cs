@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class MantisEnemyScript : MonoBehaviour
+public class MantisEnemyAI : MonoBehaviour
 {
 
     /*
@@ -27,7 +27,7 @@ public class MantisEnemyScript : MonoBehaviour
     */
 
 
-    // ********** VARIABLES **********
+    /* ********** VARIABLES ********** */
 
     // DEBUG
 
@@ -35,16 +35,20 @@ public class MantisEnemyScript : MonoBehaviour
     private NavMeshAgent navMeshAgent;
     private GameObject player;
     private Transform playerTransform;
-    private LayerMask groundLayer = 6;
 
-    enum States { IDLE, AGGRO, WALKING, SPRINTING, HURT, JUMPANT, INAIR, ATTACK, DEATH };
-    
+    // State Variables
+    enum MantisStates {IDLE, PATROL, AGGRO, WALKING, SPRINTING, HURT, JUMPANT, INAIR, ATTACK, DEATH};
+    int mantisStateValue;
+
+
+
     //Patrol Variables
+    private bool hasReachedPatrolPoint = true;
     private Vector3 spawnPosition;
     private Vector3 patrolPositionOrigin;
     private Vector3 nextPatrolPoint;
     [SerializeField] float patrolRadius = 5f;
-    [SerializeField] float patrolPauseSeconds = 1f;
+    //[SerializeField] float patrolPauseSeconds = 1f;
 
 
     private void Awake()
@@ -57,20 +61,61 @@ public class MantisEnemyScript : MonoBehaviour
     void Start()
     {
         //spawnPosition = transform.position;
-        FindNextPatrolPoint();
+        NextPatrolPoint();
 
+        //Usually enemy will be defaulting to Idle at start, but patrol is just a test.
+        mantisStateValue = ((int)MantisStates.PATROL);
     }
 
     void Update()
     {
-        
+        RunStateMachine();
     }
 
-    // Finds the next patrol Point
-    private void FindNextPatrolPoint()
+    private void RunStateMachine()
     {
-        // Debug Gizmo Color:
-        Gizmos.color = Color.cyan;
+        switch (mantisStateValue)
+        {
+            case 0:
+                Debug.Log("State is now IDLE");
+                break;
+
+            case 1:
+                    if(hasReachedPatrolPoint) PatrolState();
+                break;
+        }
+    }
+
+    private void PatrolState()
+    {
+        Debug.Log("State is now PATROL");
+
+        hasReachedPatrolPoint = false;
+
+        NextPatrolPoint();
+
+        //Initializing movement towards patrol point
+        navMeshAgent.SetDestination(nextPatrolPoint);
+
+        if (navMeshAgent.remainingDistance > 0.1f)
+        {
+            Debug.Log("On my way");
+        }
+
+        else
+        {
+            hasReachedPatrolPoint = true;
+            Debug.Log("Arrived at PatrolPoint");
+        }
+    }
+        
+
+
+    private void NextPatrolPoint()
+    {
+        /* Finds the next patrol point.
+        * Does not check whether the patrol point is on the same floor.
+        */
 
         //This variable is needed to approximate a point near the Navmesh.
         Vector3 patrolPointApproximation;
@@ -87,6 +132,7 @@ public class MantisEnemyScript : MonoBehaviour
         if (NavMesh.SamplePosition(patrolPointApproximation,out navHitPoint, patrolRadius, NavMesh.GetAreaFromName("Ground")))
         {
             nextPatrolPoint = navHitPoint.position;
+            
             Debug.DrawLine(patrolPositionOrigin, nextPatrolPoint, Color.cyan, 10f);
             Debug.DrawLine(nextPatrolPoint, new Vector3(nextPatrolPoint.x,nextPatrolPoint.y+1,nextPatrolPoint.z), Color.green, 10f);
             Debug.Log("Patrol point found!");
@@ -100,5 +146,6 @@ public class MantisEnemyScript : MonoBehaviour
 
     }
     
+
 
 }
