@@ -5,13 +5,12 @@ using System.Collections;
 namespace EightDirectionalSpriteSystem
 {
     [ExecuteInEditMode]
-    public class EnemyActor: MonoBehaviour
+    public class MantisActor : MonoBehaviour
     {
         public enum State { NONE, IDLE, AGGRO, WALKING, SPRINTING, HURT, JUMPANTICIPATION, INAIR, ATTACK, DEATH };
 
         public ActorBillboard actorBillboard;
-        
-        //public MantisEnemyScript mantisEnemyScript;
+        public MantisEnemyScript mantisEnemyScript;
 
         public ActorAnimation idleAnim;
         public ActorAnimation aggroAnim;
@@ -26,9 +25,9 @@ namespace EightDirectionalSpriteSystem
         bool switchToIdle = false;
         bool switchToWalking = false;
         bool switchToHurt = false;
+        
         /*
         bool switchToSprinting = false;
-       
         bool switchToJumpAnticipation = false;
         bool switchToJumpInAir = false;
         bool switchToAttack = false;
@@ -36,7 +35,8 @@ namespace EightDirectionalSpriteSystem
         bool currentlyIdle = false;
         bool currentlyWalking = false;
         bool currentlySprinting = false;
-        bool currentlyInAir = false;*/
+        bool currentlyInAir = false;
+        */
 
         private Transform myTransform;
         private ActorAnimation currentAnimation = null;
@@ -94,7 +94,30 @@ namespace EightDirectionalSpriteSystem
 
         void ActorListener()
         {
+            /*
+            //Debug.Log(currentlyWalking);
+            //WalkingListener
+            if (carlStateScript.isWalking && !currentlyWalking && carlStateScript.state != 1)
+            {
+                currentlyWalking = true;
+                currentlyIdle = false;
 
+                switchToWalking = true;
+            }
+
+            if (carlStateScript.state == 1 && !currentlyIdle)
+            {
+                currentlyWalking = false;
+                currentlyIdle = true;
+
+                switchToIdle = true;
+            }
+
+            if (carlStateScript.state == 5)
+            {
+                switchToHurt = true;
+            }
+            */
         }
 
         void SetCurrentState(State newState)

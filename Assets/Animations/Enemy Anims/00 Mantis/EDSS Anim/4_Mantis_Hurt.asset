@@ -1,0 +1,64 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a0cf37e99fcb584dbdf7be0944f8cbf, type: 3}
+  m_Name: 4_Mantis_Hurt
+  m_EditorClassIdentifier: 
+  animName: Mantis_Hurt
+  animType: 1
+  animMode: 0
+  speed: 8
+  frameList:
+  - sprites:
+    - {fileID: 221714489, guid: 40b05cacd2bc2f74c99e5d99617cb374, type: 3}
+    - {fileID: 49160001, guid: 40b05cacd2bc2f74c99e5d99617cb374, type: 3}
+    - {fileID: -2134779320, guid: 40b05cacd2bc2f74c99e5d99617cb374, type: 3}
+    - {fileID: 2100013259, guid: 40b05cacd2bc2f74c99e5d99617cb374, type: 3}
+    - {fileID: 857254042, guid: 40b05cacd2bc2f74c99e5d99617cb374, type: 3}
+    - {fileID: -160708043, guid: 40b05cacd2bc2f74c99e5d99617cb374, type: 3}
+    - {fileID: 763370927, guid: 40b05cacd2bc2f74c99e5d99617cb374, type: 3}
+    - {fileID: 624568946, guid: 40b05cacd2bc2f74c99e5d99617cb374, type: 3}
+  - sprites:
+    - {fileID: 695131345, guid: 40b05cacd2bc2f74c99e5d99617cb374, type: 3}
+    - {fileID: -1005509592, guid: 40b05cacd2bc2f74c99e5d99617cb374, type: 3}
+    - {fileID: 1120787173, guid: 40b05cacd2bc2f74c99e5d99617cb374, type: 3}
+    - {fileID: 569459696, guid: 40b05cacd2bc2f74c99e5d99617cb374, type: 3}
+    - {fileID: 884179874, guid: 40b05cacd2bc2f74c99e5d99617cb374, type: 3}
+    - {fileID: -2063211137, guid: 40b05cacd2bc2f74c99e5d99617cb374, type: 3}
+    - {fileID: -2063211137, guid: 40b05cacd2bc2f74c99e5d99617cb374, type: 3}
+    - {fileID: 1592055223, guid: 40b05cacd2bc2f74c99e5d99617cb374, type: 3}
+  - sprites:
+    - {fileID: -1739354087, guid: 40b05cacd2bc2f74c99e5d99617cb374, type: 3}
+    - {fileID: -2100622425, guid: 40b05cacd2bc2f74c99e5d99617cb374, type: 3}
+    - {fileID: -396562940, guid: 40b05cacd2bc2f74c99e5d99617cb374, type: 3}
+    - {fileID: -1616552503, guid: 40b05cacd2bc2f74c99e5d99617cb374, type: 3}
+    - {fileID: -826295047, guid: 40b05cacd2bc2f74c99e5d99617cb374, type: 3}
+    - {fileID: -229092241, guid: 40b05cacd2bc2f74c99e5d99617cb374, type: 3}
+    - {fileID: 1984382660, guid: 40b05cacd2bc2f74c99e5d99617cb374, type: 3}
+    - {fileID: -1398037699, guid: 40b05cacd2bc2f74c99e5d99617cb374, type: 3}
+  - sprites:
+    - {fileID: 724562715, guid: 40b05cacd2bc2f74c99e5d99617cb374, type: 3}
+    - {fileID: 1692798952, guid: 40b05cacd2bc2f74c99e5d99617cb374, type: 3}
+    - {fileID: 367822248, guid: 40b05cacd2bc2f74c99e5d99617cb374, type: 3}
+    - {fileID: -1785565528, guid: 40b05cacd2bc2f74c99e5d99617cb374, type: 3}
+    - {fileID: 321176682, guid: 40b05cacd2bc2f74c99e5d99617cb374, type: 3}
+    - {fileID: -1429571973, guid: 40b05cacd2bc2f74c99e5d99617cb374, type: 3}
+    - {fileID: -1122874332, guid: 40b05cacd2bc2f74c99e5d99617cb374, type: 3}
+    - {fileID: 954784292, guid: 40b05cacd2bc2f74c99e5d99617cb374, type: 3}
+  - sprites:
+    - {fileID: -1978300932, guid: 40b05cacd2bc2f74c99e5d99617cb374, type: 3}
+    - {fileID: 721737353, guid: 40b05cacd2bc2f74c99e5d99617cb374, type: 3}
+    - {fileID: 904331737, guid: 40b05cacd2bc2f74c99e5d99617cb374, type: 3}
+    - {fileID: 1386502582, guid: 40b05cacd2bc2f74c99e5d99617cb374, type: 3}
+    - {fileID: -1221798819, guid: 40b05cacd2bc2f74c99e5d99617cb374, type: 3}
+    - {fileID: 250816363, guid: 40b05cacd2bc2f74c99e5d99617cb374, type: 3}
+    - {fileID: -1117368710, guid: 40b05cacd2bc2f74c99e5d99617cb374, type: 3}
+    - {fileID: 293266713, guid: 40b05cacd2bc2f74c99e5d99617cb374, type: 3}

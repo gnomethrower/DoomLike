@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a0cf37e99fcb584dbdf7be0944f8cbf, type: 3}
+  m_Name: 6_Mantis_InAir
+  m_EditorClassIdentifier: 
+  animName: Mantis_InAir
+  animType: 1
+  animMode: 1
+  speed: 8
+  frameList:
+  - sprites:
+    - {fileID: -507034553, guid: b44e8f5049abd1942b9ca79ddb65e45d, type: 3}
+    - {fileID: -961852543, guid: b44e8f5049abd1942b9ca79ddb65e45d, type: 3}
+    - {fileID: 1369232391, guid: b44e8f5049abd1942b9ca79ddb65e45d, type: 3}
+    - {fileID: 1769541901, guid: b44e8f5049abd1942b9ca79ddb65e45d, type: 3}
+    - {fileID: 1872737614, guid: b44e8f5049abd1942b9ca79ddb65e45d, type: 3}
+    - {fileID: 1654951171, guid: b44e8f5049abd1942b9ca79ddb65e45d, type: 3}
+    - {fileID: -1957971838, guid: b44e8f5049abd1942b9ca79ddb65e45d, type: 3}
+    - {fileID: 1813227778, guid: b44e8f5049abd1942b9ca79ddb65e45d, type: 3}
+  - sprites:
+    - {fileID: -763523923, guid: b44e8f5049abd1942b9ca79ddb65e45d, type: 3}
+    - {fileID: 466729431, guid: b44e8f5049abd1942b9ca79ddb65e45d, type: 3}
+    - {fileID: 1642773122, guid: b44e8f5049abd1942b9ca79ddb65e45d, type: 3}
+    - {fileID: -1759520126, guid: b44e8f5049abd1942b9ca79ddb65e45d, type: 3}
+    - {fileID: 146208059, guid: b44e8f5049abd1942b9ca79ddb65e45d, type: 3}
+    - {fileID: -890186421, guid: b44e8f5049abd1942b9ca79ddb65e45d, type: 3}
+    - {fileID: 1698201954, guid: b44e8f5049abd1942b9ca79ddb65e45d, type: 3}
+    - {fileID: 133193367, guid: b44e8f5049abd1942b9ca79ddb65e45d, type: 3}
+  - sprites:
+    - {fileID: -1831649287, guid: b44e8f5049abd1942b9ca79ddb65e45d, type: 3}
+    - {fileID: 84199891, guid: b44e8f5049abd1942b9ca79ddb65e45d, type: 3}
+    - {fileID: 830228910, guid: b44e8f5049abd1942b9ca79ddb65e45d, type: 3}
+    - {fileID: -71144196, guid: b44e8f5049abd1942b9ca79ddb65e45d, type: 3}
+    - {fileID: -2109947733, guid: b44e8f5049abd1942b9ca79ddb65e45d, type: 3}
+    - {fileID: 235031290, guid: b44e8f5049abd1942b9ca79ddb65e45d, type: 3}
+    - {fileID: 563183167, guid: b44e8f5049abd1942b9ca79ddb65e45d, type: 3}
+    - {fileID: -768308235, guid: b44e8f5049abd1942b9ca79ddb65e45d, type: 3}
