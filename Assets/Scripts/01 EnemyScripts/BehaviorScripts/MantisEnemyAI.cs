@@ -26,8 +26,8 @@ public class MantisEnemyAI : MonoBehaviour
 
     */
 
-
-    /* ********** VARIABLES ********** */
+    
+    // ********** VARIABLES **********
 
     // DEBUG
 
@@ -170,9 +170,9 @@ public class MantisEnemyAI : MonoBehaviour
 
     private void NextPatrolPoint()
     {
-        /* Finds the next patrol point.
-        * Does not check whether the patrol point is on the same floor.
-        */
+        // Finds the next patrol point.
+        // Does not check whether the patrol point is on the same floor.
+
 
         //This variable is needed to approximate a point near the Navmesh.
         Vector3 patrolPointApproximation;
