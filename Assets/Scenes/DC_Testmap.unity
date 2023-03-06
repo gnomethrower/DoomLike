@@ -25090,14 +25090,14 @@ NavMeshAgent:
   m_GameObject: {fileID: 1138555062}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.6
-  m_Speed: 4
-  m_Acceleration: 8
+  m_Radius: 0.8
+  m_Speed: 2
+  m_Acceleration: 10
   avoidancePriority: 50
-  m_AngularSpeed: 360
-  m_StoppingDistance: 0.5
+  m_AngularSpeed: 720
+  m_StoppingDistance: 0.25
   m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
+  m_AutoBraking: 0
   m_AutoRepath: 1
   m_Height: 1.25
   m_BaseOffset: 0.25
@@ -25115,7 +25115,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2b831e07ab5be84a8c7d94aca101aaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  behaviorStateInteger: 0
+  previousBehaviorStateInt: 0
+  animationStateInteger: 0
+  previousAnimStateInt: 0
   patrolRadius: 10
+  minimumDistanceToDestination: 0.2
+  pauseDurationMax: 5
+  pauseDurationMin: 0.5
 --- !u!1 &1152214337
 GameObject:
   m_ObjectHideFlags: 0
@@ -28276,7 +28283,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1237588583}
-  m_LocalRotation: {x: -0, y: 0.8634461, z: -0, w: 0.5044411}
+  m_LocalRotation: {x: -0, y: 0.98451334, z: -0, w: 0.17530964}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -28338,7 +28345,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1034833808, guid: c68159ec352a6ec42bdc0fe7e1e19ec5, type: 3}
+  m_Sprite: {fileID: -1354561153, guid: c68159ec352a6ec42bdc0fe7e1e19ec5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -72242,12 +72249,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "TODO: \n- Enemy Walkpoints, which they can choose to patrol.\n- Grenade\n\t-spritework
-    for idle, throw)\n\t-code\n\n- Head- and Weaponbobbing\n- Enemy Behaviour\n-
-    Enemy Spritework\n\n- Rework Sound with Animationevents\n- Playerdamage + Sound
-    when strong hit vs light hit.\n- smaller Healthpickup\n- smaller Ammopickup (spritework)\n\n-
-    Shadable Pixelart: https://www.youtube.com/watch?v=DI9bSVTBlsA\n\n- ADS: Glock
-    and Shotgun need ADS Code implementation\n- ADS Usability - Statemachine?"
+  m_text: "TODO: \n- Grenade\n\t-spritework for idle, throw)\n\t-code\n\n- Head-
+    and Weaponbobbing\n- Enemy Behaviour\n- Enemy Spritework\n\n- Rework Sound with
+    Animationevents\n- Playerdamage + Sound when strong hit vs light hit.\n- smaller
+    Healthpickup\n- smaller Ammopickup (spritework)\n\n- Shadable Pixelart: https://www.youtube.com/watch?v=DI9bSVTBlsA\n\n-
+    ADS: Glock and Shotgun need ADS Code implementation\n- ADS Usability - Statemachine?"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

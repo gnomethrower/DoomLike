@@ -37,18 +37,30 @@ public class MantisEnemyAI : MonoBehaviour
     private Transform playerTransform;
 
     // State Variables
-    enum MantisStates {IDLE, PATROL, AGGRO, WALKING, SPRINTING, HURT, JUMPANT, INAIR, ATTACK, DEATH};
-    int mantisStateValue;
+    public enum MantisBehaviorStates {IDLE, PATROL, AGGRO, CHASING, ATTACK};
+    public int behaviorStateInteger;
+    public int previousBehaviorStateInt;
 
+
+    public enum MantisAnimationStates { IDLING, WALKING, SPRINTING, AGGROING, HURTING, JUMPANTICIPATING, INAIRLOOPING, ATTACKING, DYING}
+    public int animationStateInteger;
+    public int previousAnimStateInt;
 
 
     //Patrol Variables
+    private bool patrolPointIsSet = false;
     private bool hasReachedPatrolPoint = true;
+    private bool pauseTimerFinished = true;
+
     private Vector3 spawnPosition;
     private Vector3 patrolPositionOrigin;
     private Vector3 nextPatrolPoint;
+
     [SerializeField] float patrolRadius = 5f;
-    //[SerializeField] float patrolPauseSeconds = 1f;
+    [SerializeField] float minimumDistanceToDestination = 0.2f;
+    [SerializeField] float pauseDurationMax = 5f;
+    [SerializeField] float pauseDurationMin = 1f;
+
 
 
     private void Awake()
@@ -61,10 +73,11 @@ public class MantisEnemyAI : MonoBehaviour
     void Start()
     {
         //spawnPosition = transform.position;
-        NextPatrolPoint();
-
         //Usually enemy will be defaulting to Idle at start, but patrol is just a test.
-        mantisStateValue = ((int)MantisStates.PATROL);
+
+
+        behaviorStateInteger = ((int)MantisBehaviorStates.PATROL); // int value is 1
+        animationStateInteger = ((int)MantisAnimationStates.WALKING); // int value is 1
     }
 
     void Update()
@@ -74,42 +87,86 @@ public class MantisEnemyAI : MonoBehaviour
 
     private void RunStateMachine()
     {
-        switch (mantisStateValue)
+        switch (behaviorStateInteger)
         {
             case 0:
                 Debug.Log("State is now IDLE");
                 break;
 
             case 1:
-                    if(hasReachedPatrolPoint) PatrolState();
+                Patrol();
+                break;
+
+            case 2:
+                Aggro();
+                break;
+
+            case 3:
+                Chasing();
+                break;
+
+            case 4:
+                Attacking();
                 break;
         }
     }
 
-    private void PatrolState()
+    // Patrol Code
+    void Patrol()
     {
-        Debug.Log("State is now PATROL");
+        if (!patrolPointIsSet && hasReachedPatrolPoint && pauseTimerFinished)
+        {
+            hasReachedPatrolPoint = false;
+            pauseTimerFinished = false;
 
-        hasReachedPatrolPoint = false;
+            PreviousAnimationStateUpdate();
+            PreviousBehaviorStateUpdate();
 
+            Debug.Log("2: Setting Walking Anim State at: " + Time.realtimeSinceStartup);
+            animationStateInteger = ((int)MantisAnimationStates.WALKING);
+
+            //Debug.Log("State is now PATROL");
+            SetNewPatrolPoint();
+        }
+
+        if (navMeshAgent.remainingDistance < minimumDistanceToDestination && !pauseTimerFinished && !hasReachedPatrolPoint)
+        {
+            PreviousAnimationStateUpdate();
+            PreviousBehaviorStateUpdate();
+
+            animationStateInteger = ((int)MantisAnimationStates.IDLING);
+
+            hasReachedPatrolPoint = true;
+            //Debug.Log("We've reached the Point, now pausing!");
+            StartCoroutine("PatrolPauseTimer");
+        }
+    }
+
+    void PreviousBehaviorStateUpdate()
+    {
+        if (previousBehaviorStateInt != behaviorStateInteger)
+        {
+            //Debug.Log("Updating previous Behavior State");
+            previousBehaviorStateInt = behaviorStateInteger;
+        }
+    }
+    void PreviousAnimationStateUpdate()
+    {
+        if (previousAnimStateInt != animationStateInteger)
+        {
+            //Debug.Log("Updating previous Anim State");
+            previousAnimStateInt = animationStateInteger;
+        }
+    }
+
+    private void SetNewPatrolPoint()
+    {
         NextPatrolPoint();
 
         //Initializing movement towards patrol point
         navMeshAgent.SetDestination(nextPatrolPoint);
-
-        if (navMeshAgent.remainingDistance > 0.1f)
-        {
-            Debug.Log("On my way");
-        }
-
-        else
-        {
-            hasReachedPatrolPoint = true;
-            Debug.Log("Arrived at PatrolPoint");
-        }
+        patrolPointIsSet = true;
     }
-        
-
 
     private void NextPatrolPoint()
     {
@@ -133,19 +190,50 @@ public class MantisEnemyAI : MonoBehaviour
         {
             nextPatrolPoint = navHitPoint.position;
             
-            Debug.DrawLine(patrolPositionOrigin, nextPatrolPoint, Color.cyan, 10f);
-            Debug.DrawLine(nextPatrolPoint, new Vector3(nextPatrolPoint.x,nextPatrolPoint.y+1,nextPatrolPoint.z), Color.green, 10f);
-            Debug.Log("Patrol point found!");
+            //Debug.DrawLine(patrolPositionOrigin, nextPatrolPoint, Color.cyan, 10f);
+            //Debug.DrawLine(nextPatrolPoint, new Vector3(nextPatrolPoint.x,nextPatrolPoint.y+1,nextPatrolPoint.z), Color.green, 10f);
+           //Debug.Log("Patrol point found!");
         }
 
         else
         {
-            Debug.DrawLine(patrolPositionOrigin, patrolPointApproximation, Color.red, 10f);
-            Debug.Log("Failure to find new patrolpoint: Couldn't find a navmesh close to the Next Position");
+            //Debug.DrawLine(patrolPositionOrigin, patrolPointApproximation, Color.red, 10f);
+            //Debug.Log("Failure to find new patrolpoint: Couldn't find a navmesh close to the Next Position");
         }
 
     }
-    
 
+    IEnumerator PatrolPauseTimer()
+    {
+        //Debug.Log("Pause timer started");
+        float pauseTimer = Random.Range(pauseDurationMin, pauseDurationMax);
+        yield return new WaitForSeconds(pauseTimer);
 
+        pauseTimerFinished = true;
+        patrolPointIsSet = false;
+        //Debug.Log("Timer finished after " + pausePatrolForSeconds + " seconds.");
+    }
+
+    //Aggro Code
+    void Aggro()
+    {
+        // if the enemy spots the player (player is in range, or attacks the enemy)
+        // mantis stops in their tracks
+        // turns towards player
+        // plays an animation for x seconds
+        // switches to CHASING state
+    }
+
+    //Chasing Code
+    void Chasing()
+    {
+        // if player is in sight and not in attack range, move towards player until in attack range.
+        // if player is both in sight AND in attack range, switch to ATTACK state.
+    }
+
+    //Attacking Code
+    void Attacking()
+    {
+
+    }
 }

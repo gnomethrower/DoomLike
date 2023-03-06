@@ -64,8 +64,9 @@ namespace EightDirectionalSpriteSystem
         }
 
 
-        void Update()
+        void LateUpdate()
         {
+
             ActorListener();
 
             if (actorBillboard != null)
@@ -73,13 +74,14 @@ namespace EightDirectionalSpriteSystem
                 actorBillboard.SetActorForwardVector(myTransform.forward);
             }
 
-            if (switchToWalking)
+            if (switchToWalking && currentAnimation != walkAnim)
             {
                 switchToWalking = false;
                 SetCurrentState(State.WALKING);
+                //Debug.Log("Switching to Walking is " + switchToWalking);
             }
 
-            if (switchToIdle)
+            if (switchToIdle && currentAnimation != idleAnim)
             {
                 switchToIdle = false;
                 SetCurrentState(State.IDLE);
@@ -92,11 +94,20 @@ namespace EightDirectionalSpriteSystem
             }
         }
 
+
+
         void ActorListener()
         {
+                if (mantisEnemyAI.animationStateInteger == 1 && currentAnimation != walkAnim && !switchToWalking)
+                {
+                    switchToWalking = true;
+                    //Debug.Log("Switching to Walking is " + switchToWalking);
+                }
 
-
-
+                if (mantisEnemyAI.animationStateInteger == 0 && currentAnimation != idleAnim && !switchToIdle)
+                {
+                    switchToIdle = true;
+                }
         }
 
         void SetCurrentState(State newState)
@@ -106,6 +117,7 @@ namespace EightDirectionalSpriteSystem
             {
 
                 case State.WALKING:
+                    Debug.Log("1: Setting currentAnim to Walking Animation at: " + Time.realtimeSinceStartup);
                     currentAnimation = walkAnim;
                     break;
 
