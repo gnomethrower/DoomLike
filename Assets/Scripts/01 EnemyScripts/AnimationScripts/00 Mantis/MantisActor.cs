@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.AI;
 using UnityEditor;
 using System.Collections;
 
@@ -11,6 +12,7 @@ namespace EightDirectionalSpriteSystem
 
         public ActorBillboard actorBillboard;
         public MantisEnemyAI mantisEnemyAI;
+        public NavMeshAgent navMeshAgent;
 
         public ActorAnimation idleAnim;
         public ActorAnimation aggroAnim;
@@ -45,6 +47,7 @@ namespace EightDirectionalSpriteSystem
         void Awake()
         {
             myTransform = GetComponent<Transform>();
+            navMeshAgent = GetComponentInParent<NavMeshAgent>();
         }
 
         void Start()
@@ -98,8 +101,8 @@ namespace EightDirectionalSpriteSystem
 
         void ActorListener()
         {
-                if (mantisEnemyAI.animationStateInteger == 1 && currentAnimation != walkAnim && !switchToWalking)
-                {
+                if (navMeshAgent.speed > 0 && mantisEnemyAI.animationStateInteger == 1) //mantisEnemyAI.animationStateInteger == 1 && currentAnimation != walkAnim && !switchToWalking)
+            {
                     switchToWalking = true;
                     //Debug.Log("Switching to Walking is " + switchToWalking);
                 }

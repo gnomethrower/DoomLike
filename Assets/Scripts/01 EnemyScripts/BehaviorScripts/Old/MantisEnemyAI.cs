@@ -38,14 +38,12 @@ public class MantisEnemyAI : MonoBehaviour
 
     // State Variables
     public enum MantisBehaviorStates {IDLE, PATROL, AGGRO, CHASING, ATTACK};
-    public int behaviorStateInteger;
-    public int previousBehaviorStateInt;
-
-
     public enum MantisAnimationStates { IDLING, WALKING, SPRINTING, AGGROING, HURTING, JUMPANTICIPATING, INAIRLOOPING, ATTACKING, DYING}
-    public int animationStateInteger;
-    public int previousAnimStateInt;
-
+    
+    [HideInInspector] public int animationStateInteger;
+    [HideInInspector] public int previousAnimStateInt;
+    [HideInInspector] public int behaviorStateInteger;
+    [HideInInspector] public int previousBehaviorStateInt;
 
     //Patrol Variables
     private bool patrolPointIsSet = false;
@@ -56,6 +54,7 @@ public class MantisEnemyAI : MonoBehaviour
     private Vector3 patrolPositionOrigin;
     private Vector3 nextPatrolPoint;
 
+    [Header("Patrol Settings")]
     [SerializeField] float patrolRadius = 5f;
     [SerializeField] float minimumDistanceToDestination = 0.2f;
     [SerializeField] float pauseDurationMax = 5f;
@@ -74,7 +73,6 @@ public class MantisEnemyAI : MonoBehaviour
     {
         //spawnPosition = transform.position;
         //Usually enemy will be defaulting to Idle at start, but patrol is just a test.
-
 
         behaviorStateInteger = ((int)MantisBehaviorStates.PATROL); // int value is 1
         animationStateInteger = ((int)MantisAnimationStates.WALKING); // int value is 1
