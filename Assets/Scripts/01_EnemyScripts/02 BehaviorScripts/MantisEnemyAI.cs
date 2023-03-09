@@ -125,7 +125,6 @@ public class MantisEnemyAI : MonoBehaviour
             Debug.Log("2: Setting Walking Anim State at: " + Time.realtimeSinceStartup);
             animationStateInteger = ((int)MantisAnimationStates.WALKING);
 
-            //Debug.Log("State is now PATROL");
             SetNewPatrolPoint();
         }
 
@@ -173,7 +172,6 @@ public class MantisEnemyAI : MonoBehaviour
         // Finds the next patrol point.
         // Does not check whether the patrol point is on the same floor.
 
-
         //This variable is needed to approximate a point near the Navmesh.
         Vector3 patrolPointApproximation;
 
@@ -189,18 +187,7 @@ public class MantisEnemyAI : MonoBehaviour
         if (NavMesh.SamplePosition(patrolPointApproximation,out navHitPoint, patrolRadius, NavMesh.GetAreaFromName("Ground")))
         {
             nextPatrolPoint = navHitPoint.position;
-            
-            //Debug.DrawLine(patrolPositionOrigin, nextPatrolPoint, Color.cyan, 10f);
-            //Debug.DrawLine(nextPatrolPoint, new Vector3(nextPatrolPoint.x,nextPatrolPoint.y+1,nextPatrolPoint.z), Color.green, 10f);
-           //Debug.Log("Patrol point found!");
         }
-
-        else
-        {
-            //Debug.DrawLine(patrolPositionOrigin, patrolPointApproximation, Color.red, 10f);
-            //Debug.Log("Failure to find new patrolpoint: Couldn't find a navmesh close to the Next Position");
-        }
-
     }
 
     IEnumerator PatrolPauseTimer()
