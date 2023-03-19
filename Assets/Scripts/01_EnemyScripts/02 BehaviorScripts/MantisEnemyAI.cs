@@ -5,29 +5,7 @@ using UnityEngine.AI;
 
 public class MantisEnemyAI : MonoBehaviour
 {
-
-    /*
-    This is the Behavior Script for the Simple Mantis Enemy. I might iterate or improve on this in the future.
-
-    The Mantis is the first enemy you encounter. Easy to dispose of, simple to kill. But can be annoying in numbers.
-    Behavior:
-
-    1. Starts off Idle or Patroling.
-    2. If player walks in aggro Range, or Mantis is attacked by player. It has a chance to act out an aggro Anim.
-        - Maybe Aggro Behavior can alert nearby Mantis' allies?
-    3. After aggro animation, Mantis starts chasing player.
-    4. As soon as player is in attack range, Mantis attacks player - continue until player is either out of range or dead.
-        a) Out of Range: Mantis follows player.
-        b) Dead: Mantis plays aggro animation, then continues patroling.
-    5. Patroling:
-        a) If it spawns in patrol mode, it uses its spawnPosition as the base for its patrol radius.
-        b) If it loses player, it uses its current position as patrol radius.
-
-
-    */
-
-    
-    // ********** VARIABLES **********
+    #region VARIABLES
 
     // DEBUG
 
@@ -61,6 +39,7 @@ public class MantisEnemyAI : MonoBehaviour
     [SerializeField] float pauseDurationMax = 5f;
     [SerializeField] float pauseDurationMin = 1f;
 
+    #endregion
 
 
     private void Awake()
@@ -94,7 +73,7 @@ public class MantisEnemyAI : MonoBehaviour
                 break;
 
             case 1:
-                Patrol();
+                PatrolState();
                 break;
 
             case 2:
@@ -111,8 +90,8 @@ public class MantisEnemyAI : MonoBehaviour
         }
     }
 
-    // Patrol Code
-    void Patrol()
+    #region PATROL CODE
+    void PatrolState()
     {
         if (!patrolPointIsSet && hasReachedPatrolPoint && pauseTimerFinished)
         {
@@ -200,8 +179,9 @@ public class MantisEnemyAI : MonoBehaviour
         patrolPointIsSet = false;
         //Debug.Log("Timer finished after " + pausePatrolForSeconds + " seconds.");
     }
+    #endregion
 
-    //Aggro Code
+    #region AGGRO CODE
     void Aggro()
     {
         // if the enemy spots the player (player is in range, or attacks the enemy)
@@ -210,17 +190,20 @@ public class MantisEnemyAI : MonoBehaviour
         // plays an animation for x seconds
         // switches to CHASING state
     }
+    #endregion
 
-    //Chasing Code
+    #region CHASING CODE
     void Chasing()
     {
         // if player is in sight and not in attack range, move towards player until in attack range.
         // if player is both in sight AND in attack range, switch to ATTACK state.
     }
+    #endregion
 
-    //Attacking Code
+    #region ATTACKING CODE
     void Attacking()
     {
 
     }
+    #endregion
 }

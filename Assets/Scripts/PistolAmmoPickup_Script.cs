@@ -51,7 +51,7 @@ public class PistolAmmoPickup_Script : MonoBehaviour
             myRenderer.enabled = false;
 
             audioInstance.PlayAmmoPickup();
-            Debug.Log("Picked up some " + gameObject.name);
+            //Debug.Log("Picked up some " + gameObject.name);
 
             if (respawning) Invoke("Reactivate", respawnTime);
         }
