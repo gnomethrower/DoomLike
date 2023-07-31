@@ -61,7 +61,7 @@ public class PlayerController_Script : MonoBehaviour
     [Header("Checkbools")]
     [SerializeField] private bool isGrounded;
     [SerializeField] public bool hasDied;
-    [SerializeField] private bool isMoving;
+    [SerializeField] private bool onTheMove;
     //[SerializeField] private bool isSprinting;
 
     private void Start()

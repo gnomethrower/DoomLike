@@ -63,7 +63,6 @@ namespace EightDirectionalSpriteSystem
                 SetCurrentState(currentState);
         }
 
-
         void LateUpdate()
         {
 
@@ -93,8 +92,6 @@ namespace EightDirectionalSpriteSystem
                 SetCurrentState(State.HURT);
             }
         }
-
-
 
         void ActorListener()
         {

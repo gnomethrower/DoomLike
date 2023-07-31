@@ -26,9 +26,9 @@ public class MantisEnemyAI : MonoBehaviour
 
 
     //Patrol Variables
-    private bool patrolPointIsSet = false;
-    private bool hasReachedPatrolPoint = true;
-    private bool pauseTimerFinished = true;
+    [SerializeField] private bool patrolPointIsSet = false;
+    [SerializeField] private bool hasReachedPatrolPoint = true;
+    [SerializeField] private bool pauseTimerFinished = true;
 
     private Vector3 spawnPosition;
     private Vector3 patrolPositionOrigin;
@@ -128,6 +128,7 @@ public class MantisEnemyAI : MonoBehaviour
             previousBehaviorStateInt = behaviorStateInteger;
         }
     }
+
     void PreviousAnimationStateUpdate()
     {
         if (previousAnimStateInt != animationStateInteger)
