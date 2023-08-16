@@ -20,6 +20,5 @@ public class GameplayUtilities : MonoBehaviour
         }
         return false;
     }
-
    
 }
