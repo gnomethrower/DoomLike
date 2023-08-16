@@ -15848,8 +15848,10 @@ MonoBehaviour:
   canChase: 1
   CanMeleeAttack: 1
   health: 100
-  damage: 30
+  damage: 0
   attackRange: 3.1
+  canAttack: 1
+  attackTimer: 1
   speed: 2
   chaseSpeedMultiplier: 3
   idleRange: 10
