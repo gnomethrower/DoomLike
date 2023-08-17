@@ -6,11 +6,10 @@ using UnityEngine.UI;
 
 public class Shotgun_Script : MonoBehaviour
 {
-    public static Shotgun_Script instance;
 
+
+    #region Settings
     public int bulletsInMag;
-
-    //Settings
     public int magSize;
 
     public float recoilX, recoilY, recoilZ;
@@ -25,8 +24,9 @@ public class Shotgun_Script : MonoBehaviour
     public float shotDelay;
     public float pumpDuration;
     public float reloadShellTime;
+    #endregion
 
-
+    #region Control Bools
     public bool isShooting = false;
     public bool chamberedRound = true;
     public bool spentShellChambered = false;
@@ -34,8 +34,10 @@ public class Shotgun_Script : MonoBehaviour
     public bool isPumping = false;
     public bool isReloading = false;
     bool isADS = false;
+    #endregion
 
-    // Object references
+    #region References
+    public static Shotgun_Script instance;
     public Image uiShell;
     public Camera playerCam;
     public Animator sgAnimator;
@@ -47,7 +49,7 @@ public class Shotgun_Script : MonoBehaviour
     public GameObject reticle;
 
     Image reticleImage;
-
+    #endregion
 
     [SerializeField] private GameObject _bulletHolePrefab;
 
@@ -158,13 +160,15 @@ public class Shotgun_Script : MonoBehaviour
             //Raycast and Decal production
             if (Physics.Raycast(playerCam.transform.position, GetShootingDirection(), out hit, range, enemy | ground))
             {
+                //Debug.DrawLine(playerCam.transform.position, hit.transform.position, Color.red, 1f);
                 Mortality_Script mortalObj = hit.transform.GetComponent<Mortality_Script>(); // we create a new variable "mortalObj" of the class Mortal, which we define as what the raycasthit "hit" has found.
+                if (mortalObj != null) Debug.Log(mortalObj.transform.name);
 
                 if (mortalObj != null) // if the mortalObj should not be of type
                 {
                     mortalObj.TakeDamage(pelletDamage);
+                    Debug.Log("damage was done of " + pelletDamage + " amount");
                     //Bodyhitdecals/blood particle system at the hit location.
-                    //Debug.Log("you hit " + mortalObj.name);
                 }
 
                 if (Physics.Raycast(playerCam.transform.position, GetShootingDirection(), out hit, range, ground))
@@ -186,7 +190,6 @@ public class Shotgun_Script : MonoBehaviour
         audioInstance.PlayGunEmpty();
     }
 
-
     void Pump()
     {
         if (!isPumping && !Input.GetButton("Fire1"))
@@ -196,7 +199,6 @@ public class Shotgun_Script : MonoBehaviour
             sgAnimator.SetTrigger("ShotgunPump");
         }
     }
-
 
     IEnumerator Reload()
     {
@@ -222,13 +224,11 @@ public class Shotgun_Script : MonoBehaviour
         }
     }
 
-
     void ReloadFinished()
     {
         sgAnimator.SetTrigger("ReloadDone");
         isReloading = false;
     }
-
 
     void ChangeADSMode()
     {
@@ -255,13 +255,11 @@ public class Shotgun_Script : MonoBehaviour
         }
     }
 
-
     void ReticleToggle()
     {
         if (isADS) reticleImage.enabled = false;
         else reticleImage.enabled = true;
     }
-
 
     public void ShellEmit() // called in pump animation event
     {
@@ -273,7 +271,6 @@ public class Shotgun_Script : MonoBehaviour
             spentShellChambered = false;
         }
     }
-
 
     public void CyclingAction() // called in pump animation event
     {

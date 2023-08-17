@@ -8,11 +8,11 @@ public class Mortality_Script : MonoBehaviour
     public float targetRespawntime;
 
     public float maxHealth = 100f;
-    public float health;
+    public float currentHealth;
     public float painDuration;
 
     MeshRenderer targetRenderer;
-    SphereCollider targetCollider;
+    Collider targetCollider;
 
     public bool gotHurt = false;
     public bool hasDeathPrefab;
@@ -22,24 +22,28 @@ public class Mortality_Script : MonoBehaviour
     {
         GetMaxHealth();
         targetRenderer = GetComponent<MeshRenderer>();
-        targetCollider = GetComponent<SphereCollider>();
-    }
-
-    private void LateUpdate()
-    {
+        targetCollider = GetComponent<Collider>();
+        if (targetCollider == null)
+        {
+            targetCollider = GetComponentInChildren<Collider>();
+        }
+        if (targetCollider == null)
+        {
+            Debug.Log("Collider is null");
+        }
     }
 
     void GetMaxHealth()
     {
-        health = maxHealth;
+        currentHealth = maxHealth;
     }
 
     public void TakeDamage(float amount)
     {
-        health -= amount;
+        currentHealth -= amount;
         gotHurt = true;
 
-        if (health <= 0f)
+        if (currentHealth <= 0f)
         {
             if (respawningTarget) SetInactive();
             else Die();
@@ -54,6 +58,7 @@ public class Mortality_Script : MonoBehaviour
         }
         Destroy(gameObject);
     }
+
     void Reactivate()
     {
         //RespawnParticleEffect

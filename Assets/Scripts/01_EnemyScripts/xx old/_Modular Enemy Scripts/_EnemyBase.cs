@@ -5,7 +5,7 @@ using UnityEngine;
 public class _EnemyBase : MonoBehaviour
 {
 
-    /* This class is supposed to bind together the movement, health and attack classes into a single enemy behavior.
+    /* This class is supposed to bind together the movement, currentHealth and attack classes into a single enemy behavior.
      * The enemy should be controlled with a Finite State Machine.
      * 1) If State 0 is active, the enemy is supposed to be idle and not do anything.
      * 2) If State 1 is active, the enemy is supposed to patrol around their spawnpoint.

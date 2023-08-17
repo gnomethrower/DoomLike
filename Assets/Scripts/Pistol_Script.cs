@@ -144,18 +144,22 @@ public class Pistol_Script : MonoBehaviour
 
         pistolAnimator.SetTrigger("PistolShot");
         camShakeRecoil.Recoil(recoilX, recoilY, recoilZ, recoilADS);
+
         for (int i = 0; bulletsPerTap > i; i++)
         {
 
             //Raycast and Decal production
             if (Physics.Raycast(playerCam.transform.position, playerCam.transform.forward, out RaycastHit hit, range, enemy | ground))
             {
+                //Debug.Log("pistol hit: " + hit.transform.name);
                 Mortality_Script mortalObj = hit.transform.GetComponent<Mortality_Script>(); // we create a new variable "mortalObj" of the class Mortal, which we define as what the raycasthit "hit" has found.
+                if (mortalObj != null) Debug.Log(mortalObj.transform.name);
+
                 if (mortalObj != null) // if the mortalObj should not be of type
                 {
                     mortalObj.TakeDamage(bulletDamage);
+                    Debug.Log("damage was done of " + bulletDamage + " amount");
                     //Bodyhitdecals/blood particle system at the hit location.
-                    //Debug.Log("you hit " + mortalObj.name);
                 }
 
                 if (Physics.Raycast(playerCam.transform.position, playerCam.transform.forward, out hit, range, ground))

@@ -1,6 +1,7 @@
 using BehaviorDesigner.Runtime.Tasks.Unity.UnityTransform;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
@@ -8,7 +9,7 @@ using UnityEngine.AI;
 
 public class BasicEnemyClass : MonoBehaviour
 {
-#region Variables
+    #region Variables
 
     #region Scene References
     NavMeshAgent agent;
@@ -33,13 +34,12 @@ public class BasicEnemyClass : MonoBehaviour
     [SerializeField] private bool CanMeleeAttack;
     #endregion
 
-    #region Health and Damage
+    #region Attack and Damage
     [Header("Health and Damage")]
-    [SerializeField] private float health;
     [SerializeField] private int damage;
     [SerializeField] private float attackRange;
-    [SerializeField] private bool canAttack = true;
-    [SerializeField] private float attackTimer = 1f;
+    [SerializeField] private float attackTimer = 0f;
+    [SerializeField] private float attackPauseDuration = 1f;
 
     #endregion
 
@@ -93,7 +93,7 @@ public class BasicEnemyClass : MonoBehaviour
     #endregion
 
     #region Awake Start Update
-    //++++++++++++++++++++++++++++++++++++++++++++++++++
+
     private void Awake()
     {
         #region initialize variables
@@ -126,37 +126,37 @@ public class BasicEnemyClass : MonoBehaviour
     }
 
     private void Update()
+    {
+        #region SceneReference Updates
+        distanceToPlayer = Vector3.Distance(player.transform.position, this.transform.position);
+        playerEnemyVector = player.transform.position - this.transform.position;
+        #endregion
+
+        #region Idle Updates
+        if (agent.remainingDistance <= agent.stoppingDistance && !agent.pathPending && onTheMove)
         {
-            #region SceneReference Updates
-            distanceToPlayer = Vector3.Distance(player.transform.position, this.transform.position);
-            playerEnemyVector = player.transform.position - this.transform.position;
-            #endregion
+            //Debug.Log("I have arrived!");
+            onTheMove = false;
+            TriggerPause();
+        }
 
-            #region Idle Updates
-            if (agent.remainingDistance <= agent.stoppingDistance && !agent.pathPending && onTheMove)
-            {
-                //Debug.Log("I have arrived!");
-                onTheMove = false;
-                TriggerPause();
-            }
+        if (Time.time >= pauseEndTime)
+        {
+            isPausedWhileWandering = false;
+        }
 
-            if (Time.time >= pauseEndTime)
-            {
-                isPausedWhileWandering = false;
-            }
+        if (isIdle && !isPausedWhileWandering)
+        {
+            IdleState();
+        }
+        #endregion
 
-            if (isIdle && !isPausedWhileWandering)
-            {
-                IdleState();
-            }
-            #endregion
-
-            #region Chase Updates
-            if (canChase)
-            {
+        #region Chase Updates
+        if (canChase)
+        {
             if (chaseRadiusScript.insideRadius && !goingToChasing && !isChasing)
             {
-                Debug.Log("goingToChasing set to True");
+                //Debug.Log("goingToChasing set to True");
                 chaseRadiusScript.insideRadius = false;
                 goingToChasing = true;
             }
@@ -170,204 +170,197 @@ public class BasicEnemyClass : MonoBehaviour
             {
                 ChasingState();
             }
-            }
-            #endregion
+        }
+        #endregion
 
-            #region Attack Updates
-            if (CanMeleeAttack)
+        #region Attack Updates
+        if (CanMeleeAttack)
+        {
+            if (attackRadiusScript.insideRadius && !goingToAttacking && !isAttacking)
             {
-                if (attackRadiusScript.insideRadius && !goingToAttacking && !isAttacking)
-                {
-                    Debug.Log("goingToAttacking set to True");
-                    Debug.Log(distanceToPlayer);
-                    attackRadiusScript.insideRadius = false;
-                    goingToAttacking = true;
-                }
-
-                if (goingToAttacking)
-                {
-                    GoToAttackingState();
-                }
-
-                if (isAttacking)
-                {
-                    AttackState();
-                }
+                Debug.Log("goingToAttacking set to True");
+                //Debug.Log(distanceToPlayer);
+                attackRadiusScript.insideRadius = false;
+                goingToAttacking = true;
             }
-            #endregion
+
+            if (goingToAttacking)
+            {
+                GoToAttackingState();
+            }
+
+            if (isAttacking)
+            {
+                AttackState();
+            }
         }
-//++++++++++++++++++++++++++++++++++++++++++++++++++
-#endregion
-
-#region Methods
-//############################################################
-
-#region Idle Methods
-//++++++++++++++++++++++++++++++++++++++++++++++++++
-void GoTotIdleState()
-{
-    chaseRadiusCollider.enabled = true;
-    attackRadiusCollider.enabled = true;
-
-    StopChasingState();
-    StopAttackState();
-
-    //goingToIdle = false;
-    //initializingIdle = true;
-    isIdle = true;
-}
-void StopIdleState()
-{
-    isIdle = false;
-    //goingToIdle = false;
-    //initializingIdle = false;
-}
-private void IdleState()
-{
-    if (!onTheMove)
-    {
-        onTheMove = true;
-        currentWanderPoint = PickRandomIdleWalkpoint();
-        MoveToWalkPoint();
+        #endregion
     }
 
-}
-private Vector3 PickRandomIdleWalkpoint()
-{
-    Vector3 randomSpherePoint = Random.insideUnitSphere * idleRange;
-    DebugIndicator.DrawDebugIndicator(randomSpherePoint, Color.yellow, 2f, .5f);
-
-    NavMeshHit hit;
-    if (NavMesh.SamplePosition(randomSpherePoint, out hit, idleRange / 2, NavMesh.AllAreas))
-    {
-        //Debug.Log("We hit a SamplePosition");
-        Debug.DrawLine(transform.position, hit.position, Color.blue, 10f);
-        DebugIndicator.DrawDebugIndicator(hit.position, Color.magenta, 10f, 1f);
-        lastWanderPoint = currentWanderPoint;
-        return hit.position;
-    }
-    else
-    {
-        //Debug.LogError("No Walkpoint found, defaulting to spawnPoint!");
-        onTheMove = false;
-
-        return spawnPoint;
-    }
-}
-private void MoveToWalkPoint()
-{
-    //Debug.Log("MoveToWalkpoint started");
-    agent.SetDestination(currentWanderPoint);
-}
-private void TriggerPause()
-{
-    isPausedWhileWandering = true;
-    // Record the current time as the start of the pause
-    float pauseStartTime = Time.time;
-    // Calculate the end of the pause
-    pauseEndTime = pauseStartTime + wanderingPauseDuration;
-
-    // Pause started, do actions you want to perform during the pause here...
-}
-//++++++++++++++++++++++++++++++++++++++++++++++++++
-#endregion
-
-#region Chase Methods
-//++++++++++++++++++++++++++++++++++++++++++++++++++
-void GoToChasingState()
-{
-    Debug.Log("GoToChasingState started");
-
-    StopIdleState();
-    StopAttackState();
-
-    chaseRadiusCollider.enabled = false;
-
-    goingToChasing = false;
-    initializingChasing = true;
-    isChasing = true;
-}
-
-private void ChasingState()
-{
-    Debug.Log("ChasingState update");
-    if (agent.isStopped) //if attack state stopped the agent, restart them.
-    {
-        Debug.Log("NavAgent restarted");
-        agent.isStopped = false;
-    }
-    if (initializingChasing) //functionality for the first time setup of the chase state.
-    {
-        Debug.Log("Initialized GoToChasingState");
-        agent.speed = chasingSpeed;
-        agent.stoppingDistance = chasingStoppingDistance;
-        initializingChasing = false;
-    }
-    agent.SetDestination(player.transform.position);
-}
-
-void StopChasingState()
-{
-    goingToChasing = false;
-    initializingChasing = false;
-    isChasing = false;
-}
-//++++++++++++++++++++++++++++++++++++++++++++++++++
-#endregion
-
-#region Attack Methods
-//++++++++++++++++++++++++++++++++++++++++++++++++++
-void GoToAttackingState()
-{
-    StopIdleState();
-    StopChasingState();
-
-    //attackRadiusCollider.enabled = false;
-
-    goingToAttacking = false;
-    initializingAttacking = true;
-    isAttacking = true;
-}
-
-private IEnumerator AttackState()
-{
-    if (initializingAttacking)
-    {
-        initializingAttacking = false;
-        agent.isStopped = true;
-    }
-
-    if (distanceToPlayer > attackRange)
-    {
-        Debug.Log("Player too far away, giving Chase now!");
-        GoToChasingState();
-    }
-
-    //ATTACK LOGIC
-    Debug.Log("I am attacking! Roawr!");
-        if(canAttack)
-        {
-            playerControllerScript.currentHealth -= damage;
-            canAttack = false;
-        } else
-        {
-            yield return new WaitForSeconds(attackTimer);
-            canAttack = true;
-        }
-
-}
-
-void StopAttackState()
-{
-    goingToAttacking = false;
-    initializingAttacking = false;
-    isAttacking = false;
-}
-
-    //++++++++++++++++++++++++++++++++++++++++++++++++++
     #endregion
 
-//############################################################
-#endregion
+    #region Methods
+
+    #region Idle Methods
+
+    void GoTotIdleState()
+    {
+        chaseRadiusCollider.enabled = true;
+        attackRadiusCollider.enabled = true;
+
+        StopChasingState();
+        StopAttackState();
+
+        //goingToIdle = false;
+        //initializingIdle = true;
+        isIdle = true;
+    }
+    void StopIdleState()
+    {
+        isIdle = false;
+        //goingToIdle = false;
+        //initializingIdle = false;
+    }
+    private void IdleState()
+    {
+        if (!onTheMove)
+        {
+            onTheMove = true;
+            currentWanderPoint = PickRandomIdleWalkpoint();
+            MoveToWalkPoint();
+        }
+
+    }
+    private Vector3 PickRandomIdleWalkpoint()
+    {
+        Vector3 randomSpherePoint = Random.insideUnitSphere * idleRange;
+        DebugIndicator.DrawDebugIndicator(randomSpherePoint, Color.yellow, 2f, .5f);
+
+        NavMeshHit hit;
+        if (NavMesh.SamplePosition(randomSpherePoint, out hit, idleRange / 2, NavMesh.AllAreas))
+        {
+            //Debug.Log("We hit a SamplePosition");
+            Debug.DrawLine(transform.position, hit.position, Color.blue, 10f);
+            DebugIndicator.DrawDebugIndicator(hit.position, Color.magenta, 10f, 1f);
+            lastWanderPoint = currentWanderPoint;
+            return hit.position;
+        }
+        else
+        {
+            //Debug.LogError("No Walkpoint found, defaulting to spawnPoint!");
+            onTheMove = false;
+
+            return spawnPoint;
+        }
+    }
+    private void MoveToWalkPoint()
+    {
+        //Debug.Log("MoveToWalkpoint started");
+        agent.SetDestination(currentWanderPoint);
+    }
+    private void TriggerPause()
+    {
+        isPausedWhileWandering = true;
+        // Record the current time as the start of the pause
+        float pauseStartTime = Time.time;
+        // Calculate the end of the pause
+        pauseEndTime = pauseStartTime + wanderingPauseDuration;
+
+        // Pause started, do actions you want to perform during the pause here...
+    }
+
+    #endregion
+
+    #region Chase Methods
+    void GoToChasingState()
+    {
+        //Debug.Log("GoToChasingState started");
+
+        StopIdleState();
+        StopAttackState();
+
+        //chaseRadiusCollider.enabled = false;
+
+        goingToChasing = false;
+        initializingChasing = true;
+        isChasing = true;
+    }
+    private void ChasingState()
+    {
+        Debug.Log("ChasingState update");
+        if (agent.isStopped) //if attack state stopped the agent, restart them.
+        {
+            //Debug.Log("NavAgent restarted");
+            agent.isStopped = false;
+        }
+        if (initializingChasing) //functionality for the first time setup of the chase state.
+        {
+            //Debug.Log("Initialized GoToChasingState");
+            agent.speed = chasingSpeed;
+            agent.stoppingDistance = chasingStoppingDistance;
+            initializingChasing = false;
+        }
+        agent.SetDestination(player.transform.position);
+    }
+    void StopChasingState()
+    {
+        goingToChasing = false;
+        initializingChasing = false;
+        isChasing = false;
+    }
+    #endregion
+
+    #region Attack Methods
+    void GoToAttackingState()
+    {
+        StopIdleState();
+        StopChasingState();
+
+        //attackRadiusCollider.enabled = false;
+
+        goingToAttacking = false;
+        initializingAttacking = true;
+        isAttacking = true;
+    }
+
+    private void AttackState()
+    {
+        Debug.Log("AttackState firing");
+
+        if (initializingAttacking)
+        {
+            initializingAttacking = false;
+            agent.isStopped = true;
+        }
+
+        //Check if the player is still within attack range. If not, start chasing.
+        if (distanceToPlayer > attackRange)
+        {
+            Debug.Log("Player too far away, giving Chase again!");
+            GoToChasingState();
+        }
+
+        if (attackTimer < attackPauseDuration)
+        {
+            //Debug.Log("timer is at " + attackTimer);
+            attackTimer += Time.deltaTime;
+        }
+        else
+        {
+            attackTimer = 0;
+            playerControllerScript.currentHealth -= damage;
+            Debug.Log("I am attacking! PUNCH!");
+        }
+
+    }
+    void StopAttackState()
+    {
+        goingToAttacking = false;
+        initializingAttacking = false;
+        isAttacking = false;
+    }
+    #endregion
+
+    #endregion
 
 }
