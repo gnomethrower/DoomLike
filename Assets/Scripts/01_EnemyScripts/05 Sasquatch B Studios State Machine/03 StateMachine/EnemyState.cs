@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyState
 {
-    // Base class for all enemy states
+    // Base class for all _spawnObject states
 
     //protected because only the inheriting scripts may use these.
     protected Enemy enemy;

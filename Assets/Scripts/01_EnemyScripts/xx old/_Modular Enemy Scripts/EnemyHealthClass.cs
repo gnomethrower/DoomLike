@@ -14,7 +14,7 @@ public class EnemyHealthClass : MonoBehaviour
 
     void Start()
     {
-        //initializing this gameobject's transform as enemy.
+        //initializing this gameobject's transform as _spawnObject.
         enemy = gameObject.transform;
     }
 

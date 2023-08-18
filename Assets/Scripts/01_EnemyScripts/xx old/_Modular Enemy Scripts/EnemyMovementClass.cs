@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public class EnemyMovementClass : MonoBehaviour
 {
 
-    //Class which contains methods pertaining to enemy movement.
+    //Class which contains methods pertaining to _spawnObject movement.
 
     // Defining the transform of the object this script is attached to.
     Transform enemy;
@@ -50,7 +50,7 @@ public class EnemyMovementClass : MonoBehaviour
     {
         /* Standing still but turning back and forth in degrees, like a stationary turret.
          * Startingrotation is the middle of the rotation cycle. Starts rotating until rotationDegree is reached
-         * Then proceeds until -rotationDegree is reached. Repeat until enemy enters LoS.
+         * Then proceeds until -rotationDegree is reached. Repeat until _spawnObject enters LoS.
          */
     }
 
@@ -59,7 +59,7 @@ public class EnemyMovementClass : MonoBehaviour
         enemySpeed = aggroSpeed;
         agent.speed = enemySpeed;
         agent.SetDestination(playerPos);
-        // The movement needed to close distance to the enemy player, according to the meleeRange.
+        // The movement needed to close distance to the _spawnObject player, according to the meleeRange.
     }
 
     public void GetNewPatrolPoint(float patrolRange, float patrolSpeed, LayerMask layermaskCollider)

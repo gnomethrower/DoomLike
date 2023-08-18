@@ -52,7 +52,7 @@ public class MantisEnemyAI : MonoBehaviour
     void Start()
     {
         //spawnPosition = transform.position;
-        //Usually enemy will be defaulting to Idle at start, but patrol is just a test.
+        //Usually _spawnObject will be defaulting to Idle at start, but patrol is just a test.
 
 
         behaviorStateInteger = ((int)MantisBehaviorStates.PATROL); // int value is 1
@@ -185,7 +185,7 @@ public class MantisEnemyAI : MonoBehaviour
     #region AGGRO CODE
     void Aggro()
     {
-        // if the enemy spots the player (player is in range, or attacks the enemy)
+        // if the _spawnObject spots the player (player is in range, or attacks the _spawnObject)
         // mantis stops in their tracks
         // turns towards player
         // plays an animation for x seconds

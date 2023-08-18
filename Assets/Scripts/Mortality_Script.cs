@@ -10,6 +10,7 @@ public class Mortality_Script : MonoBehaviour
     public float maxHealth = 100f;
     public float currentHealth;
     public float painDuration;
+    public bool canBleed;
 
     MeshRenderer targetRenderer;
     Collider targetCollider;

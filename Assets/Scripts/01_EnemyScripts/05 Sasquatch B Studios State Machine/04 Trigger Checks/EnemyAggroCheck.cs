@@ -68,7 +68,7 @@ public class EnemyAggroCheck : MonoBehaviour
 
     private bool CanSeePlayer()
     {
-        // check if there is any level geometry between the enemy and the player.
+        // check if there is any level geometry between the _spawnObject and the player.
         int layerMask = 1 << 3;
         RaycastHit hit;
         Vector3 enemyEyeHeight = _enemy.transform.position + new Vector3(0f, eyeOffset, 0f);

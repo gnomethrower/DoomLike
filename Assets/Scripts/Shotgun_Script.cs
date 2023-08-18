@@ -46,12 +46,14 @@ public class Shotgun_Script : MonoBehaviour
     public AudioController_Script audioInstance;
     public AnimationEvent shotgunAnimSounds;
     public ParticleSystem shellParticle;
+    [SerializeField] private GameObject _bloodSplatterPrefab;
+    [SerializeField] private GameObject _bulletHolePrefab;
     public GameObject reticle;
 
     Image reticleImage;
     #endregion
 
-    [SerializeField] private GameObject _bulletHolePrefab;
+
 
     PlayerController_Script playerScript;
     public LayerMask ground, enemy;
@@ -167,8 +169,8 @@ public class Shotgun_Script : MonoBehaviour
                 if (mortalObj != null) // if the mortalObj should not be of type
                 {
                     mortalObj.TakeDamage(pelletDamage);
-                    Debug.Log("damage was done of " + pelletDamage + " amount");
-                    //Bodyhitdecals/blood particle system at the hit location.
+                    //Debug.Log("damage was done of " + pelletDamage + " amount");
+                    if (mortalObj.canBleed) { Instantiate(_bloodSplatterPrefab, hit.transform.position, Quaternion.LookRotation(hit.normal)); }
                 }
 
                 if (Physics.Raycast(playerCam.transform.position, GetShootingDirection(), out hit, range, ground))

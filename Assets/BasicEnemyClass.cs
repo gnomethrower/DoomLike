@@ -41,7 +41,7 @@ public class BasicEnemyClass : MonoBehaviour
     [SerializeField] private float attackRange;
     [SerializeField] private float attackTimer = 0f;
     [SerializeField] private float attackPauseDuration = 1f;
-
+    private Mortality_Script mortalityScript;
     #endregion
 
     #region Movement
@@ -117,6 +117,7 @@ public class BasicEnemyClass : MonoBehaviour
         #region script references
         chaseRadiusScript = chaseRadiusCollider.GetComponent<ChaseRadiusScript>();
         attackRadiusScript = attackRadiusCollider.GetComponent<AttackRadiusScript>();
+        mortalityScript = GetComponent<Mortality_Script>();
         #endregion
     }
 
@@ -135,6 +136,7 @@ public class BasicEnemyClass : MonoBehaviour
         //Debug.Log("isWalking = " + animator.GetBool("isWalking"));
 
         #endregion
+
         #region SceneReference Updates
         distanceToPlayer = Vector3.Distance(player.transform.position, this.transform.position);
         playerEnemyVector = player.transform.position - this.transform.position;
@@ -162,7 +164,7 @@ public class BasicEnemyClass : MonoBehaviour
         #region Chase Updates
         if (canChase)
         {
-            if (chaseRadiusScript.insideRadius && !goingToChasing && !isChasing)
+            if ((chaseRadiusScript.insideRadius && !goingToChasing && !isChasing))
             {
                 //Debug.Log("goingToChasing set to True");
                 chaseRadiusScript.insideRadius = false;
@@ -200,6 +202,17 @@ public class BasicEnemyClass : MonoBehaviour
             if (isAttacking)
             {
                 AttackState();
+            }
+        }
+        #endregion
+
+        #region Pain and Hurt
+        if (mortalityScript.gotHurt)
+        {
+            mortalityScript.gotHurt = false;
+            if (!goingToChasing && !isChasing)
+            {
+                goingToChasing = true;
             }
         }
         #endregion
@@ -277,7 +290,6 @@ public class BasicEnemyClass : MonoBehaviour
         float pauseStartTime = Time.time;
         // Calculate the end of the pause
         pauseEndTime = pauseStartTime + wanderingPauseDuration;
-
         // Pause started, do actions you want to perform during the pause here...
     }
 
@@ -387,7 +399,6 @@ public class BasicEnemyClass : MonoBehaviour
 
         //reassign current state
         currentAnimationState = newState;
-        Debug.Log("Now playing animation State: " + newState);
     }
 
     #endregion

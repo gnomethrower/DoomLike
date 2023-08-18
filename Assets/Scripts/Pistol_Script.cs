@@ -46,8 +46,7 @@ public class Pistol_Script : MonoBehaviour
     [SerializeField] private GameObject _bulletHolePrefab;
 
     PlayerController_Script playerScript;
-
-
+    [SerializeField] private GameObject _bloodSplatterPrefab;
 
     private void Start()
     {
@@ -158,8 +157,8 @@ public class Pistol_Script : MonoBehaviour
                 if (mortalObj != null) // if the mortalObj should not be of type
                 {
                     mortalObj.TakeDamage(bulletDamage);
-                    Debug.Log("damage was done of " + bulletDamage + " amount");
-                    //Bodyhitdecals/blood particle system at the hit location.
+                    //Debug.Log("damage was done of " + bulletDamage + " amount");
+                    if (mortalObj.canBleed) { Instantiate(_bloodSplatterPrefab, hit.transform.position, Quaternion.LookRotation(hit.normal)); }
                 }
 
                 if (Physics.Raycast(playerCam.transform.position, playerCam.transform.forward, out hit, range, ground))
