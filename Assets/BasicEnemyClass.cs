@@ -20,6 +20,7 @@ public class BasicEnemyClass : MonoBehaviour
     Collider playerCollider;
     Collider chaseRadiusCollider;
     Collider attackRadiusCollider;
+    Animator animator;
     #endregion
 
     #region Script References
@@ -58,7 +59,7 @@ public class BasicEnemyClass : MonoBehaviour
     [SerializeField] private float idleRange;
     [SerializeField] private float wanderingPauseDuration;
 
-    private bool onTheMove;
+    [SerializeField] private bool isMoving = false;
     private bool isPausedWhileWandering = false;
     private float pauseEndTime = 0f;
 
@@ -81,6 +82,8 @@ public class BasicEnemyClass : MonoBehaviour
     [SerializeField] private bool isChasing = false;
     [SerializeField] private bool isAttacking = false;
 
+    private string currentAnimationState;
+
     //private bool goingToIdle = false;
     private bool goingToChasing = false;
     private bool goingToAttacking = false;
@@ -92,23 +95,23 @@ public class BasicEnemyClass : MonoBehaviour
 
     #endregion
 
-    #region Awake Start Update
-
     private void Awake()
     {
         #region initialize variables
-        onTheMove = false;
         chasingSpeed = chaseSpeedMultiplier * speed;
         #endregion
 
         #region set object references
         player = GameObject.FindGameObjectWithTag("Player");
 
-        agent = GetComponent<NavMeshAgent>();
+        agent = GetComponentInParent<NavMeshAgent>();
+        if (agent == null) { Debug.Log("No NavAgent attached"); }
 
         chaseRadiusCollider = GameObject.Find("chaseRadius").GetComponent<Collider>();
         attackRadiusCollider = GameObject.Find("attackRadius").GetComponent<Collider>();
         playerControllerScript = player.GetComponent<PlayerController_Script>();
+
+        animator = GetComponent<Animator>();
         #endregion
 
         #region script references
@@ -127,16 +130,21 @@ public class BasicEnemyClass : MonoBehaviour
 
     private void Update()
     {
+        #region Debug Updates
+
+        //Debug.Log("isWalking = " + animator.GetBool("isWalking"));
+
+        #endregion
         #region SceneReference Updates
         distanceToPlayer = Vector3.Distance(player.transform.position, this.transform.position);
         playerEnemyVector = player.transform.position - this.transform.position;
         #endregion
 
         #region Idle Updates
-        if (agent.remainingDistance <= agent.stoppingDistance && !agent.pathPending && onTheMove)
+        if (agent.remainingDistance <= agent.stoppingDistance && !agent.pathPending && isMoving)
         {
             //Debug.Log("I have arrived!");
-            onTheMove = false;
+            isMoving = false;
             TriggerPause();
         }
 
@@ -195,9 +203,12 @@ public class BasicEnemyClass : MonoBehaviour
             }
         }
         #endregion
-    }
 
-    #endregion
+        #region Animation Updates
+
+
+        #endregion
+    }
 
     #region Methods
 
@@ -223,9 +234,9 @@ public class BasicEnemyClass : MonoBehaviour
     }
     private void IdleState()
     {
-        if (!onTheMove)
+        if (!isMoving)
         {
-            onTheMove = true;
+            isMoving = true;
             currentWanderPoint = PickRandomIdleWalkpoint();
             MoveToWalkPoint();
         }
@@ -248,19 +259,20 @@ public class BasicEnemyClass : MonoBehaviour
         else
         {
             //Debug.LogError("No Walkpoint found, defaulting to spawnPoint!");
-            onTheMove = false;
+            isMoving = false;
 
             return spawnPoint;
         }
     }
     private void MoveToWalkPoint()
     {
-        //Debug.Log("MoveToWalkpoint started");
         agent.SetDestination(currentWanderPoint);
+        ChangeAnimationState("simplestEnemyWalking");
     }
     private void TriggerPause()
     {
         isPausedWhileWandering = true;
+        ChangeAnimationState("simplestEnemyStanding");
         // Record the current time as the start of the pause
         float pauseStartTime = Time.time;
         // Calculate the end of the pause
@@ -287,15 +299,15 @@ public class BasicEnemyClass : MonoBehaviour
     }
     private void ChasingState()
     {
-        Debug.Log("ChasingState update");
+        Debug.Log("ChasingState() called");
         if (agent.isStopped) //if attack state stopped the agent, restart them.
         {
-            //Debug.Log("NavAgent restarted");
             agent.isStopped = false;
         }
         if (initializingChasing) //functionality for the first time setup of the chase state.
         {
             //Debug.Log("Initialized GoToChasingState");
+            ChangeAnimationState("simplestEnemyChasing");
             agent.speed = chasingSpeed;
             agent.stoppingDistance = chasingStoppingDistance;
             initializingChasing = false;
@@ -322,10 +334,9 @@ public class BasicEnemyClass : MonoBehaviour
         initializingAttacking = true;
         isAttacking = true;
     }
-
     private void AttackState()
     {
-        Debug.Log("AttackState firing");
+        //Debug.Log("AttackState() called");
 
         if (initializingAttacking)
         {
@@ -336,7 +347,6 @@ public class BasicEnemyClass : MonoBehaviour
         //Check if the player is still within attack range. If not, start chasing.
         if (distanceToPlayer > attackRange)
         {
-            Debug.Log("Player too far away, giving Chase again!");
             GoToChasingState();
         }
 
@@ -349,7 +359,7 @@ public class BasicEnemyClass : MonoBehaviour
         {
             attackTimer = 0;
             playerControllerScript.currentHealth -= damage;
-            Debug.Log("I am attacking! PUNCH!");
+            ChangeAnimationState("simplestEnemyAttacking");
         }
 
     }
@@ -359,6 +369,27 @@ public class BasicEnemyClass : MonoBehaviour
         initializingAttacking = false;
         isAttacking = false;
     }
+    #endregion
+
+    #region Animation Methods
+
+    void ChangeAnimationState(string newState)
+    {
+        //I want to reset the position and rotation of the animator to the navAgent's before continuing.
+        animator.transform.rotation = agent.transform.rotation;
+        animator.transform.position = agent.transform.position;
+
+        //stop the same anim from interrupting itself
+        if (currentAnimationState == newState) { return; }
+
+        //play the next animation state
+        animator.Play(newState);
+
+        //reassign current state
+        currentAnimationState = newState;
+        Debug.Log("Now playing animation State: " + newState);
+    }
+
     #endregion
 
     #endregion

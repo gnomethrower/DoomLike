@@ -162,7 +162,7 @@ public class Shotgun_Script : MonoBehaviour
             {
                 //Debug.DrawLine(playerCam.transform.position, hit.transform.position, Color.red, 1f);
                 Mortality_Script mortalObj = hit.transform.GetComponent<Mortality_Script>(); // we create a new variable "mortalObj" of the class Mortal, which we define as what the raycasthit "hit" has found.
-                if (mortalObj != null) Debug.Log(mortalObj.transform.name);
+                //if (mortalObj != null) Debug.Log(mortalObj.transform.name);
 
                 if (mortalObj != null) // if the mortalObj should not be of type
                 {

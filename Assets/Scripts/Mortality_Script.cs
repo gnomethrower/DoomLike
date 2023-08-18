@@ -56,7 +56,8 @@ public class Mortality_Script : MonoBehaviour
         {
             Instantiate(deathPrefab, transform.position, transform.rotation);
         }
-        Destroy(gameObject);
+
+        Destroy(transform.root.gameObject);
     }
 
     void Reactivate()
