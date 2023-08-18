@@ -16,6 +16,7 @@ public class EnemySpawnerScript : MonoBehaviour
     [SerializeField] float spawnTimer;
     [Tooltip("If you select this, spawnTimer will be ignored in favour of spawnTimerMin and spawnTimerMax")]
     [SerializeField] bool randomSpawnTimerRange;
+    [SerializeField] bool infiniteSpawner;
     [SerializeField] float spawnTimerMin;
     [SerializeField] float spawnTimerMax;
     float timeSinceLastSpawn = 0;
@@ -26,7 +27,7 @@ public class EnemySpawnerScript : MonoBehaviour
     #endregion
 
 
-    private void Start()
+    private void Awake()
     {
         if (randomSpawnTimerRange) { spawnTimer = Random.Range(spawnTimerMin, spawnTimerMax); }
     }
@@ -43,6 +44,8 @@ public class EnemySpawnerScript : MonoBehaviour
 
     private bool CanSpawnEnemy()
     {
+        if (infiniteSpawner) { return true; }
+
         //check if this has spawned more enemies than allowed.
         if (spawnedEnemyNumber < maxEnemySpawnNumber + 1)
         {

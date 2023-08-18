@@ -13,7 +13,7 @@ public class BasicEnemyClass : MonoBehaviour
 
     #region Scene References
     NavMeshAgent agent;
-    GameObject player;
+    [SerializeField] GameObject player;
     float distanceToPlayer;
     Vector3 playerPos;
     Vector3 playerEnemyVector;
@@ -119,14 +119,17 @@ public class BasicEnemyClass : MonoBehaviour
         attackRadiusScript = attackRadiusCollider.GetComponent<AttackRadiusScript>();
         mortalityScript = GetComponent<Mortality_Script>();
         #endregion
-    }
 
-    private void Start()
-    {
+        #region former Start Region
         spawnPoint = transform.position;
         lastWanderPoint = transform.position;
         currentWanderPoint = transform.position;
         GoTotIdleState();
+        #endregion
+    }
+
+    private void Start()
+    {
     }
 
     private void Update()
