@@ -75756,6 +75756,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5557445080300627182, guid: 396d22ef51ea56543972ce337f688287, type: 3}
+      propertyPath: spawnTimer
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5557445080300627182, guid: 396d22ef51ea56543972ce337f688287, type: 3}
       propertyPath: spawnTimerMax
       value: 2
       objectReference: {fileID: 0}
@@ -75773,7 +75777,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5557445080300627182, guid: 396d22ef51ea56543972ce337f688287, type: 3}
       propertyPath: randomSpawnTimerRange
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 396d22ef51ea56543972ce337f688287, type: 3}
