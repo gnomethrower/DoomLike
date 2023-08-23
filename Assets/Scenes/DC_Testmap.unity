@@ -74561,8 +74561,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e31f76892c7a4ba4ea0eddb31ed5809d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  magSize: 19
-  bulletsInMag: 19
+  magSize: 999
+  bulletsInMag: 999
   recoilX: 2
   recoilY: 1
   recoilZ: 1
@@ -75757,7 +75757,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5557445080300627182, guid: 396d22ef51ea56543972ce337f688287, type: 3}
       propertyPath: spawnTimer
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5557445080300627182, guid: 396d22ef51ea56543972ce337f688287, type: 3}
       propertyPath: spawnTimerMax
@@ -75769,11 +75769,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5557445080300627182, guid: 396d22ef51ea56543972ce337f688287, type: 3}
       propertyPath: infiniteSpawner
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5557445080300627182, guid: 396d22ef51ea56543972ce337f688287, type: 3}
       propertyPath: maxEnemySpawnNumber
-      value: 0
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 5557445080300627182, guid: 396d22ef51ea56543972ce337f688287, type: 3}
       propertyPath: randomSpawnTimerRange

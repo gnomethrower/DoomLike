@@ -11,14 +11,16 @@ public class ChaseRadiusScript : MonoBehaviour
     {
         if (other.gameObject.name == "Player")
         {
+            Debug.Log(other.gameObject.name + " has entered trigger.");
             insideRadius = true;
         }
     }
 
     public void OnTriggerExit(Collider other)
     {
-        if(other.gameObject.name == "Player")
+        if (other.gameObject.name == "Player")
         {
+            Debug.Log(other.gameObject.name + " has exited trigger.");
             insideRadius = false;
         }
     }

@@ -169,8 +169,8 @@ public class BasicEnemyClass : MonoBehaviour
         {
             if ((chaseRadiusScript.insideRadius && !goingToChasing && !isChasing))
             {
-                //Debug.Log("goingToChasing set to True");
-                chaseRadiusScript.insideRadius = false;
+                Debug.Log("goingToChasing set to True");
+                //chaseRadiusScript.insideRadius = false;
                 goingToChasing = true;
             }
 
@@ -321,7 +321,8 @@ public class BasicEnemyClass : MonoBehaviour
         }
         if (initializingChasing) //functionality for the first time setup of the chase state.
         {
-            //Debug.Log("Initialized GoToChasingState");
+            Debug.Log("Initialized GoToChasingState");
+            chaseRadiusCollider.enabled = false;
             ChangeAnimationState("simplestEnemyChasing");
             agent.speed = chasingSpeed;
             agent.stoppingDistance = chasingStoppingDistance;
