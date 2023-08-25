@@ -32,7 +32,7 @@ public class PlayerController_Script : MonoBehaviour
     public int grenadesMax;
 
     [Header("Player Movement Speed Changables")]
-    public float baseSpeed = 12f;
+    public float walkingSpeed = 12f;
     public float sprintMultiplier = 1.25f;
     public float gravity = -12f;
 
@@ -143,7 +143,7 @@ public class PlayerController_Script : MonoBehaviour
         }
 
         // playerSpeed is always multiplied by sprintmultiplier
-        playerSpeed = baseSpeed * sMp;
+        playerSpeed = walkingSpeed * sMp;
 
         //setting up the movement with the playerspeed and correcting for executiontime
         controller.Move((move * playerSpeed) * Time.deltaTime);

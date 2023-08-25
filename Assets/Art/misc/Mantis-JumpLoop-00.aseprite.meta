@@ -21,11 +21,13 @@ ScriptedImporter:
     convertToNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
+    swizzle: 50462976
     isReadable: 0
     streamingMipmaps: 0
     streamingMipmapsPriority: 0
     vTOnly: 0
-    ignoreMasterTextureLimit: 0
+    ignoreMipmapLimit: 0
     nPOTScale: 1
     sRGBTexture: 1
     spriteMode: 2
@@ -69,22 +71,28 @@ ScriptedImporter:
     textureFormatSet: 0
     applyGammaDecoding: 0
   previousAsepriteImporterSettings:
+    fileImportMode: 1
     importHiddenLayers: 0
     layerImportMode: 1
     defaultPivotSpace: 0
     defaultPivotAlignment: 7
     customPivotPosition: {x: 0.5, y: 0.5}
+    spritePadding: 0
     generateModelPrefab: 1
     generateAnimationClips: 1
+    addSortingGroup: 1
     addShadowCasters: 0
   asepriteImporterSettings:
+    fileImportMode: 1
     importHiddenLayers: 0
     layerImportMode: 1
     defaultPivotSpace: 0
     defaultPivotAlignment: 7
     customPivotPosition: {x: 0.5, y: 0.5}
+    spritePadding: 0
     generateModelPrefab: 1
     generateAnimationClips: 1
+    addSortingGroup: 1
     addShadowCasters: 0
   importFileNodeState: 1
   platformSettingsDirtyTick: 0
@@ -110,8 +118,8 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  multiSpriteImportData:
-  - name: Mantis-JumpLoop-00_0
+  animatedSpriteImportData:
+  - name: Mantis-JumpLoop-00_Frame_0
     originalName: 
     pivot: {x: 0.5520834, y: -0.050000004}
     alignment: 9
@@ -122,7 +130,7 @@ ScriptedImporter:
       y: 272
       width: 96
       height: 120
-    spriteID: 35fac71df44fd4d4da7bf90094d8489c
+    spriteID: 04f3333baaf3b36499374b1bfa35c114
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -131,7 +139,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: -71, y: 266}
-  - name: Mantis-JumpLoop-00_1
+  - name: Mantis-JumpLoop-00_Frame_1
     originalName: 
     pivot: {x: 0.54901963, y: -0.015873017}
     alignment: 9
@@ -142,7 +150,7 @@ ScriptedImporter:
       y: 138
       width: 102
       height: 126
-    spriteID: b1f5c0d0264301c47a805a1feb4f1920
+    spriteID: 34424a3ab22cdba46afbdf7613937dc2
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -151,7 +159,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: -68, y: 136}
-  - name: Mantis-JumpLoop-00_2
+  - name: Mantis-JumpLoop-00_Frame_2
     originalName: 
     pivot: {x: 0.5181818, y: -0.007936508}
     alignment: 9
@@ -162,7 +170,7 @@ ScriptedImporter:
       y: 4
       width: 110
       height: 126
-    spriteID: 6fda4b0ef5b5436489da48aefed0542a
+    spriteID: 9c20255ce6f2c024e84222f8aae60136
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -171,37 +179,42 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: -67, y: 3}
+  spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
+    guid: -1465745438
     name: Mantis-JumpLoop-00
     layerFlags: 0
     layerType: 0
+    blendMode: 0
     cells:
-    - name: Mantis-JumpLoop-00_0
+    - name: Mantis-JumpLoop-00_Frame_0
       frameIndex: 0
       cellRect:
         x: 0
         y: 0
         width: 256
         height: 128
-      spriteId: 35fac71df44fd4d4da7bf90094d8489c
-    - name: Mantis-JumpLoop-00_1
+      spriteId: 04f3333baaf3b36499374b1bfa35c114
+    - name: Mantis-JumpLoop-00_Frame_1
       frameIndex: 1
       cellRect:
         x: 0
         y: 0
         width: 256
         height: 128
-      spriteId: b1f5c0d0264301c47a805a1feb4f1920
-    - name: Mantis-JumpLoop-00_2
+      spriteId: 34424a3ab22cdba46afbdf7613937dc2
+    - name: Mantis-JumpLoop-00_Frame_2
       frameIndex: 2
       cellRect:
         x: 0
         y: 0
         width: 256
         height: 128
-      spriteId: 6fda4b0ef5b5436489da48aefed0542a
+      spriteId: 9c20255ce6f2c024e84222f8aae60136
     linkedCells: []
+    parentIndex: -1
   platformSettings: []
   secondarySpriteTextures: []
   spritePackingTag: 
+  canvasSize: {x: 256, y: 128}

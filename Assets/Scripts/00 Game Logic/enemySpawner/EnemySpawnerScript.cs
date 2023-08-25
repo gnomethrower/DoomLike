@@ -92,7 +92,6 @@ public class EnemySpawnerScript : MonoBehaviour
 
     void KillSpawnerObject()
     {
-        Debug.Log("Destroying Spawner");
         //Play animation of the Portal closing?++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         Destroy(transform.root.gameObject);
     }

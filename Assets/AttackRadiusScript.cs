@@ -5,13 +5,14 @@ using UnityEngine;
 
 public class AttackRadiusScript : MonoBehaviour
 {
-    public bool insideRadius;
+    public bool insideAttackRadius;
 
     public void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.name == "Player")
         {
-            insideRadius = true;
+            Debug.Log("Entered attack Radius");
+            insideAttackRadius = true;
         }
     }
 
@@ -19,7 +20,8 @@ public class AttackRadiusScript : MonoBehaviour
     {
         if (other.gameObject.name == "Player")
         {
-            insideRadius = false;
+            Debug.Log("Left attack Radius");
+            insideAttackRadius = false;
         }
     }
 

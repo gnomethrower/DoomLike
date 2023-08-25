@@ -21,11 +21,13 @@ ScriptedImporter:
     convertToNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
+    swizzle: 50462976
     isReadable: 0
     streamingMipmaps: 0
     streamingMipmapsPriority: 0
     vTOnly: 0
-    ignoreMasterTextureLimit: 0
+    ignoreMipmapLimit: 0
     nPOTScale: 1
     sRGBTexture: 1
     spriteMode: 2
@@ -69,22 +71,28 @@ ScriptedImporter:
     textureFormatSet: 0
     applyGammaDecoding: 0
   previousAsepriteImporterSettings:
+    fileImportMode: 1
     importHiddenLayers: 0
     layerImportMode: 1
     defaultPivotSpace: 0
     defaultPivotAlignment: 7
     customPivotPosition: {x: 0.5, y: 0.5}
+    spritePadding: 0
     generateModelPrefab: 1
     generateAnimationClips: 1
+    addSortingGroup: 1
     addShadowCasters: 0
   asepriteImporterSettings:
+    fileImportMode: 1
     importHiddenLayers: 0
     layerImportMode: 1
     defaultPivotSpace: 0
     defaultPivotAlignment: 7
     customPivotPosition: {x: 0.5, y: 0.5}
+    spritePadding: 0
     generateModelPrefab: 1
     generateAnimationClips: 1
+    addSortingGroup: 1
     addShadowCasters: 0
   importFileNodeState: 1
   platformSettingsDirtyTick: 0
@@ -110,8 +118,8 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  multiSpriteImportData:
-  - name: Mantis-WalkCycle-00_0
+  animatedSpriteImportData:
+  - name: Mantis-WalkCycle-00_Frame_0
     originalName: 
     pivot: {x: 0.58762884, y: -0.1891892}
     alignment: 9
@@ -122,7 +130,7 @@ ScriptedImporter:
       y: 162
       width: 97
       height: 74
-    spriteID: 6af7aee5995c27b4f87a6771927d674d
+    spriteID: a03c2db148c258741a058b6abddfaf5e
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -131,7 +139,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: -67, y: 148}
-  - name: Mantis-WalkCycle-00_1
+  - name: Mantis-WalkCycle-00_Frame_1
     originalName: 
     pivot: {x: 0.53535354, y: -0.19444445}
     alignment: 9
@@ -142,7 +150,7 @@ ScriptedImporter:
       y: 4
       width: 99
       height: 72
-    spriteID: 9b45b28e772f57947ad2dd5cdb6eb309
+    spriteID: 4c52d875c6bb9cb409b1f6b3450415f2
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -151,7 +159,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 50, y: -10}
-  - name: Mantis-WalkCycle-00_2
+  - name: Mantis-WalkCycle-00_Frame_2
     originalName: 
     pivot: {x: 0.44660196, y: -0.18309858}
     alignment: 9
@@ -162,7 +170,7 @@ ScriptedImporter:
       y: 83
       width: 103
       height: 71
-    spriteID: eb635abb5aeefa548a70c09f8d29d1da
+    spriteID: f4e470d49eb7dde45aea0e203350be4f
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -171,7 +179,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: -78, y: 70}
-  - name: Mantis-WalkCycle-00_3
+  - name: Mantis-WalkCycle-00_Frame_3
     originalName: 
     pivot: {x: 0.50442475, y: -0.18309858}
     alignment: 9
@@ -182,7 +190,7 @@ ScriptedImporter:
       y: 4
       width: 113
       height: 71
-    spriteID: b170e61eacec4af478e2783596c1cc95
+    spriteID: 426d46f1d442eff41a94048e48fbe295
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -191,7 +199,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: -67, y: -9}
-  - name: Mantis-WalkCycle-00_4
+  - name: Mantis-WalkCycle-00_Frame_4
     originalName: 
     pivot: {x: 0.5652174, y: -0.18055555}
     alignment: 9
@@ -202,7 +210,7 @@ ScriptedImporter:
       y: 164
       width: 92
       height: 72
-    spriteID: 908ac2e2130b3eb41a1e7f1974775cac
+    spriteID: ee3c17c36a1837446ad7ce5b7d8db4ff
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -211,7 +219,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 49, y: 151}
-  - name: Mantis-WalkCycle-00_5
+  - name: Mantis-WalkCycle-00_Frame_5
     originalName: 
     pivot: {x: 0.5, y: -0.19444445}
     alignment: 9
@@ -222,7 +230,7 @@ ScriptedImporter:
       y: 84
       width: 96
       height: 72
-    spriteID: 463f052e3994e554ead80d73c94d88f5
+    spriteID: 58ea00ad526ce884390bdf36d9b93591
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -231,61 +239,66 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 45, y: 70}
+  spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
+    guid: 1044029453
     name: Mantis-WalkCycle-00
     layerFlags: 0
     layerType: 0
+    blendMode: 0
     cells:
-    - name: Mantis-WalkCycle-00_0
+    - name: Mantis-WalkCycle-00_Frame_0
       frameIndex: 0
       cellRect:
         x: 0
         y: 0
         width: 256
         height: 128
-      spriteId: 6af7aee5995c27b4f87a6771927d674d
-    - name: Mantis-WalkCycle-00_1
+      spriteId: a03c2db148c258741a058b6abddfaf5e
+    - name: Mantis-WalkCycle-00_Frame_1
       frameIndex: 1
       cellRect:
         x: 0
         y: 0
         width: 256
         height: 128
-      spriteId: 9b45b28e772f57947ad2dd5cdb6eb309
-    - name: Mantis-WalkCycle-00_2
+      spriteId: 4c52d875c6bb9cb409b1f6b3450415f2
+    - name: Mantis-WalkCycle-00_Frame_2
       frameIndex: 2
       cellRect:
         x: 0
         y: 0
         width: 256
         height: 128
-      spriteId: eb635abb5aeefa548a70c09f8d29d1da
-    - name: Mantis-WalkCycle-00_3
+      spriteId: f4e470d49eb7dde45aea0e203350be4f
+    - name: Mantis-WalkCycle-00_Frame_3
       frameIndex: 3
       cellRect:
         x: 0
         y: 0
         width: 256
         height: 128
-      spriteId: b170e61eacec4af478e2783596c1cc95
-    - name: Mantis-WalkCycle-00_4
+      spriteId: 426d46f1d442eff41a94048e48fbe295
+    - name: Mantis-WalkCycle-00_Frame_4
       frameIndex: 4
       cellRect:
         x: 0
         y: 0
         width: 256
         height: 128
-      spriteId: 908ac2e2130b3eb41a1e7f1974775cac
-    - name: Mantis-WalkCycle-00_5
+      spriteId: ee3c17c36a1837446ad7ce5b7d8db4ff
+    - name: Mantis-WalkCycle-00_Frame_5
       frameIndex: 5
       cellRect:
         x: 0
         y: 0
         width: 256
         height: 128
-      spriteId: 463f052e3994e554ead80d73c94d88f5
+      spriteId: 58ea00ad526ce884390bdf36d9b93591
     linkedCells: []
+    parentIndex: -1
   platformSettings: []
   secondarySpriteTextures: []
   spritePackingTag: 
+  canvasSize: {x: 256, y: 128}

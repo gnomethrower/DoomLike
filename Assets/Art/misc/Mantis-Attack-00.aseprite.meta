@@ -21,11 +21,13 @@ ScriptedImporter:
     convertToNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
+    swizzle: 50462976
     isReadable: 0
     streamingMipmaps: 0
     streamingMipmapsPriority: 0
     vTOnly: 0
-    ignoreMasterTextureLimit: 0
+    ignoreMipmapLimit: 0
     nPOTScale: 1
     sRGBTexture: 1
     spriteMode: 2
@@ -69,22 +71,28 @@ ScriptedImporter:
     textureFormatSet: 0
     applyGammaDecoding: 0
   previousAsepriteImporterSettings:
+    fileImportMode: 1
     importHiddenLayers: 0
     layerImportMode: 1
     defaultPivotSpace: 0
     defaultPivotAlignment: 7
     customPivotPosition: {x: 0.5, y: 0.5}
+    spritePadding: 0
     generateModelPrefab: 1
     generateAnimationClips: 1
+    addSortingGroup: 1
     addShadowCasters: 0
   asepriteImporterSettings:
+    fileImportMode: 1
     importHiddenLayers: 0
     layerImportMode: 1
     defaultPivotSpace: 0
     defaultPivotAlignment: 7
     customPivotPosition: {x: 0.5, y: 0.5}
+    spritePadding: 0
     generateModelPrefab: 1
     generateAnimationClips: 1
+    addSortingGroup: 1
     addShadowCasters: 0
   importFileNodeState: 1
   platformSettingsDirtyTick: 0
@@ -110,8 +118,8 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  multiSpriteImportData:
-  - name: Mantis-Attack-00_0
+  animatedSpriteImportData:
+  - name: Mantis-Attack-00_Frame_0
     originalName: 
     pivot: {x: 0.49473685, y: -0.17721519}
     alignment: 9
@@ -122,7 +130,7 @@ ScriptedImporter:
       y: 336
       width: 95
       height: 79
-    spriteID: b5d1b600c30ddac4db0a3f4eb9b5e15e
+    spriteID: 401ce9a44559733499bdc6ebd8cd7fe2
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -131,7 +139,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: -77, y: 322}
-  - name: Mantis-Attack-00_1
+  - name: Mantis-Attack-00_Frame_1
     originalName: 
     pivot: {x: 0.49473685, y: -0.15217392}
     alignment: 9
@@ -142,7 +150,7 @@ ScriptedImporter:
       y: 236
       width: 95
       height: 92
-    spriteID: 0e3d374a137983546a1744b2c2d54a33
+    spriteID: 08d2302203387d843b5f37524c3b2b75
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -151,7 +159,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: -77, y: 222}
-  - name: Mantis-Attack-00_2
+  - name: Mantis-Attack-00_Frame_2
     originalName: 
     pivot: {x: 0.5, y: -0.12380953}
     alignment: 9
@@ -162,7 +170,7 @@ ScriptedImporter:
       y: 123
       width: 96
       height: 105
-    spriteID: 012cf13b4b1e9984bb04c9557220ee48
+    spriteID: 8b51c2db842dcba47826ec44b72c5c14
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -171,7 +179,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: -76, y: 110}
-  - name: Mantis-Attack-00_3
+  - name: Mantis-Attack-00_Frame_3
     originalName: 
     pivot: {x: 0.4848485, y: -0.11711712}
     alignment: 9
@@ -182,7 +190,7 @@ ScriptedImporter:
       y: 4
       width: 99
       height: 111
-    spriteID: 8be932092b937f7469839e2b8ae8fc4c
+    spriteID: dc34ead9be2fca54aa3562f4cff8cd1e
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -191,7 +199,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: -76, y: -9}
-  - name: Mantis-Attack-00_4
+  - name: Mantis-Attack-00_Frame_4
     originalName: 
     pivot: {x: 0.4351852, y: -0.16}
     alignment: 9
@@ -202,7 +210,7 @@ ScriptedImporter:
       y: 4
       width: 108
       height: 75
-    spriteID: 5f0c6aca5930c544282e1eb9b1d705ee
+    spriteID: 03035b523a16c1e41baeed6e3c24ac87
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -211,7 +219,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 30, y: -8}
-  - name: Mantis-Attack-00_5
+  - name: Mantis-Attack-00_Frame_5
     originalName: 
     pivot: {x: 0.44761905, y: -0.1969697}
     alignment: 9
@@ -222,7 +230,7 @@ ScriptedImporter:
       y: 87
       width: 105
       height: 66
-    spriteID: c8bd4601ecc72e24abb31d854f4c824b
+    spriteID: 3d5c6a5e833c7b44c8606c978f31ede5
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -231,7 +239,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 30, y: 74}
-  - name: Mantis-Attack-00_6
+  - name: Mantis-Attack-00_Frame_6
     originalName: 
     pivot: {x: 0.4848485, y: -0.19402985}
     alignment: 9
@@ -242,7 +250,7 @@ ScriptedImporter:
       y: 423
       width: 99
       height: 67
-    spriteID: 4a6d6971d95b8f4408ce496b95a1e0ae
+    spriteID: 0a35990876ffa344b9460fa179aac7b0
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -251,69 +259,74 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: -76, y: 410}
+  spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
+    guid: -1971873052
     name: Mantis-Attack-00
     layerFlags: 0
     layerType: 0
+    blendMode: 0
     cells:
-    - name: Mantis-Attack-00_0
+    - name: Mantis-Attack-00_Frame_0
       frameIndex: 0
       cellRect:
         x: 0
         y: 0
         width: 256
         height: 128
-      spriteId: b5d1b600c30ddac4db0a3f4eb9b5e15e
-    - name: Mantis-Attack-00_1
+      spriteId: 401ce9a44559733499bdc6ebd8cd7fe2
+    - name: Mantis-Attack-00_Frame_1
       frameIndex: 1
       cellRect:
         x: 0
         y: 0
         width: 256
         height: 128
-      spriteId: 0e3d374a137983546a1744b2c2d54a33
-    - name: Mantis-Attack-00_2
+      spriteId: 08d2302203387d843b5f37524c3b2b75
+    - name: Mantis-Attack-00_Frame_2
       frameIndex: 2
       cellRect:
         x: 0
         y: 0
         width: 256
         height: 128
-      spriteId: 012cf13b4b1e9984bb04c9557220ee48
-    - name: Mantis-Attack-00_3
+      spriteId: 8b51c2db842dcba47826ec44b72c5c14
+    - name: Mantis-Attack-00_Frame_3
       frameIndex: 3
       cellRect:
         x: 0
         y: 0
         width: 256
         height: 128
-      spriteId: 8be932092b937f7469839e2b8ae8fc4c
-    - name: Mantis-Attack-00_4
+      spriteId: dc34ead9be2fca54aa3562f4cff8cd1e
+    - name: Mantis-Attack-00_Frame_4
       frameIndex: 4
       cellRect:
         x: 0
         y: 0
         width: 256
         height: 128
-      spriteId: 5f0c6aca5930c544282e1eb9b1d705ee
-    - name: Mantis-Attack-00_5
+      spriteId: 03035b523a16c1e41baeed6e3c24ac87
+    - name: Mantis-Attack-00_Frame_5
       frameIndex: 5
       cellRect:
         x: 0
         y: 0
         width: 256
         height: 128
-      spriteId: c8bd4601ecc72e24abb31d854f4c824b
-    - name: Mantis-Attack-00_6
+      spriteId: 3d5c6a5e833c7b44c8606c978f31ede5
+    - name: Mantis-Attack-00_Frame_6
       frameIndex: 6
       cellRect:
         x: 0
         y: 0
         width: 256
         height: 128
-      spriteId: 4a6d6971d95b8f4408ce496b95a1e0ae
+      spriteId: 0a35990876ffa344b9460fa179aac7b0
     linkedCells: []
+    parentIndex: -1
   platformSettings: []
   secondarySpriteTextures: []
   spritePackingTag: 
+  canvasSize: {x: 256, y: 128}

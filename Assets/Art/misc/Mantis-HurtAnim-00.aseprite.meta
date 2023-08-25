@@ -21,11 +21,13 @@ ScriptedImporter:
     convertToNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
+    swizzle: 50462976
     isReadable: 0
     streamingMipmaps: 0
     streamingMipmapsPriority: 0
     vTOnly: 0
-    ignoreMasterTextureLimit: 0
+    ignoreMipmapLimit: 0
     nPOTScale: 1
     sRGBTexture: 1
     spriteMode: 2
@@ -69,22 +71,28 @@ ScriptedImporter:
     textureFormatSet: 0
     applyGammaDecoding: 0
   previousAsepriteImporterSettings:
+    fileImportMode: 1
     importHiddenLayers: 0
     layerImportMode: 1
     defaultPivotSpace: 0
     defaultPivotAlignment: 7
     customPivotPosition: {x: 0.5, y: 0.5}
+    spritePadding: 0
     generateModelPrefab: 1
     generateAnimationClips: 1
+    addSortingGroup: 1
     addShadowCasters: 0
   asepriteImporterSettings:
+    fileImportMode: 1
     importHiddenLayers: 0
     layerImportMode: 1
     defaultPivotSpace: 0
     defaultPivotAlignment: 7
     customPivotPosition: {x: 0.5, y: 0.5}
+    spritePadding: 0
     generateModelPrefab: 1
     generateAnimationClips: 1
+    addSortingGroup: 1
     addShadowCasters: 0
   importFileNodeState: 1
   platformSettingsDirtyTick: 0
@@ -110,8 +118,8 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  multiSpriteImportData:
-  - name: Mantis-HurtAnim-00_0
+  animatedSpriteImportData:
+  - name: Mantis-HurtAnim-00_Frame_0
     originalName: 
     pivot: {x: 0.5, y: -0.13461539}
     alignment: 9
@@ -122,7 +130,7 @@ ScriptedImporter:
       y: 4
       width: 96
       height: 104
-    spriteID: a9bfd177039dbfc43b6b9f2b8f72e341
+    spriteID: 9925410693b2fd4428b1a8c273645672
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -131,7 +139,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: -76, y: -10}
-  - name: Mantis-HurtAnim-00_1
+  - name: Mantis-HurtAnim-00_Frame_1
     originalName: 
     pivot: {x: 0.44036695, y: -0.1590909}
     alignment: 9
@@ -142,7 +150,7 @@ ScriptedImporter:
       y: 4
       width: 109
       height: 88
-    spriteID: e7eb509c28df9314d813ea32aae70ef1
+    spriteID: bdacec542a7913040a1093f5081ebf21
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -151,7 +159,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 28, y: -10}
-  - name: Mantis-HurtAnim-00_2
+  - name: Mantis-HurtAnim-00_Frame_2
     originalName: 
     pivot: {x: 0.46601942, y: -0.1627907}
     alignment: 9
@@ -162,7 +170,7 @@ ScriptedImporter:
       y: 202
       width: 103
       height: 86
-    spriteID: ff949ab63cec59e4fb1e3062ee85a5ba
+    spriteID: 7a0245fb6ac15fb40bc0841c4ae724d2
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -171,7 +179,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 28, y: 188}
-  - name: Mantis-HurtAnim-00_3
+  - name: Mantis-HurtAnim-00_Frame_3
     originalName: 
     pivot: {x: 0.48979592, y: -0.14893617}
     alignment: 9
@@ -182,7 +190,7 @@ ScriptedImporter:
       y: 100
       width: 98
       height: 94
-    spriteID: 5b7de8fb8c3e8ad4898c2aeabf5d09d8
+    spriteID: a3165e4df95713d4b86091b48fe51ec3
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -191,7 +199,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 28, y: 86}
-  - name: Mantis-HurtAnim-00_4
+  - name: Mantis-HurtAnim-00_Frame_4
     originalName: 
     pivot: {x: 0.5, y: -0.14}
     alignment: 9
@@ -202,7 +210,7 @@ ScriptedImporter:
       y: 116
       width: 96
       height: 100
-    spriteID: 79ee72a2e3a2bac47bf389bf8cfd84d4
+    spriteID: 463c53a9a102c4f4cab30455a2ab96e0
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -211,53 +219,58 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: -76, y: 102}
+  spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
+    guid: -1499543492
     name: Mantis-HurtAnim-00
     layerFlags: 0
     layerType: 0
+    blendMode: 0
     cells:
-    - name: Mantis-HurtAnim-00_0
+    - name: Mantis-HurtAnim-00_Frame_0
       frameIndex: 0
       cellRect:
         x: 0
         y: 0
         width: 256
         height: 128
-      spriteId: a9bfd177039dbfc43b6b9f2b8f72e341
-    - name: Mantis-HurtAnim-00_1
+      spriteId: 9925410693b2fd4428b1a8c273645672
+    - name: Mantis-HurtAnim-00_Frame_1
       frameIndex: 1
       cellRect:
         x: 0
         y: 0
         width: 256
         height: 128
-      spriteId: e7eb509c28df9314d813ea32aae70ef1
-    - name: Mantis-HurtAnim-00_2
+      spriteId: bdacec542a7913040a1093f5081ebf21
+    - name: Mantis-HurtAnim-00_Frame_2
       frameIndex: 2
       cellRect:
         x: 0
         y: 0
         width: 256
         height: 128
-      spriteId: ff949ab63cec59e4fb1e3062ee85a5ba
-    - name: Mantis-HurtAnim-00_3
+      spriteId: 7a0245fb6ac15fb40bc0841c4ae724d2
+    - name: Mantis-HurtAnim-00_Frame_3
       frameIndex: 3
       cellRect:
         x: 0
         y: 0
         width: 256
         height: 128
-      spriteId: 5b7de8fb8c3e8ad4898c2aeabf5d09d8
-    - name: Mantis-HurtAnim-00_4
+      spriteId: a3165e4df95713d4b86091b48fe51ec3
+    - name: Mantis-HurtAnim-00_Frame_4
       frameIndex: 4
       cellRect:
         x: 0
         y: 0
         width: 256
         height: 128
-      spriteId: 79ee72a2e3a2bac47bf389bf8cfd84d4
+      spriteId: 463c53a9a102c4f4cab30455a2ab96e0
     linkedCells: []
+    parentIndex: -1
   platformSettings: []
   secondarySpriteTextures: []
   spritePackingTag: 
+  canvasSize: {x: 256, y: 128}

@@ -43,12 +43,12 @@ namespace BehaviorDesigner.Runtime.Tasks.Movement
         // Predict the position of the target
         private Vector3 Target()
         {
-            // Calculate the current distance to the target and the current speed
+            // Calculate the current distance to the target and the current currentSpeed
             var distance = (target.Value.transform.position - transform.position).magnitude;
             var speed = Velocity().magnitude;
 
             float futurePrediction = 0;
-            // Set the future prediction to max prediction if the speed is too small to give an accurate prediction
+            // Set the future prediction to max prediction if the currentSpeed is too small to give an accurate prediction
             if (speed <= distance / targetDistPrediction.Value) {
                 futurePrediction = targetDistPrediction.Value;
             } else {

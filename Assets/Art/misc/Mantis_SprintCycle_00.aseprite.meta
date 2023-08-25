@@ -21,11 +21,13 @@ ScriptedImporter:
     convertToNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
+    swizzle: 50462976
     isReadable: 0
     streamingMipmaps: 0
     streamingMipmapsPriority: 0
     vTOnly: 0
-    ignoreMasterTextureLimit: 0
+    ignoreMipmapLimit: 0
     nPOTScale: 1
     sRGBTexture: 1
     spriteMode: 2
@@ -69,22 +71,28 @@ ScriptedImporter:
     textureFormatSet: 0
     applyGammaDecoding: 0
   previousAsepriteImporterSettings:
+    fileImportMode: 1
     importHiddenLayers: 0
     layerImportMode: 1
     defaultPivotSpace: 0
     defaultPivotAlignment: 7
     customPivotPosition: {x: 0.5, y: 0.5}
+    spritePadding: 0
     generateModelPrefab: 1
     generateAnimationClips: 1
+    addSortingGroup: 1
     addShadowCasters: 0
   asepriteImporterSettings:
+    fileImportMode: 1
     importHiddenLayers: 0
     layerImportMode: 1
     defaultPivotSpace: 0
     defaultPivotAlignment: 7
     customPivotPosition: {x: 0.5, y: 0.5}
+    spritePadding: 0
     generateModelPrefab: 1
     generateAnimationClips: 1
+    addSortingGroup: 1
     addShadowCasters: 0
   importFileNodeState: 1
   platformSettingsDirtyTick: 0
@@ -110,8 +118,8 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  multiSpriteImportData:
-  - name: Mantis_SprintCycle_00_0
+  animatedSpriteImportData:
+  - name: Mantis_SprintCycle_00_Frame_0
     originalName: 
     pivot: {x: 0.59375, y: -0.125}
     alignment: 9
@@ -122,7 +130,7 @@ ScriptedImporter:
       y: 171
       width: 96
       height: 80
-    spriteID: 6bbcafd98ab69ee419e066191dd71113
+    spriteID: efa930cd461fb0a40a0c3b77f3b051cf
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -131,7 +139,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: -67, y: 161}
-  - name: Mantis_SprintCycle_00_1
+  - name: Mantis_SprintCycle_00_Frame_1
     originalName: 
     pivot: {x: 0.47959182, y: -0.1891892}
     alignment: 9
@@ -142,7 +150,7 @@ ScriptedImporter:
       y: 4
       width: 98
       height: 74
-    spriteID: fe92dbaa4346f304ebb5ff8c8bb9db1b
+    spriteID: 4d5a91faa3a2c4f458405d71640d6133
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -151,7 +159,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 39, y: -10}
-  - name: Mantis_SprintCycle_00_2
+  - name: Mantis_SprintCycle_00_Frame_2
     originalName: 
     pivot: {x: 0.42592594, y: -0.16}
     alignment: 9
@@ -162,7 +170,7 @@ ScriptedImporter:
       y: 4
       width: 108
       height: 75
-    spriteID: 29c1bb5efe8b9524ba0ad6fc0f715f2c
+    spriteID: 97cbea503a44cb542abdc5108d1c076d
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -171,7 +179,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: -78, y: -8}
-  - name: Mantis_SprintCycle_00_3
+  - name: Mantis_SprintCycle_00_Frame_3
     originalName: 
     pivot: {x: 0.46078432, y: -0.17105263}
     alignment: 9
@@ -182,7 +190,7 @@ ScriptedImporter:
       y: 87
       width: 102
       height: 76
-    spriteID: a4d37de20c30db645b5da9c09ce4c26f
+    spriteID: 7f0e27b8cbd081241a5bc336b627e69e
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -191,7 +199,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: -77, y: 74}
-  - name: Mantis_SprintCycle_00_4
+  - name: Mantis_SprintCycle_00_Frame_4
     originalName: 
     pivot: {x: 0.5638298, y: -0.16883117}
     alignment: 9
@@ -202,7 +210,7 @@ ScriptedImporter:
       y: 86
       width: 94
       height: 77
-    spriteID: c7e89fb5d30ccbf49a8c0e63d8787b41
+    spriteID: 4d546fd45e2bc744a85f029e441370b0
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -211,53 +219,58 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 45, y: 73}
+  spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
+    guid: 2040264500
     name: Mantis_SprintCycle_00
     layerFlags: 0
     layerType: 0
+    blendMode: 0
     cells:
-    - name: Mantis_SprintCycle_00_0
+    - name: Mantis_SprintCycle_00_Frame_0
       frameIndex: 0
       cellRect:
         x: 0
         y: 0
         width: 256
         height: 128
-      spriteId: 6bbcafd98ab69ee419e066191dd71113
-    - name: Mantis_SprintCycle_00_1
+      spriteId: efa930cd461fb0a40a0c3b77f3b051cf
+    - name: Mantis_SprintCycle_00_Frame_1
       frameIndex: 1
       cellRect:
         x: 0
         y: 0
         width: 256
         height: 128
-      spriteId: fe92dbaa4346f304ebb5ff8c8bb9db1b
-    - name: Mantis_SprintCycle_00_2
+      spriteId: 4d5a91faa3a2c4f458405d71640d6133
+    - name: Mantis_SprintCycle_00_Frame_2
       frameIndex: 2
       cellRect:
         x: 0
         y: 0
         width: 256
         height: 128
-      spriteId: 29c1bb5efe8b9524ba0ad6fc0f715f2c
-    - name: Mantis_SprintCycle_00_3
+      spriteId: 97cbea503a44cb542abdc5108d1c076d
+    - name: Mantis_SprintCycle_00_Frame_3
       frameIndex: 3
       cellRect:
         x: 0
         y: 0
         width: 256
         height: 128
-      spriteId: a4d37de20c30db645b5da9c09ce4c26f
-    - name: Mantis_SprintCycle_00_4
+      spriteId: 7f0e27b8cbd081241a5bc336b627e69e
+    - name: Mantis_SprintCycle_00_Frame_4
       frameIndex: 4
       cellRect:
         x: 0
         y: 0
         width: 256
         height: 128
-      spriteId: c7e89fb5d30ccbf49a8c0e63d8787b41
+      spriteId: 4d546fd45e2bc744a85f029e441370b0
     linkedCells: []
+    parentIndex: -1
   platformSettings: []
   secondarySpriteTextures: []
   spritePackingTag: 
+  canvasSize: {x: 256, y: 128}

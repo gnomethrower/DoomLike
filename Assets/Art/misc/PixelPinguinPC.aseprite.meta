@@ -21,11 +21,13 @@ ScriptedImporter:
     convertToNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
+    swizzle: 50462976
     isReadable: 0
     streamingMipmaps: 0
     streamingMipmapsPriority: 0
     vTOnly: 0
-    ignoreMasterTextureLimit: 0
+    ignoreMipmapLimit: 0
     nPOTScale: 1
     sRGBTexture: 1
     spriteMode: 2
@@ -69,22 +71,28 @@ ScriptedImporter:
     textureFormatSet: 0
     applyGammaDecoding: 0
   previousAsepriteImporterSettings:
+    fileImportMode: 1
     importHiddenLayers: 0
     layerImportMode: 1
     defaultPivotSpace: 0
     defaultPivotAlignment: 7
     customPivotPosition: {x: 0.5, y: 0.5}
+    spritePadding: 0
     generateModelPrefab: 1
     generateAnimationClips: 1
+    addSortingGroup: 1
     addShadowCasters: 0
   asepriteImporterSettings:
+    fileImportMode: 1
     importHiddenLayers: 0
     layerImportMode: 1
     defaultPivotSpace: 0
     defaultPivotAlignment: 7
     customPivotPosition: {x: 0.5, y: 0.5}
+    spritePadding: 0
     generateModelPrefab: 1
     generateAnimationClips: 1
+    addSortingGroup: 1
     addShadowCasters: 0
   importFileNodeState: 1
   platformSettingsDirtyTick: 0
@@ -110,8 +118,8 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  multiSpriteImportData:
-  - name: PixelPinguinPC_0
+  animatedSpriteImportData:
+  - name: PixelPinguinPC_Frame_0
     originalName: 
     pivot: {x: 0.4166667, y: -0.08888889}
     alignment: 9
@@ -122,7 +130,7 @@ ScriptedImporter:
       y: 4
       width: 48
       height: 45
-    spriteID: 5952f69b8ab7f984d86b9421f66d0a6a
+    spriteID: c799306a86f6f0843a15284c0b3628f3
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -131,7 +139,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 58, y: 4}
-  - name: PixelPinguinPC_1
+  - name: PixelPinguinPC_Frame_1
     originalName: 
     pivot: {x: 0.39130434, y: -0.06}
     alignment: 9
@@ -142,7 +150,7 @@ ScriptedImporter:
       y: 63
       width: 46
       height: 50
-    spriteID: d297b789e38a6ec4a95e521f2e21319e
+    spriteID: d23e78e670769bd4db89d079193e6e9f
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -151,7 +159,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 63}
-  - name: PixelPinguinPC_2
+  - name: PixelPinguinPC_Frame_2
     originalName: 
     pivot: {x: 0.45000002, y: -0.07692308}
     alignment: 9
@@ -162,7 +170,7 @@ ScriptedImporter:
       y: 115
       width: 40
       height: 52
-    spriteID: 5e11fa810d031e4489e04fdb3f78d60a
+    spriteID: 6e7a7d104bcd1a54ba9ac100a9861f62
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -171,7 +179,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 58, y: 115}
-  - name: PixelPinguinPC_3
+  - name: PixelPinguinPC_Frame_3
     originalName: 
     pivot: {x: 0.5, y: -0.04}
     alignment: 9
@@ -182,7 +190,7 @@ ScriptedImporter:
       y: 57
       width: 42
       height: 50
-    spriteID: 08f7466d8b774d94290ea896895c95f4
+    spriteID: 300012a3a627b1040a4d4628f05a5c7d
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -191,7 +199,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 58, y: 57}
-  - name: PixelPinguinPC_4
+  - name: PixelPinguinPC_Frame_4
     originalName: 
     pivot: {x: 0.51111114, y: -0.08888889}
     alignment: 9
@@ -202,7 +210,7 @@ ScriptedImporter:
       y: 175
       width: 45
       height: 45
-    spriteID: f2e6502af5146614b8e1b47063d73db0
+    spriteID: 209d09017931047448a7e729107c2dc4
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -211,7 +219,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 58, y: 175}
-  - name: PixelPinguinPC_5
+  - name: PixelPinguinPC_Frame_5
     originalName: 
     pivot: {x: 0.43478262, y: -0.058823533}
     alignment: 9
@@ -222,7 +230,7 @@ ScriptedImporter:
       y: 4
       width: 46
       height: 51
-    spriteID: ef5184cc131fa0147a610d628a707c1f
+    spriteID: 9d4af3b4941943d458329d07912f6475
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -231,7 +239,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
-  - name: PixelPinguinPC_6
+  - name: PixelPinguinPC_Frame_6
     originalName: 
     pivot: {x: 0.4390244, y: -0.07692308}
     alignment: 9
@@ -242,7 +250,7 @@ ScriptedImporter:
       y: 181
       width: 41
       height: 52
-    spriteID: 088075057f7a60c46901aa7460969ed8
+    spriteID: 09b0797fcb33fd04e8fce03916e3b5cd
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -251,7 +259,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 181}
-  - name: PixelPinguinPC_7
+  - name: PixelPinguinPC_Frame_7
     originalName: 
     pivot: {x: 0.41860464, y: -0.03846154}
     alignment: 9
@@ -262,7 +270,7 @@ ScriptedImporter:
       y: 121
       width: 43
       height: 52
-    spriteID: bdea9ea941b262b41af6bf787fe7a60e
+    spriteID: 9c8ae491e68bb124ea843da02f78782f
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -271,77 +279,82 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 121}
+  spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
+    guid: -1907965267
     name: PixelPinguinPC
     layerFlags: 0
     layerType: 0
+    blendMode: 0
     cells:
-    - name: PixelPinguinPC_0
+    - name: PixelPinguinPC_Frame_0
       frameIndex: 0
       cellRect:
         x: 12
         y: 4
         width: 48
         height: 45
-      spriteId: 5952f69b8ab7f984d86b9421f66d0a6a
-    - name: PixelPinguinPC_1
+      spriteId: c799306a86f6f0843a15284c0b3628f3
+    - name: PixelPinguinPC_Frame_1
       frameIndex: 1
       cellRect:
         x: 14
         y: 3
         width: 46
         height: 50
-      spriteId: d297b789e38a6ec4a95e521f2e21319e
-    - name: PixelPinguinPC_2
+      spriteId: d23e78e670769bd4db89d079193e6e9f
+    - name: PixelPinguinPC_Frame_2
       frameIndex: 2
       cellRect:
         x: 14
         y: 4
         width: 40
         height: 52
-      spriteId: 5e11fa810d031e4489e04fdb3f78d60a
-    - name: PixelPinguinPC_3
+      spriteId: 6e7a7d104bcd1a54ba9ac100a9861f62
+    - name: PixelPinguinPC_Frame_3
       frameIndex: 3
       cellRect:
         x: 11
         y: 2
         width: 42
         height: 50
-      spriteId: 08f7466d8b774d94290ea896895c95f4
-    - name: PixelPinguinPC_4
+      spriteId: 300012a3a627b1040a4d4628f05a5c7d
+    - name: PixelPinguinPC_Frame_4
       frameIndex: 4
       cellRect:
         x: 9
         y: 4
         width: 45
         height: 45
-      spriteId: f2e6502af5146614b8e1b47063d73db0
-    - name: PixelPinguinPC_5
+      spriteId: 209d09017931047448a7e729107c2dc4
+    - name: PixelPinguinPC_Frame_5
       frameIndex: 5
       cellRect:
         x: 12
         y: 3
         width: 46
         height: 51
-      spriteId: ef5184cc131fa0147a610d628a707c1f
-    - name: PixelPinguinPC_6
+      spriteId: 9d4af3b4941943d458329d07912f6475
+    - name: PixelPinguinPC_Frame_6
       frameIndex: 6
       cellRect:
         x: 14
         y: 4
         width: 41
         height: 52
-      spriteId: 088075057f7a60c46901aa7460969ed8
-    - name: PixelPinguinPC_7
+      spriteId: 09b0797fcb33fd04e8fce03916e3b5cd
+    - name: PixelPinguinPC_Frame_7
       frameIndex: 7
       cellRect:
         x: 14
         y: 2
         width: 43
         height: 52
-      spriteId: bdea9ea941b262b41af6bf787fe7a60e
+      spriteId: 9c8ae491e68bb124ea843da02f78782f
     linkedCells: []
+    parentIndex: -1
   platformSettings: []
   secondarySpriteTextures: []
   spritePackingTag: 
+  canvasSize: {x: 64, y: 64}

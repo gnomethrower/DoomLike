@@ -21,11 +21,13 @@ ScriptedImporter:
     convertToNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
+    swizzle: 50462976
     isReadable: 0
     streamingMipmaps: 0
     streamingMipmapsPriority: 0
     vTOnly: 0
-    ignoreMasterTextureLimit: 0
+    ignoreMipmapLimit: 0
     nPOTScale: 1
     sRGBTexture: 1
     spriteMode: 2
@@ -69,22 +71,28 @@ ScriptedImporter:
     textureFormatSet: 0
     applyGammaDecoding: 0
   previousAsepriteImporterSettings:
+    fileImportMode: 1
     importHiddenLayers: 0
     layerImportMode: 1
     defaultPivotSpace: 0
     defaultPivotAlignment: 7
     customPivotPosition: {x: 0.5, y: 0.5}
+    spritePadding: 0
     generateModelPrefab: 1
     generateAnimationClips: 1
+    addSortingGroup: 1
     addShadowCasters: 0
   asepriteImporterSettings:
+    fileImportMode: 1
     importHiddenLayers: 0
     layerImportMode: 1
     defaultPivotSpace: 0
     defaultPivotAlignment: 7
     customPivotPosition: {x: 0.5, y: 0.5}
+    spritePadding: 0
     generateModelPrefab: 1
     generateAnimationClips: 1
+    addSortingGroup: 1
     addShadowCasters: 0
   importFileNodeState: 1
   platformSettingsDirtyTick: 0
@@ -110,8 +118,8 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  multiSpriteImportData:
-  - name: Mantis-Aggro-00_0
+  animatedSpriteImportData:
+  - name: Mantis-Aggro-00_Frame_0
     originalName: 
     pivot: {x: 0.49473685, y: -0.16867469}
     alignment: 9
@@ -122,7 +130,7 @@ ScriptedImporter:
       y: 313
       width: 95
       height: 83
-    spriteID: c3fbff50cea005842981f12de7cf0eef
+    spriteID: 7ef911de57ac23d48b5b60b84d987f4c
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -131,7 +139,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 30, y: 299}
-  - name: Mantis-Aggro-00_1
+  - name: Mantis-Aggro-00_Frame_1
     originalName: 
     pivot: {x: 0.48958334, y: -0.13725491}
     alignment: 9
@@ -142,7 +150,7 @@ ScriptedImporter:
       y: 225
       width: 96
       height: 102
-    spriteID: c96b004ba1d582d4db74b60424e5b350
+    spriteID: 4c733a2403a47394aa82dc19f80741d1
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -151,7 +159,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: -77, y: 211}
-  - name: Mantis-Aggro-00_2
+  - name: Mantis-Aggro-00_Frame_2
     originalName: 
     pivot: {x: 0.4848485, y: -0.13861386}
     alignment: 9
@@ -162,7 +170,7 @@ ScriptedImporter:
       y: 4
       width: 99
       height: 101
-    spriteID: 37c411da9de2ba84db17b8f9686d22c0
+    spriteID: 5845b6bdd7882d748bd99a9f8900a9be
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -171,7 +179,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: -76, y: -10}
-  - name: Mantis-Aggro-00_3
+  - name: Mantis-Aggro-00_Frame_3
     originalName: 
     pivot: {x: 0.50495046, y: -0.14432989}
     alignment: 9
@@ -182,7 +190,7 @@ ScriptedImporter:
       y: 4
       width: 101
       height: 97
-    spriteID: 2b8ea72ab70fbe34daecf44ce3056f0e
+    spriteID: 3df1d953dc7709d4b8ac7b97bd05c45f
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -191,7 +199,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 34, y: -10}
-  - name: Mantis-Aggro-00_4
+  - name: Mantis-Aggro-00_Frame_4
     originalName: 
     pivot: {x: 0.5294118, y: -0.14736843}
     alignment: 9
@@ -202,7 +210,7 @@ ScriptedImporter:
       y: 109
       width: 102
       height: 95
-    spriteID: 79ea6304e95ae5345983d59d0a14e737
+    spriteID: a52113802834a6a42bb76bcf669ac043
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -211,7 +219,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 37, y: 95}
-  - name: Mantis-Aggro-00_5
+  - name: Mantis-Aggro-00_Frame_5
     originalName: 
     pivot: {x: 0.5051546, y: -0.14}
     alignment: 9
@@ -222,7 +230,7 @@ ScriptedImporter:
       y: 335
       width: 97
       height: 100
-    spriteID: 9333f290e3f5dd441ac2d6535fb400ac
+    spriteID: a4ad323af58b2ff43b31144df4ed31fe
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -231,7 +239,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: -75, y: 321}
-  - name: Mantis-Aggro-00_6
+  - name: Mantis-Aggro-00_Frame_6
     originalName: 
     pivot: {x: 0.5, y: -0.13461539}
     alignment: 9
@@ -242,7 +250,7 @@ ScriptedImporter:
       y: 113
       width: 96
       height: 104
-    spriteID: 63524f2daf5719a41804bf7d99e5cb2e
+    spriteID: d7ab8304d270eee4cb8ca650c633836a
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -251,7 +259,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: -76, y: 99}
-  - name: Mantis-Aggro-00_7
+  - name: Mantis-Aggro-00_Frame_7
     originalName: 
     pivot: {x: 0.5, y: -0.15053764}
     alignment: 9
@@ -262,7 +270,7 @@ ScriptedImporter:
       y: 212
       width: 96
       height: 93
-    spriteID: 7464cf925ac8b064bb1b2acf61ed3105
+    spriteID: 290a72e60976c734ea55c99e5fc41a77
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -271,77 +279,82 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 31, y: 198}
+  spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
+    guid: 609285916
     name: Mantis-Aggro-00
     layerFlags: 0
     layerType: 0
+    blendMode: 0
     cells:
-    - name: Mantis-Aggro-00_0
+    - name: Mantis-Aggro-00_Frame_0
       frameIndex: 0
       cellRect:
         x: 0
         y: 0
         width: 256
         height: 128
-      spriteId: c3fbff50cea005842981f12de7cf0eef
-    - name: Mantis-Aggro-00_1
+      spriteId: 7ef911de57ac23d48b5b60b84d987f4c
+    - name: Mantis-Aggro-00_Frame_1
       frameIndex: 1
       cellRect:
         x: 0
         y: 0
         width: 256
         height: 128
-      spriteId: c96b004ba1d582d4db74b60424e5b350
-    - name: Mantis-Aggro-00_2
+      spriteId: 4c733a2403a47394aa82dc19f80741d1
+    - name: Mantis-Aggro-00_Frame_2
       frameIndex: 2
       cellRect:
         x: 0
         y: 0
         width: 256
         height: 128
-      spriteId: 37c411da9de2ba84db17b8f9686d22c0
-    - name: Mantis-Aggro-00_3
+      spriteId: 5845b6bdd7882d748bd99a9f8900a9be
+    - name: Mantis-Aggro-00_Frame_3
       frameIndex: 3
       cellRect:
         x: 0
         y: 0
         width: 256
         height: 128
-      spriteId: 2b8ea72ab70fbe34daecf44ce3056f0e
-    - name: Mantis-Aggro-00_4
+      spriteId: 3df1d953dc7709d4b8ac7b97bd05c45f
+    - name: Mantis-Aggro-00_Frame_4
       frameIndex: 4
       cellRect:
         x: 0
         y: 0
         width: 256
         height: 128
-      spriteId: 79ea6304e95ae5345983d59d0a14e737
-    - name: Mantis-Aggro-00_5
+      spriteId: a52113802834a6a42bb76bcf669ac043
+    - name: Mantis-Aggro-00_Frame_5
       frameIndex: 5
       cellRect:
         x: 0
         y: 0
         width: 256
         height: 128
-      spriteId: 9333f290e3f5dd441ac2d6535fb400ac
-    - name: Mantis-Aggro-00_6
+      spriteId: a4ad323af58b2ff43b31144df4ed31fe
+    - name: Mantis-Aggro-00_Frame_6
       frameIndex: 6
       cellRect:
         x: 0
         y: 0
         width: 256
         height: 128
-      spriteId: 63524f2daf5719a41804bf7d99e5cb2e
-    - name: Mantis-Aggro-00_7
+      spriteId: d7ab8304d270eee4cb8ca650c633836a
+    - name: Mantis-Aggro-00_Frame_7
       frameIndex: 7
       cellRect:
         x: 0
         y: 0
         width: 256
         height: 128
-      spriteId: 7464cf925ac8b064bb1b2acf61ed3105
+      spriteId: 290a72e60976c734ea55c99e5fc41a77
     linkedCells: []
+    parentIndex: -1
   platformSettings: []
   secondarySpriteTextures: []
   spritePackingTag: 
+  canvasSize: {x: 256, y: 128}
