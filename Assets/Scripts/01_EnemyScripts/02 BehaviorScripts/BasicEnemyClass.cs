@@ -29,6 +29,7 @@ public class BasicEnemyClass : MonoBehaviour
     Transform attackRadiusTransform;
 
     Animator animator;
+    private string lastAnimation = null;
     string currentAnimation = null;
     #endregion
 
@@ -77,7 +78,6 @@ public class BasicEnemyClass : MonoBehaviour
     private float zVel;
     #endregion
 
-
     #region Idle
     [SerializeField] private float idleRange;
     [SerializeField] private float wanderingPauseDuration;
@@ -101,14 +101,19 @@ public class BasicEnemyClass : MonoBehaviour
 
     #region states
     [Header("States")]
-    [Tooltip("0 = idle, 1 = chasing, 2 = attacking")]
+    [Tooltip("0 = idle, 1 = chasing, 2 = attacking, 3 = hurtAnimation")]
     [SerializeField] private int currentState = 0;
+    [SerializeField] private int lastState = 0;
+
     [SerializeField] private int IdleSubState = 2; //0 = pausing   |    1 = moving    |    2 = getting wanderpoint;
     [SerializeField] private int attackSubState = 0; // 0 = attack    |    1 = timer;
-
+    [SerializeField] private int hurtSubState = 0;
 
     [SerializeField] private bool isChasing = false;
     [SerializeField] private bool isAttacking = false;
+
+    int busyIterator = 0;
+    private bool currentlyBusy = false;
 
     private string currentAnimationState;
 
@@ -163,8 +168,6 @@ public class BasicEnemyClass : MonoBehaviour
     private void Start()
     {
         SetState(0);
-        //Debug.Log(Convert.ToString(layersToRaycastAgainst, 2).PadLeft(32, '0'));
-
     }
     private void Update()
     {
@@ -173,14 +176,13 @@ public class BasicEnemyClass : MonoBehaviour
 
         #region SceneReference Updates
         distanceToPlayer = Vector3.Distance(player.transform.position, this.transform.position);
-        Debug.Log(distanceToPlayer);
         playerEnemyVector = player.transform.position - this.transform.position;
         #endregion
 
         #region Chase Updates
         if (canChase)
         {
-            if (CanSeeThePlayer() && chaseRadiusScript.insideChaseRadius && !attackRadiusScript.insideAttackRadius)
+            if (CanSeeThePlayer() && chaseRadiusScript.insideChaseRadius && !attackRadiusScript.insideAttackRadius && !isChasing)
             {
                 SetState(1);
             }
@@ -190,36 +192,34 @@ public class BasicEnemyClass : MonoBehaviour
         #region Attack Updates
         if (CanMeleeAttack)
         {
-            if (attackRadiusScript.insideAttackRadius)
+            if (attackRadiusScript.insideAttackRadius && !isAttacking)
             {
                 SetState(2);
             }
         }
         #endregion
 
-        #region Pain and Hurt
+        #region Hurt Update
         if (mortalityScript.gotHurt)
         {
-            if (currentState == 0)
-            {
-                SetState(1);
-            }
-            //mortalityScript.gotHurt = false;
+            mortalityScript.gotHurt = false;
+
+            SetState(3);
         }
         #endregion
 
         StateFrameUpdate();
-
     }
 
     #region Behavior Methods
+
     #region Idle Methods
     private void InitializeIdleState()
     {
         IdleSubState = 2;
         agent.speed = walkingSpeed;
         agent.stoppingDistance = chasingStoppingDistance;
-        ChangeAnimationState("simplestEnemyStanding");
+        ChangeAnimation("simplestEnemyStanding", true);
     }
     private void IdleState()
     {
@@ -274,13 +274,17 @@ public class BasicEnemyClass : MonoBehaviour
     {
         IdleSubState = 1;
         agent.SetDestination(currentWanderPoint);
-        ChangeAnimationState("simplestEnemyWalking");
+        ChangeAnimation("simplestEnemyWalking", true);
     }
     private void TriggerPause()
     {
-        ChangeAnimationState("simplestEnemyStanding");
+        ChangeAnimation("simplestEnemyStanding", true);
         pauseStartTime = Time.time;
         pauseEndTime = pauseStartTime + wanderingPauseDuration;
+        IdleSubState = 0;
+    }
+    private void ExitIdle()
+    {
         IdleSubState = 0;
     }
     #endregion
@@ -288,35 +292,32 @@ public class BasicEnemyClass : MonoBehaviour
     #region Chase Methods
     private void InitializeChasingState()
     {
-        PrintEnemyName();
+        Debug.Log("Chase Init");
         initializingChasing = true;
-        currentState = 1;
+        //currentState = 1;
         isChasing = true;
         chaseTimer = 0;
     }
     private void ChasingState() // Substates: 0: change currentSpeed and stopping distance, initialize animation. 1: Set destination to current player pos.
     {
-
-        if (initializingChasing) //initializing the functionality for the chase state.
+        if (!currentlyBusy)
         {
-            initializingChasing = false;
-            ChangeAnimationState("simplestEnemyChasing");
-            agent.speed = chasingSpeed;
-            agent.stoppingDistance = chasingStoppingDistance;
-        }
 
-        if (agent.isStopped) //if attack state stopped the agent, restart them.
-        {
-            agent.isStopped = false;
-        }
+            if (initializingChasing) //initializing the functionality for the chase state.
+            {
+                initializingChasing = false;
+                ChangeAnimation("simplestEnemyChasing", true);
+                agent.speed = chasingSpeed;
+                agent.stoppingDistance = chasingStoppingDistance;
+            }
 
-        if (isChasing) //if chasing is active, update the player's position each frame.
-        {
-            FaceTarget(player.transform.position, .15f, true);
-            agent.SetDestination(player.transform.position);
+            if (isChasing) //if chasing is active, update the player's position each frame.
+            {
+                FaceTarget(player.transform.position, .15f, true);
+                agent.SetDestination(player.transform.position);
+                CheckToStopChasing();
 
-            CheckToStopChasing();
-
+            }
         }
     }
     void CheckToStopChasing()
@@ -359,6 +360,10 @@ public class BasicEnemyClass : MonoBehaviour
             return true;
         }
         else { return false; }
+    }
+    private void ExitChasing()
+    {
+        isChasing = false;
     }
     private bool PlayerHeadIsVisible()
     {
@@ -411,11 +416,10 @@ public class BasicEnemyClass : MonoBehaviour
     #region Attack Methods
     private void InitializeAttackState()
     {
-        PrintEnemyName();
-        Debug.Log("Attack Init");
-        currentState = 2;
-        StopEnemyAtCurrentPosition();
         isAttacking = true;
+        Debug.Log("Attack Init");
+        //currentState = 2;
+        StopEnemyAtCurrentPosition();
     }
     private void AttackState()
     {
@@ -433,14 +437,14 @@ public class BasicEnemyClass : MonoBehaviour
             {
                 case 0:
                     //Debug.Log("Attack!");
-                    ChangeAnimationState("simplestEnemyAttacking");
+                    ChangeAnimation("simplestEnemyAttacking", true);
                     attackSubState = 1;
                     break;
 
                 case 1:
                     if (currentAnimation != "simplestEnemyAttacking")
                     {
-                        ChangeAnimationState("simplestEnemyAttacking");
+                        ChangeAnimation("simplestEnemyAttacking", true);
                     }
 
                     if (attackTimer < attackPauseInSeconds)
@@ -456,7 +460,12 @@ public class BasicEnemyClass : MonoBehaviour
             }
         }
     }
-    private void AnimationAttackEventCall() //Only called by animation
+    private void ExitAttacking()
+    {
+        isAttacking = false;
+        agent.isStopped = false;
+    }
+    private void AnimationAttackDamage() //Only called by animation
     {
         //Debug.Log("Attack Event Calling Out!");
         if (distanceToPlayer <= attackRange)
@@ -464,10 +473,81 @@ public class BasicEnemyClass : MonoBehaviour
             playerControllerScript.currentHealth -= damage;
         }
     }
-    #endregion
+    private void AnimationToggleBusy() //Only called via animations
+    {
+        switch (busyIterator)
+        {
+            case 0:
+                Debug.Log("Currently busy, can't be Interrupted!");
+                currentlyBusy = true;
+                busyIterator = 1;
+                break;
+            case 1:
+                Debug.Log("I'm ready to do whatever!");
+                busyIterator = 0;
+                currentlyBusy = false;
+                break;
+        }
+    }
     #endregion
 
-    #region Management Methods
+    #region Hurt Methods
+
+    private float hurtTimer;
+    private float hurtTimerEnd;
+    private void InitializingHurtState()
+    {
+        //Slow Down Movement to 0.5 x walkspeed.
+        currentSpeed = walkingSpeed * 0.5f;
+
+        //Setup hurt Timer.
+        hurtTimer = Time.time;
+        hurtTimerEnd = Time.time + .5f;
+    }
+    void HurtState()
+    {
+        switch (hurtSubState) // 0 = initializing; 0 = start animation; 1 = Hurt Timer; 2 = Go to next State (either chase or attack)
+        {
+            case 0:        //Initiate hurt animation.
+                Debug.Log("Initiating Hurt State");
+                ChangeAnimation("simplestEnemyPain", false);
+                hurtSubState++;
+                break;
+            case 1:
+
+                //Go through Hurt Timer
+                if (hurtTimer >= hurtTimerEnd)
+                {
+                    Debug.Log("Hurt Timer Done!");
+                    ChangeAnimation(lastAnimation, true);
+                    hurtSubState++;
+                }
+                else if (hurtTimer < hurtTimerEnd)
+                {
+                    hurtTimer += Time.deltaTime;
+                    break;
+                }
+
+                break;
+            case 2:        //If lastState was chase or attack, resume in respective states. If laststate was idle, goto chase.
+                if (lastState == 0) { SetState(1); }
+                else { SetState(lastState); }
+                hurtSubState = 0;
+                break;
+        }
+    }
+    #endregion
+
+    private void ExitHurt()
+    {
+        hurtSubState = 0;
+        mortalityScript.gotHurt = false;
+    }
+
+    #endregion
+
+    #region Animation and State Methods
+
     #region Animation Methods
     public void FaceTarget(Vector3 _targetPos, float _smoothSpeed = .5f, bool _isLockedToYAxis = false)
     {
@@ -496,13 +576,12 @@ public class BasicEnemyClass : MonoBehaviour
     {
         agent.isStopped = true;
     }
-    void ChangeAnimationState(string newState)
+    void ChangeAnimation(string newAnimation, bool loopingAnim)
     {
-
         //stop the same anim from interrupting itself
-        if (currentAnimationState == newState)
+        if (currentAnimationState == newAnimation)
         {
-            //Debug.Log("No changed animation!");
+            Debug.Log("No changed animation!");
             return;
         }
 
@@ -510,17 +589,24 @@ public class BasicEnemyClass : MonoBehaviour
         animator.transform.rotation = agent.transform.rotation;
         animator.transform.position = agent.transform.position;
 
+        if (lastAnimation != currentAnimation) { lastAnimation = currentAnimation; }
 
+        currentAnimation = newAnimation;
 
-        //play the next animation state
-        animator.Play(newState);
+        if (loopingAnim)
+        {
+            //play the next animation state
+            animator.Play(newAnimation);
 
-        currentAnimation = newState;
-
-        //reassign current state
-        currentAnimationState = newState;
-
+            //reassign current state
+            currentAnimationState = newAnimation;
+        }
+        else
+        {
+            animator.Play(newAnimation);
+        }
     }
+
     #endregion
 
     #region State Management
@@ -530,9 +616,33 @@ public class BasicEnemyClass : MonoBehaviour
         {
             return;
         }
-        currentState = nextState;
 
+        //Debug.Log("Last state was: " + lastState + ".");
+        //Debug.Log("Current state is " + currentState + ".");
+        //Debug.Log("Next state is going to be " + nextState + ".");
+
+        ExitState(currentState);
+        lastState = currentState;
+        currentState = nextState;
         InitializingNextState(currentState);
+    }
+    void ExitState(int lastState)
+    {
+        switch (lastState)
+        {
+            case 0:
+                ExitIdle();
+                break;
+            case 1:
+                ExitChasing();
+                break;
+            case 2:
+                ExitAttacking();
+                break;
+            case 3:
+                ExitHurt();
+                break;
+        }
     }
     void InitializingNextState(int initState)
     {
@@ -546,6 +656,9 @@ public class BasicEnemyClass : MonoBehaviour
                 break;
             case 2:
                 InitializeAttackState();
+                break;
+            case 3:
+                InitializingHurtState();
                 break;
         }
     }
@@ -561,6 +674,9 @@ public class BasicEnemyClass : MonoBehaviour
                 break;
             case 2:
                 AttackState();
+                break;
+            case 3:
+                HurtState();
                 break;
         }
     }
