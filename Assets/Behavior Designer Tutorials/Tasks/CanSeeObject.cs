@@ -31,7 +31,7 @@ namespace BehaviorDesigner.Runtime.Tasks.Tutorials
         }
 
         /// <summary>
-        /// Determines if the targetObject is within sight of the transform.
+        /// Determines if the targetObj is within sight of the transform.
         /// </summary>
         private GameObject WithinSight(GameObject targetObject, float fieldOfViewAngle, float viewDistance)
         {

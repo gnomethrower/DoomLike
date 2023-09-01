@@ -11,7 +11,7 @@ public class AttackRadiusScript : MonoBehaviour
     {
         if (other.gameObject.name == "Player")
         {
-            Debug.Log("Entered attack Radius");
+            Debug.Log("Entered attack Radius of " + transform.parent.transform.parent.transform.parent.name + "!");
             insideAttackRadius = true;
         }
     }
@@ -20,7 +20,7 @@ public class AttackRadiusScript : MonoBehaviour
     {
         if (other.gameObject.name == "Player")
         {
-            Debug.Log("Left attack Radius");
+            //Debug.Log("Left attack Radius");
             insideAttackRadius = false;
         }
     }

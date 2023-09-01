@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 880252853850572320}
   - component: {fileID: 880252853850572321}
   - component: {fileID: 880252853850572322}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: EyeBrowR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -114,7 +114,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 880252853987036597}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Face
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -152,7 +152,7 @@ GameObject:
   - component: {fileID: 880252854593198127}
   - component: {fileID: 880252854593198120}
   - component: {fileID: 880252854593198121}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: EyeR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -376,14 +376,16 @@ MonoBehaviour:
   damage: 42
   attackRange: 3.1
   attackPauseInSeconds: 2
-  speed: 2
-  chaseSpeedMultiplier: 3
+  walkingSpeed: 2
+  chasingSpeed: 6
+  chaseDurationInSeconds: 5
   idleRange: 10
   wanderingPauseDuration: 2
   idleStoppingDistance: 0.45
   chasingStoppingDistance: 0.45
   currentState: 0
-  IdleSubState: 0
+  IdleSubState: 2
+  attackSubState: 0
   isChasing: 0
   isAttacking: 0
 --- !u!114 &880252855235620029
@@ -440,7 +442,7 @@ GameObject:
   - component: {fileID: 880252855411024221}
   - component: {fileID: 880252855411024222}
   - component: {fileID: 880252855411024223}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: EyeBrowL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -545,7 +547,7 @@ GameObject:
   - component: {fileID: 880252855601037803}
   - component: {fileID: 880252855601037796}
   - component: {fileID: 880252855601037797}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: EyeL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -800,6 +802,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7224207458405087875}
   - component: {fileID: 7224207458405087874}
+  - component: {fileID: 8143880592180899260}
   m_Layer: 0
   m_Name: NavAgent
   m_TagString: Untagged
@@ -845,6 +848,18 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &8143880592180899260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7224207458405087884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8412eee0390f7ff4db0f72ea141e74be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7224207458671169452
 GameObject:
   m_ObjectHideFlags: 0

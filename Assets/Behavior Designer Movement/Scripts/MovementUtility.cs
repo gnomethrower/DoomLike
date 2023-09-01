@@ -69,7 +69,7 @@ namespace BehaviorDesigner.Runtime.Tasks.Movement
         }
 
         // Public helper function that will automatically create an angle variable that is not used. This function is useful if the calling object doesn't
-        // care about the angle between transform and targetObject
+        // care about the angle between transform and targetObj
         public static GameObject WithinSight(Transform transform, Vector3 positionOffset, float fieldOfViewAngle, float viewDistance, GameObject targetObject, Vector3 targetOffset, LayerMask ignoreLayerMask, bool useTargetBone, HumanBodyBones targetBone, bool drawDebugRay)
         {
             float angle;
@@ -77,14 +77,14 @@ namespace BehaviorDesigner.Runtime.Tasks.Movement
     }
 
         // Public helper function that will automatically create an angle variable that is not used. This function is useful if the calling object doesn't
-        // care about the angle between transform and targetObject
+        // care about the angle between transform and targetObj
         public static GameObject WithinSight2D(Transform transform, Vector3 positionOffset, float fieldOfViewAngle, float viewDistance, GameObject targetObject, Vector3 targetOffset, float angleOffset2D, LayerMask ignoreLayerMask, bool useTargetBone, HumanBodyBones targetBone, bool drawDebugRay)
         {
             float angle;
             return WithinSight(transform, positionOffset, fieldOfViewAngle, viewDistance, targetObject, targetOffset, true, angleOffset2D, out angle, ignoreLayerMask, useTargetBone, targetBone, drawDebugRay);
         }
 
-        // Determines if the targetObject is within sight of the transform. It will set the angle regardless of whether or not the object is within sight
+        // Determines if the targetObj is within sight of the transform. It will set the angle regardless of whether or not the object is within sight
         public static GameObject WithinSight(Transform transform, Vector3 positionOffset, float fieldOfViewAngle, float viewDistance, GameObject targetObject, Vector3 targetOffset, bool usePhysics2D, float angleOffset2D, out float angle, int ignoreLayerMask, bool useTargetBone, HumanBodyBones targetBone, bool drawDebugRay)
         {
             if (targetObject == null) {
