@@ -378,16 +378,20 @@ MonoBehaviour:
   attackPauseInSeconds: 2
   walkingSpeed: 2
   chasingSpeed: 6
-  chaseDurationInSeconds: 5
+  chaseDurationInSeconds: 15
   idleRange: 10
   wanderingPauseDuration: 2
   idleStoppingDistance: 0.45
   chasingStoppingDistance: 0.45
   currentState: 0
+  lastState: 0
   IdleSubState: 2
   attackSubState: 0
+  staggerSubState: 0
   isChasing: 0
   isAttacking: 0
+  staggerDuration: 0.5
+  staggerProbability: 1
 --- !u!114 &880252855235620029
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -890,5 +894,5 @@ Transform:
   m_Children:
   - {fileID: 7224207458405087875}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

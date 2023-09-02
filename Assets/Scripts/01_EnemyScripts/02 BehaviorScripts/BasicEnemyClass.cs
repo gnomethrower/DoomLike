@@ -101,21 +101,25 @@ public class BasicEnemyClass : MonoBehaviour
 
     #region states
     [Header("States")]
-    [Tooltip("0 = idle, 1 = chasing, 2 = attacking, 3 = hurtAnimation")]
+    [Tooltip("0 = idle, 1 = chasing, 2 = attacking, 3 = staggerAnimation")]
     [SerializeField] private int currentState = 0;
     [SerializeField] private int lastState = 0;
 
     [SerializeField] private int IdleSubState = 2; //0 = pausing   |    1 = moving    |    2 = getting wanderpoint;
     [SerializeField] private int attackSubState = 0; // 0 = attack    |    1 = timer;
-    [SerializeField] private int hurtSubState = 0;
+    [SerializeField] private int staggerSubState = 0;
 
     [SerializeField] private bool isChasing = false;
     [SerializeField] private bool isAttacking = false;
 
+    private float staggerTimer;
+    private float staggerTimerEnd;
+
+    [SerializeField] private float staggerDuration = .5f;
+    [SerializeField] private float staggerProbability = 1f;
+
     int busyIterator = 0;
     private bool currentlyBusy = false;
-
-    private string currentAnimationState;
 
     private bool initializingChasing = false;
     //private bool initializingAttacking = false;
@@ -172,6 +176,7 @@ public class BasicEnemyClass : MonoBehaviour
     private void Update()
     {
         #region Debug Updates
+        Debug.Log(agent.hasPath);
         #endregion
 
         #region SceneReference Updates
@@ -182,9 +187,12 @@ public class BasicEnemyClass : MonoBehaviour
         #region Chase Updates
         if (canChase)
         {
-            if (CanSeeThePlayer() && chaseRadiusScript.insideChaseRadius && !attackRadiusScript.insideAttackRadius && !isChasing)
+            if (CanSeeThePlayer() && chaseRadiusScript.insideChaseRadius && !attackRadiusScript.insideAttackRadius && !isChasing && currentState != 3)
             {
+                Debug.Log(currentState);
                 SetState(1);
+
+                //Debug.Log("Chase set in Update on frame: " + Time.frameCount);
             }
         }
         #endregion
@@ -192,19 +200,26 @@ public class BasicEnemyClass : MonoBehaviour
         #region Attack Updates
         if (CanMeleeAttack)
         {
-            if (attackRadiusScript.insideAttackRadius && !isAttacking)
+            if (attackRadiusScript.insideAttackRadius && !isAttacking && currentState != 3)
             {
                 SetState(2);
             }
         }
         #endregion
 
-        #region Hurt Update
+        #region Stagger Update
         if (mortalityScript.gotHurt)
         {
             mortalityScript.gotHurt = false;
 
-            SetState(3);
+            if (currentState != 3)
+            {
+                SetState(3);
+            }
+            else
+            {
+                staggerSubState = 0;
+            }
         }
         #endregion
 
@@ -292,7 +307,7 @@ public class BasicEnemyClass : MonoBehaviour
     #region Chase Methods
     private void InitializeChasingState()
     {
-        Debug.Log("Chase Init");
+        //Debug.Log("Chase Init");
         initializingChasing = true;
         //currentState = 1;
         isChasing = true;
@@ -300,6 +315,7 @@ public class BasicEnemyClass : MonoBehaviour
     }
     private void ChasingState() // Substates: 0: change currentSpeed and stopping distance, initialize animation. 1: Set destination to current player pos.
     {
+
         if (!currentlyBusy)
         {
 
@@ -314,7 +330,8 @@ public class BasicEnemyClass : MonoBehaviour
             if (isChasing) //if chasing is active, update the player's position each frame.
             {
                 FaceTarget(player.transform.position, .15f, true);
-                agent.SetDestination(player.transform.position);
+
+                agent.SetDestination(player.transform.position); // Only update the player's position, if the enemy can see the player?, otherwise wait at the last known position until they see the player again and then go to idle.if (CanSeeThePlayer()) { agent.SetDestination(player.transform.position); }
                 CheckToStopChasing();
 
             }
@@ -478,12 +495,12 @@ public class BasicEnemyClass : MonoBehaviour
         switch (busyIterator)
         {
             case 0:
-                Debug.Log("Currently busy, can't be Interrupted!");
+                //Debug.Log("Currently busy, can't be Interrupted!");
                 currentlyBusy = true;
                 busyIterator = 1;
                 break;
             case 1:
-                Debug.Log("I'm ready to do whatever!");
+                //Debug.Log("I'm ready to do whatever!");
                 busyIterator = 0;
                 currentlyBusy = false;
                 break;
@@ -491,56 +508,52 @@ public class BasicEnemyClass : MonoBehaviour
     }
     #endregion
 
-    #region Hurt Methods
-
-    private float hurtTimer;
-    private float hurtTimerEnd;
-    private void InitializingHurtState()
+    #region Stagger Methods
+    private void rInitializingStaggeState()
     {
-        //Slow Down Movement to 0.5 x walkspeed.
-        currentSpeed = walkingSpeed * 0.5f;
-
-        //Setup hurt Timer.
-        hurtTimer = Time.time;
-        hurtTimerEnd = Time.time + .5f;
+        agent.isStopped = true;
     }
-    void HurtState()
+    void StaggerState()
     {
-        switch (hurtSubState) // 0 = initializing; 0 = start animation; 1 = Hurt Timer; 2 = Go to next State (either chase or attack)
+        switch (staggerSubState) // 0 = initializing; 0 = start animation; 1 = Stagger Timer; 2 = Go to next State (either chase or attack)
         {
-            case 0:        //Initiate hurt animation.
-                Debug.Log("Initiating Hurt State");
-                ChangeAnimation("simplestEnemyPain", false);
-                hurtSubState++;
+            case 0:        //Initiate Stagger animation.
+                staggerTimer = Time.time;
+                staggerTimerEnd = Time.time + staggerDuration;
+                ChangeAnimation("simplestEnemyPain", true);
+                staggerSubState++;
                 break;
+
             case 1:
 
-                //Go through Hurt Timer
-                if (hurtTimer >= hurtTimerEnd)
+                //Go through Timer
+                if (staggerTimer >= staggerTimerEnd)
                 {
-                    Debug.Log("Hurt Timer Done!");
-                    ChangeAnimation(lastAnimation, true);
-                    hurtSubState++;
+                    //Debug.Log("Stagger timer done!");
+                    staggerSubState++;
                 }
-                else if (hurtTimer < hurtTimerEnd)
+                else if (staggerTimer < staggerTimerEnd)
                 {
-                    hurtTimer += Time.deltaTime;
+                    staggerTimer += Time.deltaTime;
                     break;
                 }
-
                 break;
+
             case 2:        //If lastState was chase or attack, resume in respective states. If laststate was idle, goto chase.
                 if (lastState == 0) { SetState(1); }
                 else { SetState(lastState); }
-                hurtSubState = 0;
+                staggerSubState = 0;
                 break;
         }
     }
     #endregion
-
-    private void ExitHurt()
+    private void ExitStagger()
     {
-        hurtSubState = 0;
+        agent.isStopped = false;
+        staggerSubState = 0;
+        staggerTimer = 0;
+        staggerTimerEnd = 0;
+        ChangeAnimation(lastAnimation, false);
         mortalityScript.gotHurt = false;
     }
 
@@ -578,10 +591,13 @@ public class BasicEnemyClass : MonoBehaviour
     }
     void ChangeAnimation(string newAnimation, bool loopingAnim)
     {
-        //stop the same anim from interrupting itself
-        if (currentAnimationState == newAnimation)
+        if (currentAnimation == "simplestEnemyPain" && newAnimation == "simplestEnemyPain")
         {
-            Debug.Log("No changed animation!");
+            // Just to let simplestEnemyPain interrupt itself.
+        }
+        else
+        if (currentAnimation == newAnimation) // stop the function if the current anim equals the new anim
+        {
             return;
         }
 
@@ -589,22 +605,12 @@ public class BasicEnemyClass : MonoBehaviour
         animator.transform.rotation = agent.transform.rotation;
         animator.transform.position = agent.transform.position;
 
-        if (lastAnimation != currentAnimation) { lastAnimation = currentAnimation; }
-
+        animator.Play(newAnimation);
+        if (lastAnimation != currentAnimation)// && currentAnimation != animator.GetLayerName(0))
+        {
+            lastAnimation = currentAnimation;
+        }
         currentAnimation = newAnimation;
-
-        if (loopingAnim)
-        {
-            //play the next animation state
-            animator.Play(newAnimation);
-
-            //reassign current state
-            currentAnimationState = newAnimation;
-        }
-        else
-        {
-            animator.Play(newAnimation);
-        }
     }
 
     #endregion
@@ -624,6 +630,7 @@ public class BasicEnemyClass : MonoBehaviour
         ExitState(currentState);
         lastState = currentState;
         currentState = nextState;
+        //Debug.Log(currentState + " now being set!");
         InitializingNextState(currentState);
     }
     void ExitState(int lastState)
@@ -640,7 +647,7 @@ public class BasicEnemyClass : MonoBehaviour
                 ExitAttacking();
                 break;
             case 3:
-                ExitHurt();
+                ExitStagger();
                 break;
         }
     }
@@ -658,7 +665,7 @@ public class BasicEnemyClass : MonoBehaviour
                 InitializeAttackState();
                 break;
             case 3:
-                InitializingHurtState();
+                rInitializingStaggeState();
                 break;
         }
     }
@@ -676,7 +683,7 @@ public class BasicEnemyClass : MonoBehaviour
                 AttackState();
                 break;
             case 3:
-                HurtState();
+                StaggerState();
                 break;
         }
     }
