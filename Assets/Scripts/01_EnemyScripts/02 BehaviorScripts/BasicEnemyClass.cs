@@ -176,7 +176,6 @@ public class BasicEnemyClass : MonoBehaviour
     private void Update()
     {
         #region Debug Updates
-        Debug.Log(agent.hasPath);
         #endregion
 
         #region SceneReference Updates
@@ -509,7 +508,7 @@ public class BasicEnemyClass : MonoBehaviour
     #endregion
 
     #region Stagger Methods
-    private void rInitializingStaggeState()
+    private void InitializingStaggeState()
     {
         agent.isStopped = true;
     }
@@ -529,7 +528,6 @@ public class BasicEnemyClass : MonoBehaviour
                 //Go through Timer
                 if (staggerTimer >= staggerTimerEnd)
                 {
-                    //Debug.Log("Stagger timer done!");
                     staggerSubState++;
                 }
                 else if (staggerTimer < staggerTimerEnd)
@@ -665,7 +663,7 @@ public class BasicEnemyClass : MonoBehaviour
                 InitializeAttackState();
                 break;
             case 3:
-                rInitializingStaggeState();
+                InitializingStaggeState();
                 break;
         }
     }
