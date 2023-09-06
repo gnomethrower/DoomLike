@@ -1,6 +1,8 @@
+using BehaviorDesigner.Runtime.Tasks.Unity.UnityGameObject;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -49,14 +51,31 @@ public class Shotgun_Script : MonoBehaviour
     [SerializeField] private GameObject _bloodSplatterPrefab;
     [SerializeField] private GameObject _bulletHolePrefab;
     public GameObject reticle;
-
     Image reticleImage;
+
+    private GameObject muzzleFlashPositionObject;
+    private Vector3 muzzleSmokePosADS;
+    private Vector3 muzzleSmokePosHipfire;
+
+    private Vector3 muzzleFlashPositionADS;
+    private Vector3 muzzleFlashPosHipfire;
+
+    private GameObject muzzleLightObject;
+    private ParticleSystem muzzleLightParticleSystem;
+    private GameObject muzzleSmokeObject;
+    private ParticleSystem muzzleSmokeParticleSystem;
     #endregion
 
 
 
     PlayerController_Script playerScript;
     public LayerMask ground, enemy;
+
+    private void Awake()
+    {
+
+
+    }
 
     private void Start()
     {
@@ -71,8 +90,10 @@ public class Shotgun_Script : MonoBehaviour
 
         ground = LayerMask.GetMask("Ground");
         enemy = LayerMask.GetMask("Enemy");
-    }
 
+        InitializeMuzzleEffects();
+
+    }
 
     private void OnEnable()
     {
@@ -94,6 +115,9 @@ public class Shotgun_Script : MonoBehaviour
 
     void Update()
     {
+        #region debug
+        #endregion
+
         GetInput();
         StartCoroutine(Reload());
     }
@@ -117,7 +141,6 @@ public class Shotgun_Script : MonoBehaviour
 
     }
 
-
     public void Fire()
     {
         canFire = false;
@@ -136,7 +159,6 @@ public class Shotgun_Script : MonoBehaviour
         Invoke("Pump", shotDelay);
     }
 
-
     void LiveShot()
     {
         isShooting = true;
@@ -150,8 +172,8 @@ public class Shotgun_Script : MonoBehaviour
         audioInstance.PlaySgShoot();
 
         StartCoroutine(camShakeRecoil.Shaking(.15f, .5f));
+        PlayMuzzleFlash();
         camShakeRecoil.Recoil(recoilX, recoilY, recoilZ, recoilADS);
-
 
         LayerMask enemyMask = LayerMask.GetMask("Enemy");
         LayerMask groundMask = LayerMask.GetMask("Ground");
@@ -184,7 +206,6 @@ public class Shotgun_Script : MonoBehaviour
 
         isShooting = false;
     }
-
 
     void EmptyShot()
     {
@@ -236,23 +257,24 @@ public class Shotgun_Script : MonoBehaviour
     {
         if (Input.GetButtonDown("Fire2") && !isReloading && !isShooting && !isPumping)
         {
-            if (!isADS)
+            if (!isADS) // going into ADS
             {
                 sgAnimator.SetBool("ShotgunAiming", true);
                 sgAnimator.SetTrigger("ShotgunADS");
                 isADS = true;
                 recoilADS = adsMultiplier;
                 Invoke("ReticleToggle", .2f);
-                //Debug.Log("Aiming down Sights is + " + isADS);
+                ToggleMuzzlePosition();
+
             }
-            else if (isADS)
+            else if (isADS) // going into Hipfire
             {
                 sgAnimator.SetBool("ShotgunAiming", false);
                 sgAnimator.SetTrigger("ShotgunADS");
                 isADS = false;
                 recoilADS = 1f;
                 Invoke("ReticleToggle", .05f);
-                //Debug.Log("Aiming down Sights is + " + isADS);
+                ToggleMuzzlePosition();
             }
         }
     }
@@ -294,6 +316,39 @@ public class Shotgun_Script : MonoBehaviour
     void AudioPumpSound() // called in pump animation event
     {
         audioInstance.PlaySgPumping();
+    }
+
+    private void PlayMuzzleFlash()
+    {
+
+        muzzleLightParticleSystem.Play();
+        muzzleSmokeParticleSystem.Play();
+
+    }
+
+    private void InitializeMuzzleEffects()
+    {
+        muzzleLightObject = GameObject.Find("muzzleLight");
+        muzzleLightParticleSystem = muzzleLightObject.GetComponent<ParticleSystem>();
+
+        muzzleSmokeObject = GameObject.Find("muzzleSmoke");
+        muzzleSmokeParticleSystem = muzzleSmokeObject.GetComponent<ParticleSystem>();
+
+        muzzleFlashPositionObject = GameObject.Find("MuzzlePlacement");
+    }
+
+    void ToggleMuzzlePosition()
+    {
+        if (!isADS)
+        {
+            muzzleSmokeObject.transform.localPosition = muzzleSmokePosADS;
+            muzzleLightObject.transform.localPosition = muzzleFlashPositionADS;
+        }
+        else if (isADS)
+        {
+            muzzleSmokeObject.transform.localPosition = muzzleSmokePosHipfire;
+            muzzleLightObject.transform.localPosition = muzzleFlashPosHipfire;
+        }
     }
 
     Vector3 GetShootingDirection() //gives us a direction which has a randomized targetposition.

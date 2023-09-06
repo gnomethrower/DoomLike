@@ -25,7 +25,7 @@ namespace EightDirectionalSpriteSystem
         bool switchToIdle = false;
         bool switchToWalking = false;
         bool switchToHurt = false;
-        
+
         /*
         bool switchToSprinting = false;
         bool switchToJumpAnticipation = false;
@@ -95,16 +95,16 @@ namespace EightDirectionalSpriteSystem
 
         void ActorListener()
         {
-                if (mantisEnemyAI.animationStateInteger == 1 && currentAnimation != walkAnim && !switchToWalking)
-                {
-                    switchToWalking = true;
-                    //Debug.Log("Switching to Walking is " + switchToWalking);
-                }
+            if (mantisEnemyAI.animationStateInteger == 1 && currentAnimation != walkAnim && !switchToWalking)
+            {
+                switchToWalking = true;
+                //Debug.Log("Switching to Walking is " + switchToWalking);
+            }
 
-                if (mantisEnemyAI.animationStateInteger == 0 && currentAnimation != idleAnim && !switchToIdle)
-                {
-                    switchToIdle = true;
-                }
+            if (mantisEnemyAI.animationStateInteger == 0 && currentAnimation != idleAnim && !switchToIdle)
+            {
+                switchToIdle = true;
+            }
         }
 
         void SetCurrentState(State newState)

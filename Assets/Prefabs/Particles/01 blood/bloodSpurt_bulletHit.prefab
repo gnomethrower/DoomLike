@@ -63,7 +63,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6886240675785543045
 Transform:
   m_ObjectHideFlags: 0
@@ -4944,6 +4944,7 @@ GameObject:
   - component: {fileID: 6886240675846113588}
   - component: {fileID: 6886240675846113578}
   - component: {fileID: 6886240675846113579}
+  - component: {fileID: 5044185034129062527}
   m_Layer: 0
   m_Name: bloodSpurt
   m_TagString: Untagged
@@ -8735,7 +8736,7 @@ ParticleSystem:
     maxCollisionShapes: 256
     quality: 0
     voxelSize: 0.5
-    collisionMessages: 0
+    collisionMessages: 1
     collidesWithDynamic: 1
     interiorCollisions: 0
   TriggerModule:
@@ -8750,7 +8751,7 @@ ParticleSystem:
     primitives: []
   SubModule:
     serializedVersion: 2
-    enabled: 1
+    enabled: 0
     subEmitters:
     - serializedVersion: 3
       emitter: {fileID: 6886240675785543163}
@@ -9767,3 +9768,19 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &5044185034129062527
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6886240675846113589}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd49b5523fac0344a87b2511c20ebb47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  part: {fileID: 0}
+  bloodSplatter:
+  - {fileID: 7787669428088206190, guid: 246a86105417e8447b0c1dbb0a82a5c6, type: 3}
+  - {fileID: 2353323405855728092, guid: 6023da3136c579e418d718793a07106d, type: 3}

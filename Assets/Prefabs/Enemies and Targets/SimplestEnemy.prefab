@@ -59,7 +59,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
+  m_RenderingLayerMask: 32769
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 1290089e1a5d2fa45b1072dbe9b6d4ea, type: 2}
@@ -199,7 +199,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
+  m_RenderingLayerMask: 32769
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 4c3090e083b1fdf46863ad9ffcbe386d, type: 2}
@@ -310,7 +310,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
+  m_RenderingLayerMask: 32769
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: caa424b02750e194c931abeb98d87fb3, type: 2}
@@ -391,7 +391,6 @@ MonoBehaviour:
   isChasing: 0
   isAttacking: 0
   staggerDuration: 0.5
-  staggerProbability: 1
 --- !u!114 &880252855235620029
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -493,7 +492,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
+  m_RenderingLayerMask: 32769
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 1290089e1a5d2fa45b1072dbe9b6d4ea, type: 2}
@@ -598,7 +597,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
+  m_RenderingLayerMask: 32769
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 4c3090e083b1fdf46863ad9ffcbe386d, type: 2}
@@ -894,5 +893,5 @@ Transform:
   m_Children:
   - {fileID: 7224207458405087875}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

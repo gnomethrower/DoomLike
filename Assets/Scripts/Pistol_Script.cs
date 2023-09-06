@@ -40,6 +40,18 @@ public class Pistol_Script : MonoBehaviour
     public ParticleSystem shellParticle;
     public Image uiBullet;
 
+    private GameObject muzzleFlashPositionObject;
+    private Vector3 muzzleSmokePosADS = new Vector3(-0.206f, 0.16f, 0f);
+    private Vector3 muzzleSmokePosHipfire = new Vector3(0.061f, -0.061f, 0f);
+
+    private Vector3 muzzleFlashPositionADS = new Vector3(-0.206f, 0.16f, 0f);
+    private Vector3 muzzleFlashPosHipfire = new Vector3(0.061f, -0.061f, 0f);
+
+    private GameObject muzzleLightObject;
+    private ParticleSystem muzzleLightParticleSystem;
+    private GameObject muzzleSmokeObject;
+    private ParticleSystem muzzleSmokeParticleSystem;
+
     GameObject reticle;
     Image reticleImage;
 
@@ -47,6 +59,8 @@ public class Pistol_Script : MonoBehaviour
 
     PlayerController_Script playerScript;
     [SerializeField] private GameObject _bloodSplatterPrefab;
+
+
 
     private void Start()
     {
@@ -63,6 +77,8 @@ public class Pistol_Script : MonoBehaviour
 
         ground = LayerMask.GetMask("Ground");
         enemy = LayerMask.GetMask("Enemy");
+
+        InitializeMuzzleEffects();
     }
 
     private void OnEnable()
@@ -138,6 +154,7 @@ public class Pistol_Script : MonoBehaviour
         uiBulletAnimator.SetBool("Empty", true);
 
         EjectCasing();
+        PlayMuzzleFlash();
 
         audioInstance.PlayPistolShoot();
 
@@ -231,6 +248,7 @@ public class Pistol_Script : MonoBehaviour
 
     void ADSon()
     {
+        ToggleMuzzlePosition();
         pistolAnimator.SetBool("PistolADS", true);
         pistolAnimator.SetTrigger("PistolAiming");
         isADS = true;
@@ -241,6 +259,7 @@ public class Pistol_Script : MonoBehaviour
 
     void ADSoff()
     {
+        ToggleMuzzlePosition();
         pistolAnimator.SetBool("PistolADS", false);
         pistolAnimator.SetTrigger("PistolAiming");
         isADS = false;
@@ -265,4 +284,36 @@ public class Pistol_Script : MonoBehaviour
         pistolAnimator.Play("UI_Pistol_Idle");
     }
 
+    private void PlayMuzzleFlash()
+    {
+
+        muzzleLightParticleSystem.Play();
+        muzzleSmokeParticleSystem.Play();
+
+    }
+
+    private void InitializeMuzzleEffects()
+    {
+        muzzleLightObject = GameObject.Find("muzzleLight");
+        muzzleLightParticleSystem = muzzleLightObject.GetComponent<ParticleSystem>();
+
+        muzzleSmokeObject = GameObject.Find("muzzleSmoke");
+        muzzleSmokeParticleSystem = muzzleSmokeObject.GetComponent<ParticleSystem>();
+
+        muzzleFlashPositionObject = GameObject.Find("MuzzlePlacement");
+    }
+
+    void ToggleMuzzlePosition()
+    {
+        if (!isADS)
+        {
+            muzzleSmokeObject.transform.localPosition = muzzleSmokePosADS;
+            muzzleLightObject.transform.localPosition = muzzleFlashPositionADS;
+        }
+        else if (isADS)
+        {
+            muzzleSmokeObject.transform.localPosition = muzzleSmokePosHipfire;
+            muzzleLightObject.transform.localPosition = muzzleFlashPosHipfire;
+        }
+    }
 }

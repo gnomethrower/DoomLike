@@ -1,6 +1,10 @@
+using BehaviorDesigner.Runtime.ObjectDrawers;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.Rendering.PostProcessing;
+using UnityEngine.UIElements;
 
 public class PlayerController_Script : MonoBehaviour
 {
@@ -47,6 +51,7 @@ public class PlayerController_Script : MonoBehaviour
     public static float spreadMultiplier;
     float jumpingSpread;
 
+    [SerializeField] private int flashlightIntensity;
     [Header("Object References")]
     public CharacterController controller;
     public Vector3 playerVelocity;
@@ -57,12 +62,27 @@ public class PlayerController_Script : MonoBehaviour
     public GameObject deathScreen;
     public AudioController_Script audioInstance;
     public GameObject uiCanvas;
+    private GameObject flashLightObject;
+    private Light flashLightSpotlight;
+    private int flashLightMode = 0;
+    [Tooltip("a value between 40000 and 80000 works well.")]
+    [SerializeField] private int flashLightMaxIntensity;
 
     [Header("Checkbools")]
     [SerializeField] private bool isGrounded;
     [SerializeField] public bool hasDied;
     [SerializeField] private bool isMoving;
+
+
     //[SerializeField] private bool isSprinting;
+
+    private void Awake()
+    {
+        flashLightObject = GameObject.Find("FlashLight");
+        flashLightSpotlight = flashLightObject.GetComponent<Light>();
+
+        if (flashLightSpotlight == null) { Debug.Log("noFlashlight!"); }
+    }
 
     private void Start()
     {
@@ -77,6 +97,7 @@ public class PlayerController_Script : MonoBehaviour
         if (!hasDied)
         {
             GetInput();
+            Flashlight();
             CalculateSpreadMP();
             FPSMovement();
         }
@@ -94,6 +115,33 @@ public class PlayerController_Script : MonoBehaviour
         xAxis = Input.GetAxis("Horizontal");
         zAxis = Input.GetAxis("Vertical");
         Sprinting();
+
+    }
+
+    void Flashlight()
+    {
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            flashLightMode++;
+            if (flashLightMode > 2) { flashLightMode = 0; }
+
+            switch (flashLightMode)
+            {
+                case 0:
+                    Debug.Log("Flaslight = off");
+                    flashLightSpotlight.intensity = 0;
+                    break;
+                case 1:
+                    Debug.Log("Flaslight = half-light");
+                    flashLightSpotlight.intensity = 75000 / 2;
+                    break;
+                case 2:
+                    Debug.Log("Flaslight = full force");
+                    flashLightSpotlight.intensity = 75000;
+                    break;
+            }
+
+        }
     }
 
     void Sprinting()

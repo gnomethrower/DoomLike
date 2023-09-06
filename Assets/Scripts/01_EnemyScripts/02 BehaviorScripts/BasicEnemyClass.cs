@@ -116,7 +116,7 @@ public class BasicEnemyClass : MonoBehaviour
     private float staggerTimerEnd;
 
     [SerializeField] private float staggerDuration = .5f;
-    [SerializeField] private float staggerProbability = 1f;
+    //[SerializeField] private float staggerProbability = 1f;
 
     int busyIterator = 0;
     private bool currentlyBusy = false;
@@ -188,7 +188,6 @@ public class BasicEnemyClass : MonoBehaviour
         {
             if (CanSeeThePlayer() && chaseRadiusScript.insideChaseRadius && !attackRadiusScript.insideAttackRadius && !isChasing && currentState != 3)
             {
-                Debug.Log(currentState);
                 SetState(1);
 
                 //Debug.Log("Chase set in Update on frame: " + Time.frameCount);
@@ -433,8 +432,6 @@ public class BasicEnemyClass : MonoBehaviour
     private void InitializeAttackState()
     {
         isAttacking = true;
-        Debug.Log("Attack Init");
-        //currentState = 2;
         StopEnemyAtCurrentPosition();
     }
     private void AttackState()
