@@ -11,6 +11,7 @@ using UnityEngine.AI;
 using UnityEngine.EventSystems;
 using Random = UnityEngine.Random;
 using EightDirectionalSpriteSystem;
+using BehaviorDesigner.Runtime.Tasks.Unity.UnityRigidbody;
 
 public class BasicMantisClass : MonoBehaviour
 {
@@ -130,7 +131,6 @@ public class BasicMantisClass : MonoBehaviour
     private bool initializingChasing = false;
     //private bool initializingAttacking = false;
     #endregion
-
 
     private void Awake()
     {
@@ -452,14 +452,16 @@ public class BasicMantisClass : MonoBehaviour
     #region Attack Methods
     private void InitializeAttackState()
     {
+        Debug.Log("Init Attack");
         isAttacking = true;
-        StopEnemyAtCurrentPosition();
+        //agent.isStopped = true;
     }
     private void AttackState()
     {
+        Debug.Log("Calling AttackState");
         FaceTarget(player.transform.position, .15f, true);
 
-        if (distanceToPlayer > attackRange)
+        if (distanceToPlayer >= attackRange)
         {
             isAttacking = false;
         }
@@ -471,6 +473,7 @@ public class BasicMantisClass : MonoBehaviour
             {
 
                 case 0:
+                    Debug.Log("Calling AttackState");
                     CallingAnimation(SimplestMantisActor.State.MELEE); // Mantis antire attack anim takes 0.91 seconds. the damage is dealt at 0.65 seconds.
                     StartCoroutine(AttackDamageCallOnTimer(.65f));
                     cannotInterrupt = true;
@@ -478,6 +481,7 @@ public class BasicMantisClass : MonoBehaviour
                     break;
 
                 case 1:
+                    Debug.Log("Calling AttackState");
                     if (attackTimer < attackPauseInSeconds)
                     {
                         attackTimer += Time.deltaTime;
@@ -498,6 +502,11 @@ public class BasicMantisClass : MonoBehaviour
         CallAttackDamage();
         cannotInterrupt = false;
     }
+    private IEnumerator AttackingForwardVelocity(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+
+    }
     private void CallAttackDamage()
     {
         if (damageColliderScript.insideDamageCollider)
@@ -508,8 +517,10 @@ public class BasicMantisClass : MonoBehaviour
     }
     private void ExitAttacking()
     {
+        attackTimer = 0;
+        attackSubState = 0;
         isAttacking = false;
-        agent.isStopped = false;
+        //agent.isStopped = false;
     }
     private void AnimationToggleInterruptable() //Only called via animations
     {
@@ -577,7 +588,6 @@ public class BasicMantisClass : MonoBehaviour
     }
     #endregion
 
-
     //Other Methods
     #region Animation Methods
     public void CallingAnimation(SimplestMantisActor.State nextAnimationState)
@@ -611,10 +621,6 @@ public class BasicMantisClass : MonoBehaviour
             );
         }
         agent.transform.eulerAngles = newRotation;
-    }
-    void StopEnemyAtCurrentPosition()
-    {
-        agent.isStopped = true;
     }
     #endregion
 

@@ -94,13 +94,17 @@ public class PlayerController_Script : MonoBehaviour
 
         DebugMsg();
 
-        if (!hasDied)
-        {
-            GetInput();
-            Flashlight();
-            CalculateSpreadMP();
-            FPSMovement();
-        }
+        //if (currentHealth > 0)
+        //{
+        GetInput();
+        Flashlight();
+        CalculateSpreadMP();
+        FPSMovement();
+        //}
+        //else
+        //{
+
+        //}
     }
 
     void DebugMsg()
