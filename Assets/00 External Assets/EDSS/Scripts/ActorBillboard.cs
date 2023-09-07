@@ -97,8 +97,8 @@ namespace EightDirectionalSpriteSystem
 
         private void Awake()
         {
-            myTransform = GetComponent<Transform>();
-            spriteRenderer = GetComponent<SpriteRenderer>();
+            myTransform = this.GetComponent<Transform>();
+            spriteRenderer = this.GetComponent<SpriteRenderer>();
         }
 
         private void Update()
@@ -108,12 +108,10 @@ namespace EightDirectionalSpriteSystem
                 actorForwardVector = actorTransform.forward;
             }
 
-            if (isPlaying == false || isPaused == true)
-                return;
+            if (isPlaying == false || isPaused == true) return;
 
             frameChangeDelay -= Time.deltaTime;
-            if (frameChangeDelay > 0.0f)
-                return;
+            if (frameChangeDelay > 0.0f) return;
 
             if (playDirection > 0)
             {

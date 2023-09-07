@@ -403,15 +403,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b10e19852e336442970ae99dc072e07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  respawningTarget: 0
-  targetRespawntime: 0
   maxHealth: 100
   currentHealth: 0
   painDuration: 0
   canBleed: 1
-  gotHurt: 0
-  hasDeathPrefab: 0
+  hasDeathAnimation: 0
   deathPrefab: {fileID: 0}
+  respawningTarget: 0
+  targetRespawntime: 0
+  gotHurt: 0
 --- !u!95 &880252855235620018
 Animator:
   serializedVersion: 5
@@ -863,6 +863,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8412eee0390f7ff4db0f72ea141e74be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lookTargetTransform: {fileID: 0}
 --- !u!1 &7224207458671169452
 GameObject:
   m_ObjectHideFlags: 0
@@ -893,5 +894,5 @@ Transform:
   m_Children:
   - {fileID: 7224207458405087875}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

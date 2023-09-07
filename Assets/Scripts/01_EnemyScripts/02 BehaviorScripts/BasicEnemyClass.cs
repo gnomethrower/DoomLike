@@ -13,9 +13,8 @@ using Random = UnityEngine.Random;
 
 public class BasicEnemyClass : MonoBehaviour
 {
-    #region Variables
 
-    #region Scene References
+    #region Scene References Variables
     NavMeshAgent agent;
     [SerializeField] private GameObject player;
     float distanceToPlayer;
@@ -33,19 +32,19 @@ public class BasicEnemyClass : MonoBehaviour
     string currentAnimation = null;
     #endregion
 
-    #region Script References
+    #region Script References Variables
     PlayerController_Script playerControllerScript;
     ChaseRadiusScript chaseRadiusScript;
     AttackRadiusScript attackRadiusScript;
     #endregion
 
-    #region Behaviour
+    #region Behaviour Variables
     [Header("Behavior")]
     [SerializeField] private bool canChase;
     [SerializeField] private bool CanMeleeAttack;
     #endregion
 
-    #region Attack and Damage
+    #region Attack and Damage Variables
     [Header("Health and Damage")]
     [SerializeField] private int damage;
     [SerializeField] private float attackRange;
@@ -58,9 +57,8 @@ public class BasicEnemyClass : MonoBehaviour
     private LayerMask layersToRaycastAgainst = 1 << 3 | 1 << 6 | 1 << 8;
     #endregion
 
-    #region Movement
+    #region Movement Variables
     [Header("Movement")]
-    #region speed
     //private float turnTimeCount = 0f;
     [SerializeField] private float walkingSpeed;
     [SerializeField] private float chasingSpeed;
@@ -76,9 +74,8 @@ public class BasicEnemyClass : MonoBehaviour
     private float xVel;
     private float yVel;
     private float zVel;
-    #endregion
 
-    #region Idle
+    #region Idle Variables
     [SerializeField] private float idleRange;
     [SerializeField] private float wanderingPauseDuration;
     private float pauseStartTime = 0;
@@ -99,7 +96,7 @@ public class BasicEnemyClass : MonoBehaviour
 
     #endregion
 
-    #region states
+    #region State  Variables
     [Header("States")]
     [Tooltip("0 = idle, 1 = chasing, 2 = attacking, 3 = staggerAnimation")]
     [SerializeField] private int currentState = 0;
@@ -125,7 +122,6 @@ public class BasicEnemyClass : MonoBehaviour
     //private bool initializingAttacking = false;
     #endregion
 
-    #endregion
 
     private void Awake()
     {
@@ -224,8 +220,7 @@ public class BasicEnemyClass : MonoBehaviour
         StateFrameUpdate();
     }
 
-    #region Behavior Methods
-
+    //Behavior Methods
     #region Idle Methods
     private void InitializeIdleState()
     {
@@ -552,10 +547,8 @@ public class BasicEnemyClass : MonoBehaviour
         mortalityScript.gotHurt = false;
     }
 
-    #endregion
 
-    #region Animation and State Methods
-
+    //OtherMethods
     #region Animation Methods
     public void FaceTarget(Vector3 _targetPos, float _smoothSpeed = .5f, bool _isLockedToYAxis = false)
     {
@@ -689,6 +682,5 @@ public class BasicEnemyClass : MonoBehaviour
     {
         Debug.Log(transform.parent.transform.parent.name);
     }
-    #endregion
     #endregion
 }

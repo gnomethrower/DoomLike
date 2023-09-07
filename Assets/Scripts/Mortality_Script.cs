@@ -1,29 +1,49 @@
+using EightDirectionalSpriteSystem;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Mortality_Script : MonoBehaviour
 {
-    public bool respawningTarget = true;
-    public float targetRespawntime;
+
 
     public float maxHealth = 100f;
-    public float currentHealth;
+    [HideInInspector] public float currentHealth;
     public float painDuration;
+
     public bool canBleed;
+
+    private float deathAnimDuration;
+
+    [SerializeField] private bool hasDeathAnimation;
+    [SerializeField] private GameObject deathPrefab;
+    private BasicMantisClass basicMantisClass;
+    private SimplestMantisActor simplestMantisActor;
+
+    [Tooltip("If this entity is a simple TargetPractice Object, set this to true")]
+    public bool respawningTarget = false;
+    public float targetRespawntime;
 
     MeshRenderer targetRenderer;
     Collider targetCollider;
 
-    public bool gotHurt = false;
-    public bool hasDeathPrefab;
-    public GameObject deathPrefab;
+    [HideInInspector] public bool gotHurt = false;
+
+    private void Awake()
+    {
+        if (hasDeathAnimation)
+        {
+            basicMantisClass = this.GetComponent<BasicMantisClass>();
+            simplestMantisActor = this.GetComponent<SimplestMantisActor>();
+            deathAnimDuration = simplestMantisActor.dieAnim.FrameCount * simplestMantisActor.frameDuration;
+        }
+    }
 
     private void Start()
     {
         GetMaxHealth();
-        targetRenderer = GetComponent<MeshRenderer>();
-        targetCollider = GetComponent<Collider>();
+        targetRenderer = this.GetComponent<MeshRenderer>();
+        targetCollider = this.GetComponent<Collider>();
         if (targetCollider == null)
         {
             targetCollider = GetComponentInChildren<Collider>();
@@ -47,18 +67,35 @@ public class Mortality_Script : MonoBehaviour
         if (currentHealth <= 0f)
         {
             if (respawningTarget) SetInactive();
-            else Die();
+            else
+            {
+                StartCoroutine(Death(deathAnimDuration));
+            }
         }
     }
 
-    void Die()
+    private IEnumerator Death(float delayInSeconds)
     {
-        if (hasDeathPrefab)
+        /* 1. Play deathanim
+         * 2. wait for deathanimation duration
+         * 3. Instantiate DeathPrefabs
+         * 4. Destroy object.
+        */
+
+        if (hasDeathAnimation)
+        {
+            basicMantisClass.CallingAnimation(SimplestMantisActor.State.DIE);
+            yield return new WaitForSeconds(delayInSeconds);
+        }
+
+
+        if (deathPrefab != null)
         {
             Instantiate(deathPrefab, transform.position, transform.rotation);
         }
 
         Destroy(transform.root.gameObject);
+
     }
 
     void Reactivate()

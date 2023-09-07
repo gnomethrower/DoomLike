@@ -11,6 +11,8 @@ namespace EightDirectionalSpriteSystem
 
         public ActorBillboard actorBillboard;
 
+        public float frameDuration = .13f;
+
         public ActorAnimation idleAnim;
         public ActorAnimation walkAnim;
         public ActorAnimation chaseAnim;
@@ -18,14 +20,13 @@ namespace EightDirectionalSpriteSystem
         public ActorAnimation painAnim;
         public ActorAnimation dieAnim;
 
-
         private Transform myTransform;
         public ActorAnimation currentAnimation = null;
         public State currentActorAnimState = State.NONE;
 
         void Awake()
         {
-            myTransform = GetComponent<Transform>();
+            myTransform = this.GetComponent<Transform>();
         }
 
         void Start()
@@ -60,32 +61,32 @@ namespace EightDirectionalSpriteSystem
             {
 
                 case State.WALKING:
-                    Debug.Log(newState + " called in Walking! Current State is:" + currentActorAnimState);
+                    //Debug.Log(newState + " called in Walking! Current State is:" + currentActorAnimState);
                     currentAnimation = walkAnim;
                     break;
 
                 case State.CHASING:
-                    Debug.Log(newState + " called in Chasing! Current State is:" + currentActorAnimState);
+                    //Debug.Log(newState + " called in Chasing! Current State is:" + currentActorAnimState);
                     currentAnimation = chaseAnim;
                     break;
 
                 case State.MELEE:
-                    Debug.Log(newState + " called in Melee! Current State is:" + currentActorAnimState);
+                    //Debug.Log(newState + " called in Melee! Current State is:" + currentActorAnimState);
                     currentAnimation = meleeAnim;
                     break;
 
                 case State.PAIN:
-                    Debug.Log(newState + " called in Pain! Current State is:" + currentActorAnimState);
+                    //Debug.Log(newState + " called in Pain! Current State is:" + currentActorAnimState);
                     currentAnimation = painAnim;
                     break;
 
                 case State.DIE:
-                    Debug.Log(newState + " called in Die! Current State is:" + currentActorAnimState);
+                    //Debug.Log(newState + " called in Die! Current State is:" + currentActorAnimState);
                     currentAnimation = dieAnim;
                     break;
 
                 default:
-                    Debug.Log(newState + " called in Default! Current State is: " + currentActorAnimState);
+                    //Debug.Log(newState + " called in Default! Current State is: " + currentActorAnimState);
                     currentAnimation = idleAnim;
                     break;
             }

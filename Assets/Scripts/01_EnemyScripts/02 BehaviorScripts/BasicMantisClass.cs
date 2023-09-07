@@ -14,40 +14,49 @@ using EightDirectionalSpriteSystem;
 
 public class BasicMantisClass : MonoBehaviour
 {
-    #region Variables
 
-    #region Scene References
+    #region Scene Reference Variables
     NavMeshAgent agent;
-    [SerializeField] private GameObject player;
+    [SerializeField] public GameObject player;
     float distanceToPlayer;
     Vector3 playerPos;
     Vector3 playerEnemyVector;
     Collider playerCollider;
     GameObject chaseRadius;
+
     Collider chaseRadiusCollider;
     Collider attackRadiusCollider;
+
     Transform chaseRadiusTransform;
     Transform attackRadiusTransform;
+
+    Transform damageDealerTransform;
+    Collider damageDealerCollider;
 
     Animator animator;
     #endregion
 
-    #region Script References
+    #region Script References Variables
     PlayerController_Script playerControllerScript;
     ChaseRadiusScript chaseRadiusScript;
     AttackRadiusScript attackRadiusScript;
+    DamageColliderScript damageColliderScript;
     SimplestMantisActor simplestMantisActor; // Script that handles the enemy's Animation states.
+    ActorBillboard mantisActorBillboardScript;
     #endregion
 
-    #region Behaviour
+    #region Behaviour Variables
     [Header("Behavior")]
+
     [SerializeField] private bool canChase;
     [SerializeField] private bool CanMeleeAttack;
     #endregion
 
-    #region Attack and Damage
-    [Header("Health and Damage")]
+    #region Attack and Damage Variables
+    [Header("Attack and Damage Variables")]
+    [Tooltip("The melee damage dealt per strike")]
     [SerializeField] private int damage;
+    [Tooltip("The range until the enemy keeps chasing the player again")]
     [SerializeField] private float attackRange;
     private float attackTimer = 0f;
     private float attackPauseStart;
@@ -58,9 +67,9 @@ public class BasicMantisClass : MonoBehaviour
     private LayerMask layersToRaycastAgainst = 1 << 3 | 1 << 6 | 1 << 8;
     #endregion
 
-    #region Movement
+    #region Movement Variables
     [Header("Movement")]
-    #region speed
+
     //private float turnTimeCount = 0f;
     [SerializeField] private float walkingSpeed;
     [SerializeField] private float chasingSpeed;
@@ -76,84 +85,87 @@ public class BasicMantisClass : MonoBehaviour
     private float xVel;
     private float yVel;
     private float zVel;
+
+    #region NavAgent-Movement Variables
+    [SerializeField] private float enemyStoppingDistance;
+    private float idleStoppingDistance;
+    private float chasingStoppingDistance;
     #endregion
 
-    #region Idle
+    #endregion
+
+    #region State Variables
+    [Header("States")]
+
+    [Tooltip("0 = idle, 1 = chasing, 2 = attacking, 3 = staggerAnimation")]
+    [SerializeField] private float staggerDuration = .65f;
+
     [SerializeField] private float idleRange;
     [SerializeField] private float wanderingPauseDuration;
     private float pauseStartTime = 0;
-
-    //[SerializeField] private bool isMoving = false;
-    //private bool isPausedWhileWandering = false;
     private float pauseEndTime = 0f;
 
     private Vector3 lastWanderPoint;
     private Vector3 currentWanderPoint;
     private Vector3 spawnPoint;
-    #endregion
 
-    #region NavAgent-Movement Variables
-    [SerializeField] private float idleStoppingDistance;
-    [SerializeField] private float chasingStoppingDistance;
-    #endregion
+    private int currentState = 0;
+    private int lastState = 0;
 
-    #endregion
+    private int IdleSubState = 2; //0 = pausing   |    1 = moving    |    2 = getting wanderpoint;
+    private int attackSubState = 0; // 0 = attack    |    1 = timer;
+    private int staggerSubState = 0;
 
-    #region states
-    [Header("States")]
-    [Tooltip("0 = idle, 1 = chasing, 2 = attacking, 3 = staggerAnimation")]
-    [SerializeField] private int currentState = 0;
-    [SerializeField] private int lastState = 0;
-
-    [SerializeField] private int IdleSubState = 2; //0 = pausing   |    1 = moving    |    2 = getting wanderpoint;
-    [SerializeField] private int attackSubState = 0; // 0 = attack    |    1 = timer;
-    [SerializeField] private int staggerSubState = 0;
-
-    [SerializeField] private bool isChasing = false;
-    [SerializeField] private bool isAttacking = false;
+    private bool isChasing = false;
+    private bool isAttacking = false;
 
     private float staggerTimer;
     private float staggerTimerEnd;
 
-    [SerializeField] private float staggerDuration = .5f;
     //[SerializeField] private float staggerProbability = 1f;
 
-    int busyIterator = 0;
-    private bool currentlyBusy = false;
+    int interruptIterator = 0;
+    private bool cannotInterrupt = false;
 
     private bool initializingChasing = false;
     //private bool initializingAttacking = false;
     #endregion
 
-    #endregion
 
     private void Awake()
     {
-        #region initialize variables
+        #region Initialize Variables
+        idleStoppingDistance = enemyStoppingDistance;
+        chasingStoppingDistance = enemyStoppingDistance;
         #endregion
 
-        #region set object references
+        #region Initializing Objects
         player = GameObject.FindGameObjectWithTag("Player");
 
         agent = GetComponentInParent<NavMeshAgent>();
         agent.updateRotation = false;
-        //if (agent == null) { Debug.Log("No NavAgent attached"); }
+
         chaseRadiusCollider = GameObject.Find("chaseRadius").GetComponentInChildren<Collider>();
 
 
         chaseRadiusTransform = this.gameObject.transform.GetChild(1);
         attackRadiusTransform = this.gameObject.transform.GetChild(2);
+        damageDealerTransform = this.gameObject.transform.GetChild(3);
 
         playerCollider = GameObject.Find("Player").GetComponent<Collider>();
         animator = GetComponent<Animator>();
+
+        damageDealerCollider = GetComponentInChildren<Collider>();
         #endregion
 
-        #region script references
+        #region Script References
         chaseRadiusScript = chaseRadiusTransform.GetComponent<ChaseRadiusScript>();
         attackRadiusScript = attackRadiusTransform.GetComponent<AttackRadiusScript>();
+        damageColliderScript = damageDealerTransform.GetComponent<DamageColliderScript>();
         mortalityScript = this.gameObject.GetComponent<Mortality_Script>();
         playerControllerScript = player.GetComponent<PlayerController_Script>();
         simplestMantisActor = this.GetComponent<SimplestMantisActor>();
+        mantisActorBillboardScript = this.GetComponentInChildren<ActorBillboard>();
         #endregion
 
         #region former Start Region
@@ -163,7 +175,7 @@ public class BasicMantisClass : MonoBehaviour
         #endregion
 
         #region Animation Speed
-        animator.SetFloat("animationSpeedMultiplier", 1 / attackPauseInSeconds);
+        //animator.SetFloat("animationSpeedMultiplier", 1 / attackPauseInSeconds);
         #endregion
 
         #region NavAgent
@@ -172,6 +184,10 @@ public class BasicMantisClass : MonoBehaviour
     }
     private void Start()
     {
+        //mantisActorBillboardScript.SetActorForwardVector(agent.transform.forward);
+        if (damageColliderScript == null) { Debug.Log("No DamageColliderScript"); }
+        if (damageDealerCollider == null) { Debug.Log("No Damage Collider"); }
+        if (damageDealerTransform == null) { Debug.Log("No Damage Transform"); }
         SetState(0);
     }
     private void Update()
@@ -181,54 +197,57 @@ public class BasicMantisClass : MonoBehaviour
 
         #endregion
 
-        #region SceneReference Updates
-        distanceToPlayer = Vector3.Distance(player.transform.position, this.transform.position);
-        playerEnemyVector = player.transform.position - this.transform.position;
-        #endregion
-
-        #region Chase Updates
-        if (canChase)
+        if (mortalityScript.currentHealth > 0) // checkforlife
         {
-            if (CanSeeThePlayer() && chaseRadiusScript.insideChaseRadius && !attackRadiusScript.insideAttackRadius && !isChasing && currentState != 3)
-            {
-                SetState(1);
+            #region SceneReference Updates
+            distanceToPlayer = Vector3.Distance(player.transform.position, this.transform.position);
+            playerEnemyVector = player.transform.position - this.transform.position;
+            #endregion
 
-                //Debug.Log("Chase set in Update on frame: " + Time.frameCount);
+            #region Chase Updates
+            if (canChase)
+            {
+                if (CanSeeThePlayer() && chaseRadiusScript.insideChaseRadius && !attackRadiusScript.insideAttackRadius && !isChasing && currentState != 3 && !cannotInterrupt)
+                {
+                    SetState(1);
+
+                    //Debug.Log("Chase set in Update on frame: " + Time.frameCount);
+                }
             }
+            #endregion
+
+            #region Attack Updates
+            if (CanMeleeAttack)
+            {
+                if (attackRadiusScript.insideAttackRadius && !isAttacking && currentState != 3)
+                {
+                    SetState(2);
+                }
+            }
+            #endregion
+
+            #region Stagger Update
+            if (mortalityScript.gotHurt && mortalityScript.currentHealth > 0)
+            {
+                mortalityScript.gotHurt = false;
+
+                if (currentState != 3)
+                {
+                    SetState(3);
+                }
+                else
+                {
+                    staggerSubState = 0;
+                }
+            }
+            #endregion
+
+            StateFrameUpdate();
         }
-        #endregion
 
-        #region Attack Updates
-        if (CanMeleeAttack)
-        {
-            if (attackRadiusScript.insideAttackRadius && !isAttacking && currentState != 3)
-            {
-                SetState(2);
-            }
-        }
-        #endregion
-
-        #region Stagger Update
-        if (mortalityScript.gotHurt)
-        {
-            mortalityScript.gotHurt = false;
-
-            if (currentState != 3)
-            {
-                SetState(3);
-            }
-            else
-            {
-                staggerSubState = 0;
-            }
-        }
-        #endregion
-
-        StateFrameUpdate();
     }
 
-    #region Behavior Methods
-
+    // Main Behavior Methods
     #region Idle Methods
     private void InitializeIdleState()
     {
@@ -281,8 +300,8 @@ public class BasicMantisClass : MonoBehaviour
         if (NavMesh.SamplePosition(randomSpherePoint, out hit, idleRange / 2, NavMesh.AllAreas))
         {
             //Debug.Log("We hit a SamplePosition");
-            Debug.DrawLine(transform.position, hit.position, Color.blue, 10f);
-            DebugIndicator.DrawDebugIndicator(hit.position, Color.magenta, 10f, 1f);
+            //Debug.DrawLine(transform.position, hit.position, Color.blue, 10f);
+            //DebugIndicator.DrawDebugIndicator(hit.position, Color.magenta, 10f, 1f);
             lastWanderPoint = currentWanderPoint;
             return hit.position;
         }
@@ -319,7 +338,7 @@ public class BasicMantisClass : MonoBehaviour
     }
     private void ChasingState() // Substates: 0: change currentSpeed and stopping distance, initialize animation. 1: Set destination to current player pos.
     {
-        if (!currentlyBusy)
+        if (!cannotInterrupt)
         {
 
             if (initializingChasing) //initializing the functionality for the chase state.
@@ -393,12 +412,12 @@ public class BasicMantisClass : MonoBehaviour
         {
             if (hitHead.transform.name != "Player")
             {
-                Debug.DrawLine(thisEnemyEyeHeight, hitHead.point, Color.red);
+                //Debug.DrawLine(thisEnemyEyeHeight, hitHead.point, Color.red);
                 return false;
             }
             else
             {
-                Debug.DrawRay(thisEnemyEyeHeight, playerHeadDirection, Color.green);
+                //Debug.DrawRay(thisEnemyEyeHeight, playerHeadDirection, Color.green);
                 return true;
 
             }
@@ -416,12 +435,12 @@ public class BasicMantisClass : MonoBehaviour
         {
             if (hitTorso.transform.name != "Player")
             {
-                Debug.DrawLine(thisEnemyEyeHeight, hitTorso.point, Color.red);
+                //Debug.DrawLine(thisEnemyEyeHeight, hitTorso.point, Color.red);
                 return false;
             }
             else
             {
-                Debug.DrawRay(thisEnemyEyeHeight, playerTorsoDirection, Color.green);
+                //Debug.DrawRay(thisEnemyEyeHeight, playerTorsoDirection, Color.green);
                 return true;
 
             }
@@ -450,28 +469,41 @@ public class BasicMantisClass : MonoBehaviour
 
             switch (attackSubState) // 0 = attack    |    1 = timer;
             {
+
                 case 0:
-                    //Debug.Log("Attack!");
+                    CallingAnimation(SimplestMantisActor.State.MELEE); // Mantis antire attack anim takes 0.91 seconds. the damage is dealt at 0.65 seconds.
+                    StartCoroutine(AttackDamageCallOnTimer(.65f));
+                    cannotInterrupt = true;
                     attackSubState = 1;
                     break;
 
                 case 1:
-                    Debug.Log("attacksubstate 1 called");
-
-                    //CallingAnimation(SimplestMantisActor.State.IDLE);
-                    // NEED TO IMPLEMENT THE DAMAGE LOGIC HERE
-
                     if (attackTimer < attackPauseInSeconds)
                     {
                         attackTimer += Time.deltaTime;
                     }
-                    else
+                    else //Timer Done, attack again!
                     {
                         attackTimer = 0;
                         attackSubState = 0;
+                        CallingAnimation(SimplestMantisActor.State.NONE);
                     }
                     break;
             }
+        }
+    }
+    private IEnumerator AttackDamageCallOnTimer(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        CallAttackDamage();
+        cannotInterrupt = false;
+    }
+    private void CallAttackDamage()
+    {
+        if (damageColliderScript.insideDamageCollider)
+        {
+            Debug.Log("Damage now!");
+            playerControllerScript.currentHealth -= damage;
         }
     }
     private void ExitAttacking()
@@ -479,30 +511,23 @@ public class BasicMantisClass : MonoBehaviour
         isAttacking = false;
         agent.isStopped = false;
     }
-    private void AnimationAttackDamage() //Only called by animation
+    private void AnimationToggleInterruptable() //Only called via animations
     {
-        //Debug.Log("Attack Event Calling Out!");
-        if (distanceToPlayer <= attackRange)
-        {
-            playerControllerScript.currentHealth -= damage;
-        }
-    }
-    private void AnimationToggleBusy() //Only called via animations
-    {
-        switch (busyIterator)
+        switch (interruptIterator)
         {
             case 0:
                 //Debug.Log("Currently busy, can't be Interrupted!");
-                currentlyBusy = true;
-                busyIterator = 1;
+                cannotInterrupt = true;
+                interruptIterator = 1;
                 break;
             case 1:
                 //Debug.Log("I'm ready to do whatever!");
-                busyIterator = 0;
-                currentlyBusy = false;
+                interruptIterator = 0;
+                cannotInterrupt = false;
                 break;
         }
     }
+
     #endregion
 
     #region Stagger Methods
@@ -515,10 +540,10 @@ public class BasicMantisClass : MonoBehaviour
         switch (staggerSubState) // 0 = initializing; 0 = start animation; 1 = Stagger Timer; 2 = Go to next State (either chase or attack)
         {
             case 0:        //Initiate Stagger animation.
+                CallingAnimation(SimplestMantisActor.State.PAIN);
                 staggerTimer = Time.time;
                 staggerTimerEnd = Time.time + staggerDuration;
                 staggerSubState++;
-                //CallingAnimation(SimplestMantisActor.State.PAIN);
                 break;
 
             case 1:
@@ -553,17 +578,17 @@ public class BasicMantisClass : MonoBehaviour
     #endregion
 
 
-    #endregion
-
-    #region Animation and State Methods
-
+    //Other Methods
     #region Animation Methods
-
-    private void CallingAnimation(SimplestMantisActor.State nextAnimationState)
+    public void CallingAnimation(SimplestMantisActor.State nextAnimationState)
     {
+        if (simplestMantisActor.currentActorAnimState == nextAnimationState)
+        {
+            Debug.Log("Animation not changed");
+            return;
+        }
         simplestMantisActor.SetCurrentAnimationState(nextAnimationState);
     }
-
     public void FaceTarget(Vector3 _targetPos, float _smoothSpeed = .5f, bool _isLockedToYAxis = false)
     {
         Vector3 direction = _targetPos - agent.transform.position;
@@ -591,8 +616,6 @@ public class BasicMantisClass : MonoBehaviour
     {
         agent.isStopped = true;
     }
-
-
     #endregion
 
     #region State Management
@@ -674,6 +697,5 @@ public class BasicMantisClass : MonoBehaviour
     {
         Debug.Log(transform.parent.transform.parent.name);
     }
-    #endregion
     #endregion
 }

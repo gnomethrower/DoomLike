@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a0cf37e99fcb584dbdf7be0944f8cbf, type: 3}
+  m_Name: 9_Mantis_Corpse_v2
+  m_EditorClassIdentifier: 
+  animName: Mantis_Corpse_v2
+  animType: 1
+  animMode: 0
+  speed: 1
+  frameList:
+  - sprites:
+    - {fileID: -632274273, guid: cd08c43282ce7f14e9cda4debe563f77, type: 3}
+    - {fileID: 785366640, guid: cd08c43282ce7f14e9cda4debe563f77, type: 3}
+    - {fileID: -460412300, guid: cd08c43282ce7f14e9cda4debe563f77, type: 3}
+    - {fileID: 593912208, guid: cd08c43282ce7f14e9cda4debe563f77, type: 3}
+    - {fileID: 1675130273, guid: cd08c43282ce7f14e9cda4debe563f77, type: 3}
+    - {fileID: 1159829064, guid: cd08c43282ce7f14e9cda4debe563f77, type: 3}
+    - {fileID: -102917099, guid: cd08c43282ce7f14e9cda4debe563f77, type: 3}
+    - {fileID: -1016667694, guid: cd08c43282ce7f14e9cda4debe563f77, type: 3}

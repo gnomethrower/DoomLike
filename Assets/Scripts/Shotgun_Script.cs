@@ -184,15 +184,17 @@ public class Shotgun_Script : MonoBehaviour
             //Raycast and Decal production
             if (Physics.Raycast(playerCam.transform.position, GetShootingDirection(), out hit, range, enemy | ground))
             {
-                //Debug.DrawLine(playerCam.transform.position, hit.transform.position, Color.red, 1f);
                 Mortality_Script mortalObj = hit.transform.GetComponent<Mortality_Script>(); // we create a new variable "mortalObj" of the class Mortal, which we define as what the raycasthit "hit" has found.
-                //if (mortalObj != null) Debug.Log(mortalObj.transform.name);
 
                 if (mortalObj != null) // if the mortalObj should not be of type
                 {
                     mortalObj.TakeDamage(pelletDamage);
-                    //Debug.Log("damage was done of " + pelletDamage + " amount");
-                    if (mortalObj.canBleed) { Instantiate(_bloodSplatterPrefab, hit.transform.position, Quaternion.LookRotation(hit.normal)); }
+                    int bleedingChance = UnityEngine.Random.Range(1, 100);
+
+                    if (mortalObj.canBleed && bleedingChance > 50)
+                    {
+                        Instantiate(_bloodSplatterPrefab, hit.transform.position, Quaternion.LookRotation(hit.normal));
+                    }
                 }
 
                 if (Physics.Raycast(playerCam.transform.position, GetShootingDirection(), out hit, range, ground))

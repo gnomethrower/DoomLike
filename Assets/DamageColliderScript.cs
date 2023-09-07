@@ -1,14 +1,14 @@
 using UnityEngine;
 
-public class ChaseRadiusScript : MonoBehaviour
+public class DamageColliderScript : MonoBehaviour
 {
-    public bool insideChaseRadius;
+    public bool insideDamageCollider = false;
 
     public void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.name == "Player")
         {
-            insideChaseRadius = true;
+            insideDamageCollider = true;
         }
     }
 
@@ -16,8 +16,10 @@ public class ChaseRadiusScript : MonoBehaviour
     {
         if (other.gameObject.name == "Player")
         {
-            insideChaseRadius = false;
+            insideDamageCollider = false;
         }
     }
 
 }
+
+

@@ -15,7 +15,7 @@ public class RotateTowardsTarget : MonoBehaviour
     private RotationType rotationType;
     public enum RotationType { fixedRotation, linear, smooth }
 
-    private Transform lookTargetTransform;
+    [SerializeField] private Transform lookTargetTransform;
     private Vector3 direction;
 
     private Vector3 newRotation;

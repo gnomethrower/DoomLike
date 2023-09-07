@@ -7,7 +7,7 @@ public class EnemySpawnerScript : MonoBehaviour
     #region Variables
 
     #region object references
-    [SerializeField] private GameObject _spawnObject;
+    [SerializeField] private GameObject _spawnEnemy;
     #endregion
 
     #region Spawner Variables
@@ -22,6 +22,8 @@ public class EnemySpawnerScript : MonoBehaviour
     float timeSinceLastSpawn = 0;
     bool spawningFinished;
 
+    float negativeEnemyRotationY;
+
     #endregion
 
     #endregion
@@ -30,6 +32,8 @@ public class EnemySpawnerScript : MonoBehaviour
     private void Awake()
     {
         if (randomSpawnTimerRange) { spawnTimer = Random.Range(spawnTimerMin, spawnTimerMax); }
+
+        negativeEnemyRotationY = _spawnEnemy.transform.rotation.y;
     }
 
     private void Update()
@@ -37,7 +41,7 @@ public class EnemySpawnerScript : MonoBehaviour
         if (spawningFinished) { return; }
         if (SpawnTimerDone() && CanSpawnEnemy())
         {
-            SpawnGameObject(_spawnObject);
+            SpawnGameObject(_spawnEnemy);
         }
 
     }
@@ -86,7 +90,7 @@ public class EnemySpawnerScript : MonoBehaviour
         if (objectToSpawn == null) { Debug.Log("No Enemy has been set for this spawner"); return; }
         else
         {
-            Instantiate(objectToSpawn, transform.position, Quaternion.identity);
+            Instantiate(objectToSpawn, transform.position, Quaternion.Euler(new Vector3(0f, negativeEnemyRotationY, 0f)));
         }
     }
 

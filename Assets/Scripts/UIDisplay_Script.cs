@@ -130,10 +130,10 @@ public class UIDisplay_Script : MonoBehaviour
     //    //if (switchingScript.selectedWeapon == 2) ammoIcon = grenadeIcon;
 
     //    //für jede patrone/granate im Magazin, soll ein prefab startend ab ammIconStartLocation instanziert werden, mit dem vorgegebenen iconOffset.
-    //    for (int busyIterator = 0; busyIterator < ammoInMag; busyIterator++)
+    //    for (int interruptIterator = 0; interruptIterator < ammoInMag; interruptIterator++)
     //    {
     //        GameObject _newAmmoIcon = Instantiate(ammoIcon,
-    //                                              ammoIconStartLocation.position + (new Vector3(iconOffset, 0f, 0f) * busyIterator),
+    //                                              ammoIconStartLocation.position + (new Vector3(iconOffset, 0f, 0f) * interruptIterator),
     //                                              ammoIconStartLocation.rotation,
     //                                              ammoIconStartLocationParent);
     //    }
