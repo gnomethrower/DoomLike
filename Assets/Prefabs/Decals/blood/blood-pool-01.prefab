@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5818659881986662182}
   - component: {fileID: 8566646766727260393}
+  - component: {fileID: 7583949302539592483}
   m_Layer: 0
   m_Name: blood-pool-01
   m_TagString: Untagged
@@ -30,7 +31,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!114 &8566646766727260393
 MonoBehaviour:
@@ -58,3 +59,17 @@ MonoBehaviour:
   m_Size: {x: 1, y: 1, z: 1}
   m_FadeFactor: 1
   m_Version: 2
+--- !u!114 &7583949302539592483
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6362737470979792808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a841e56275d98c246ac1eabd504e63d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startToFadeAfterSeconds: 4
+  fadingTimeInSeconds: 8

@@ -132,6 +132,7 @@ public class BasicMantisClass : MonoBehaviour
     //private bool initializingAttacking = false;
     #endregion
 
+
     private void Awake()
     {
         #region Initialize Variables
@@ -181,6 +182,10 @@ public class BasicMantisClass : MonoBehaviour
         #region NavAgent
         agent.obstacleAvoidanceType = ObstacleAvoidanceType.HighQualityObstacleAvoidance;
         #endregion
+
+        #region Event Subscriptions
+        PlayerController_Script.OnPlayerDeath += HandleOnPlayerDeath; //If OnPlayerDeath Action happens in PlayerController_Script, execute HandleOnPlayerDeath method.
+        #endregion
     }
     private void Start()
     {
@@ -190,6 +195,7 @@ public class BasicMantisClass : MonoBehaviour
         if (damageDealerTransform == null) { Debug.Log("No Damage Transform"); }
         SetState(0);
     }
+
     private void Update()
     {
         #region Debug Updates
@@ -244,7 +250,6 @@ public class BasicMantisClass : MonoBehaviour
 
             StateFrameUpdate();
         }
-
     }
 
     // Main Behavior Methods
@@ -252,7 +257,11 @@ public class BasicMantisClass : MonoBehaviour
     private void InitializeIdleState()
     {
         CallingAnimation(SimplestMantisActor.State.IDLE);
-        IdleSubState = 2;
+        if (playerControllerScript.currentHealth > 0)
+        {
+            IdleSubState = 2;
+        }
+        else IdleSubState = 0;
         agent.speed = walkingSpeed;
         agent.stoppingDistance = chasingStoppingDistance;
     }
@@ -452,13 +461,13 @@ public class BasicMantisClass : MonoBehaviour
     #region Attack Methods
     private void InitializeAttackState()
     {
-        Debug.Log("Init Attack");
+        //Debug.Log("Init Attack");
         isAttacking = true;
         //agent.isStopped = true;
     }
     private void AttackState()
     {
-        Debug.Log("Calling AttackState");
+        //Debug.Log("Calling AttackState");
         FaceTarget(player.transform.position, .15f, true);
 
         if (distanceToPlayer >= attackRange)
@@ -473,7 +482,7 @@ public class BasicMantisClass : MonoBehaviour
             {
 
                 case 0:
-                    Debug.Log("Calling AttackState");
+                    //Debug.Log("Calling AttackState");
                     CallingAnimation(SimplestMantisActor.State.MELEE); // Mantis antire attack anim takes 0.91 seconds. the damage is dealt at 0.65 seconds.
                     StartCoroutine(AttackDamageCallOnTimer(.65f));
                     cannotInterrupt = true;
@@ -481,7 +490,7 @@ public class BasicMantisClass : MonoBehaviour
                     break;
 
                 case 1:
-                    Debug.Log("Calling AttackState");
+                    //Debug.Log("Calling AttackState");
                     if (attackTimer < attackPauseInSeconds)
                     {
                         attackTimer += Time.deltaTime;
@@ -511,7 +520,7 @@ public class BasicMantisClass : MonoBehaviour
     {
         if (damageColliderScript.insideDamageCollider)
         {
-            Debug.Log("Damage now!");
+            //Debug.Log("Damage now!");
             playerControllerScript.currentHealth -= damage;
         }
     }
@@ -589,12 +598,24 @@ public class BasicMantisClass : MonoBehaviour
     #endregion
 
     //Other Methods
+    #region Event Methods
+    private void HandleOnPlayerDeath()
+    {
+        PlayerController_Script.OnPlayerDeath -= HandleOnPlayerDeath;
+        Debug.Log("Mantis is handling Player death!");
+        canChase = false;
+        CanMeleeAttack = false;
+        SetState(0);
+    }
+
+    #endregion
+
     #region Animation Methods
     public void CallingAnimation(SimplestMantisActor.State nextAnimationState)
     {
         if (simplestMantisActor.currentActorAnimState == nextAnimationState)
         {
-            Debug.Log("Animation not changed");
+            //Debug.Log("Animation not changed");
             return;
         }
         simplestMantisActor.SetCurrentAnimationState(nextAnimationState);

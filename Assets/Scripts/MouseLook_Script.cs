@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,16 +8,23 @@ public class MouseLook_Script : MonoBehaviour
     public float mouseSens = 100f;
     public Transform PlayerBody;
     public float xRotation;
+    bool isPlayerDead;
 
     private void Start()
     {
+        PlayerController_Script.OnPlayerDeath += HandleOnPlayerDeath;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
 
+    private void HandleOnPlayerDeath()
+    {
+        isPlayerDead = true;
+    }
+
     private void Update()
     {
-        GetInput();
+        if (!isPlayerDead) GetInput();
     }
 
     void GetInput()

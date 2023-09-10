@@ -28,7 +28,7 @@ namespace BehaviorDesigner.Runtime.Tasks.Movement
         public override TaskStatus OnUpdate()
         {
             if (HasArrived()) {
-                // The agent should pause at the destination only if the max pause duration is greater than 0
+                // The agent should pause at the destination only if the max pause secondsUntilRestartPrompt is greater than 0
                 if (maxPauseDuration.Value > 0) {
                     if (destinationReachTime == -1) {
                         destinationReachTime = Time.time;

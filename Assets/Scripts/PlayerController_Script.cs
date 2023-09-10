@@ -54,7 +54,7 @@ public class PlayerController_Script : MonoBehaviour
     public float groundCheckSize = 0.5f;
     public LayerMask groundMask;
     public Animator viewCamAnim;
-    public GameObject deathScreen;
+    public GameObject deathScreenPrefab;
     public AudioController_Script audioInstance;
     public GameObject uiCanvas;
 
@@ -167,7 +167,7 @@ public class PlayerController_Script : MonoBehaviour
         }
     }
 
-    public void Death()
+    public void CheckForDeath()
     {
         if (!hasDied)
         {

@@ -1,10 +1,13 @@
 using BehaviorDesigner.Runtime.ObjectDrawers;
 using System.Collections;
 using System.Collections.Generic;
+using System;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
 using UnityEngine.UIElements;
+using BehaviorDesigner.Runtime.Tasks.Unity.UnityParticleSystem;
 
 public class PlayerController_Script : MonoBehaviour
 {
@@ -51,8 +54,25 @@ public class PlayerController_Script : MonoBehaviour
     public static float spreadMultiplier;
     float jumpingSpread;
 
+    Collider playerCollider;
+
+    [Header("Checkbools")]
+    [SerializeField] private bool isGrounded;
+    [SerializeField] public bool hasDied;
+    [SerializeField] private bool isMoving;
+
+
+    //[SerializeField] private bool isSprinting;
+
+    #region Variables
+
+    #region Change in Inspector
+
+    #endregion
+
+    #region References
+    GameEventManager gameEventManagerScript;
     [SerializeField] private int flashlightIntensity;
-    [Header("Object References")]
     public CharacterController controller;
     public Vector3 playerVelocity;
     public Transform groundCheck;
@@ -67,21 +87,35 @@ public class PlayerController_Script : MonoBehaviour
     private int flashLightMode = 0;
     [Tooltip("a value between 40000 and 80000 works well.")]
     [SerializeField] private int flashLightMaxIntensity;
+    #endregion
 
-    [Header("Checkbools")]
-    [SerializeField] private bool isGrounded;
-    [SerializeField] public bool hasDied;
-    [SerializeField] private bool isMoving;
+    #region Weapon Variables
+    #endregion
 
+    #region Movement Variables
+    #endregion
 
-    //[SerializeField] private bool isSprinting;
+    #region Events
+    public static Action OnPlayerDeath;
+    #endregion
+
+    #endregion
 
     private void Awake()
     {
+
         flashLightObject = GameObject.Find("FlashLight");
         flashLightSpotlight = flashLightObject.GetComponent<Light>();
 
         if (flashLightSpotlight == null) { Debug.Log("noFlashlight!"); }
+
+        deathScreen = GameObject.Find("DeathScreen");
+
+        #region set Obj references
+        gameEventManagerScript = GameObject.Find("GameEventManager").GetComponent<GameEventManager>();
+        #endregion
+
+        playerCollider = this.GetComponent<Collider>();
     }
 
     private void Start()
@@ -91,20 +125,16 @@ public class PlayerController_Script : MonoBehaviour
 
     void Update()
     {
-
+        CheckForDeath();
         DebugMsg();
 
-        //if (currentHealth > 0)
-        //{
         GetInput();
-        Flashlight();
-        CalculateSpreadMP();
-        FPSMovement();
-        //}
-        //else
-        //{
-
-        //}
+        if (!hasDied)
+        {
+            Flashlight();
+            CalculateSpreadMP();
+            FPSMovement();
+        }
     }
 
     void DebugMsg()
@@ -119,7 +149,6 @@ public class PlayerController_Script : MonoBehaviour
         xAxis = Input.GetAxis("Horizontal");
         zAxis = Input.GetAxis("Vertical");
         Sprinting();
-
     }
 
     void Flashlight()
@@ -205,7 +234,6 @@ public class PlayerController_Script : MonoBehaviour
 
         //moving
         controller.Move(playerVelocity * Time.deltaTime);
-
     }
 
     public void GetHealth(int healAmount)
@@ -217,18 +245,32 @@ public class PlayerController_Script : MonoBehaviour
         }
     }
 
-    public void Death()
+    public void CheckForDeath()
     {
-        if (!hasDied)
+        if (currentHealth <= 0)
         {
-            hasDied = true;
-            Debug.Log("YOU DIED! GIT GUD!");
-            audioInstance.PlayPlayerDeath();
-            Destroy(uiCanvas);
-            //Call deathscreen
-            //call death anim
-            //call text mocking player
+            if (OnPlayerDeath == null)
+            {
+                Debug.Log("OnPlayerDeath Action not found!");
+            }
+            else
+            {
+                DieFunctions();
+                OnPlayerDeath?.Invoke();
+            }
         }
+    }
+
+    private void DieFunctions()
+    {
+        hasDied = true;
+        playerCollider.enabled = false;
+        //audioInstance.PlayPlayerDeath();
+    }
+
+    private void OnDestroy()
+    {
+
     }
 }
 

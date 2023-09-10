@@ -25,8 +25,13 @@ Material:
     serializedVersion: 3
     m_TexEnvs: []
     m_Ints: []
-    m_Floats: []
-    m_Colors: []
+    m_Floats:
+    - _CullMode: 0
+    - _ScaleRatioC: 0.51788247
+    - _UnderlayDilate: 1
+    - _UnderlaySoftness: 0
+    m_Colors:
+    - _UnderlayColor: {r: 0.084905684, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &11400000
 MonoBehaviour:
@@ -40,9 +45,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
   m_Name: LiberationSans SDF DeathScreen
   m_EditorClassIdentifier: 
-  hashCode: 231247347
+  hashCode: -762369853
   material: {fileID: 2180264}
-  materialHashCode: 198912371
+  materialHashCode: 1465345539
   m_Version: 1.1.0
   m_SourceFontFileGUID: e3265ab4bf004d28a9537516768c1c75
   m_SourceFontFile_EditorRef: {fileID: 12800000, guid: e3265ab4bf004d28a9537516768c1c75, type: 3}

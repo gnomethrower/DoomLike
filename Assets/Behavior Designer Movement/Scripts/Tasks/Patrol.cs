@@ -46,7 +46,7 @@ namespace BehaviorDesigner.Runtime.Tasks.Movement
                 if (waypointReachedTime == -1) {
                     waypointReachedTime = Time.time;
                 }
-                // wait the required duration before switching waypoints.
+                // wait the required secondsUntilRestartPrompt before switching waypoints.
                 if (waypointReachedTime + waypointPauseDuration.Value <= Time.time) {
                     if (randomPatrol.Value) {
                         if (waypoints.Value.Count == 1) {

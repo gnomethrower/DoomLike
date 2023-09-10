@@ -77,7 +77,7 @@ public class Mortality_Script : MonoBehaviour
     private IEnumerator Death(float delayInSeconds)
     {
         /* 1. Play deathanim
-         * 2. wait for deathanimation duration
+         * 2. wait for deathanimation secondsUntilRestartPrompt
          * 3. Instantiate DeathPrefabs
          * 4. Destroy object.
         */
