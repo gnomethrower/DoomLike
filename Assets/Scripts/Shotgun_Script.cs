@@ -52,6 +52,8 @@ public class Shotgun_Script : MonoBehaviour
     [SerializeField] private GameObject _bulletHolePrefab;
     public GameObject reticle;
     Image reticleImage;
+    public Transform gunMuzzle;
+
 
     private GameObject muzzleFlashPositionObject;
     private Vector3 muzzleSmokePosADS;
@@ -73,8 +75,7 @@ public class Shotgun_Script : MonoBehaviour
 
     private void Awake()
     {
-
-
+        gunMuzzle = GameObject.Find("GunMuzzle").GetComponent<Transform>();
     }
 
     private void Start()
@@ -112,16 +113,15 @@ public class Shotgun_Script : MonoBehaviour
         if (!chamberedRound && bulletsInMag > 0) Pump();
     }
 
-
     void Update()
     {
         #region debug
+        Debug.DrawRay(gunMuzzle.transform.position, gunMuzzle.forward, Color.blue, 1f, depthTest: false);
         #endregion
 
         GetInput();
         StartCoroutine(Reload());
     }
-
 
     void GetInput()
     {
@@ -165,15 +165,12 @@ public class Shotgun_Script : MonoBehaviour
         chamberedRound = false;
         spentShellChambered = true;
 
-
         sgUIShell.SetBool("FreshShellChambered", false);
         sgUIShell.SetBool("SpentShellChambered", true);
         sgAnimator.SetTrigger("ShotgunShoot");
         audioInstance.PlaySgShoot();
 
-        StartCoroutine(camShakeRecoil.Shaking(.15f, .5f));
-        PlayMuzzleFlash();
-        camShakeRecoil.Recoil(recoilX, recoilY, recoilZ, recoilADS);
+
 
         LayerMask enemyMask = LayerMask.GetMask("Enemy");
         LayerMask groundMask = LayerMask.GetMask("Ground");
@@ -181,13 +178,14 @@ public class Shotgun_Script : MonoBehaviour
         for (int i = 0; i < pelletNumber; i++)
         {
             RaycastHit hit;
-            //Raycast and Decal production
-            if (Physics.Raycast(playerCam.transform.position, GetShootingDirection(), out hit, range, enemy | ground))
+            if (Physics.Raycast(gunMuzzle.transform.position, GetShootingDirection(), out hit, range, enemy | ground))
             {
+                Debug.DrawRay(gunMuzzle.transform.position, hit.point, Color.red);
                 Mortality_Script mortalObj = hit.transform.GetComponent<Mortality_Script>(); // we create a new variable "mortalObj" of the class Mortal, which we define as what the raycasthit "hit" has found.
 
-                if (mortalObj != null) // if the mortalObj should not be of type
+                if (mortalObj != null)
                 {
+                    Debug.Log(mortalObj.name);
                     mortalObj.TakeDamage(pelletDamage);
                     int bleedingChance = UnityEngine.Random.Range(1, 100);
 
@@ -197,15 +195,22 @@ public class Shotgun_Script : MonoBehaviour
                     }
                 }
 
-                if (Physics.Raycast(playerCam.transform.position, GetShootingDirection(), out hit, range, ground))
+
+                if (Physics.Raycast(gunMuzzle.transform.position, GetShootingDirection(), out hit, range, ground))
                 {
                     GameObject obj = Instantiate(_bulletHolePrefab, hit.point, Quaternion.LookRotation(hit.normal));
                     obj.transform.parent = hit.transform;
                     obj.transform.position += obj.transform.forward / 1000;
                 }
             }
+
+            else Debug.Log("Couldn't hit stuff!");
+
         }
 
+        PlayMuzzleFlash();
+        StartCoroutine(camShakeRecoil.Shaking(.15f, .25f));
+        camShakeRecoil.Recoil(recoilX, recoilY, recoilZ, recoilADS);
         isShooting = false;
     }
 
@@ -355,13 +360,14 @@ public class Shotgun_Script : MonoBehaviour
 
     Vector3 GetShootingDirection() //gives us a direction which has a randomized targetposition.
     {
-        Vector3 targetPos = playerCam.transform.position + playerCam.transform.forward * range;
+        Vector3 targetPos = gunMuzzle.transform.position + gunMuzzle.transform.forward * range;
         targetPos = new Vector3(
             targetPos.x + UnityEngine.Random.Range(-pelletSpread, pelletSpread),
             targetPos.y + UnityEngine.Random.Range(-pelletSpread, pelletSpread),
             targetPos.z + UnityEngine.Random.Range(-pelletSpread, pelletSpread)
             );
-        Vector3 direction = targetPos - playerCam.transform.position;
+        Vector3 direction = targetPos - gunMuzzle.transform.position;
+        Debug.DrawRay(gunMuzzle.transform.position, direction, Color.yellow, 5f, false);
         return direction.normalized;
     }
 

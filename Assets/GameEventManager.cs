@@ -56,8 +56,7 @@ public class GameEventManager : MonoBehaviour
         #endregion
 
         #region
-        BasicMantisClass.OnMantisSpawn += HandleMantisSpawn;
-        BasicMantisClass.OnMantisDeath += HandleMantisDeath;
+
         #endregion
     }
 

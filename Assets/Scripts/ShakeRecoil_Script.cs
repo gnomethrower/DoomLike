@@ -19,6 +19,10 @@ public class ShakeRecoil_Script : MonoBehaviour
     [SerializeField] private float snappiness;
     [SerializeField] private float returnSpeed;
 
+    //debug vars
+    Vector3 currentPosition;
+    Vector3 lastPosition;
+
     //Script courtesy of this guy: -https://www.youtube.com/watch?v=geieixA4Mqc
 
     private void Start()
@@ -28,6 +32,7 @@ public class ShakeRecoil_Script : MonoBehaviour
 
     private void Update()
     {
+
         targetRotation = Vector3.Lerp(targetRotation, Vector3.zero, returnSpeed * Time.deltaTime);
         currentRotation = Vector3.Slerp(currentRotation, targetRotation, snappiness * Time.deltaTime);
         transform.localRotation = Quaternion.Euler(currentRotation);
@@ -60,26 +65,51 @@ public class ShakeRecoil_Script : MonoBehaviour
 
     public IEnumerator Shaking(float duration, float strength)
     {
-        Vector3 originalPositon = transform.localPosition;
+
+        Vector3 originalPosition = transform.localPosition;
         float timeSinceStart = 0.0f;
-        float shakeFadeTime = strength / duration;
-        float shakeStrengthFade = strength;
 
         while (timeSinceStart < duration)
         {
-            float x = Random.Range(-.25f, .25f) * shakeStrengthFade;
-            float y = Random.Range(-.25f, .25f) * shakeStrengthFade;
+            float x = Random.Range(-1f, 1f) * strength;
+            float y = Random.Range(-1f, 1f) * strength;
 
-            transform.localPosition = new Vector3(x, y, 0f);
+            // Apply recoil as an offset in the local position
+            transform.localPosition += new Vector3(x, y, 0f);
 
             timeSinceStart += Time.deltaTime;
 
-            shakeStrengthFade = Mathf.MoveTowards(shakeStrengthFade, 0f, shakeFadeTime * Time.deltaTime);
-
-            yield return null; //before the while routine continues, we let the next frame render
+            yield return null;
         }
 
-        transform.localPosition = originalPositon;
+        // Reset the camera's local position to the original position
+        transform.localPosition = originalPosition;
+
+
+
+        //Vector3 originalPositon = transform.localPosition;
+        ////Debug.Log(playerBody.transform.position);
+        ////Debug.Log(originalPositon);
+
+        //float timeSinceStart = 0.0f;
+        //float shakeFadeTime = strength / duration;
+        //float shakeStrengthFade = strength;
+
+        //while (timeSinceStart < duration)
+        //{
+        //    float x = Random.Range(-.25f, .25f) * shakeStrengthFade;
+        //    float y = Random.Range(-.25f, .25f) * shakeStrengthFade;
+
+        //    transform.localPosition = new Vector3(x, y, 1f);
+
+        //    timeSinceStart += Time.deltaTime;
+
+        //    shakeStrengthFade = Mathf.MoveTowards(shakeStrengthFade, 0f, shakeFadeTime * Time.deltaTime);
+
+        //    yield return null; //before the while routine continues, we let the next frame render
+        //}
+
+        //transform.localPosition = originalPositon;
 
     }
 

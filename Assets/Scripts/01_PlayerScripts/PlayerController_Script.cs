@@ -1,13 +1,7 @@
-using BehaviorDesigner.Runtime.ObjectDrawers;
-using System.Collections;
-using System.Collections.Generic;
+using BehaviorDesigner.Runtime.Tasks.Unity.UnityQuaternion;
 using System;
-using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.Rendering.PostProcessing;
-using UnityEngine.UIElements;
-using BehaviorDesigner.Runtime.Tasks.Unity.UnityParticleSystem;
+using UnityEngine.Windows;
 
 public class PlayerController_Script : MonoBehaviour
 {
@@ -42,10 +36,14 @@ public class PlayerController_Script : MonoBehaviour
     public float baseSpeed = 12f;
     public float sprintMultiplier = 1.25f;
     public float gravity = -12f;
+    private float stamina = 100f;
+    [SerializeField] private float staminaDepletionMultiplier;
+    [SerializeField] private float staminaRefillMultiplier;
+    [SerializeField] private float staminaExhaustionThreshold;
+    private int sprintState = 0;
 
-
-    float playerSpeed;
-    float sMp = 1f;
+    private float playerSpeed;
+    private float sMp = 1f;
 
     public float jumpHeight = .0001f;
     public static float xAxis;
@@ -61,6 +59,9 @@ public class PlayerController_Script : MonoBehaviour
     [SerializeField] public bool hasDied;
     [SerializeField] private bool isMoving;
 
+    Quaternion currentLeaningRotation = Quaternion.identity;
+    Quaternion targetRotation;
+    [SerializeField] private float leanRotationTarget = 15f;
 
     //[SerializeField] private bool isSprinting;
 
@@ -87,6 +88,16 @@ public class PlayerController_Script : MonoBehaviour
     private int flashLightMode = 0;
     [Tooltip("a value between 40000 and 80000 works well.")]
     [SerializeField] private int flashLightMaxIntensity;
+
+    private GameObject leaningPivotPoint;
+    [SerializeField] private float maxLeanAngleDegrees;
+
+    private float currentLocalEulerAngleZ;
+    private float targetLocalEulerAngleZ;
+    private int leanDirection; // 0: none, 1: left, 2: right
+
+    private Vector3 lastKnownPosition;
+    private Vector3 currentPosition;
     #endregion
 
     #region Weapon Variables
@@ -110,50 +121,58 @@ public class PlayerController_Script : MonoBehaviour
         if (flashLightSpotlight == null) { Debug.Log("noFlashlight!"); }
 
         deathScreen = GameObject.Find("DeathScreen");
-
-        #region set Obj references
         gameEventManagerScript = GameObject.Find("GameEventManager").GetComponent<GameEventManager>();
-        #endregion
 
         playerCollider = this.GetComponent<Collider>();
+
+        leaningPivotPoint = GameObject.Find("LeaningPivotPoint");
+        if (leaningPivotPoint == null) { Debug.Log("We have no leaningPivotPoint"); }
     }
 
     private void Start()
     {
-
+        lastKnownPosition = transform.position;
+        currentPosition = transform.position;
     }
 
     void Update()
     {
-        CheckForDeath();
         DebugMsg();
-
-        GetInput();
+        CheckForMovement();
         if (!hasDied)
         {
+            CheckForDeath();
+            GetInput();
             Flashlight();
             CalculateSpreadMP();
-            FPSMovement();
+            MoveAndJump();
         }
+    }
+
+    private void FixedUpdate()
+    {
+        //Player Gravity Calculation
+        if (!isGrounded) playerVelocity.y += gravity * Time.deltaTime;
     }
 
     void DebugMsg()
     {
-        //Debug.Log("Sprint MP is " + sprintMultiplier);
-        //Debug.Log("Speed is " + playerSpeed);
-        //if(isSprinting) Debug.Log("Player is Sprinting: " + isSprinting);
     }
 
     void GetInput()
     {
-        xAxis = Input.GetAxis("Horizontal");
-        zAxis = Input.GetAxis("Vertical");
+        xAxis = UnityEngine.Input.GetAxis("Horizontal");
+        zAxis = UnityEngine.Input.GetAxis("Vertical");
+
         Sprinting();
+
+        // Updating Rotation
+        Leaning();
     }
 
     void Flashlight()
     {
-        if (Input.GetKeyDown(KeyCode.F))
+        if (UnityEngine.Input.GetKeyDown(KeyCode.F))
         {
             flashLightMode++;
             if (flashLightMode > 2) { flashLightMode = 0; }
@@ -179,16 +198,64 @@ public class PlayerController_Script : MonoBehaviour
 
     void Sprinting()
     {
-        if (Input.GetButton("Sprint"))
+        Debug.Log(stamina);
+        Debug.Log(isMoving);
+
+        if (stamina > 100f)
         {
-            //isSprinting = true;
-            sMp = sprintMultiplier;
+            Debug.Log("OverflowCorrection, stamina > 100");
+            stamina = 100f;
         }
-        else
+
+        if (stamina < 0)
         {
-            //isSprinting = false;
-            sMp = 1f;
+            Debug.Log("OverflowCorrection > 0");
+            stamina = 0;
         }
+
+        switch (sprintState) //0: fresh;   1: exhausted;   2: reset to fresh
+        {
+            case 0:
+                if (UnityEngine.Input.GetButton("Sprint") && isMoving && stamina > 0)
+                {
+                    stamina -= (Time.deltaTime * staminaDepletionMultiplier);
+                    sMp = sprintMultiplier;
+
+                    if (stamina <= 0) // When stamina is entirely depleted, exhaustion sets in. The player moves more slowly.
+                    {
+                        //Setting Exhausted Parameters
+                        Debug.Log("EXHAUSTED!");
+                        playerSpeed = baseSpeed / 1.5f;
+                        sprintState = 1;
+                    }
+                }
+                else if (stamina < 100f) // Stamina refills at normal rate.
+                {
+                    stamina += (Time.deltaTime * staminaRefillMultiplier);
+                }
+
+                sMp = 1f;
+                break;
+
+            case 1:
+
+                if (stamina < staminaExhaustionThreshold) //When exhausted, stamina refills more slowly
+                {
+                    stamina += (Time.deltaTime * staminaRefillMultiplier / 1.5f);
+                }
+
+                //Resetting, if Stamina refilled to threshold.
+                if (stamina >= staminaExhaustionThreshold)
+                {
+                    sprintState = 2;
+                }
+                break;
+
+            case 2:
+                playerSpeed = baseSpeed;
+                break;
+        }
+
     }
 
     void CalculateSpreadMP()
@@ -196,7 +263,7 @@ public class PlayerController_Script : MonoBehaviour
         spreadMultiplier = Mathf.Clamp(((Mathf.Abs(zAxis)) + (Mathf.Abs(xAxis))), 0, 1) + jumpingSpread;
     }
 
-    void FPSMovement()
+    void MoveAndJump()
     {
         // jumping with groundcheck
         isGrounded = Physics.CheckBox(groundCheck.position, new Vector3(groundCheckSize, groundCheckSize, groundCheckSize), groundCheck.transform.rotation, groundMask);
@@ -208,7 +275,7 @@ public class PlayerController_Script : MonoBehaviour
             playerVelocity.y = -2f;
         }
 
-        if (Input.GetButtonDown("Jump") && isGrounded)
+        if (UnityEngine.Input.GetButtonDown("Jump") && isGrounded)
         {
             playerVelocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
         }
@@ -227,13 +294,18 @@ public class PlayerController_Script : MonoBehaviour
         //setting up the movement with the playerspeed and correcting for executiontime
         controller.Move((move * playerSpeed) * Time.deltaTime);
 
-
-        //gravity
-        playerVelocity.y += gravity * Time.deltaTime;
-
+        //gravity - now found in fixedUpdate!
+        //playerVelocity.y += gravity * Time.deltaTime;
 
         //moving
         controller.Move(playerVelocity * Time.deltaTime);
+    }
+
+    private void CheckForMovement()
+    {
+        if (lastKnownPosition == transform.position) isMoving = false;
+        else isMoving = true;
+        lastKnownPosition = transform.position;
     }
 
     public void GetHealth(int healAmount)
@@ -268,10 +340,49 @@ public class PlayerController_Script : MonoBehaviour
         //audioInstance.PlayPlayerDeath();
     }
 
+    private void Leaning()
+    {
+
+        if (UnityEngine.Input.GetKey(KeyCode.Q) || UnityEngine.Input.GetKey(KeyCode.E))
+        {
+            if (UnityEngine.Input.GetKey(KeyCode.Q))
+            {
+                leanDirection = 1;
+            }
+            else
+            if (UnityEngine.Input.GetKey(KeyCode.E))
+            {
+                leanDirection = 2;
+            }
+        }
+        else leanDirection = 0;
+
+
+        switch (leanDirection)  // 0: none, 1: left, 2: right
+        {
+            case 0:
+                if (targetLocalEulerAngleZ != 0f) targetLocalEulerAngleZ = 0f;
+                break;
+            case 1:
+                if (targetLocalEulerAngleZ != -maxLeanAngleDegrees) targetLocalEulerAngleZ = maxLeanAngleDegrees;
+                break;
+            case 2:
+                if (targetLocalEulerAngleZ != maxLeanAngleDegrees) targetLocalEulerAngleZ = -maxLeanAngleDegrees;
+                break;
+        }
+
+        if (currentLocalEulerAngleZ != targetLocalEulerAngleZ)
+        {
+            currentLocalEulerAngleZ = Mathf.LerpAngle(currentLocalEulerAngleZ, targetLocalEulerAngleZ, .1f);
+            leaningPivotPoint.transform.localEulerAngles = new Vector3(0, 0, currentLocalEulerAngleZ);
+        }
+    }
+
     private void OnDestroy()
     {
 
     }
+
 }
 
 

@@ -78,7 +78,7 @@ public class PlayerController_Script : MonoBehaviour
         {
             GetInput();
             CalculateSpreadMP();
-            FPSMovement();
+            MoveAndJump();
         }
     }
 
@@ -117,7 +117,7 @@ public class PlayerController_Script : MonoBehaviour
         spreadMultiplier = Mathf.Clamp(((Mathf.Abs(zAxis)) + (Mathf.Abs(xAxis))), 0, 1) + jumpingSpread;
     }
 
-    void FPSMovement()
+    void MoveAndJump()
     {
         // jumping with groundcheck
         isGrounded = Physics.CheckBox(groundCheck.position, new Vector3(groundCheckSize, groundCheckSize, groundCheckSize), groundCheck.transform.rotation, groundMask);
