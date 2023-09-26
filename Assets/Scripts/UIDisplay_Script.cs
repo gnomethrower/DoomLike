@@ -157,14 +157,14 @@ public class UIDisplay_Script : MonoBehaviour
     private void OnStaminaExhausted()
     {
         Debug.Log("Stamina is exhausted!");
-        if(staminaBarFillImage != null) staminaBarFillImage.color = exhaustedStaminaBarColor;
+        if(staminaBarFillImage != null) staminaBarFillImage.color = Color.red;
         //if(StaminaExhaustionThresholdObject != null) StaminaExhaustionThresholdObject.SetActive(true);
     }
 
     private void OnStaminaRecovery()
     {
         Debug.Log("Stamina is back!");
-        if (staminaBarFillImage != null) staminaBarFillImage.color = freshStaminaBarColor;
+        if (staminaBarFillImage != null) staminaBarFillImage.color = Color.white;
         //if (StaminaExhaustionThresholdObject != null) StaminaExhaustionThresholdObject.SetActive(false);
     }
 

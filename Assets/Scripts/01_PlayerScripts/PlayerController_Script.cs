@@ -41,6 +41,7 @@ public class PlayerController_Script : MonoBehaviour
     [SerializeField] private float gravity = -12f;
     public float currentStamina = 100f;
     public float maxStamina = 100f;
+    public float staminaLastFrame;
     [SerializeField] private float timeToRecoverStaminaSeconds;
     private float recoverStaminaTimer;
     private bool canRecoverStamina = true;
@@ -215,7 +216,7 @@ public class PlayerController_Script : MonoBehaviour
         }
     }
 
-    void Sprinting()
+    void Sprinting() // Refactor! When stamina is used, start stamina timer!
     {
         if (currentStamina > 100f) // Overflow Check over 100
         {
@@ -230,7 +231,6 @@ public class PlayerController_Script : MonoBehaviour
         if (UnityEngine.Input.GetButtonUp("Sprint") && !staminaTimerRunning)
         {
             recoverStaminaTimer = 0f;
-            StaminaTimer(timeToRecoverStaminaSeconds);
         }
 
         switch (sprintState) //0: fresh;   1: exhausted;   2: reset to fresh
@@ -253,8 +253,8 @@ public class PlayerController_Script : MonoBehaviour
                 }
                 else
                 {
-                    canRecoverStamina = false;
-                    StaminaTimer(timeToRecoverStaminaSeconds);
+                    //canRecoverStamina = false;
+                    //StaminaTimer(timeToRecoverStaminaSeconds);
 
                     if(currentStamina < 100f && canRecoverStamina) // Stamina refills at normal rate.
                     {
@@ -265,8 +265,7 @@ public class PlayerController_Script : MonoBehaviour
                 break;
 
             case 1:
-
-                StaminaTimer(timeToRecoverStaminaSeconds + 5f);
+                StaminaTimer(2*timeToRecoverStaminaSeconds);
 
                 if (currentStamina < staminaExhaustionThreshold && canRecoverStamina) //When exhausted, currentStamina refills more slowly
                 {
@@ -292,16 +291,20 @@ public class PlayerController_Script : MonoBehaviour
 
     void StaminaTimer(float timeToRecover)
     {
+        Debug.Log(timeToRecover);
+        Debug.Log(recoverStaminaTimer);
         staminaTimerRunning = true;
+
         if (recoverStaminaTimer < timeToRecover)
         {
             Debug.Log("Wait for stamina recovery!!");
             recoverStaminaTimer += Time.deltaTime;
+            canRecoverStamina = false;
         }
         else if (recoverStaminaTimer >= timeToRecover) //timer to delay stamina recovery
         {
+            Debug.Log("Timer done, can recover stamina now!");
             staminaTimerRunning = false;
-            Debug.Log("Can recover stamina now!");
             canRecoverStamina = true;
         }
         
@@ -312,9 +315,14 @@ public class PlayerController_Script : MonoBehaviour
         spreadMultiplier = Mathf.Clamp(((Mathf.Abs(zAxis)) + (Mathf.Abs(xAxis))), 0, 1) + jumpingSpread;
     }
 
+    void CheckFforStaminaUse() // if stamina is used, set stamina recovery timer to zero. Wait until the usage stops and THEN start the timer.
+    {
+
+    }
+
     void MoveAndJump()
     {
-        // jumping with groundcheck
+        //jumping with groundcheck
         isGrounded = Physics.CheckBox(groundCheck.position, new Vector3(groundCheckSize, groundCheckSize, groundCheckSize), groundCheck.transform.rotation, groundMask);
         if (isGrounded) jumpingSpread = 1f;
         else jumpingSpread = 3f;
@@ -330,7 +338,6 @@ public class PlayerController_Script : MonoBehaviour
             if(!isExhausted) playerVelocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
             if(isExhausted) playerVelocity.y = Mathf.Sqrt((jumpHeight * exhaustedJumpHeightMultiplier) * -2f * gravity);
         }
-
 
         //normalizing vector movement, so diagonal movement isn't twice as fast.
         Vector3 move = transform.right * xAxis + transform.forward * zAxis;
