@@ -33,12 +33,12 @@ public class PlayerController_Script : MonoBehaviour
 
     [Header("Player Movement Speed Changables")]
     public float walkingSpeed = 12f;
-    public float sprintMultiplier = 1.25f;
+    public float sprintMultiplierValue = 1.25f;
     public float gravity = -12f;
 
 
     float playerSpeed;
-    float sMp = 1f;
+    float sprintMultiplier = 1f;
 
     public float jumpHeight = .0001f;
     public static float xAxis;
@@ -84,7 +84,7 @@ public class PlayerController_Script : MonoBehaviour
 
     void DebugMsg()
     {
-        //Debug.Log("Sprint MP is " + sprintMultiplier);
+        //Debug.Log("Sprint MP is " + sprintMultiplierValue);
         //Debug.Log("Speed is " + playerSpeed);
         //if(isSprinting) Debug.Log("Player is Sprinting: " + isSprinting);
     }
@@ -101,12 +101,12 @@ public class PlayerController_Script : MonoBehaviour
         if (Input.GetButton("Sprint"))
         {
             //isSprinting = true;
-            sMp = sprintMultiplier;
+            sprintMultiplier = sprintMultiplierValue;
         }
         else
         {
             //isSprinting = false;
-            sMp = 1f;
+            sprintMultiplier = 1f;
         }
     }
 
@@ -143,7 +143,7 @@ public class PlayerController_Script : MonoBehaviour
         }
 
         // playerSpeed is always multiplied by sprintmultiplier
-        playerSpeed = walkingSpeed * sMp;
+        playerSpeed = walkingSpeed * sprintMultiplier;
 
         //setting up the movement with the playerspeed and correcting for executiontime
         controller.Move((move * playerSpeed) * Time.deltaTime);

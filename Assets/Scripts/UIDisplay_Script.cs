@@ -1,9 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.UIElements;
 using TMPro;
+using Unity.VisualScripting;
+using UnityEditor.UIElements;
 
 //+++++++++++++++++++++++++++++++++++
 
@@ -16,7 +16,7 @@ using TMPro;
 public class UIDisplay_Script : MonoBehaviour
 {
     [Header("Text References")]
-    public TextMeshProUGUI ammoMagText, ammoSpareText, healthText;
+    public TextMeshProUGUI ammoMagText, ammoSpareText, healthText, staminaText;
 
     [Header("Ammo Icon prefabs")]
     public GameObject shellIcon;
@@ -42,6 +42,24 @@ public class UIDisplay_Script : MonoBehaviour
     public GameObject pistol;
     public GameObject player;
 
+
+    private GameObject staminaBarObject;
+    private GameObject healthBarObject;
+    private Slider staminaBar;
+    private GameObject staminaBarFill;
+    private Image staminaBarFillImage;
+    private Slider healthBar;
+
+    [SerializeField] private GameObject StaminaExhaustionThresholdObject;
+
+    [SerializeField] private Color freshStaminaBarColor;
+    [SerializeField] private Color exhaustedStaminaBarColor;
+
+    [SerializeField] private Color freshHealthBarColor;
+    [SerializeField] private Color criticalHealthColor;
+
+
+
     public Transform ammoIconStartLocationParent;
     public Transform ammoIconStartLocation;
 
@@ -58,12 +76,30 @@ public class UIDisplay_Script : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        InitializeObjScr();
+        Initialize();
         //UIAmmoIconCreation();
     }
 
-    void InitializeObjScr()
+    void Initialize()
     {
+        staminaBarObject = GameObject.Find("StaminaBar");
+        staminaBar = staminaBarObject.GetComponent<Slider>();
+        staminaBar.maxValue = playerScript.maxStamina;
+        staminaBar.value = playerScript.maxStamina;
+        staminaBarFill = GameObject.Find("Stamina Fill");
+        staminaBarFillImage = staminaBarFill.GetComponent<Image>();
+
+        healthBarObject = GameObject.Find("HealthBar");
+        healthBar = healthBarObject.GetComponent<Slider>();
+        healthBar.maxValue = playerScript.maxHealth;
+        healthBar.value = playerScript.maxHealth;
+
+        StaminaExhaustionThresholdObject = GameObject.Find("StaminaExhaustionThreshold");
+        StaminaExhaustionThresholdObject.SetActive(false);
+
+        PlayerController_Script.OnPlayerStaminaExhaustion += OnStaminaExhausted;
+        PlayerController_Script.OnPlayerStaminaRecovery+= OnStaminaRecovery;
+
         //weaponHolder = GameObject.Find("WeaponHolder");
         //player = GameObject.FindGameObjectWithTag("Player");
         //pistol = GameObject.FindGameObjectWithTag("Pistol");
@@ -96,6 +132,8 @@ public class UIDisplay_Script : MonoBehaviour
 
     void Update()
     {
+        staminaBar.value = playerScript.currentStamina;
+
         ammoMagText.text = ammoInMag.ToString();
         ammoSpareText.text = ammoSpare.ToString();
 
@@ -103,14 +141,31 @@ public class UIDisplay_Script : MonoBehaviour
 
         CheckSelectedWeapon();
 
-        //if (weapSwitchScript.selectedWeapon == 2) //nades
-        //{
-        //    ammoInMag = grenadeScript.bulletsInMag;
-        //    ammoSpare = playerScript.grenadeSpareAmmo;
 
-        //}
+        /*
+        if (weapSwitchScript.selectedWeapon == 2) //nades
+        {
+            ammoInMag = grenadeScript.bulletsInMag;
+            ammoSpare = playerScript.grenadeSpareAmmo;
 
-        //if (Input.GetKeyDown(KeyCode.H)) UIAmmoIconCreation();
+        }
+
+        if (Input.GetKeyDown(KeyCode.H)) UIAmmoIconCreation();
+        */
+    }
+
+    private void OnStaminaExhausted()
+    {
+        Debug.Log("Stamina is exhausted!");
+        if(staminaBarFillImage != null) staminaBarFillImage.color = exhaustedStaminaBarColor;
+        //if(StaminaExhaustionThresholdObject != null) StaminaExhaustionThresholdObject.SetActive(true);
+    }
+
+    private void OnStaminaRecovery()
+    {
+        Debug.Log("Stamina is back!");
+        if (staminaBarFillImage != null) staminaBarFillImage.color = freshStaminaBarColor;
+        //if (StaminaExhaustionThresholdObject != null) StaminaExhaustionThresholdObject.SetActive(false);
     }
 
     //Ammocounter like https://www.youtube.com/watch?v=3uyolYVsiWc

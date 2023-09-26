@@ -14,7 +14,7 @@ public class GameEventManager : MonoBehaviour
     /// 
     /// *****************************************************************
     /// 
-    /// Next Up: Add a Counter that tracks all the enemies in the scene.
+    /// Next Up:
     /// 
     /// *****************************************************************
     /// 
@@ -29,6 +29,9 @@ public class GameEventManager : MonoBehaviour
     public bool playerIsDead = false;
     private float timer = 0;
     private int timerState = 0;
+
+    [SerializeField] private float timeToQuitSeconds = 5f;
+    private float quitTimer;
 
     private int currentEnemyCount;
     #endregion
@@ -62,6 +65,8 @@ public class GameEventManager : MonoBehaviour
 
     private void Update()
     {
+        QuitGame();
+
         PayerDeathUpdate();
 
         TrackingEnemyCount();
@@ -119,6 +124,34 @@ public class GameEventManager : MonoBehaviour
 
 
     }
+
+    // ++++++++++++++++++++ Quit Game ++++++++++++++++++++
+    public void QuitGame()
+    {
+
+        if(UnityEngine.Input.GetKey(KeyCode.Escape))
+        {
+            //timer starts
+            if (quitTimer < timeToQuitSeconds)
+            {
+                quitTimer += Time.deltaTime;
+                //Debug.Log(quitTimer);
+            }
+
+            if(quitTimer >= timeToQuitSeconds)
+            {
+                //Debug.Log("Quitting Game!");
+                Application.Quit();
+            }
+        }
+
+        if (UnityEngine.Input.GetKeyUp(KeyCode.Escape))
+        {
+            //Debug.Log("Reset Quit Timer!");
+            quitTimer = 0;
+        }
+    }
+
 
     // ++++++++++++++++++++ Enemy Handling ++++++++++++++++++++
 
