@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 5.588719, g: 3.6092, b: 13.753298, a: 1}
+  m_IndirectSpecularColor: {r: 5.5862145, g: 3.6060972, b: 13.739754, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -11516,6 +11516,54 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7878350319992209165, guid: 3e7a632c1c492904794aeae5e9344147, type: 3}
   m_PrefabInstance: {fileID: 340341821}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &363026804
+GameObject:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 363026806}
+  - component: {fileID: 363026805}
+  m_Layer: 0
+  m_Name: StaticLightingSky
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &363026805
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 363026804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 441482e8936e35048a1dffac814e3ef8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Profile: {fileID: 0}
+  m_StaticLightingSkyUniqueID: 0
+  m_StaticLightingCloudsUniqueID: 0
+  m_StaticLightingVolumetricClouds: 0
+--- !u!4 &363026806
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 363026804}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &371052853
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -88434,9 +88482,13 @@ MonoBehaviour:
   maxStamina: 100
   staminaLastFrame: 0
   timeToRecoverStaminaSeconds: 2
+<<<<<<< HEAD
   staminaRecoveryDuration: 0
   staminaTimer: 0
   staminaDepletionMultiplier: 20
+=======
+  staminaDepletionMultiplier: 40
+>>>>>>> 7317298fa9f0bbdfe634229df311eca3450fae1c
   staminaRefillMultiplier: 15
   staminaExhaustionThreshold: 50
   jumpHeight: 1
@@ -88444,6 +88496,7 @@ MonoBehaviour:
   isGrounded: 0
   hasDied: 0
   isMoving: 0
+  isSprinting: 0
   isExhausted: 0
   leanRotationTarget: 15
   flashlightIntensity: 0
@@ -90566,3 +90619,7 @@ SceneRoots:
   - {fileID: 636835555}
   - {fileID: 5557445081621742089}
   - {fileID: 282166584}
+<<<<<<< HEAD
+=======
+  - {fileID: 363026806}
+>>>>>>> 7317298fa9f0bbdfe634229df311eca3450fae1c
