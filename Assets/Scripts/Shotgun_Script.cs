@@ -185,7 +185,7 @@ public class Shotgun_Script : MonoBehaviour
 
                 if (mortalObj != null)
                 {
-                    Debug.Log(mortalObj.name);
+                    //Debug.Log(mortalObj.name);
                     mortalObj.TakeDamage(pelletDamage);
                     int bleedingChance = UnityEngine.Random.Range(1, 100);
 
@@ -204,7 +204,7 @@ public class Shotgun_Script : MonoBehaviour
                 }
             }
 
-            else Debug.Log("Couldn't hit stuff!");
+             //Debug.Log("Couldn't hit stuff!");
 
         }
 
