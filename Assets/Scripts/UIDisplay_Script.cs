@@ -16,7 +16,7 @@ using UnityEditor.UIElements;
 public class UIDisplay_Script : MonoBehaviour
 {
     [Header("Text References")]
-    public TextMeshProUGUI ammoMagText, ammoSpareText, healthText, staminaText;
+    public TextMeshProUGUI ammoMagText, ammoSpareText, healthText, staminaText, staminaTimerObject;
 
     [Header("Ammo Icon prefabs")]
     public GameObject shellIcon;
@@ -32,6 +32,7 @@ public class UIDisplay_Script : MonoBehaviour
 
     private int ammoInMag;
     private int ammoSpare;
+
     //private int pistolMagFill;
     //private int shotgunMagFill;
     //private int nadeMagFill;
@@ -48,7 +49,10 @@ public class UIDisplay_Script : MonoBehaviour
     private Slider staminaBar;
     private GameObject staminaBarFill;
     private Image staminaBarFillImage;
+    private bool staminaRedColor = false;
+
     private Slider healthBar;
+
 
     [SerializeField] private GameObject StaminaExhaustionThresholdObject;
 
@@ -57,8 +61,6 @@ public class UIDisplay_Script : MonoBehaviour
 
     [SerializeField] private Color freshHealthBarColor;
     [SerializeField] private Color criticalHealthColor;
-
-
 
     public Transform ammoIconStartLocationParent;
     public Transform ammoIconStartLocation;
@@ -82,6 +84,8 @@ public class UIDisplay_Script : MonoBehaviour
 
     void Initialize()
     {
+        staminaTimerObject = GameObject.Find("StamTimerObject").GetComponent<TextMeshProUGUI>();
+
         staminaBarObject = GameObject.Find("StaminaBar");
         staminaBar = staminaBarObject.GetComponent<Slider>();
         staminaBar.maxValue = playerScript.maxStamina;
@@ -96,23 +100,26 @@ public class UIDisplay_Script : MonoBehaviour
 
         StaminaExhaustionThresholdObject = GameObject.Find("StaminaExhaustionThreshold");
         StaminaExhaustionThresholdObject.SetActive(false);
+        
 
-        PlayerController_Script.OnPlayerStaminaExhaustion += OnStaminaExhausted;
+        PlayerController_Script.OnPlayerStaminaExhaustion += OnStaminaExhaustion;
         PlayerController_Script.OnPlayerStaminaRecovery+= OnStaminaRecovery;
 
-        //weaponHolder = GameObject.Find("WeaponHolder");
-        //player = GameObject.FindGameObjectWithTag("Player");
-        //pistol = GameObject.FindGameObjectWithTag("Pistol");
-        //shotgun = GameObject.FindGameObjectWithTag("Shotgun");
-        ////grenade = GameObject.FindGameObjectWithTag("Grenade");
+        /*
+        weaponHolder = GameObject.Find("WeaponHolder");
+        player = GameObject.FindGameObjectWithTag("Player");
+        pistol = GameObject.FindGameObjectWithTag("Pistol");
+        shotgun = GameObject.FindGameObjectWithTag("Shotgun");
+        //grenade = GameObject.FindGameObjectWithTag("Grenade");
 
-        //Debug.Log(pistol);
+        Debug.Log(pistol);
 
-        //weapSwitchScript = weaponHolder.GetComponent<WeaponSwitching_Script>();
-        //playerScript = player.GetComponent<PlayerController_Script>();
-        //pistolScript = pistol.GetComponent<Pistol_Script>(); // +++++++++ nullref here at initialization ! +++++++++ $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-        //shotgunScript = shotgun.GetComponent<Shotgun_Script>();
-        ////grenadeScript = grenade.GetComponent<Grenade_Script>();
+        weapSwitchScript = weaponHolder.GetComponent<WeaponSwitching_Script>();
+        playerScript = player.GetComponent<PlayerController_Script>();
+        pistolScript = pistol.GetComponent<Pistol_Script>(); // +++++++++ nullref here at initialization ! +++++++++ $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+        shotgunScript = shotgun.GetComponent<Shotgun_Script>();
+        //grenadeScript = grenade.GetComponent<Grenade_Script>();
+        */
     }
 
 
@@ -139,8 +146,11 @@ public class UIDisplay_Script : MonoBehaviour
 
         healthText.text = playerScript.currentHealth.ToString();
 
+        staminaTimerObject.text = playerScript.staminaTimer.ToString();
+
         CheckSelectedWeapon();
 
+        //StaminaBarColorChange();
 
         /*
         if (weapSwitchScript.selectedWeapon == 2) //nades
@@ -154,18 +164,44 @@ public class UIDisplay_Script : MonoBehaviour
         */
     }
 
-    private void OnStaminaExhausted()
+    void StaminaBarColorChange()
     {
-        Debug.Log("Stamina is exhausted!");
-        if(staminaBarFillImage != null) staminaBarFillImage.color = Color.red;
-        //if(StaminaExhaustionThresholdObject != null) StaminaExhaustionThresholdObject.SetActive(true);
+        if (playerScript.isExhausted && staminaBarFillImage != null && !staminaRedColor)
+        {
+            staminaBarFillImage.color = Color.red;
+        }
+        if(playerScript.isExhausted) staminaBarFillImage.color = Color.white;
+    }
+
+
+    private void OnStaminaExhaustion()
+    {
+        //Turn stamina bar red if it is white
+        if (!staminaRedColor)
+        {
+            if (staminaBarFillImage != null)
+            {
+                Debug.Log("Set red!");
+                staminaRedColor = true;
+                staminaBarFillImage.color = Color.red;
+            }
+        }
+
+
     }
 
     private void OnStaminaRecovery()
     {
-        Debug.Log("Stamina is back!");
-        if (staminaBarFillImage != null) staminaBarFillImage.color = Color.white;
-        //if (StaminaExhaustionThresholdObject != null) StaminaExhaustionThresholdObject.SetActive(false);
+        //Turn the stamina bar white if it is red
+        if (staminaRedColor)
+        {
+            if (staminaBarFillImage != null)
+            {
+                Debug.Log("Set white!");
+                staminaRedColor = false;
+                staminaBarFillImage.color = Color.white;
+            }
+        }
     }
 
     //Ammocounter like https://www.youtube.com/watch?v=3uyolYVsiWc
