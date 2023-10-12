@@ -40,20 +40,21 @@ public class PlayerController_Script : MonoBehaviour
     [SerializeField] private float speedExhaustionMultiplier = 0.75f;
     [SerializeField] private float sprintMultiplierValue = 1.25f;
     [SerializeField] private float gravity = -12f;
-
     public float currentStamina = 100f;
     public float maxStamina = 100f;
     public float staminaLastFrame;
-    [SerializeField] private float timeToRecoverStaminaSeconds = 2f;
-    [SerializeField] private float staminaRecoveryDuration;
-    public float staminaTimer;
+    [SerializeField] private float timeToRecoverStaminaSeconds;
+    private float recoverStaminaTimer;
     private bool canRecoverStamina = true;
-    private float timeToRecover;
     [SerializeField] private float staminaDepletionMultiplier;
     [SerializeField] private float staminaRefillMultiplier;
     [SerializeField] private float staminaExhaustionThreshold;
+    [SerializeField] private float staminaTimer;
+    [SerializeField] private float timeToRecover;
+
     private int sprintState = 3;
     private bool staminaTimerRunning = false;
+
 
     private float playerSpeed;
     private float sprintMultiplier = 1f;
@@ -85,12 +86,7 @@ public class PlayerController_Script : MonoBehaviour
 
     //[SerializeField] private bool isSprinting;
 
-<<<<<<< HEAD
-    #region Change in Inspector
-=======
-
     #region Variables to change in inspector
->>>>>>> 7317298fa9f0bbdfe634229df311eca3450fae1c
     #endregion
 
     #region References Variables
@@ -134,10 +130,6 @@ public class PlayerController_Script : MonoBehaviour
     public static Action OnPlayerStaminaRecovery;
     #endregion
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 7317298fa9f0bbdfe634229df311eca3450fae1c
     private void Awake()
     {
 
@@ -162,7 +154,6 @@ public class PlayerController_Script : MonoBehaviour
         currentStamina = maxStamina;
         lastKnownPosition = transform.position;
         currentPosition = transform.position;
-        timeToRecover = timeToRecoverStaminaSeconds;
     }
 
     void Update()
@@ -170,12 +161,9 @@ public class PlayerController_Script : MonoBehaviour
         DebugMsg();
         if (!hasDied)
         {
-<<<<<<< HEAD
             StaminaTimer();
             CheckForStaminaUse();
-=======
             StaminaUseDetection();
->>>>>>> 7317298fa9f0bbdfe634229df311eca3450fae1c
             CheckForMovement();
             GroundedChangeCheck();
             CheckForDeath();
@@ -246,13 +234,13 @@ public class PlayerController_Script : MonoBehaviour
         {
             sprintState = 0;
         }
-        
+
         if (UnityEngine.Input.GetButtonUp("Sprint") && !isExhausted && canSprint)
         {
             sprintState = 1;
         }
 
-        if(currentStamina <= 0) // exhaustion
+        if (currentStamina <= 0) // exhaustion
         {
             Debug.Log("Setting Exhaustion!");
             sprintState = 2;
@@ -349,124 +337,118 @@ public class PlayerController_Script : MonoBehaviour
 
     void StaminaManagement()
     {
-        if (!isExhausted && !staminaTimerRunning) StaminaRecovery();
-
-        // Overflow Check over 100
-        if (currentStamina > 100f) 
+        if (currentStamina > 100f) // Overflow Check over 100
         {
             currentStamina = 100f;
         }
 
-        // Overflow Check under 0
-        if (currentStamina < 0) 
+        if (currentStamina < 0) // Overflow Check under 0
         {
             currentStamina = 0;
         }
 
-<<<<<<< HEAD
-        /*
+
         //Release Sprinting Button Check
         if (UnityEngine.Input.GetButtonUp("Sprint") && !staminaTimerRunning && !isExhausted)
         {
             staminaTimer = 0f;
-=======
-        if (canRecoverStamina && currentStamina != 100f)
-        {
-            currentStamina += Time.deltaTime * staminaRefillMultiplier;
->>>>>>> 7317298fa9f0bbdfe634229df311eca3450fae1c
-        }
-        */
 
-        if (isSprinting && currentStamina > 0 && currentStamina != 0)
-        {
-<<<<<<< HEAD
+            if (canRecoverStamina && currentStamina != 100f)
+            {
+                currentStamina += Time.deltaTime * staminaRefillMultiplier;
+            }
+
+            if (isSprinting && currentStamina > 0 && currentStamina != 0)
+            {switch(sprintState) { 
             case 0:
-                
-                if (UnityEngine.Input.GetButton("Sprint") && isMoving && currentStamina > 0)
-                {
-                    StartStaminaTimer(timeToRecover);
-                    currentStamina -= (Time.deltaTime * staminaDepletionMultiplier);
-                    sprintMultiplier = sprintMultiplierValue;
-
-                    if (currentStamina <= 0) // When currentStamina is entirely depleted, exhaustion sets in. The player moves more slowly.
+                    if (UnityEngine.Input.GetButton("Sprint") && isMoving && currentStamina > 0)
                     {
-                        //Setting Exhausted Parameters
-                        currentWalkSpeed = maxWalkSpeed * speedExhaustionMultiplier;
-                        isExhausted = true;
-                        canRecoverStamina = false;
-                        OnPlayerStaminaExhaustion?.Invoke();
-                        sprintState = 1;
+
+                        currentStamina -= (Time.deltaTime * staminaDepletionMultiplier);
+                        sprintMultiplier = sprintMultiplierValue;
+                        if (currentStamina <= 0) // When currentStamina is entirely depleted, exhaustion sets in. The player moves more slowly.
+                        {
+                            //Setting Exhausted Parameters
+                            currentWalkSpeed = maxWalkSpeed * speedExhaustionMultiplier;
+                            OnPlayerStaminaExhaustion?.Invoke();
+                            isExhausted = true;
+                            canRecoverStamina = false;
+                            sprintState = 1;
+                        }
                     }
-                }
-                else
-                {
-                    if(currentStamina < 100f && canRecoverStamina) // Stamina refills at normal rate.
+                    else
                     {
-                        sprintMultiplier = 1f;
+                        //canRecoverStamina = false;
+                        //StaminaTimer(timeToRecoverStaminaSeconds);
+
+                        if (currentStamina < 100f && canRecoverStamina) // Stamina refills at normal rate.
+                        {
+                            sprintMultiplier = 1f;
+                            currentStamina += (Time.deltaTime * staminaRefillMultiplier);
+                        }
                     }
+                    break;
+
+                case 1:
+                    StaminaTimer();
+
+                    if (currentStamina < staminaExhaustionThreshold && canRecoverStamina) //When exhausted, currentStamina refills more slowly
+                    {
+                        currentStamina += (Time.deltaTime * (staminaRefillMultiplier / 1.5f));
+                    }
+
+                    //Resetting, if Stamina refilled to threshold.
+                    if (currentStamina >= staminaExhaustionThreshold)
+                    {
+                        sprintState = 2;
+                    }
+                    break;
+
+                case 2:
+                    Debug.Log("Reset to base Speed");
+                    currentWalkSpeed = maxWalkSpeed;
+                    isExhausted = false;
+                    sprintState = 0;
+                    break;
+
+                    currentStamina -= Time.deltaTime * staminaDepletionMultiplier;
                 }
-                break;
+            }
 
-            case 1:
-                if (!staminaTimerRunning) StartStaminaTimer(timeToRecoverStaminaSeconds * 2f);
-                //Resetting, if Stamina refilled to threshold.
-                break;
+            if (currentStamina <= 0)
+                {
 
-            case 2:
-                OnPlayerStaminaRecovery?.Invoke();
-                Debug.Log("Reset to base Speed");
-                sprintMultiplier = 1f;
-                currentWalkSpeed = maxWalkSpeed;
-                isExhausted = false;
-                timeToRecover = timeToRecoverStaminaSeconds;
-                sprintState = 0;
-                break;
-=======
-            currentStamina -= Time.deltaTime * staminaDepletionMultiplier;
->>>>>>> 7317298fa9f0bbdfe634229df311eca3450fae1c
-        }
+                }
 
-        if(currentStamina <= 0)
-        {
+                if (!canSprint && currentStamina >= staminaExhaustionThreshold)
+                {
+                    canSprint = true;
+                }
+                //+++How can I have a catch-all that starts/ resets the timer anew, each time the stamina meter is used ? +++
+            }
 
         }
 
-        if(!canSprint && currentStamina >= staminaExhaustionThreshold)
-        {
-            canSprint = true;
-        }
-        //+++How can I have a catch-all that starts/ resets the timer anew, each time the stamina meter is used ? +++
-    }
-
-<<<<<<< HEAD
     void StaminaRecovery()
     {
-            currentStamina += (Time.deltaTime * staminaRefillMultiplier);
-        if (isExhausted && currentStamina <= staminaExhaustionThreshold)
-        {
-            sprintState = 2;
-        }
-    }
-
-    void StartStaminaTimer(float timer)
-    {
-        staminaTimer = 0f;
+        Debug.Log(timeToRecover);
+        Debug.Log(recoverStaminaTimer);
         staminaTimerRunning = true;
-        timeToRecover = timer;
+
     }
 
     void StaminaTimer()
     {
         if (staminaTimerRunning)
         {
-            if(staminaTimer < timeToRecover)
-            { 
-                staminaTimer += Time.deltaTime; 
+            if (staminaTimer < timeToRecover)
+            {
+                staminaTimer += Time.deltaTime;
             }
-            if(staminaTimer >= timeToRecover)
+            if (staminaTimer >= timeToRecover)
             {
                 EndStaminaTimer();
-            } 
+            }
         }
 
         /*
@@ -501,7 +483,7 @@ public class PlayerController_Script : MonoBehaviour
             //if(!canRecoverStamina) canRecoverStamina = true;
             //if(staminaTimer != timeToRecover) staminaTimer = timeToRecover;
         }
-       */ 
+       */
     }
 
     void EndStaminaTimer()
@@ -509,14 +491,16 @@ public class PlayerController_Script : MonoBehaviour
         staminaTimerRunning = false;
         //staminaTimer = 0f;
         sprintState = 2;
-=======
+
+    }
+
     void StaminaUseDetection()
-    {   
+    {
         //if the stamina from last frame hasn't changed, stop this frame's iteration of the function.
-        if (staminaLastFrame == currentStamina) return; 
+        if (staminaLastFrame == currentStamina) return;
 
         // If the stamina from last frame is smaller, and currentstamina isn't lower or equal to zero, the stamina is recharging.
-        if (staminaLastFrame < currentStamina && currentStamina != 0 && currentStamina > 0) Debug.Log("Stamina Recharging!"); 
+        if (staminaLastFrame < currentStamina && currentStamina != 0 && currentStamina > 0) Debug.Log("Stamina Recharging!");
 
 
         if (staminaLastFrame > currentStamina) Debug.Log("Stamina is depleting.");
@@ -528,7 +512,7 @@ public class PlayerController_Script : MonoBehaviour
     {
         staminaTimerRunning = true;
         canRecoverStamina = false;
-        
+
         if (recoverStaminaTimer < timeToRecover)
         {
             recoverStaminaTimer += Time.deltaTime;
@@ -541,30 +525,30 @@ public class PlayerController_Script : MonoBehaviour
             recoverStaminaTimer = 0f;
         }
 
->>>>>>> 7317298fa9f0bbdfe634229df311eca3450fae1c
     }
 
-    //IEnumerator StamRecovTimer(float timerSeconds)
-    //{
-    //    Debug.Log("Starting Timer");
-    //    staminaTimerRunning = true;
+    /*
+        //IEnumerator StamRecovTimer(float timerSeconds)
+        //{
+        //    Debug.Log("Starting Timer");
+        //    staminaTimerRunning = true;
 
-    //    yield return new WaitForSeconds(timerSeconds);
+        //    yield return new WaitForSeconds(timerSeconds);
 
-    //    Debug.Log("Timer done");
-    //    sprintState = 3;
-    //    staminaTimerRunning = false;
+        //    Debug.Log("Timer done");
+        //    sprintState = 3;
+        //    staminaTimerRunning = false;
 
-    //    yield break;
+        //    yield break;
 
-    //}
+        //}
+    */
 
     void CalculateSpreadMP()
     {
         spreadMultiplier = Mathf.Clamp(((Mathf.Abs(zAxis)) + (Mathf.Abs(xAxis))), 0, 1) + jumpingSpread;
     }
 
-<<<<<<< HEAD
     void CheckForStaminaUse() // if stamina is used, set stamina recovery timer to zero. Wait until the usage stops and THEN start the timer.
     {
         //if (isExhausted && staminaRecoveryDuration != timeToRecoverStaminaSeconds * 2f)
@@ -588,20 +572,9 @@ public class PlayerController_Script : MonoBehaviour
         {
             Debug.Log("Depleting stamina!");
 
-            if (!staminaTimerRunning)
-            {
-                StartStaminaTimer(timeToRecover);
-            }
-            else
-            {
-                staminaTimer = 0f;
-            }
         }
-        staminaLastFrame = currentStamina;
     }
 
-=======
->>>>>>> 7317298fa9f0bbdfe634229df311eca3450fae1c
     void MoveAndJump()
     {
         //jumping with groundcheck
@@ -618,7 +591,7 @@ public class PlayerController_Script : MonoBehaviour
         {
             currentStamina -= jumpStamCost;
             if (!isExhausted) playerVelocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
-            if(isExhausted) playerVelocity.y = Mathf.Sqrt((jumpHeight * exhaustedJumpHeightMultiplier) * -2f * gravity);
+            if (isExhausted) playerVelocity.y = Mathf.Sqrt((jumpHeight * exhaustedJumpHeightMultiplier) * -2f * gravity);
         }
 
         //normalizing vector movement, so diagonal movement isn't twice as fast.
@@ -640,10 +613,8 @@ public class PlayerController_Script : MonoBehaviour
         //moving
         controller.Move(playerVelocity * Time.deltaTime);
 
-        
+
     }
-
-
 
     private void GroundedChangeCheck()
     {
@@ -703,7 +674,7 @@ public class PlayerController_Script : MonoBehaviour
         //audioInstance.PlayPlayerDeath();
     }
 
-    private void Leaning() //Add camera rotating the opposite direction?
+    private void Leaning() // Add camera rotating the opposite direction?
     {
 
         if (UnityEngine.Input.GetKey(KeyCode.Q) || UnityEngine.Input.GetKey(KeyCode.E))
@@ -740,7 +711,5 @@ public class PlayerController_Script : MonoBehaviour
             leaningPivotPoint.transform.localEulerAngles = new Vector3(0, 0, currentLocalEulerAngleZ);
         }
     }
-
 }
-
-
+    
