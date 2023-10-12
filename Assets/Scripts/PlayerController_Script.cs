@@ -38,7 +38,7 @@ public class PlayerController_Script : MonoBehaviour
 
 
     float playerSpeed;
-    float sprintMultiplier = 1f;
+    float activeSprintMultiplier = 1f;
 
     public float jumpHeight = .0001f;
     public static float xAxis;
@@ -60,7 +60,7 @@ public class PlayerController_Script : MonoBehaviour
 
     [Header("Checkbools")]
     [SerializeField] private bool isGrounded;
-    [SerializeField] public bool hasDied;
+    [SerializeField] public bool playerHasDied;
     [SerializeField] private bool isMoving;
     //[SerializeField] private bool isSprinting;
 
@@ -74,7 +74,7 @@ public class PlayerController_Script : MonoBehaviour
 
         DebugMsg();
 
-        if (!hasDied)
+        if (!playerHasDied)
         {
             GetInput();
             CalculateSpreadMP();
@@ -101,12 +101,12 @@ public class PlayerController_Script : MonoBehaviour
         if (Input.GetButton("Sprint"))
         {
             //isSprinting = true;
-            sprintMultiplier = sprintMultiplierValue;
+            activeSprintMultiplier = sprintMultiplierValue;
         }
         else
         {
             //isSprinting = false;
-            sprintMultiplier = 1f;
+            activeSprintMultiplier = 1f;
         }
     }
 
@@ -143,7 +143,7 @@ public class PlayerController_Script : MonoBehaviour
         }
 
         // playerSpeed is always multiplied by sprintmultiplier
-        playerSpeed = walkingSpeed * sprintMultiplier;
+        playerSpeed = walkingSpeed * activeSprintMultiplier;
 
         //setting up the movement with the playerspeed and correcting for executiontime
         controller.Move((move * playerSpeed) * Time.deltaTime);
@@ -169,9 +169,9 @@ public class PlayerController_Script : MonoBehaviour
 
     public void CheckForDeath()
     {
-        if (!hasDied)
+        if (!playerHasDied)
         {
-            hasDied = true;
+            playerHasDied = true;
             Debug.Log("YOU DIED! GIT GUD!");
             audioInstance.PlayPlayerDeath();
             Destroy(uiCanvas);

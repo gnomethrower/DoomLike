@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 5.588719, g: 3.6092, b: 13.753298, a: 1}
+  m_IndirectSpecularColor: {r: 5.5886083, g: 3.6091542, b: 13.753176, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -54737,7 +54737,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.9416508, g: 0.9528302, b: 0.876424, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -88468,47 +88468,50 @@ MonoBehaviour:
   maxHealth: 100
   currentHealth: 50
   startingGun: 1
+  flashlightIntensity: 0
+  flashLightMaxIntensity: 0
   shotgunSpareAmmo: 30
   shotgunMaxAmmo: 30
   pistolSpareAmmo: 90
   pistolMaxAmmo: 90
   grenadesSpare: 0
   grenadesMax: 0
+  sprintState: 0
   currentWalkSpeed: 5
   maxWalkSpeed: 5
   speedExhaustionMultiplier: 0.5
   sprintMultiplierValue: 2
-  gravity: -35
+  activeSprintMultiplier: 1
+  maxLeanAngleDegrees: 15
+  staminaTimerSec: 0
   currentStamina: 100
   maxStamina: 100
   staminaLastFrame: 0
-  timeToRecoverStaminaSeconds: 2
-  staminaRecoveryDuration: 0
-  staminaTimer: 0
+  staminaTimeToRecover: 2
   staminaDepletionMultiplier: 40
   staminaRefillMultiplier: 15
   staminaExhaustionThreshold: 50
+  canRecoverStamina: 1
+  staminaTimerRunning: 0
+  jumpingSpread: 1
   jumpHeight: 1
-  exhaustedJumpHeightMultiplier: 0.5
+  gravity: -35
+  jumpStamCost: 10
+  playerHasDied: 0
   isGrounded: 0
-  hasDied: 0
   isMoving: 0
   isExhausted: 0
-  leanRotationTarget: 15
-  flashlightIntensity: 0
+  deathScreen: {fileID: 0}
+  uiCanvas: {fileID: 0}
   controller: {fileID: 2671576167779464310}
-  playerVelocity: {x: 0, y: 0, z: 0}
+  viewCamAnim: {fileID: 2671576167812684736}
   groundCheck: {fileID: 2671576168259938234}
   groundCheckSize: 0.4
   groundMask:
     serializedVersion: 2
     m_Bits: 64
-  viewCamAnim: {fileID: 2671576167812684736}
-  deathScreen: {fileID: 0}
   audioInstance: {fileID: 0}
-  uiCanvas: {fileID: 0}
-  flashLightMaxIntensity: 0
-  maxLeanAngleDegrees: 15
+  playerVelocity: {x: 0, y: 0, z: 0}
 --- !u!136 &2671576167779464312
 CapsuleCollider:
   m_ObjectHideFlags: 0

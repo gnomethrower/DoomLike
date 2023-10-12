@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEditor.UIElements;
+using BehaviorDesigner.Runtime.Tasks.Unity.UnityGameObject;
 //+++++++++++++++++++++++++++++++++++
 //TODO Find a way to make the Variables used in UI be pushed by the scripts, so I don't need to update them every frame.
 //+++++++++++++++++++++++++++++++++++
@@ -66,7 +67,6 @@ public class UIDisplay_Script : MonoBehaviour
 
 
         staminaBarSlider = staminaBarSliderObject.GetComponent<Slider>();
-        Debug.Log("Slider is called: " + staminaBarSlider.name);
         staminaBarFillImage = staminaBarFill.GetComponent<Image>();
         healthBar = healthBarObject.GetComponent<Slider>();
 
@@ -80,6 +80,9 @@ public class UIDisplay_Script : MonoBehaviour
 
         PlayerController_Script.OnPlayerStaminaExhaustion += OnStaminaExhaustion;
         PlayerController_Script.OnPlayerStaminaRecovery += OnStaminaRecovery;
+
+        exhaustedStaminaBarColor = new Color(1f, 0.25f, 0f, 1f);
+        freshStaminaBarColor = new Color(.9f, .9f, .9f, 1f);
 
         /* Old Init Code
         weaponHolder = GameObject.Find("WeaponHolder");
@@ -114,26 +117,10 @@ public class UIDisplay_Script : MonoBehaviour
         ammoMagText.text = ammoInMag.ToString();
         ammoSpareText.text = ammoSpare.ToString();
         healthText.text = playerScript.currentHealth.ToString();
-        staminaTimerObject.text = playerScript.staminaTimer.ToString();
+        staminaTimerObject.text = playerScript.staminaTimerSec.ToString();
         CheckSelectedWeapon();
-        //StaminaBarColorChange();
-        /*
-        if (weapSwitchScript.selectedWeapon == 2) //nades
-        {
-            ammoInMag = grenadeScript.bulletsInMag;
-            ammoSpare = playerScript.grenadeSpareAmmo;
-        }
-        if (Input.GetKeyDown(KeyCode.H)) UIAmmoIconCreation();
-        */
     }
-    void StaminaBarColorChange()
-    {
-        if (playerScript.isExhausted && staminaBarFillImage != null && !staminaRedColor)
-        {
-            staminaBarFillImage.color = Color.red;
-        }
-        if (playerScript.isExhausted) staminaBarFillImage.color = Color.white;
-    }
+
     private void OnStaminaExhaustion()
     {
         //Turn stamina bar red if it is white
@@ -141,9 +128,10 @@ public class UIDisplay_Script : MonoBehaviour
         {
             if (staminaBarFillImage != null)
             {
-                Debug.Log("Set red!");
+                //Debug.Log("Set red!");
+                StaminaExhaustionThresholdObject.SetActive(true);
                 staminaRedColor = true;
-                staminaBarFillImage.color = Color.red;
+                staminaBarFillImage.color = exhaustedStaminaBarColor;
             }
         }
     }
@@ -154,13 +142,16 @@ public class UIDisplay_Script : MonoBehaviour
         {
             if (staminaBarFillImage != null)
             {
-                Debug.Log("Set white!");
+                //Debug.Log("Set white!");
                 staminaRedColor = false;
-                staminaBarFillImage.color = Color.white;
+                StaminaExhaustionThresholdObject.SetActive(false);
+                staminaBarFillImage.color = freshStaminaBarColor;
             }
         }
     }
+
     //Ammocounter like https://www.youtube.com/watch?v=3uyolYVsiWc
+
     // I need the following ammoIconStartLocation, ammoIcon, iconOffset, shellIcon, bulletIcon
     //void UIAmmoIconCreation()
     //{

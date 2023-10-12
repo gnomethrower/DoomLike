@@ -29,14 +29,14 @@ public class enemyMeleeScript : MonoBehaviour
 
     void Attack(GameObject attackee)
     {
-        if (attackee.CompareTag("Player") && canAttack && !playerScript.hasDied)
+        if (attackee.CompareTag("Player") && canAttack && !playerScript.playerHasDied)
         {
             playerScript.currentHealth -= damage;
             StartCoroutine(shakingScript.Shaking(.25f, 3f));
 
             audioInstance.PlayEnemyMelee();
             if (playerScript.currentHealth <= 0) playerScript.CheckForDeath();
-            if (playerScript.hasDied) playerScript.currentHealth = 0;
+            if (playerScript.playerHasDied) playerScript.currentHealth = 0;
 
             canAttack = false;
             Invoke("ResetCooldown", atkCoolDown);
