@@ -31,12 +31,17 @@ public class UIDisplay_Script : MonoBehaviour
     public GameObject pistol;
     public GameObject player;
     private GameObject staminaBarSliderObject;
-    private GameObject healthBarObject;
     private Slider staminaBarSlider;
     private GameObject staminaBarFill;
     private Image staminaBarFillImage;
-    private bool staminaRedColor = false;
-    private Slider healthBar;
+    private bool staminaExhaustedColor = false;
+
+    private GameObject healthBarSliderObject;
+    private Slider healthBarSlider;
+    private GameObject healthBarFill;
+    private Image healthBarFillImage;
+    private bool healthCriticalColor = false;
+
     [SerializeField] private GameObject StaminaExhaustionThresholdObject;
     [SerializeField] private Color freshStaminaBarColor;
     [SerializeField] private Color exhaustedStaminaBarColor;
@@ -61,28 +66,43 @@ public class UIDisplay_Script : MonoBehaviour
     {
         staminaTimerObject = GameObject.Find("StamTimerObject").GetComponent<TextMeshProUGUI>();
         staminaBarSliderObject = GameObject.Find("StaminaBar");
-        staminaBarFill = GameObject.Find("Stamina Fill");
-        StaminaExhaustionThresholdObject = GameObject.Find("StaminaExhaustionThreshold");
-        healthBarObject = GameObject.Find("HealthBar");
-
-
+        staminaBarFill = GameObject.Find("StaminaFill");
         staminaBarSlider = staminaBarSliderObject.GetComponent<Slider>();
         staminaBarFillImage = staminaBarFill.GetComponent<Image>();
-        healthBar = healthBarObject.GetComponent<Slider>();
-
-
         staminaBarSlider.maxValue = playerScript.maxStamina;
         staminaBarSlider.value = playerScript.maxStamina;
-        healthBar.maxValue = playerScript.maxHealth;
-        healthBar.value = playerScript.maxHealth;
+        StaminaExhaustionThresholdObject = GameObject.Find("StaminaExhaustionThreshold");
+
+        healthBarSliderObject = GameObject.Find("HealthBar");
+        healthBarFill = GameObject.Find("HealthFill");
+        healthBarSlider = healthBarSliderObject.GetComponent<Slider>();
+        healthBarFillImage = healthBarFill.GetComponent<Image>();
+
+        if (healthBarSliderObject == null) { Debug.Log("No HealthBarSliderObject found!"); }
+        if (healthBarFill == null) { Debug.Log("No healthBarFill found!"); }
+        if (healthBarFillImage == null) { Debug.Log("No healthBarFillImage found!"); }
+
+        healthBarSlider.maxValue = playerScript.maxHealth;
+        healthBarSlider.value = playerScript.maxHealth;
+
+
+        healthBarSlider = healthBarSliderObject.GetComponent<Slider>();
+
+        healthBarSlider.maxValue = playerScript.maxHealth;
+        healthBarSlider.value = playerScript.maxHealth;
 
         StaminaExhaustionThresholdObject.SetActive(false);
 
         PlayerController_Script.OnPlayerStaminaExhaustion += OnStaminaExhaustion;
         PlayerController_Script.OnPlayerStaminaRecovery += OnStaminaRecovery;
+        PlayerController_Script.OnPlayerHealthCritical += OnHealthCritical;
+        PlayerController_Script.OnPlayerHealthRecovered += OnHealthRecovered;
 
-        exhaustedStaminaBarColor = new Color(1f, 0.25f, 0f, 1f);
+        exhaustedStaminaBarColor = new Color(.6f, .5f, .5f, 1f);
         freshStaminaBarColor = new Color(.9f, .9f, .9f, 1f);
+
+        criticalHealthColor = new Color(1f, .35f, 0f, 1f);
+        freshHealthBarColor = new Color(1f, .35f, 0f, 1f);
 
         /* Old Init Code
         weaponHolder = GameObject.Find("WeaponHolder");
@@ -114,6 +134,7 @@ public class UIDisplay_Script : MonoBehaviour
     void Update()
     {
         staminaBarSlider.value = playerScript.currentStamina;
+        healthBarSlider.value = playerScript.currentHealth;
         ammoMagText.text = ammoInMag.ToString();
         ammoSpareText.text = ammoSpare.ToString();
         healthText.text = playerScript.currentHealth.ToString();
@@ -121,29 +142,43 @@ public class UIDisplay_Script : MonoBehaviour
         CheckSelectedWeapon();
     }
 
+    private void OnHealthCritical()
+    {
+        healthBarFillImage.color = criticalHealthColor;
+        
+        //Low-Health Vignette?
+    }
+
+    private void OnHealthRecovered()
+    {
+        healthBarFillImage.color = freshHealthBarColor;
+        //Recovery Effect?
+    }
+
     private void OnStaminaExhaustion()
     {
         //Turn stamina bar red if it is white
-        if (!staminaRedColor)
+        if (!staminaExhaustedColor)
         {
             if (staminaBarFillImage != null)
             {
                 //Debug.Log("Set red!");
                 StaminaExhaustionThresholdObject.SetActive(true);
-                staminaRedColor = true;
+                staminaExhaustedColor = true;
                 staminaBarFillImage.color = exhaustedStaminaBarColor;
             }
         }
     }
+
     private void OnStaminaRecovery()
     {
         //Turn the stamina bar white if it is red
-        if (staminaRedColor)
+        if (staminaExhaustedColor)
         {
             if (staminaBarFillImage != null)
             {
                 //Debug.Log("Set white!");
-                staminaRedColor = false;
+                staminaExhaustedColor = false;
                 StaminaExhaustionThresholdObject.SetActive(false);
                 staminaBarFillImage.color = freshStaminaBarColor;
             }

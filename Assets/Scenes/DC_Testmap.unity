@@ -2098,7 +2098,7 @@ GameObject:
   m_Component:
   - component: {fileID: 83550111}
   m_Layer: 5
-  m_Name: Fill Area
+  m_Name: HealthFill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10627,7 +10627,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &273735723
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11874,7 +11874,7 @@ GameObject:
   - component: {fileID: 378660829}
   - component: {fileID: 378660828}
   m_Layer: 5
-  m_Name: Fill
+  m_Name: HealthFill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -54699,7 +54699,7 @@ GameObject:
   - component: {fileID: 1780564899}
   - component: {fileID: 1780564898}
   m_Layer: 5
-  m_Name: Stamina Fill
+  m_Name: StaminaFill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -67429,7 +67429,7 @@ MonoBehaviour:
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 0}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_PressedColor: {r: 1, g: 0.3420409, b: 0, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -88467,6 +88467,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   currentHealth: 50
+  isHealthCritical: 0
   startingGun: 1
   flashlightIntensity: 0
   flashLightMaxIntensity: 0
@@ -88477,7 +88478,7 @@ MonoBehaviour:
   grenadesSpare: 0
   grenadesMax: 0
   sprintState: 0
-  currentWalkSpeed: 5
+  playerSpeed: 0
   freshWalkSpeed: 5
   exhaustedWalkspeed: 3.5
   sprintMultiplierValue: 2
@@ -88497,12 +88498,10 @@ MonoBehaviour:
   jumpHeight: 1
   gravity: -35
   jumpStamCost: 10
-  playerSpeed: 0
   playerHasDied: 0
   isGrounded: 0
   isMoving: 0
   isExhausted: 0
-  exhaustionStates: 0
   deathScreen: {fileID: 0}
   uiCanvas: {fileID: 0}
   controller: {fileID: 2671576167779464310}

@@ -8,6 +8,8 @@ public class PlayerController_Script : MonoBehaviour
     [Header("Health Settings")]
     public int maxHealth = 100;
     public int currentHealth = 50;
+    private int healthLastFrame = 100;
+    [SerializeField] bool isHealthCritical = false;
 
     [Header("Weapons, Items and Inventory")]
     //Equipped guns
@@ -75,7 +77,6 @@ public class PlayerController_Script : MonoBehaviour
     [SerializeField] public bool isMoving;
     [SerializeField] public bool isExhausted;
 
-    [SerializeField] public int exhaustionStates = 0; // 0 = Fresh; 2 = Exhausted;
 
     //Movement
     private float currentLocalEulerAngleZ;
@@ -107,6 +108,8 @@ public class PlayerController_Script : MonoBehaviour
     public static Action OnPlayerDeath;
     public static Action OnPlayerStaminaExhaustion;
     public static Action OnPlayerStaminaRecovery;
+    public static Action OnPlayerHealthCritical;
+    public static Action OnPlayerHealthRecovered;
     #endregion
 
     private void Awake()
@@ -266,7 +269,6 @@ public class PlayerController_Script : MonoBehaviour
             currentStamina += (Time.deltaTime * (staminaRefillMultiplier));
         }
     }
-
     
     void SetExhaustion() //Called on OnPlayerStaminaExhaustion
     {
@@ -356,6 +358,25 @@ public class PlayerController_Script : MonoBehaviour
         {
             currentHealth = maxHealth;
         }
+    }
+
+    void CheckForHealthChanges() // if stamina is used, set stamina recovery timer to zero. Wait until the usage stops and THEN start the timer.
+    {
+        if (healthLastFrame == currentHealth)
+        {
+            Debug.Log("Health Stable");
+            return;
+        }
+        if (healthLastFrame < currentHealth)
+        {
+            Debug.Log("Health regain!");
+        }
+        if (healthLastFrame > currentHealth)
+        {
+            Debug.Log("Losing Health!");
+            
+        }
+        healthLastFrame = currentHealth;
     }
 
     public void CheckForDeath()
