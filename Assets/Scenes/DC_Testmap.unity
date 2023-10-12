@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 5.5886083, g: 3.6091542, b: 13.753176, a: 1}
+  m_IndirectSpecularColor: {r: 5.588719, g: 3.6092, b: 13.753298, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -88478,8 +88478,8 @@ MonoBehaviour:
   grenadesMax: 0
   sprintState: 0
   currentWalkSpeed: 5
-  maxWalkSpeed: 5
-  speedExhaustionMultiplier: 0.5
+  freshWalkSpeed: 5
+  exhaustedWalkspeed: 3.5
   sprintMultiplierValue: 2
   activeSprintMultiplier: 1
   maxLeanAngleDegrees: 15
@@ -88490,17 +88490,19 @@ MonoBehaviour:
   staminaTimeToRecover: 2
   staminaDepletionMultiplier: 40
   staminaRefillMultiplier: 15
-  staminaExhaustionThreshold: 50
+  staminaExhaustionThreshold: 25
   canRecoverStamina: 1
   staminaTimerRunning: 0
   jumpingSpread: 1
   jumpHeight: 1
   gravity: -35
   jumpStamCost: 10
+  playerSpeed: 0
   playerHasDied: 0
   isGrounded: 0
   isMoving: 0
   isExhausted: 0
+  exhaustionStates: 0
   deathScreen: {fileID: 0}
   uiCanvas: {fileID: 0}
   controller: {fileID: 2671576167779464310}
