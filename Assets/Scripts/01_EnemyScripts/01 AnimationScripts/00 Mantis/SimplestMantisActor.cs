@@ -81,7 +81,7 @@ namespace EightDirectionalSpriteSystem
                     break;
 
                 case State.DIE:
-                    //Debug.Log(newState + " called in Die! Current State is:" + currentActorAnimState);
+                    //Debug.Log(newState + " called in OnPlayerDeath! Current State is:" + currentActorAnimState);
                     currentAnimation = dieAnim;
                     break;
 

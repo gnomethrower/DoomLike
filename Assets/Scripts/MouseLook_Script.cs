@@ -12,7 +12,7 @@ public class MouseLook_Script : MonoBehaviour
 
     private void Start()
     {
-        PlayerController_Script.OnPlayerDeath += HandleOnPlayerDeath;
+        PlayerController_Script.Action_PlayerDeath += HandleOnPlayerDeath;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }

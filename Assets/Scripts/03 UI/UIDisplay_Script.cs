@@ -4,13 +4,11 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEditor.UIElements;
 using BehaviorDesigner.Runtime.Tasks.Unity.UnityGameObject;
-//+++++++++++++++++++++++++++++++++++
-//TODO Find a way to make the Variables used in UI be pushed by the scripts, so I don't need to update them every frame.
-//+++++++++++++++++++++++++++++++++++
+
 public class UIDisplay_Script : MonoBehaviour
 {
     [Header("Text References")]
-    public TextMeshProUGUI ammoMagText, ammoSpareText, healthText, staminaText, staminaTimerObject;
+    public TextMeshProUGUI ammoMagText, ammoSpareText, staminaText, staminaTimerText, healthBarText;
     [Header("Ammo Icon prefabs")]
     public GameObject shellIcon;
     public GameObject bulletIcon;
@@ -20,11 +18,13 @@ public class UIDisplay_Script : MonoBehaviour
     //private int _maxPistolBullets;
     //private int _maxShells;
     //private int _maxGrenades;
+
     private int ammoInMag;
     private int ammoSpare;
     //private int pistolMagFill;
     //private int shotgunMagFill;
     //private int nadeMagFill;
+
     [Header("Object References")]
     public GameObject grenade;
     public GameObject shotgun;
@@ -35,89 +35,96 @@ public class UIDisplay_Script : MonoBehaviour
     private GameObject staminaBarFill;
     private Image staminaBarFillImage;
     private bool staminaExhaustedColor = false;
+    private bool staminaBarActive;
 
     private GameObject healthBarSliderObject;
     private Slider healthBarSlider;
     private GameObject healthBarFill;
     private Image healthBarFillImage;
-    private bool healthCriticalColor = false;
+    private Text healthBarTextObject;
+    private bool debugModeEnabled;
 
     [SerializeField] private GameObject StaminaExhaustionThresholdObject;
     [SerializeField] private Color freshStaminaBarColor;
     [SerializeField] private Color exhaustedStaminaBarColor;
     [SerializeField] private Color freshHealthBarColor;
     [SerializeField] private Color criticalHealthColor;
+
     public Transform ammoIconStartLocationParent;
     public Transform ammoIconStartLocation;
     private GameObject weaponHolder;
-    //[Header("Script References")]
+
+    [Header("Script References")]
     public PlayerController_Script playerScript;
     public WeaponSwitching_Script weapSwitchScript;
     public Pistol_Script pistolScript;
     public Shotgun_Script shotgunScript;
     //private Grenade_Script grenadeScript;
-    // Start is called before the first frame update
+
     void Start()
     {
-        Initialize();
-        //UIAmmoIconCreation();
-    }
-    void Initialize()
-    {
-        staminaTimerObject = GameObject.Find("StamTimerObject").GetComponent<TextMeshProUGUI>();
-        staminaBarSliderObject = GameObject.Find("StaminaBar");
-        staminaBarFill = GameObject.Find("StaminaFill");
-        staminaBarSlider = staminaBarSliderObject.GetComponent<Slider>();
-        staminaBarFillImage = staminaBarFill.GetComponent<Image>();
-        staminaBarSlider.maxValue = playerScript.maxStamina;
-        staminaBarSlider.value = playerScript.maxStamina;
-        StaminaExhaustionThresholdObject = GameObject.Find("StaminaExhaustionThreshold");
-
+        #region Object Initialization
+        //HealthObjects
+        healthBarText = GameObject.Find("healthBarText").GetComponent<TextMeshProUGUI>();
         healthBarSliderObject = GameObject.Find("HealthBar");
         healthBarFill = GameObject.Find("HealthFill");
         healthBarSlider = healthBarSliderObject.GetComponent<Slider>();
         healthBarFillImage = healthBarFill.GetComponent<Image>();
-
-        if (healthBarSliderObject == null) { Debug.Log("No HealthBarSliderObject found!"); }
-        if (healthBarFill == null) { Debug.Log("No healthBarFill found!"); }
-        if (healthBarFillImage == null) { Debug.Log("No healthBarFillImage found!"); }
-
-        healthBarSlider.maxValue = playerScript.maxHealth;
-        healthBarSlider.value = playerScript.maxHealth;
-
-
         healthBarSlider = healthBarSliderObject.GetComponent<Slider>();
 
+        //HealthValues
         healthBarSlider.maxValue = playerScript.maxHealth;
         healthBarSlider.value = playerScript.maxHealth;
 
+        //StaminaObjects
+        staminaTimerText = GameObject.Find("StamTimerObject").GetComponent<TextMeshProUGUI>();
+        staminaBarSliderObject = GameObject.Find("StaminaBar");
+        staminaBarFill = GameObject.Find("StaminaFill");
+        staminaBarSlider = staminaBarSliderObject.GetComponent<Slider>();
+        staminaBarFillImage = staminaBarFill.GetComponent<Image>();
+        StaminaExhaustionThresholdObject = GameObject.Find("StaminaExhaustionThreshold");
+
         StaminaExhaustionThresholdObject.SetActive(false);
+        staminaTimerText.enabled = false;
 
-        PlayerController_Script.OnPlayerStaminaExhaustion += OnStaminaExhaustion;
-        PlayerController_Script.OnPlayerStaminaRecovery += OnStaminaRecovery;
-        PlayerController_Script.OnPlayerHealthCritical += OnHealthCritical;
-        PlayerController_Script.OnPlayerHealthRecovered += OnHealthRecovered;
+        //StaminaValues
+        staminaBarSlider.maxValue = playerScript.maxStamina;
+        staminaBarSlider.value = playerScript.maxStamina;
 
+        //Colors
         exhaustedStaminaBarColor = new Color(.6f, .5f, .5f, 1f);
         freshStaminaBarColor = new Color(.9f, .9f, .9f, 1f);
 
         criticalHealthColor = new Color(1f, .35f, 0f, 1f);
-        freshHealthBarColor = new Color(1f, .35f, 0f, 1f);
+        freshHealthBarColor = new Color(1f, 1f, 1f, 1f);
+        #endregion
 
-        /* Old Init Code
-        weaponHolder = GameObject.Find("WeaponHolder");
-        player = GameObject.FindGameObjectWithTag("Player");
-        pistol = GameObject.FindGameObjectWithTag("Pistol");
-        shotgun = GameObject.FindGameObjectWithTag("Shotgun");
-        //grenade = GameObject.FindGameObjectWithTag("Grenade");
-        Debug.Log(pistol);
-        weapSwitchScript = weaponHolder.GetComponent<WeaponSwitching_Script>();
-        playerScript = player.GetComponent<PlayerController_Script>();
-        pistolScript = pistol.GetComponent<Pistol_Script>(); // +++++++++ nullref here at initialization ! +++++++++ $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-        shotgunScript = shotgun.GetComponent<Shotgun_Script>();
-        //grenadeScript = grenade.GetComponent<Grenade_Script>();
-        */
+        #region event subscription
+        PlayerController_Script.Action_PlayerStaminaExhausted += OnStaminaExhaustion;
+        PlayerController_Script.Action_PlayerStaminaRecovered += OnStaminaRecovery;
+        PlayerController_Script.Action_PlayerHealthCritical += OnHealthCritical;
+        PlayerController_Script.Action_PlayerHealthRecoveredFromCritical += OnHealthRecovered;
+
+        EventManagerMaster.Action_ToggleDebugMode += OnDebugModeToggle;
+        #endregion
+
+        #region checkfornulls
+        if (healthBarSliderObject == null) { Debug.Log("No HealthBarSliderObject found!"); }
+        if (healthBarFill == null) { Debug.Log("No healthBarFill found!"); }
+        if (healthBarFillImage == null) { Debug.Log("No healthBarFillImage found!"); }
+        #endregion
+        
+        //UIAmmoIconCreation();
     }
+
+    void Update()
+    {
+        UIValuesUpdate();
+
+        CheckSelectedWeapon();
+        CheckForStaminaBarVisibility();
+    }
+
     void CheckSelectedWeapon()
     {
         if (weapSwitchScript.selectedWeapon == 0) //pistol
@@ -131,21 +138,22 @@ public class UIDisplay_Script : MonoBehaviour
             ammoSpare = playerScript.shotgunSpareAmmo;
         }
     }
-    void Update()
+
+    private void UIValuesUpdate()
     {
         staminaBarSlider.value = playerScript.currentStamina;
         healthBarSlider.value = playerScript.currentHealth;
+
         ammoMagText.text = ammoInMag.ToString();
         ammoSpareText.text = ammoSpare.ToString();
-        healthText.text = playerScript.currentHealth.ToString();
-        staminaTimerObject.text = playerScript.staminaTimerSec.ToString();
-        CheckSelectedWeapon();
+
+        healthBarText.text = playerScript.currentHealth.ToString();
+        if (staminaTimerText == enabled) staminaTimerText.text = playerScript.staminaTimerSec.ToString();
     }
 
     private void OnHealthCritical()
     {
         healthBarFillImage.color = criticalHealthColor;
-        
         //Low-Health Vignette?
     }
 
@@ -170,6 +178,20 @@ public class UIDisplay_Script : MonoBehaviour
         }
     }
 
+    private void CheckForStaminaBarVisibility()
+    {
+        if (playerScript.currentStamina <= 0 && staminaBarActive)
+        {
+            staminaBarFill.SetActive(false);
+            staminaBarActive = false;
+        }
+        if (playerScript.currentStamina > 0)
+        {
+            staminaBarFill.SetActive(true);
+            staminaBarActive = true;
+        }
+    }
+
     private void OnStaminaRecovery()
     {
         //Turn the stamina bar white if it is red
@@ -177,12 +199,16 @@ public class UIDisplay_Script : MonoBehaviour
         {
             if (staminaBarFillImage != null)
             {
-                //Debug.Log("Set white!");
                 staminaExhaustedColor = false;
                 StaminaExhaustionThresholdObject.SetActive(false);
                 staminaBarFillImage.color = freshStaminaBarColor;
             }
         }
+    }
+
+    private void OnDebugModeToggle()
+    {
+        staminaTimerText.enabled = !staminaTimerText.enabled;
     }
 
     //Ammocounter like https://www.youtube.com/watch?v=3uyolYVsiWc

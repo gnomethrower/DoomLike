@@ -1,3 +1,4 @@
+using BehaviorDesigner.Runtime.Tasks.Unity.UnityInput;
 using BehaviorDesigner.Runtime.Tasks.Unity.UnityQuaternion;
 using System;
 using UnityEngine;
@@ -8,8 +9,9 @@ public class PlayerController_Script : MonoBehaviour
     [Header("Health Settings")]
     public int maxHealth = 100;
     public int currentHealth = 50;
+    public int criticalHealthThreshold = 25;
     private int healthLastFrame = 100;
-    [SerializeField] bool isHealthCritical = false;
+    [SerializeField] bool healthCritical = false;
 
     [Header("Weapons, Items and Inventory")]
     //Equipped guns
@@ -52,6 +54,8 @@ public class PlayerController_Script : MonoBehaviour
     public float maxStamina = 100f;
     public float staminaLastFrame;
     [SerializeField] private float staminaTimeToRecover = 2f;
+    [SerializeField] private float staminaRecTimeFresh = 2f;
+    [SerializeField] private float staminaRecTimeExhausted = 2f;
     [SerializeField] private float staminaDepletionMultiplier;
     [SerializeField] private float staminaRefillMultiplier;
     [SerializeField] private float staminaExhaustionThreshold;
@@ -70,9 +74,11 @@ public class PlayerController_Script : MonoBehaviour
     public static float zAxis;
     public static float spreadMultiplier;
 
-    Collider playerCollider;
+
     [Header("Checkbools")]
     public bool playerHasDied;
+    private bool debugModeActive = false;
+
     [SerializeField] public bool isGrounded;
     [SerializeField] public bool isMoving;
     [SerializeField] public bool isExhausted;
@@ -94,9 +100,11 @@ public class PlayerController_Script : MonoBehaviour
     public Transform groundCheck;
     public float groundCheckSize = 0.5f;
     public LayerMask groundMask;
+    private Collider playerCollider;
+
 
     //Scripts
-    GameEventManager gameEventManagerScript;
+    GameHandler gameEventManagerScript;
     public AudioController_Script audioInstance;
 
     public Vector3 playerVelocity;
@@ -105,17 +113,36 @@ public class PlayerController_Script : MonoBehaviour
     #endregion
 
     #region Events
-    public static Action OnPlayerDeath;
-    public static Action OnPlayerStaminaExhaustion;
-    public static Action OnPlayerStaminaRecovery;
-    public static Action OnPlayerHealthCritical;
-    public static Action OnPlayerHealthRecovered;
+    public static Action Action_PlayerDeath;
+    public static Action Action_PlayerStaminaExhausted;
+    public static Action Action_PlayerStaminaRecovered;
+    public static Action Action_PlayerHealthCritical;
+    public static Action Action_PlayerHealthRecoveredFromCritical;
     #endregion
 
     private void Awake()
     {
-        Initialize();
+        flashLightObject = GameObject.Find("FlashLight");
+        flashLightSpotlight = flashLightObject.GetComponent<Light>();
+        if (flashLightSpotlight == null) { Debug.Log("noFlashlight!"); }
+        deathScreen = GameObject.Find("DeathScreen");
+        playerCollider = this.GetComponent<Collider>();
+        leaningPivotPoint = GameObject.Find("LeaningPivotPoint");
+        if (leaningPivotPoint == null) { Debug.Log("We have no leaningPivotPoint"); }
 
+        gameEventManagerScript = GameObject.Find("GameHandler").GetComponent<GameHandler>();
+
+        currentStamina = maxStamina;
+        lastKnownPosition = transform.position;
+        currentPosition = transform.position;
+
+        Action_PlayerStaminaExhausted += OnPlayerStaminaExhasted;
+        Action_PlayerStaminaRecovered += OnPlayerStaminaRecovered;
+        Action_PlayerDeath += OnPlayerDeath;
+        Action_PlayerHealthCritical += OnPlayerHealthCritical;
+        Action_PlayerHealthRecoveredFromCritical += OnPlayerHealthRecoveredFromCritical;
+
+        EventManagerMaster.Action_ToggleDebugMode += OnToggleDebugMode;
     }
 
     private void Start()
@@ -125,13 +152,18 @@ public class PlayerController_Script : MonoBehaviour
 
     void Update()
     {
-        DebugMsg();
+        if (debugModeActive)
+        {
+            DebugMsg();
+            DebugFunctions();
+        }
+
         if (!playerHasDied)
         {
             StaminaTimer();
-            CheckForStaminaUse();
+            CheckForHealthChanges();
+            CheckForStaminaChanges();
             CheckForMovement();
-            CheckForDeath();
             GetInput();
             Flashlight();
             CalculateSpreadMP();
@@ -144,28 +176,10 @@ public class PlayerController_Script : MonoBehaviour
         //Player Gravity Calculation
         if (!isGrounded) playerVelocity.y += gravity * Time.deltaTime;
     }
+
     void DebugMsg()
     {
 
-    }
-
-    void Initialize()
-    {
-        flashLightObject = GameObject.Find("FlashLight");
-        flashLightSpotlight = flashLightObject.GetComponent<Light>();
-        if (flashLightSpotlight == null) { Debug.Log("noFlashlight!"); }
-        deathScreen = GameObject.Find("DeathScreen");
-        gameEventManagerScript = GameObject.Find("GameEventManager").GetComponent<GameEventManager>();
-        playerCollider = this.GetComponent<Collider>();
-        leaningPivotPoint = GameObject.Find("LeaningPivotPoint");
-        if (leaningPivotPoint == null) { Debug.Log("We have no leaningPivotPoint"); }
-
-        currentStamina = maxStamina;
-        lastKnownPosition = transform.position;
-        currentPosition = transform.position;
-
-        OnPlayerStaminaExhaustion += SetExhaustion;
-        OnPlayerStaminaRecovery += RemoveExhaustion;
     }
 
     void GetInput()
@@ -221,7 +235,7 @@ public class PlayerController_Script : MonoBehaviour
         // When currentStamina is entirely depleted, exhaustion sets in. The player moves more slowly.
         if (!isExhausted && currentStamina <= 0) 
         {
-            OnPlayerStaminaExhaustion?.Invoke();
+            Action_PlayerStaminaExhausted?.Invoke();
         }
 
         switch (sprintState) //0: fresh;   1: exhausted;   2: reset to fresh
@@ -229,7 +243,7 @@ public class PlayerController_Script : MonoBehaviour
             case 0:
                 if (UnityEngine.Input.GetButton("Sprint") && isMoving && currentStamina > 0 && !isExhausted)
                 {
-                    if(!staminaTimerRunning) StartStaminaTimer(staminaTimeToRecover);
+                    if(!staminaTimerRunning) StartStaminaTimer(staminaRecTimeFresh);
                     currentStamina -= (Time.deltaTime * staminaDepletionMultiplier);
                     activeSprintMultiplier = sprintMultiplierValue;
                 } else
@@ -246,7 +260,7 @@ public class PlayerController_Script : MonoBehaviour
                 break;
 
             case 2:
-                OnPlayerStaminaRecovery?.Invoke();
+                Action_PlayerStaminaRecovered?.Invoke();
                 break;
         }
     }
@@ -270,16 +284,16 @@ public class PlayerController_Script : MonoBehaviour
         }
     }
     
-    void SetExhaustion() //Called on OnPlayerStaminaExhaustion
+    void OnPlayerStaminaExhasted() //Called on Action_PlayerStaminaExhausted
     {
         activeSprintMultiplier = 1f;
         isExhausted = true;
         currentWalkSpeed = exhaustedWalkspeed;
         sprintState = 1;
-        StartStaminaTimer(staminaTimeToRecover * 2f);
+        StartStaminaTimer(staminaRecTimeExhausted);
     }
 
-    void RemoveExhaustion()//Called by OnPlayerStaminaRecovery
+    void OnPlayerStaminaRecovered()//Called by Action_PlayerStaminaRecovered
     {
         isExhausted = false;
         currentWalkSpeed = freshWalkSpeed;
@@ -312,14 +326,14 @@ public class PlayerController_Script : MonoBehaviour
 
     void EndStaminaTimer()
     {
-        staminaTimeToRecover = 2f;
+        if(!isExhausted)staminaTimeToRecover = staminaRecTimeFresh;
+        if (isExhausted) staminaTimeToRecover = staminaRecTimeExhausted;
         staminaTimerSec = 0f;
         staminaTimerRunning = false;
         canRecoverStamina = true;
-
     }
 
-    void CheckForStaminaUse() // if stamina is used, set stamina recovery timer to zero. Wait until the usage stops and THEN start the timer.
+    void CheckForStaminaChanges() // if stamina is used, set stamina recovery timer to zero. Wait until the usage stops and THEN start the timer.
     {
         if (staminaLastFrame == currentStamina)
         {
@@ -334,7 +348,7 @@ public class PlayerController_Script : MonoBehaviour
             //Debug.Log("Depleting stamina!");
             if (!staminaTimerRunning)
             {
-                StartStaminaTimer(staminaTimeToRecover);
+                StartStaminaTimer(staminaRecTimeFresh);
             }
             else
             {
@@ -360,43 +374,59 @@ public class PlayerController_Script : MonoBehaviour
         }
     }
 
-    void CheckForHealthChanges() // if stamina is used, set stamina recovery timer to zero. Wait until the usage stops and THEN start the timer.
+    void CheckForHealthChanges()
     {
-        if (healthLastFrame == currentHealth)
+        // Function is checking if we lost or gained health compared to last frame.
+
+        if (healthLastFrame == currentHealth) // serves as a gate to the rest of the function - we don't need to check the rest if the health hasn't changed.
         {
-            Debug.Log("Health Stable");
             return;
         }
-        if (healthLastFrame < currentHealth)
+
+        if (healthLastFrame < currentHealth) // Gaining Health
         {
-            Debug.Log("Health regain!");
+            if (healthCritical && currentHealth > criticalHealthThreshold)
+            {
+                Action_PlayerHealthRecoveredFromCritical?.Invoke();
+            }
         }
-        if (healthLastFrame > currentHealth)
+
+        if (healthLastFrame > currentHealth) // Losing Health
+        {            
+            if (currentHealth <= 0)
+            {
+                if (Action_PlayerDeath == null)
+                {
+                    Debug.Log("OnPlayerDeath Action not found!");
+                }
+                else
+                {
+                    Action_PlayerDeath?.Invoke();
+                }
+            }
+        }
+
+        if (!healthCritical && currentHealth <= criticalHealthThreshold)
         {
-            Debug.Log("Losing Health!");
-            
+            Action_PlayerHealthCritical?.Invoke();
         }
+
         healthLastFrame = currentHealth;
     }
 
-    public void CheckForDeath()
+    private void OnPlayerHealthCritical()
     {
-        if (currentHealth <= 0)
-        {
-            if (OnPlayerDeath == null)
-            {
-                Debug.Log("OnPlayerDeath Action not found!");
-            }
-            else
-            {
-                DieFunctions();
-                OnPlayerDeath?.Invoke();
-            }
-        }
+        healthCritical = true;
     }
 
-    private void DieFunctions()
+    private void OnPlayerHealthRecoveredFromCritical()
     {
+        healthCritical = false;
+    }
+
+    private void OnPlayerDeath()
+    {
+
         playerHasDied = true;
         playerCollider.enabled = false;
         //audioInstance.PlayPlayerDeath();
@@ -477,5 +507,19 @@ public class PlayerController_Script : MonoBehaviour
         controller.Move((move * playerSpeed) * Time.deltaTime);
 
         controller.Move(playerVelocity * Time.deltaTime);
+    }
+
+    void DebugFunctions()
+    {
+        if (UnityEngine.Input.GetKeyDown(KeyCode.PageDown))
+        {
+            currentHealth -= 20;
+            //Debug.Log("Damage");
+        }
+    }
+
+    private void OnToggleDebugMode()
+    {
+        debugModeActive = !debugModeActive;
     }
 }

@@ -184,7 +184,7 @@ public class BasicMantisClass : MonoBehaviour
         #endregion
 
         #region Event Subscriptions
-        PlayerController_Script.OnPlayerDeath += HandleOnPlayerDeath; //If OnPlayerDeath Action happens in PlayerController_Script, execute HandleOnPlayerDeath method.
+        PlayerController_Script.Action_PlayerDeath += HandleOnPlayerDeath; //If Action_PlayerDeath Action happens in PlayerController_Script, execute HandleOnPlayerDeath method.
         #endregion
     }
     private void Start()
@@ -601,7 +601,7 @@ public class BasicMantisClass : MonoBehaviour
     #region Event Methods
     private void HandleOnPlayerDeath()
     {
-        PlayerController_Script.OnPlayerDeath -= HandleOnPlayerDeath;
+        PlayerController_Script.Action_PlayerDeath -= HandleOnPlayerDeath;
         Debug.Log("Mantis is handling Player death!");
         canChase = false;
         CanMeleeAttack = false;
