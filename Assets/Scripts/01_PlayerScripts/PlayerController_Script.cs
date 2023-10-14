@@ -1,11 +1,13 @@
 using BehaviorDesigner.Runtime.Tasks.Unity.UnityInput;
 using BehaviorDesigner.Runtime.Tasks.Unity.UnityQuaternion;
 using System;
+using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 using UnityEngine.Windows;
 public class PlayerController_Script : MonoBehaviour
 {
-    #region Change in Inspector
     [Header("Health Settings")]
     public int maxHealth = 100;
     public int currentHealth = 50;
@@ -13,22 +15,16 @@ public class PlayerController_Script : MonoBehaviour
     private int healthLastFrame = 100;
     [SerializeField] bool healthCritical = false;
 
-    [Header("Weapons, Items and Inventory")]
+    [Header("Weapons")]
     //Equipped guns
     public StartingGun startingGun;
     public enum StartingGun { Pistol, Shotgun }
-    
-    //Flashlight
+
+    [Header("Flashlight")]
     [SerializeField] private int flashlightIntensity;
     [Tooltip("a value between 40000 and 80000 works well.")]
     [SerializeField] private int flashLightMaxIntensity;
     private int flashLightMode = 0;
-    /* Got Gun Bools
-    //[Header("Got Gun Bools")]
-    //public bool gotShotgun;
-    //public bool gotPistol;
-    //public bool gotGrenade;
-    */
 
     [Header("Ammo")]
     public int shotgunSpareAmmo;
@@ -47,6 +43,12 @@ public class PlayerController_Script : MonoBehaviour
     [SerializeField] private float sprintMultiplierValue = 2f;
     [SerializeField] private float activeSprintMultiplier = 1f;
     [SerializeField] private float maxLeanAngleDegrees;
+    public Vector3 playerVelocity;
+    private Vector3 lastKnownPosition;
+    private Vector3 currentPosition;
+    private float currentLocalEulerAngleZ;
+    private float targetLocalEulerAngleZ;
+    private int leanDirection; // 0: none, 1: left, 2: right
 
     [Header("Stamina")]
     public float staminaTimerSec;
@@ -67,74 +69,82 @@ public class PlayerController_Script : MonoBehaviour
     [SerializeField] private float jumpHeight = 1f;
     [SerializeField] private float gravity = -12f;
     [SerializeField] private float jumpStamCost = 10f;
-    #endregion
-
-    private float exhaustedJumpHeightMultiplier = 0.5f;
     public static float xAxis;
     public static float zAxis;
     public static float spreadMultiplier;
+    private float exhaustedJumpHeightMultiplier = 0.5f;
 
+    [Header("Crouching")]
+    [SerializeField] private AnimationCurve couchAnimCurve;
+    [SerializeField] private bool isCrouching = false;
+    [SerializeField] private bool canCrouch = true;
+    [SerializeField] private float standingHeight = 1.75f;
+    [SerializeField] private float crouchingHeight = 1f;
+    [SerializeField] private Vector3 standingCenterPoint = new Vector3(0f, .75f, 0f);
+    [SerializeField] private Vector3 crouchingCenterPoint = new Vector3(0f, .75f, 0f);
+    [SerializeField] private float timeToCrouch = 1f;
+    private bool inCrouchingAnimation = false;
+
+    [Header("Controls")]
+    [SerializeField] private KeyCode crouchKey = KeyCode.LeftControl;
+    [SerializeField] private KeyCode jumpKey = KeyCode.Space;
+    [SerializeField] private KeyCode sprintKey = KeyCode.LeftShift;
+    [SerializeField] private KeyCode leanLeftKey = KeyCode.Q;
+    [SerializeField] private KeyCode leanRightKey = KeyCode.E;
+    [SerializeField] private KeyCode flashLightKey = KeyCode.F;
 
     [Header("Checkbools")]
-    public bool playerHasDied;
-    private bool debugModeActive = false;
-
     [SerializeField] public bool isGrounded;
     [SerializeField] public bool isMoving;
     [SerializeField] public bool isExhausted;
+    public bool playerHasDied;
+    private bool debugModeActive = false;
 
-
-    //Movement
-    private float currentLocalEulerAngleZ;
-    private float targetLocalEulerAngleZ;
-    private int leanDirection; // 0: none, 1: left, 2: right
-
-    #region References
+    [Header("Object References")]
     private GameObject leaningPivotPoint;
     public GameObject deathScreen;
     public GameObject uiCanvas;
     private GameObject flashLightObject;
     private Light flashLightSpotlight;
-    public CharacterController controller;
+    public CharacterController playerController;
     public Animator viewCamAnim;
-    public Transform groundCheck;
-    public float groundCheckSize = 0.5f;
-    public LayerMask groundMask;
+    //public Transform groundCheck;
+    //public float groundCheckSize = 0.5f;
+    //public LayerMask groundMask;
     private Collider playerCollider;
-
-
-    //Scripts
-    GameHandler gameEventManagerScript;
+    private CapsuleCollider playerCapsuleCollider;
+    private GameHandler gameEventManagerScript;
     public AudioController_Script audioInstance;
 
-    public Vector3 playerVelocity;
-    private Vector3 lastKnownPosition;
-    private Vector3 currentPosition;
-    #endregion
-
-    #region Events
+    [Header("Events")]
     public static Action Action_PlayerDeath;
     public static Action Action_PlayerStaminaExhausted;
     public static Action Action_PlayerStaminaRecovered;
     public static Action Action_PlayerHealthCritical;
     public static Action Action_PlayerHealthRecoveredFromCritical;
-    #endregion
+
+    //Lambda Bools
+    private bool ShouldCrouch => UnityEngine.Input.GetKeyDown(crouchKey) && canCrouch && playerController.isGrounded;    //A bool with a prerequisite attached to it. After the "=>" (Lambda Expression), the conditions are shown that need to be fulfilled in order for this bool to be positive;
+    private bool ShouldJump => UnityEngine.Input.GetKeyDown(jumpKey) && playerController.isGrounded && !isCrouching;
 
     private void Awake()
     {
         flashLightObject = GameObject.Find("FlashLight");
         flashLightSpotlight = flashLightObject.GetComponent<Light>();
-        if (flashLightSpotlight == null) { Debug.Log("noFlashlight!"); }
+        
         deathScreen = GameObject.Find("DeathScreen");
         playerCollider = this.GetComponent<Collider>();
+        playerCapsuleCollider = this.GetComponent <CapsuleCollider>();
         leaningPivotPoint = GameObject.Find("LeaningPivotPoint");
-        if (leaningPivotPoint == null) { Debug.Log("We have no leaningPivotPoint"); }
+        playerController = this.GetComponent<CharacterController>();
 
         gameEventManagerScript = GameObject.Find("GameHandler").GetComponent<GameHandler>();
 
         currentStamina = maxStamina;
         lastKnownPosition = transform.position;
         currentPosition = transform.position;
+        standingHeight = playerController.height;
+        standingCenterPoint = playerController.center;
 
         Action_PlayerStaminaExhausted += OnPlayerStaminaExhasted;
         Action_PlayerStaminaRecovered += OnPlayerStaminaRecovered;
@@ -143,6 +153,12 @@ public class PlayerController_Script : MonoBehaviour
         Action_PlayerHealthRecoveredFromCritical += OnPlayerHealthRecoveredFromCritical;
 
         EventManagerMaster.Action_ToggleDebugMode += OnToggleDebugMode;
+
+        #region nullchecks
+        //if (deathScreen == null) Debug.Log("No deathScreen!");
+        if (flashLightSpotlight == null) Debug.Log("noFlashlight!"); 
+        if (leaningPivotPoint == null) Debug.Log("We have no leaningPivotPoint");
+        #endregion
     }
 
     private void Start()
@@ -187,13 +203,16 @@ public class PlayerController_Script : MonoBehaviour
         xAxis = UnityEngine.Input.GetAxis("Horizontal");
         zAxis = UnityEngine.Input.GetAxis("Vertical");
         Sprinting();
-        // Updating Rotation
         Leaning();
+        if (canCrouch)
+        {
+            HandleCrouching();
+        }
     }
 
     void Flashlight()
     {
-        if (UnityEngine.Input.GetKeyDown(KeyCode.F))
+        if (UnityEngine.Input.GetKeyDown(flashLightKey))
         {
             flashLightMode++;
             if (flashLightMode > 2) { flashLightMode = 0; }
@@ -241,7 +260,7 @@ public class PlayerController_Script : MonoBehaviour
         switch (sprintState) //0: fresh;   1: exhausted;   2: reset to fresh
         {
             case 0:
-                if (UnityEngine.Input.GetButton("Sprint") && isMoving && currentStamina > 0 && !isExhausted)
+                if (UnityEngine.Input.GetKey(sprintKey) && isMoving && currentStamina > 0 && !isExhausted)
                 {
                     if(!staminaTimerRunning) StartStaminaTimer(staminaRecTimeFresh);
                     currentStamina -= (Time.deltaTime * staminaDepletionMultiplier);
@@ -378,7 +397,7 @@ public class PlayerController_Script : MonoBehaviour
     {
         // Function is checking if we lost or gained health compared to last frame.
 
-        if (healthLastFrame == currentHealth) // serves as a gate to the rest of the function - we don't need to check the rest if the health hasn't changed.
+        if (healthLastFrame == currentHealth) // serves as a gate to the rest of the function - we don'crouchTime need to check the rest if the health hasn'crouchTime changed.
         {
             return;
         }
@@ -434,14 +453,14 @@ public class PlayerController_Script : MonoBehaviour
 
     private void Leaning()
     {
-        if (UnityEngine.Input.GetKey(KeyCode.Q) || UnityEngine.Input.GetKey(KeyCode.E))
+        if (UnityEngine.Input.GetKey(leanLeftKey) || UnityEngine.Input.GetKey(leanRightKey))
         {
-            if (UnityEngine.Input.GetKey(KeyCode.Q))
+            if (UnityEngine.Input.GetKey(leanLeftKey))
             {
                 leanDirection = 1;
             }
             else
-            if (UnityEngine.Input.GetKey(KeyCode.E))
+            if (UnityEngine.Input.GetKey(leanRightKey))
             {
                 leanDirection = 2;
             }
@@ -468,32 +487,32 @@ public class PlayerController_Script : MonoBehaviour
         }
     }
 
-    void CalculateSpreadMP()
+    private void CalculateSpreadMP()
     {
         spreadMultiplier = Mathf.Clamp(((Mathf.Abs(zAxis)) + (Mathf.Abs(xAxis))), 0, 1) + jumpingSpread;
     }
 
-    void MoveAndJump()
+    private void MoveAndJump()
     {
         //jumping with groundcheck
-        isGrounded = Physics.CheckBox(groundCheck.position, new Vector3(groundCheckSize, groundCheckSize, groundCheckSize), groundCheck.transform.rotation, groundMask);
+        //isGrounded = Physics.CheckBox(groundCheck.position, new Vector3(groundCheckSize, groundCheckSize, groundCheckSize), groundCheck.transform.rotation, groundMask);
 
-        if (isGrounded) jumpingSpread = 1f;
+        if (playerController.isGrounded) jumpingSpread = 1f;
         else jumpingSpread = 3f;
 
-        if (isGrounded && playerVelocity.y < 0)
+        if (playerController.isGrounded && playerVelocity.y < 0)
         {
             playerVelocity.y = -2f;
         }
 
-        if (UnityEngine.Input.GetButtonDown("Jump") && isGrounded)
+        if (ShouldJump)
         {
             currentStamina -= jumpStamCost;
             if (!isExhausted) playerVelocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
             if (isExhausted) playerVelocity.y = Mathf.Sqrt((jumpHeight * exhaustedJumpHeightMultiplier) * -2f * gravity);
         }
 
-        //normalizing vector movement, so diagonal movement isn't twice as fast.
+        //normalizing vector movement, so diagonal movement isn'crouchTime twice as fast.
         Vector3 move = transform.right * xAxis + transform.forward * zAxis;
         if (move.magnitude > 1)
         {
@@ -504,12 +523,12 @@ public class PlayerController_Script : MonoBehaviour
         playerSpeed = currentWalkSpeed * activeSprintMultiplier;
 
         //setting up the movement with the playerspeed and correcting for executiontime
-        controller.Move((move * playerSpeed) * Time.deltaTime);
+        playerController.Move((move * playerSpeed) * Time.deltaTime);
 
-        controller.Move(playerVelocity * Time.deltaTime);
+        playerController.Move(playerVelocity * Time.deltaTime);
     }
 
-    void DebugFunctions()
+    private void DebugFunctions()
     {
         if (UnityEngine.Input.GetKeyDown(KeyCode.PageDown))
         {
@@ -521,5 +540,47 @@ public class PlayerController_Script : MonoBehaviour
     private void OnToggleDebugMode()
     {
         debugModeActive = !debugModeActive;
+    }
+
+    private void HandleCrouching() // this function only gets called when the shouldcrouch is set to true
+    {
+        if (ShouldCrouch) StartCoroutine(CrouchStand());
+    }
+
+    private IEnumerator CrouchStand()
+    {
+        inCrouchingAnimation = true;
+
+        //declaring local vars
+        float timeElapsed = 0f;
+        float targetHeight = isCrouching ? standingHeight : crouchingHeight;
+        float currentHeight = playerController.height;
+        Vector3 targetCenterPoint = isCrouching ? standingCenterPoint : crouchingCenterPoint;
+        Vector3 currentCenterPoint = playerController.center;
+
+
+        while (timeElapsed < timeToCrouch)
+        {
+            float crouchTime = timeElapsed / timeToCrouch;
+            crouchTime = couchAnimCurve.Evaluate(crouchTime);
+
+            playerController.height = Mathf.Lerp(currentHeight, targetHeight, crouchTime);
+            playerCapsuleCollider.height = Mathf.Lerp(currentHeight, targetHeight, crouchTime);
+
+            playerController.center = Vector3.Lerp(currentCenterPoint, targetCenterPoint, crouchTime);
+            playerCapsuleCollider.center = Vector3.Lerp(currentCenterPoint, targetCenterPoint, crouchTime);
+
+            timeElapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        playerController.height = targetHeight;
+        playerCapsuleCollider.height = targetHeight;
+        playerController.center = targetCenterPoint;
+        playerCapsuleCollider.center = targetCenterPoint;
+
+        isCrouching = !isCrouching;
+
+        inCrouchingAnimation = false;
     }
 }

@@ -8,27 +8,27 @@ using UnityEngine.UI;
 
 public class Shotgun_Script : MonoBehaviour
 {
-
-
-    #region Settings
+    [Header("Ammo")]
     public int bulletsInMag;
     public int magSize;
 
+    [Header("Recoil")]
     public float recoilX, recoilY, recoilZ;
     public float adsMultiplier = .5f;
     float recoilADS = 1f;
 
+    [Header("Damage, Spread and Projectiles")]
     public int pelletNumber;
     public float pelletSpread;
     public float pelletDamage;
     public int range;
 
+    [Header("Timing")]
     public float shotDelay;
     public float pumpDuration;
     public float reloadShellTime;
-    #endregion
 
-    #region Control Bools
+    [Header("Checkbools")]
     public bool isShooting = false;
     public bool chamberedRound = true;
     public bool spentShellChambered = false;
@@ -36,16 +36,18 @@ public class Shotgun_Script : MonoBehaviour
     public bool isPumping = false;
     public bool isReloading = false;
     bool isADS = false;
-    #endregion
 
-    #region References
+    [Header("Script References")]
     public static Shotgun_Script instance;
+    public ShakeRecoil_Script camShakeRecoil;
+    public AudioController_Script audioInstance;
+    PlayerController_Script playerScript;
+
+    [Header("Object References")]
     public Image uiShell;
     public Camera playerCam;
     public Animator sgAnimator;
     public Animator sgUIShell;
-    public ShakeRecoil_Script camShakeRecoil;
-    public AudioController_Script audioInstance;
     public AnimationEvent shotgunAnimSounds;
     public ParticleSystem shellParticle;
     [SerializeField] private GameObject _bloodSplatterPrefab;
@@ -53,33 +55,20 @@ public class Shotgun_Script : MonoBehaviour
     public GameObject reticle;
     Image reticleImage;
     public Transform gunMuzzle;
-
-
     private GameObject muzzleFlashPositionObject;
     private Vector3 muzzleSmokePosADS;
     private Vector3 muzzleSmokePosHipfire;
-
     private Vector3 muzzleFlashPositionADS;
     private Vector3 muzzleFlashPosHipfire;
-
     private GameObject muzzleLightObject;
     private ParticleSystem muzzleLightParticleSystem;
     private GameObject muzzleSmokeObject;
     private ParticleSystem muzzleSmokeParticleSystem;
-    #endregion
-
-
-
-    PlayerController_Script playerScript;
     public LayerMask ground, enemy;
 
     private void Awake()
     {
         gunMuzzle = GameObject.Find("GunMuzzle").GetComponent<Transform>();
-    }
-
-    private void Start()
-    {
         GameObject PlayerController = GameObject.FindGameObjectWithTag("Player");
         playerScript = PlayerController.GetComponent<PlayerController_Script>();
 
@@ -93,6 +82,10 @@ public class Shotgun_Script : MonoBehaviour
         enemy = LayerMask.GetMask("Enemy");
 
         InitializeMuzzleEffects();
+    }
+
+    private void Start()
+    {
 
     }
 
@@ -116,7 +109,7 @@ public class Shotgun_Script : MonoBehaviour
     void Update()
     {
         #region debug
-        Debug.DrawRay(gunMuzzle.transform.position, gunMuzzle.forward, Color.blue, 1f, depthTest: false);
+        //Debug.DrawRay(gunMuzzle.transform.position, gunMuzzle.forward, Color.blue, 1f, depthTest: false);
         #endregion
 
         GetInput();
@@ -272,7 +265,6 @@ public class Shotgun_Script : MonoBehaviour
                 recoilADS = adsMultiplier;
                 Invoke("ReticleToggle", .2f);
                 ToggleMuzzlePosition();
-
             }
             else if (isADS) // going into Hipfire
             {
@@ -288,8 +280,8 @@ public class Shotgun_Script : MonoBehaviour
 
     void ReticleToggle()
     {
-        if (isADS) reticleImage.enabled = false;
-        else reticleImage.enabled = true;
+        //if (isADS) reticleImage.enabled = false;
+        //else reticleImage.enabled = true;
     }
 
     public void ShellEmit() // called in pump animation event
@@ -369,6 +361,11 @@ public class Shotgun_Script : MonoBehaviour
         Vector3 direction = targetPos - gunMuzzle.transform.position;
         Debug.DrawRay(gunMuzzle.transform.position, direction, Color.yellow, 5f, false);
         return direction.normalized;
+    }
+
+    private void OnToggleShotgunADS()
+    {
+
     }
 
 }

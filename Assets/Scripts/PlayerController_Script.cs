@@ -48,7 +48,7 @@ public class PlayerController_Script : MonoBehaviour
     float jumpingSpread;
 
     [Header("Object References")]
-    public CharacterController controller;
+    public CharacterController playerController;
     public Vector3 playerVelocity;
     public Transform groundCheck;
     public float groundCheckSize = 0.5f;
@@ -146,7 +146,7 @@ public class PlayerController_Script : MonoBehaviour
         playerSpeed = walkingSpeed * activeSprintMultiplier;
 
         //setting up the movement with the playerspeed and correcting for executiontime
-        controller.Move((move * playerSpeed) * Time.deltaTime);
+        playerController.Move((move * playerSpeed) * Time.deltaTime);
 
 
         //gravity
@@ -154,7 +154,7 @@ public class PlayerController_Script : MonoBehaviour
 
 
         //moving
-        controller.Move(playerVelocity * Time.deltaTime);
+        playerController.Move(playerVelocity * Time.deltaTime);
 
     }
 
