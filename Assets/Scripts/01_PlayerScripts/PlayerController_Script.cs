@@ -83,7 +83,9 @@ public class PlayerController_Script : MonoBehaviour
     [SerializeField] private Vector3 standingCenterPoint = new Vector3(0f, .75f, 0f);
     [SerializeField] private Vector3 crouchingCenterPoint = new Vector3(0f, .75f, 0f);
     [SerializeField] private float timeToCrouch = 1f;
+    [SerializeField] private float safetyBufferForFunsies = 0.001f;
     private bool inCrouchingAnimation = false;
+
 
     [Header("Controls")]
     [SerializeField] private KeyCode crouchKey = KeyCode.LeftControl;
@@ -553,11 +555,14 @@ public class PlayerController_Script : MonoBehaviour
 
         //declaring local vars
         float timeElapsed = 0f;
+
+        float sizeDifferenceFromLastFrame = 0f;
+        float heightAtLastFrame = playerController.height;
+
         float targetHeight = isCrouching ? standingHeight : crouchingHeight;
         float currentHeight = playerController.height;
         Vector3 targetCenterPoint = isCrouching ? standingCenterPoint : crouchingCenterPoint;
         Vector3 currentCenterPoint = playerController.center;
-
 
         while (timeElapsed < timeToCrouch)
         {
@@ -567,12 +572,23 @@ public class PlayerController_Script : MonoBehaviour
             playerController.height = Mathf.Lerp(currentHeight, targetHeight, crouchTime);
             playerCapsuleCollider.height = Mathf.Lerp(currentHeight, targetHeight, crouchTime);
 
+            if(isCrouching)
+            {
+                sizeDifferenceFromLastFrame = playerController.height - heightAtLastFrame;
+                sizeDifferenceFromLastFrame = (sizeDifferenceFromLastFrame) + safetyBufferForFunsies;
+
+                playerCollider.transform.position += new Vector3(0f,sizeDifferenceFromLastFrame,0f);
+            }
+
             playerController.center = Vector3.Lerp(currentCenterPoint, targetCenterPoint, crouchTime);
             playerCapsuleCollider.center = Vector3.Lerp(currentCenterPoint, targetCenterPoint, crouchTime);
 
             timeElapsed += Time.deltaTime;
+
+            heightAtLastFrame = playerController.height;
             yield return null;
         }
+
 
         playerController.height = targetHeight;
         playerCapsuleCollider.height = targetHeight;
