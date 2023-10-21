@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 5.5837636, g: 3.610272, b: 13.754961, a: 1}
+  m_IndirectSpecularColor: {r: 5.5886083, g: 3.6091542, b: 13.753176, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -10828,10 +10828,10 @@ PrefabInstance:
     - target: {fileID: 1000185112654588277, guid: 90cbe644efc7782439824a0133401a0b, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 956431647, guid: c68159ec352a6ec42bdc0fe7e1e19ec5, type: 3}
+      objectReference: {fileID: -1898820417, guid: c68159ec352a6ec42bdc0fe7e1e19ec5, type: 3}
     - target: {fileID: 4811018900279500400, guid: 90cbe644efc7782439824a0133401a0b, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.99939305
+      value: 0.8462607
       objectReference: {fileID: 0}
     - target: {fileID: 4811018900279500400, guid: 90cbe644efc7782439824a0133401a0b, type: 3}
       propertyPath: m_LocalRotation.x
@@ -10839,7 +10839,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4811018900279500400, guid: 90cbe644efc7782439824a0133401a0b, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.034835804
+      value: 0.53276896
       objectReference: {fileID: 0}
     - target: {fileID: 6035276256266667148, guid: 90cbe644efc7782439824a0133401a0b, type: 3}
       propertyPath: m_Name
@@ -10849,13 +10849,17 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6397833134451339621, guid: 90cbe644efc7782439824a0133401a0b, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6999539250436499654, guid: 90cbe644efc7782439824a0133401a0b, type: 3}
       propertyPath: m_RootOrder
       value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 6999539250436499654, guid: 90cbe644efc7782439824a0133401a0b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 21.77
+      value: 29.97
       objectReference: {fileID: 0}
     - target: {fileID: 6999539250436499654, guid: 90cbe644efc7782439824a0133401a0b, type: 3}
       propertyPath: m_LocalPosition.y
@@ -10863,7 +10867,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6999539250436499654, guid: 90cbe644efc7782439824a0133401a0b, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.49
+      value: 2.51
       objectReference: {fileID: 0}
     - target: {fileID: 6999539250436499654, guid: 90cbe644efc7782439824a0133401a0b, type: 3}
       propertyPath: m_LocalRotation.w
@@ -47401,6 +47405,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 725513871}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1497270225
+GameObject:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1497270226}
+  - component: {fileID: 1497270227}
+  m_Layer: 0
+  m_Name: cm
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1497270226
+Transform:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1497270225}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -1, z: -0, w: 0}
+  m_LocalPosition: {x: 16.599997, y: -1.75, z: -3.8999991}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2671576167505828461}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1497270227
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1497270225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1503029791
 GameObject:
   m_ObjectHideFlags: 0
@@ -47819,12 +47867,16 @@ MonoBehaviour:
 
     Q/E - Lean
 
+    Ctrl - Toggle Crouch
 
-    Mousewheel - Change Weapon
+
+    Mousewheel
+    - Change Weapon
 
 
-    Quit
-    - Hold ESC for 3 sec.
+    F11 - Toggle Debug Mode
+
+    Quit - Hold ESC for 3 sec.
 
 '
   m_isRightToLeft: 0
@@ -87960,6 +88012,7 @@ GameObject:
   - component: {fileID: 2671576167505828463}
   - component: {fileID: 2671576167505828462}
   - component: {fileID: 2671576167505828464}
+  - component: {fileID: 2671576167505828465}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -88063,6 +88116,7 @@ Transform:
   - {fileID: 378053036}
   - {fileID: 1768595632}
   - {fileID: 663620899}
+  - {fileID: 1497270226}
   m_Father: {fileID: 2671576167418170963}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2671576167505828462
@@ -88267,6 +88321,52 @@ MonoBehaviour:
       enableFptlForForwardOpaque: 0
       enableBigTilePrepass: 0
       isFptlEnabled: 0
+--- !u!114 &2671576167505828465
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2671576167505828456}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45e653bab7fb20e499bda25e1b646fea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ExcludedPropertiesInInspector:
+  - m_Script
+  m_LockStageInInspector: 
+  m_StreamingVersion: 20170927
+  m_Priority: 10
+  m_StandbyUpdate: 2
+  m_LookAt: {fileID: 0}
+  m_Follow: {fileID: 0}
+  m_Lens:
+    FieldOfView: 40
+    OrthographicSize: 10
+    NearClipPlane: 0.1
+    FarClipPlane: 5000
+    Dutch: 0
+    ModeOverride: 0
+    LensShift: {x: 0, y: 0}
+    GateFit: 2
+    FocusDistance: 10
+    m_SensorSize: {x: 1, y: 1}
+    Iso: 200
+    ShutterSpeed: 0.005
+    Aperture: 16
+    BladeCount: 5
+    Curvature: {x: 2, y: 11}
+    BarrelClipping: 0.25
+    Anamorphism: 0
+  m_Transitions:
+    m_BlendHint: 0
+    m_InheritPosition: 0
+    m_OnCameraLive:
+      m_PersistentCalls:
+        m_Calls: []
+  m_LegacyBlendHint: 0
+  m_ComponentOwner: {fileID: 1497270226}
 --- !u!224 &2671576167602787496
 RectTransform:
   m_ObjectHideFlags: 0
@@ -88760,6 +88860,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1adbd9014a2a6bd4cbb802eb934df741, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canCrouch: 1
+  canLean: 1
+  canJump: 1
+  canSprint: 1
+  canMove: 1
   maxHealth: 100
   currentHealth: 50
   criticalHealthThreshold: 25
@@ -88779,8 +88884,40 @@ MonoBehaviour:
   exhaustedWalkspeed: 3.5
   sprintMultiplierValue: 2
   activeSprintMultiplier: 1
-  maxLeanAngleDegrees: 15
   playerVelocity: {x: 0, y: -2, z: 0}
+  leanAnimationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  isLeaning: 0
+  maxLeanAngleDegrees: 20
+  leaningDuration: 0.5
+  timeToLean: 0
+  leaningTimeElapsed: 0
+  targetLocalEulerAngleZ: 0
+  currentLocalEulerAngleZ: 0
+  currentLeaningState: 0
+  lastLeaningState: 0
   staminaTimerSec: 0
   currentStamina: 100
   maxStamina: 100
@@ -88822,7 +88959,6 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   isCrouching: 0
-  canCrouch: 1
   standingHeight: 1.625
   crouchingHeight: 1.125
   standingCenterPoint: {x: 0, y: 0, z: 0}
@@ -88835,15 +88971,16 @@ MonoBehaviour:
   leanLeftKey: 113
   leanRightKey: 101
   flashLightKey: 102
-  isGrounded: 0
-  isMoving: 0
-  isExhausted: 0
-  playerHasDied: 0
   deathScreen: {fileID: 0}
   uiCanvas: {fileID: 0}
   playerController: {fileID: 2671576167779464310}
   viewCamAnim: {fileID: 2671576167812684736}
   audioInstance: {fileID: 0}
+  isGrounded: 0
+  isMoving: 0
+  isExhausted: 0
+  leanAnimPlaying: 0
+  playerHasDied: 0
 --- !u!136 &2671576167779464312
 CapsuleCollider:
   m_ObjectHideFlags: 0

@@ -1,4 +1,5 @@
 using BehaviorDesigner.Runtime.Tasks.Unity.UnityInput;
+using BehaviorDesigner.Runtime.Tasks.Unity.UnityNavMeshAgent;
 using BehaviorDesigner.Runtime.Tasks.Unity.UnityQuaternion;
 using System;
 using System.Collections;
@@ -7,7 +8,21 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.Windows;
 public class PlayerController_Script : MonoBehaviour
+
 {
+    // Lambda Bools
+    private bool ShouldCrouch => UnityEngine.Input.GetKeyDown(crouchKey) && canCrouch && playerController.isGrounded;    //A bool with a prerequisite attached to it. After the "=>" (Lambda Expression), the conditions are shown that need to be fulfilled in order for this bool to be positive;
+    private bool ShouldJump => UnityEngine.Input.GetKeyDown(jumpKey) && playerController.isGrounded && !isCrouching;
+    private bool ShouldLeanRight => UnityEngine.Input.GetKey(leanRightKey);
+    private bool ShouldLeanLeft => UnityEngine.Input.GetKey(leanLeftKey);
+
+    [Header("Abilities")]
+    [SerializeField] private bool canCrouch = true;
+    [SerializeField] private bool canLean = true;
+    [SerializeField] private bool canJump = true;
+    [SerializeField] private bool canSprint = true;
+    [SerializeField] private bool canMove = true;
+
     [Header("Health Settings")]
     public int maxHealth = 100;
     public int currentHealth = 50;
@@ -42,13 +57,21 @@ public class PlayerController_Script : MonoBehaviour
     [SerializeField] private float exhaustedWalkspeed = 3.5f;
     [SerializeField] private float sprintMultiplierValue = 2f;
     [SerializeField] private float activeSprintMultiplier = 1f;
-    [SerializeField] private float maxLeanAngleDegrees;
     public Vector3 playerVelocity;
     private Vector3 lastKnownPosition;
     private Vector3 currentPosition;
-    private float currentLocalEulerAngleZ;
-    private float targetLocalEulerAngleZ;
-    private int leanDirection; // 0: none, 1: left, 2: right
+
+    [Header("Leaning")]
+    [SerializeField] private AnimationCurve leanAnimationCurve;
+    [SerializeField] private bool isLeaning = false;
+    [SerializeField] private float maxLeanAngleDegrees;
+    [SerializeField] private float leaningDuration;
+    [SerializeField] private float timeToLean;
+    [SerializeField] private float leaningTimeElapsed;
+    [SerializeField] private float targetLocalEulerAngleZ;
+    [SerializeField] private float currentLocalEulerAngleZ;
+    [SerializeField] private int currentLeaningState; // 0: none, 1: left, 2: right
+    [SerializeField] private int lastLeaningState;
 
     [Header("Stamina")]
     public float staminaTimerSec;
@@ -77,7 +100,6 @@ public class PlayerController_Script : MonoBehaviour
     [Header("Crouching")]
     [SerializeField] private AnimationCurve couchAnimCurve;
     [SerializeField] private bool isCrouching = false;
-    [SerializeField] private bool canCrouch = true;
     [SerializeField] private float standingHeight = 1.75f;
     [SerializeField] private float crouchingHeight = 1f;
     [SerializeField] private Vector3 standingCenterPoint = new Vector3(0f, .75f, 0f);
@@ -85,7 +107,6 @@ public class PlayerController_Script : MonoBehaviour
     [SerializeField] private float timeToCrouch = 1f;
     [SerializeField] private float safetyBufferForFunsies = 0.001f;
     private bool inCrouchingAnimation = false;
-
 
     [Header("Controls")]
     [SerializeField] private KeyCode crouchKey = KeyCode.LeftControl;
@@ -95,28 +116,18 @@ public class PlayerController_Script : MonoBehaviour
     [SerializeField] private KeyCode leanRightKey = KeyCode.E;
     [SerializeField] private KeyCode flashLightKey = KeyCode.F;
 
-    [Header("Checkbools")]
-    [SerializeField] public bool isGrounded;
-    [SerializeField] public bool isMoving;
-    [SerializeField] public bool isExhausted;
-    public bool playerHasDied;
-    private bool debugModeActive = false;
-
     [Header("Object References")]
-    private GameObject leaningPivotPoint;
     public GameObject deathScreen;
     public GameObject uiCanvas;
-    private GameObject flashLightObject;
-    private Light flashLightSpotlight;
     public CharacterController playerController;
     public Animator viewCamAnim;
-    //public Transform groundCheck;
-    //public float groundCheckSize = 0.5f;
-    //public LayerMask groundMask;
+    public AudioController_Script audioInstance;
+    private GameObject leaningPivotPoint;
+    private GameObject flashLightObject;
+    private Light flashLightSpotlight;
     private Collider playerCollider;
     private CapsuleCollider playerCapsuleCollider;
     private GameHandler gameEventManagerScript;
-    public AudioController_Script audioInstance;
 
     [Header("Events")]
     public static Action Action_PlayerDeath;
@@ -125,9 +136,13 @@ public class PlayerController_Script : MonoBehaviour
     public static Action Action_PlayerHealthCritical;
     public static Action Action_PlayerHealthRecoveredFromCritical;
 
-    //Lambda Bools
-    private bool ShouldCrouch => UnityEngine.Input.GetKeyDown(crouchKey) && canCrouch && playerController.isGrounded;    //A bool with a prerequisite attached to it. After the "=>" (Lambda Expression), the conditions are shown that need to be fulfilled in order for this bool to be positive;
-    private bool ShouldJump => UnityEngine.Input.GetKeyDown(jumpKey) && playerController.isGrounded && !isCrouching;
+    [Header("Checkbools")]
+    [SerializeField] public bool isGrounded;
+    [SerializeField] public bool isMoving;
+    [SerializeField] public bool isExhausted;
+    [SerializeField] public bool leanAnimPlaying;
+    public bool playerHasDied;
+    private bool debugModeActive = false;
 
     private void Awake()
     {
@@ -147,6 +162,7 @@ public class PlayerController_Script : MonoBehaviour
         currentPosition = transform.position;
         standingHeight = playerController.height;
         standingCenterPoint = playerController.center;
+        lastLeaningState = currentLeaningState;
 
         Action_PlayerStaminaExhausted += OnPlayerStaminaExhasted;
         Action_PlayerStaminaRecovered += OnPlayerStaminaRecovered;
@@ -170,6 +186,9 @@ public class PlayerController_Script : MonoBehaviour
 
     void Update()
     {
+        if (ShouldLeanLeft) { Debug.Log("ShouldLeanLeft"); }
+        if (ShouldLeanRight) { Debug.Log("ShouldLeanRight"); }
+        Debug.Log(targetLocalEulerAngleZ);
         if (debugModeActive)
         {
             DebugMsg();
@@ -197,7 +216,7 @@ public class PlayerController_Script : MonoBehaviour
 
     void DebugMsg()
     {
-
+        
     }
 
     void GetInput()
@@ -205,7 +224,7 @@ public class PlayerController_Script : MonoBehaviour
         xAxis = UnityEngine.Input.GetAxis("Horizontal");
         zAxis = UnityEngine.Input.GetAxis("Vertical");
         Sprinting();
-        Leaning();
+        if(canLean) HandleLeaning();
         if (canCrouch)
         {
             HandleCrouching();
@@ -262,14 +281,18 @@ public class PlayerController_Script : MonoBehaviour
         switch (sprintState) //0: fresh;   1: exhausted;   2: reset to fresh
         {
             case 0:
-                if (UnityEngine.Input.GetKey(sprintKey) && isMoving && currentStamina > 0 && !isExhausted)
+                if (canSprint)
                 {
-                    if(!staminaTimerRunning) StartStaminaTimer(staminaRecTimeFresh);
-                    currentStamina -= (Time.deltaTime * staminaDepletionMultiplier);
-                    activeSprintMultiplier = sprintMultiplierValue;
-                } else
-                {
-                    activeSprintMultiplier = 1f;
+                    if (UnityEngine.Input.GetKey(sprintKey) && isMoving && currentStamina > 0 && !isExhausted)
+                    {
+                        if (!staminaTimerRunning) StartStaminaTimer(staminaRecTimeFresh);
+                        currentStamina -= (Time.deltaTime * staminaDepletionMultiplier);
+                        activeSprintMultiplier = sprintMultiplierValue;
+                    }
+                    else
+                    {
+                        activeSprintMultiplier = 1f;
+                    }
                 }
                 break;
 
@@ -453,41 +476,89 @@ public class PlayerController_Script : MonoBehaviour
         //audioInstance.PlayPlayerDeath();
     }
 
-    private void Leaning()
+    private void HandleLeaning()
     {
-        if (UnityEngine.Input.GetKey(leanLeftKey) || UnityEngine.Input.GetKey(leanRightKey))
+        //check which leaning direction you went for.
+        //If you press both LeanKeys, we don't lean.
+        //if(ShouldLeanLeft || ShouldLeanRight) { isLeaning = true; } else { isLeaning = false; }
+
+        isLeaning = (ShouldLeanLeft || ShouldLeanRight) ? true : false;
+
+        if (isLeaning)
         {
-            if (UnityEngine.Input.GetKey(leanLeftKey))
+            if (ShouldLeanLeft)
             {
-                leanDirection = 1;
+                if (currentLeaningState != 1)
+                {
+                    leaningTimeElapsed = 0f;
+                    currentLeaningState = 1;
+                }
             }
-            else
-            if (UnityEngine.Input.GetKey(leanRightKey))
+            if (ShouldLeanRight)
             {
-                leanDirection = 2;
+                if (currentLeaningState != 2)
+                {
+                    leaningTimeElapsed = 0f;
+                    currentLeaningState = 2;
+                }
+            }
+        }
+        else if (currentLeaningState != 0)
+        {
+            leaningTimeElapsed = 0f;
+            currentLeaningState = 0;
+        }
+
+        if (currentLeaningState != lastLeaningState)
+        {
+            // Setting what happens in the leaning state
+            switch (currentLeaningState)  // 0: none, 1: left, 2: right
+            {
+                case 0:
+                    targetLocalEulerAngleZ = 0f;
+                    StopCoroutine(LeaningLerped());
+                    StartCoroutine(LeaningLerped());
+                    break;
+                case 1:
+                    targetLocalEulerAngleZ = maxLeanAngleDegrees;
+                    StopCoroutine(LeaningLerped());
+                    StartCoroutine(LeaningLerped());
+                    break;
+                case 2:
+                    targetLocalEulerAngleZ = -maxLeanAngleDegrees;
+                    StopCoroutine(LeaningLerped());
+                    StartCoroutine(LeaningLerped());
+                    break;
             }
         }
 
-        else leanDirection = 0;
-        switch (leanDirection)  // 0: none, 1: left, 2: right
-        {
-            case 0:
-                if (targetLocalEulerAngleZ != 0f) targetLocalEulerAngleZ = 0f;
-                break;
-            case 1:
-                if (targetLocalEulerAngleZ != -maxLeanAngleDegrees) targetLocalEulerAngleZ = maxLeanAngleDegrees;
-                break;
-            case 2:
-                if (targetLocalEulerAngleZ != maxLeanAngleDegrees) targetLocalEulerAngleZ = -maxLeanAngleDegrees;
-                break;
-        }
-
-        if (currentLocalEulerAngleZ != targetLocalEulerAngleZ)
-        {
-            currentLocalEulerAngleZ = Mathf.LerpAngle(currentLocalEulerAngleZ, targetLocalEulerAngleZ, .1f);
-            leaningPivotPoint.transform.localEulerAngles = new Vector3(0, 0, currentLocalEulerAngleZ);
-        }
+        lastLeaningState = currentLeaningState;
     }
+
+    private IEnumerator LeaningLerped()
+    {
+        Debug.Log("Starting LerpRoutine");
+        //float timeElapsed = 0f;
+        leaningTimeElapsed = 0f;
+        leanAnimPlaying = true;
+
+        while (leaningTimeElapsed < leaningDuration)
+        {
+            float leanTime = leaningTimeElapsed / leaningDuration;
+            leanTime = leanAnimationCurve.Evaluate(leanTime);
+            currentLocalEulerAngleZ = Mathf.LerpAngle(currentLocalEulerAngleZ, targetLocalEulerAngleZ, leanTime);
+            leaningPivotPoint.transform.localEulerAngles = new Vector3(0f, 0f, currentLocalEulerAngleZ);
+            leaningTimeElapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        leaningTimeElapsed = 0f;
+        currentLocalEulerAngleZ = targetLocalEulerAngleZ;
+        leaningPivotPoint.transform.localEulerAngles = new Vector3(0f, 0f, currentLocalEulerAngleZ);
+        leanAnimPlaying = false;
+    }
+
+
 
     private void CalculateSpreadMP()
     {
@@ -507,7 +578,7 @@ public class PlayerController_Script : MonoBehaviour
             playerVelocity.y = -2f;
         }
 
-        if (ShouldJump)
+        if (canJump && ShouldJump)
         {
             currentStamina -= jumpStamCost;
             if (!isExhausted) playerVelocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
