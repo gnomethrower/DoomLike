@@ -114,7 +114,7 @@ public class BasicMantisClass : MonoBehaviour
     private int lastState = 0;
 
     private int IdleSubState = 2; //0 = pausing   |    1 = moving    |    2 = getting wanderpoint;
-    private int attackSubState = 0; // 0 = attack    |    1 = timer;
+    private int attackSubState = 0; // 0 = attack    |    1 = cookingTimer;
     private int staggerSubState = 0;
 
     private bool isChasing = false;
@@ -369,7 +369,7 @@ public class BasicMantisClass : MonoBehaviour
     {
         /* To-Do if I have time:
          * 
-         * Start a Stop-Chasing timer if: 
+         * Start a Stop-Chasing cookingTimer if: 
          * 1. I am out of the chaseradius and the enemy cannot see me.
          * 2. I am out of the chaseradius and the enemy can see me, but is X Meters away (from their spawn?).
          * 3. I am inside the chaseradius and the enemy cannot see me for X seconds - This is to prevent an enemy to chase me in a maze, when they might've lost my trail.
@@ -478,7 +478,7 @@ public class BasicMantisClass : MonoBehaviour
         if (isAttacking)
         {
 
-            switch (attackSubState) // 0 = attack    |    1 = timer;
+            switch (attackSubState) // 0 = attack    |    1 = cookingTimer;
             {
 
                 case 0:

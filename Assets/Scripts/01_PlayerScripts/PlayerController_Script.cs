@@ -1,8 +1,10 @@
 using BehaviorDesigner.Runtime.Tasks.Unity.UnityInput;
 using BehaviorDesigner.Runtime.Tasks.Unity.UnityNavMeshAgent;
+using BehaviorDesigner.Runtime.Tasks.Unity.UnityPhysics;
 using BehaviorDesigner.Runtime.Tasks.Unity.UnityQuaternion;
 using System;
 using System.Collections;
+using Unity.Burst.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -11,7 +13,7 @@ public class PlayerController_Script : MonoBehaviour
 
 {
     // Lambda Bools
-    private bool ShouldCrouch => UnityEngine.Input.GetKeyDown(crouchKey) && canCrouch && playerController.isGrounded;    //A bool with a prerequisite attached to it. After the "=>" (Lambda Expression), the conditions are shown that need to be fulfilled in order for this bool to be positive;
+    private bool ShouldCrouch => UnityEngine.Input.GetKeyDown(crouchKey) && canToggleCrouch && playerController.isGrounded;    //A bool with a prerequisite attached to it. After the "=>" (Lambda Expression), the conditions are shown that need to be fulfilled in order for this bool to be positive;
     private bool ShouldJump => UnityEngine.Input.GetKeyDown(jumpKey) && playerController.isGrounded && !isCrouching;
     private bool ShouldLeanRight => UnityEngine.Input.GetKey(leanRightKey);
     private bool ShouldLeanLeft => UnityEngine.Input.GetKey(leanLeftKey);
@@ -21,7 +23,7 @@ public class PlayerController_Script : MonoBehaviour
     [SerializeField] private bool canLean = true;
     [SerializeField] private bool canJump = true;
     [SerializeField] private bool canSprint = true;
-    [SerializeField] private bool canMove = true;
+    //[SerializeField] private bool canMove = true;
 
     [Header("Health Settings")]
     public int maxHealth = 100;
@@ -33,7 +35,7 @@ public class PlayerController_Script : MonoBehaviour
     [Header("Weapons")]
     //Equipped guns
     public StartingGun startingGun;
-    public enum StartingGun { Pistol, Shotgun }
+    public enum StartingGun { Pistol, Shotgun, Grenade }
 
     [Header("Flashlight")]
     [SerializeField] private int flashlightIntensity;
@@ -99,14 +101,15 @@ public class PlayerController_Script : MonoBehaviour
 
     [Header("Crouching")]
     [SerializeField] private AnimationCurve couchAnimCurve;
-    [SerializeField] private bool isCrouching = false;
     [SerializeField] private float standingHeight = 1.75f;
     [SerializeField] private float crouchingHeight = 1f;
     [SerializeField] private Vector3 standingCenterPoint = new Vector3(0f, .75f, 0f);
     [SerializeField] private Vector3 crouchingCenterPoint = new Vector3(0f, .75f, 0f);
     [SerializeField] private float timeToCrouch = 1f;
     [SerializeField] private float safetyBufferForFunsies = 0.001f;
-    private bool inCrouchingAnimation = false;
+    [SerializeField] private bool canToggleCrouch = true;
+    private int layerMaskGround = 1 << 6;
+    //private bool inCrouchingAnimation = false;
 
     [Header("Controls")]
     [SerializeField] private KeyCode crouchKey = KeyCode.LeftControl;
@@ -126,6 +129,7 @@ public class PlayerController_Script : MonoBehaviour
     private GameObject flashLightObject;
     private Light flashLightSpotlight;
     private Collider playerCollider;
+    private GameObject playerHeadTip;
     private CapsuleCollider playerCapsuleCollider;
     private GameHandler gameEventManagerScript;
 
@@ -140,6 +144,7 @@ public class PlayerController_Script : MonoBehaviour
     [SerializeField] public bool isGrounded;
     [SerializeField] public bool isMoving;
     [SerializeField] public bool isExhausted;
+    [SerializeField] private bool isCrouching = false;
     [SerializeField] public bool leanAnimPlaying;
     public bool playerHasDied;
     private bool debugModeActive = false;
@@ -154,6 +159,7 @@ public class PlayerController_Script : MonoBehaviour
         playerCapsuleCollider = this.GetComponent <CapsuleCollider>();
         leaningPivotPoint = GameObject.Find("LeaningPivotPoint");
         playerController = this.GetComponent<CharacterController>();
+        playerHeadTip = GameObject.Find("player_TipOfHead");
 
         gameEventManagerScript = GameObject.Find("GameHandler").GetComponent<GameHandler>();
 
@@ -186,15 +192,13 @@ public class PlayerController_Script : MonoBehaviour
 
     void Update()
     {
-        if (ShouldLeanLeft) { Debug.Log("ShouldLeanLeft"); }
-        if (ShouldLeanRight) { Debug.Log("ShouldLeanRight"); }
-        Debug.Log(targetLocalEulerAngleZ);
+        if (ShouldLeanLeft) { /*Debug.Log("ShouldLeanLeft");*/ }
+        if (ShouldLeanRight) { /*Debug.Log("ShouldLeanRight");*/ }
         if (debugModeActive)
         {
             DebugMsg();
             DebugFunctions();
         }
-
         if (!playerHasDied)
         {
             StaminaTimer();
@@ -206,17 +210,18 @@ public class PlayerController_Script : MonoBehaviour
             CalculateSpreadMP();
             MoveAndJump();
         }
+        if (isCrouching) CheckForUncrouchable();
     }
 
     private void FixedUpdate()
     {
         //Player Gravity Calculation
         if (!isGrounded) playerVelocity.y += gravity * Time.deltaTime;
+
     }
 
     void DebugMsg()
     {
-        
     }
 
     void GetInput()
@@ -225,10 +230,7 @@ public class PlayerController_Script : MonoBehaviour
         zAxis = UnityEngine.Input.GetAxis("Vertical");
         Sprinting();
         if(canLean) HandleLeaning();
-        if (canCrouch)
-        {
-            HandleCrouching();
-        }
+        if (ShouldCrouch && canCrouch) HandleCrouching();
     }
 
     void Flashlight()
@@ -255,7 +257,7 @@ public class PlayerController_Script : MonoBehaviour
         }
     }
 
-    void Sprinting() // Refactor! When stamina is used, start stamina timer!
+    void Sprinting() // Refactor! When stamina is used, start stamina cookingTimer!
     {
         
         if (canRecoverStamina) StaminaRecovery();
@@ -313,7 +315,7 @@ public class PlayerController_Script : MonoBehaviour
      * 
      * Stamina = 100-0: You can sprint. If you sprint you lose stamina at a constant rate and your player character moves faster. If you stop sprinting, your stamina starts recovering after 2s at normal speed.
      * Stamina = 0: If stam reaches 0, you cannot sprint. Exhaustion sets in. Your movement speed slows, and stamina recovery slows. Your stamina starts recovering after 4s at slower speed.
-     * Stamina recovers to 50: Once Stamina >= 50 again, exhaustion stops, your movement is normal again. Your stamina recovers at the normal speed. Stamina recovery timer is back at 2s.
+     * Stamina recovers to 50: Once Stamina >= 50 again, exhaustion stops, your movement is normal again. Your stamina recovers at the normal speed. Stamina recovery cookingTimer is back at 2s.
      * 
      * */
 
@@ -377,7 +379,7 @@ public class PlayerController_Script : MonoBehaviour
         canRecoverStamina = true;
     }
 
-    void CheckForStaminaChanges() // if stamina is used, set stamina recovery timer to zero. Wait until the usage stops and THEN start the timer.
+    void CheckForStaminaChanges() // if stamina is used, set stamina recovery cookingTimer to zero. Wait until the usage stops and THEN start the cookingTimer.
     {
         if (staminaLastFrame == currentStamina)
         {
@@ -537,7 +539,7 @@ public class PlayerController_Script : MonoBehaviour
 
     private IEnumerator LeaningLerped()
     {
-        Debug.Log("Starting LerpRoutine");
+        //Debug.Log("Starting LerpRoutine");
         //float timeElapsed = 0f;
         leaningTimeElapsed = 0f;
         leanAnimPlaying = true;
@@ -557,8 +559,6 @@ public class PlayerController_Script : MonoBehaviour
         leaningPivotPoint.transform.localEulerAngles = new Vector3(0f, 0f, currentLocalEulerAngleZ);
         leanAnimPlaying = false;
     }
-
-
 
     private void CalculateSpreadMP()
     {
@@ -617,13 +617,30 @@ public class PlayerController_Script : MonoBehaviour
 
     private void HandleCrouching() // this function only gets called when the shouldcrouch is set to true
     {
-        if (ShouldCrouch) StartCoroutine(CrouchStand());
+        if (canToggleCrouch) StartCoroutine(CrouchStand());
+    }
+
+    private void CheckForUncrouchable()
+    {
+            Color crouchDebugColor;
+            RaycastHit hit;
+            //check for obstacles at playerUncrouchHeight
+            if (Physics.Raycast(playerHeadTip.transform.position, playerHeadTip.transform.up, out hit, 0.5f, layerMaskGround))
+            {
+                crouchDebugColor = Color.red;
+                Debug.DrawLine(playerHeadTip.transform.position, hit.point, crouchDebugColor);
+                canToggleCrouch = false;
+            }
+            else
+            {
+                crouchDebugColor = Color.green;
+                Debug.DrawLine(playerHeadTip.transform.position, playerHeadTip.transform.position + new Vector3(0f, .5f, 0f), crouchDebugColor);
+                canToggleCrouch = true;
+            }
     }
 
     private IEnumerator CrouchStand()
     {
-        inCrouchingAnimation = true;
-
         //declaring local vars
         float timeElapsed = 0f;
 
@@ -667,7 +684,16 @@ public class PlayerController_Script : MonoBehaviour
         playerCapsuleCollider.center = targetCenterPoint;
 
         isCrouching = !isCrouching;
+        if (!isCrouching) { canToggleCrouch = true; }
+    }
 
-        inCrouchingAnimation = false;
+    Vector3 GetHighestColliderVertex()
+    {
+        // Calculate the position of the uppermost vertex based on the capsule's transform and dimensions
+
+        Vector3 centerOffset = transform.up * (playerController.height * 0.5f - playerController.radius);
+        Vector3 uppermostVertex = transform.position + centerOffset;
+
+        return uppermostVertex;
     }
 }

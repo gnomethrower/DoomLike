@@ -35,7 +35,7 @@ public class OLD_VisualAmmoCounter : MonoBehaviour
     private PlayerController_Script playerScript;
     private Pistol_Script pistolScript;
     private Shotgun_Script shotgunScript;
-    //[SerializeField] private Grenade_Script grenadeScript;
+    //[SerializeField] private UI_Grenade_Script grenadeScript;
     private WeaponSwitching_Script switchingScript;
 
     // trying to use an Ammocounter like: https://mike-87852.medium.com/create-a-visual-ammo-counter-in-unity-63e640675ea2
@@ -51,7 +51,7 @@ public class OLD_VisualAmmoCounter : MonoBehaviour
 
         pistolScript = GameObject.FindGameObjectWithTag("pistol").GetComponent<Pistol_Script>();
         shotgunScript = GameObject.FindGameObjectWithTag("shotgun").GetComponent<Shotgun_Script>();
-        //grenadeScript = GameObject.FindGameObjectWithTag("grenade").GetComponent<Grenade_Script>();
+        //grenadeScript = GameObject.FindGameObjectWithTag("grenade").GetComponent<UI_Grenade_Script>();
 
         //Initializing Variables
         equippedWeapon = switchingScript.selectedWeapon;

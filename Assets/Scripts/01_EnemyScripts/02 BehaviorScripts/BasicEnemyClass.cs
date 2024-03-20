@@ -103,7 +103,7 @@ public class BasicEnemyClass : MonoBehaviour
     [SerializeField] private int lastState = 0;
 
     [SerializeField] private int IdleSubState = 2; //0 = pausing   |    1 = moving    |    2 = getting wanderpoint;
-    [SerializeField] private int attackSubState = 0; // 0 = attack    |    1 = timer;
+    [SerializeField] private int attackSubState = 0; // 0 = attack    |    1 = cookingTimer;
     [SerializeField] private int staggerSubState = 0;
 
     [SerializeField] private bool isChasing = false;
@@ -334,7 +334,7 @@ public class BasicEnemyClass : MonoBehaviour
     {
         /* To-Do if I have time:
          * 
-         * Start a Stop-Chasing timer if: 
+         * Start a Stop-Chasing cookingTimer if: 
          * 1. I am out of the chaseradius and the enemy cannot see me.
          * 2. I am out of the chaseradius and the enemy can see me, but is X Meters away (from their spawn?).
          * 3. I am inside the chaseradius and the enemy cannot see me for X seconds - This is to prevent an enemy to chase me in a maze, when they might've lost my trail.
@@ -441,7 +441,7 @@ public class BasicEnemyClass : MonoBehaviour
         if (isAttacking)
         {
 
-            switch (attackSubState) // 0 = attack    |    1 = timer;
+            switch (attackSubState) // 0 = attack    |    1 = cookingTimer;
             {
                 case 0:
                     //Debug.Log("Attack!");

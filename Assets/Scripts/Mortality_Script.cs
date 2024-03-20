@@ -5,13 +5,16 @@ using UnityEngine;
 
 public class Mortality_Script : MonoBehaviour
 {
-
-
     public float maxHealth = 100f;
-    [HideInInspector] public float currentHealth;
+    [SerializeField] public float currentHealth;
     public float painDuration;
 
     public bool canBleed;
+    [Tooltip("Not polished at all, and creates more issues than it helps")] [SerializeField] private bool isShatterable;
+    [SerializeField] private int cutCascades;
+    [SerializeField] private int explodeForce;
+    [SerializeField] private float partLifespan;
+
 
     private float deathAnimDuration;
 
@@ -36,6 +39,13 @@ public class Mortality_Script : MonoBehaviour
             basicMantisClass = this.GetComponent<BasicMantisClass>();
             simplestMantisActor = this.GetComponent<SimplestMantisActor>();
             deathAnimDuration = simplestMantisActor.dieAnim.FrameCount * simplestMantisActor.frameDuration;
+        }
+        if (isShatterable)
+        {
+            MeshShatter meshShatter = gameObject.AddComponent<MeshShatter>();
+            meshShatter.CutCascades = cutCascades;
+            meshShatter.ExplodeForce = explodeForce;
+            meshShatter.partLifespan = partLifespan;
         }
     }
 
@@ -69,7 +79,8 @@ public class Mortality_Script : MonoBehaviour
             if (respawningTarget) SetInactive();
             else
             {
-                StartCoroutine(Death(deathAnimDuration));
+                if (!isShatterable) StartCoroutine(Death(deathAnimDuration));
+                else Debug.Log("Shatter!");
             }
         }
     }

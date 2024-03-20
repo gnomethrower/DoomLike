@@ -172,7 +172,7 @@ public class MantisEnemyAI : MonoBehaviour
 
     IEnumerator PatrolPauseTimer()
     {
-        //Debug.Log("Pause timer started");
+        //Debug.Log("Pause cookingTimer started");
         float pauseTimer = Random.Range(pauseDurationMin, pauseDurationMax);
         yield return new WaitForSeconds(pauseTimer);
 

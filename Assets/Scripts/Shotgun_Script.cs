@@ -8,6 +8,10 @@ using UnityEngine.UI;
 
 public class Shotgun_Script : MonoBehaviour
 {
+    //Lambda bools
+    private bool PullTrigger => UnityEngine.Input.GetButtonDown("Fire1");
+    private bool ReleaseTrigger => UnityEngine.Input.GetButtonUp("Fire1");
+
     [Header("Ammo")]
     public int bulletsInMag;
     public int magSize;
@@ -35,6 +39,8 @@ public class Shotgun_Script : MonoBehaviour
     public bool canFire = true;
     public bool isPumping = false;
     public bool isReloading = false;
+    [SerializeField] private bool interruptReload;
+
     bool isADS = false;
 
     [Header("Script References")]
@@ -108,8 +114,8 @@ public class Shotgun_Script : MonoBehaviour
 
     void Update()
     {
-        #region debug
-        //Debug.DrawRay(gunMuzzle.transform.position, gunMuzzle.forward, Color.blue, 1f, depthTest: false);
+        #region debug msg
+
         #endregion
 
         GetInput();
@@ -118,12 +124,17 @@ public class Shotgun_Script : MonoBehaviour
 
     void GetInput()
     {
-        if (Input.GetButtonDown("Fire1") && canFire && !isReloading)
+        if (PullTrigger && canFire && !isReloading)
         {
             Fire();
         }
 
-        if (Input.GetButtonUp("Fire1") && !isPumping && !isReloading && !canFire)
+        if (PullTrigger && isReloading)
+        {
+            InterruptReload();
+        }
+
+        if (ReleaseTrigger && !isPumping && !isReloading && !canFire)
         {
             Pump();
         }
@@ -132,6 +143,11 @@ public class Shotgun_Script : MonoBehaviour
 
         StartCoroutine("Reload");
 
+    }
+
+    void InterruptReload()
+    {
+        interruptReload = true;
     }
 
     public void Fire()
@@ -228,8 +244,7 @@ public class Shotgun_Script : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R) && bulletsInMag < magSize && playerScript.shotgunSpareAmmo > 0 && !isReloading && !isPumping)
         {
             isReloading = true;
-
-            while (bulletsInMag < magSize && playerScript.shotgunSpareAmmo > 0)
+            while (bulletsInMag < magSize && playerScript.shotgunSpareAmmo > 0 && !interruptReload)
             {
                 sgAnimator.SetTrigger("ShotgunReload");
                 audioInstance.PlaySgLoadShell();
@@ -237,7 +252,7 @@ public class Shotgun_Script : MonoBehaviour
                 playerScript.shotgunSpareAmmo--;
                 bulletsInMag++;
             }
-
+            if (interruptReload) ReloadFinished();
             if (chamberedRound) ReloadFinished();
             if (!chamberedRound)
             {
@@ -251,6 +266,7 @@ public class Shotgun_Script : MonoBehaviour
     {
         sgAnimator.SetTrigger("ReloadDone");
         isReloading = false;
+        interruptReload = false;
     }
 
     void ChangeADSMode()

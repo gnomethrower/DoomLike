@@ -129,7 +129,7 @@ public class GameHandler : MonoBehaviour
     {
         if(UnityEngine.Input.GetKey(KeyCode.Escape))
         {
-            //timer starts
+            //cookingTimer starts
             if (quitTimer < timeToQuitSeconds)
             {
                 quitTimer += Time.deltaTime;

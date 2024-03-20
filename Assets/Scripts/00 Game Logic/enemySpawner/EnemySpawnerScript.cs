@@ -71,13 +71,13 @@ public class EnemySpawnerScript : MonoBehaviour
         {
             spawnTimer = Random.Range(spawnTimerMin, spawnTimerMax);
         }
-        if (timeSinceLastSpawn < spawnTimer) //if the timer is not done.
+        if (timeSinceLastSpawn < spawnTimer) //if the cookingTimer is not done.
         {
             timeSinceLastSpawn += Time.deltaTime;
             return false;
         }
 
-        else if (timeSinceLastSpawn >= spawnTimer) //if the timer is done
+        else if (timeSinceLastSpawn >= spawnTimer) //if the cookingTimer is done
         {
             return true;
         }

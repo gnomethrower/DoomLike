@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using TMPro;
 using Unity.VisualScripting;
-using UnityEditor.UIElements;
+//using UnityEditor.UIElements;
 using BehaviorDesigner.Runtime.Tasks.Unity.UnityGameObject;
 
 public class UIDisplay_Script : MonoBehaviour
@@ -59,7 +59,7 @@ public class UIDisplay_Script : MonoBehaviour
     public WeaponSwitching_Script weapSwitchScript;
     public Pistol_Script pistolScript;
     public Shotgun_Script shotgunScript;
-    //private Grenade_Script grenadeScript;
+    //private UI_Grenade_Script grenadeScript;
 
     void Start()
     {
