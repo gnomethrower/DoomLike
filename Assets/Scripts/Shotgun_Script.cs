@@ -179,8 +179,6 @@ public class Shotgun_Script : MonoBehaviour
         sgAnimator.SetTrigger("ShotgunShoot");
         audioInstance.PlaySgShoot();
 
-
-
         LayerMask enemyMask = LayerMask.GetMask("Enemy");
         LayerMask groundMask = LayerMask.GetMask("Ground");
 

@@ -8,7 +8,7 @@ using BehaviorDesigner.Runtime.Tasks.Unity.UnityGameObject;
 public class UIDisplay_Script : MonoBehaviour
 {
     [Header("Text References")]
-    public TextMeshProUGUI ammoMagText, ammoSpareText, staminaText, staminaTimerText, healthBarText;
+    public TextMeshProUGUI ammoMagText, ammoSpareText, staminaText, staminaTimerText, healthBarText, ammoDividerLine;
     [Header("Ammo Icon prefabs")]
     public GameObject shellIcon;
     public GameObject bulletIcon;
@@ -49,6 +49,8 @@ public class UIDisplay_Script : MonoBehaviour
     [SerializeField] private Color exhaustedStaminaBarColor;
     [SerializeField] private Color freshHealthBarColor;
     [SerializeField] private Color criticalHealthColor;
+    [SerializeField] private float alphaColorValueTransparent;
+    [SerializeField] private float alphaColorValueSolid;
 
     public Transform ammoIconStartLocationParent;
     public Transform ammoIconStartLocation;
@@ -59,6 +61,7 @@ public class UIDisplay_Script : MonoBehaviour
     public WeaponSwitching_Script weapSwitchScript;
     public Pistol_Script pistolScript;
     public Shotgun_Script shotgunScript;
+    public UI_Grenade_Script grenadeScript;
     //private UI_Grenade_Script grenadeScript;
 
     void Start()
@@ -91,6 +94,11 @@ public class UIDisplay_Script : MonoBehaviour
         staminaBarSlider.maxValue = playerScript.maxStamina;
         staminaBarSlider.value = playerScript.maxStamina;
 
+        //AmmoValues
+        ammoMagText = GameObject.Find("ammoMagText").GetComponent<TextMeshProUGUI>();
+        ammoSpareText = GameObject.Find("ammoSpareText").GetComponent<TextMeshProUGUI>();
+        ammoDividerLine = GameObject.Find("Divider").GetComponent<TextMeshProUGUI>();
+
         //Colors
         exhaustedStaminaBarColor = new Color(.6f, .5f, .5f, 1f);
         freshStaminaBarColor = new Color(.9f, .9f, .9f, 1f);
@@ -120,7 +128,6 @@ public class UIDisplay_Script : MonoBehaviour
     void Update()
     {
         UIValuesUpdate();
-
         CheckSelectedWeapon();
         CheckForStaminaBarVisibility();
     }
@@ -129,14 +136,30 @@ public class UIDisplay_Script : MonoBehaviour
     {
         if (weapSwitchScript.selectedWeapon == 0) //pistol
         {
+            CheckForTransparency();
+
             ammoInMag = pistolScript.bulletsInMag;
             ammoSpare = playerScript.pistolSpareAmmo;
         }
         if (weapSwitchScript.selectedWeapon == 1) //shotgun
         {
+            CheckForTransparency();
+
             ammoInMag = shotgunScript.bulletsInMag;
             ammoSpare = playerScript.shotgunSpareAmmo;
         }
+        if (weapSwitchScript.selectedWeapon == 2) //grenade
+        {
+            ammoMagText.alpha = 0;
+            ammoDividerLine.alpha = 0;
+            ammoSpare = playerScript.grenadesSpare;
+        }
+    }
+
+    private void CheckForTransparency()
+    {
+        if (ammoDividerLine.alpha == 0) ammoDividerLine.alpha = 1;
+        if (ammoMagText.alpha == 0) ammoMagText.alpha = 1;
     }
 
     private void UIValuesUpdate()

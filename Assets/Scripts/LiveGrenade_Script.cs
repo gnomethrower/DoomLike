@@ -3,12 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.ProBuilder.Shapes;
 using static UnityEditor.Experimental.GraphView.Port;
 using Random = UnityEngine.Random;
 //using static UnityEditorInternal.VersionControl.ListControl;
 
 public class LiveGrenade_Script : MonoBehaviour
 {
+    [SerializeField] private bool damagePlayer= true;
+    [SerializeField] private bool castExplosionParticles = true;
     [SerializeField] private GameObject explosionParticles;
     GameObject grenadeWeaponObject;
     GameObject grenadeScript;
@@ -36,6 +39,10 @@ public class LiveGrenade_Script : MonoBehaviour
     [SerializeField] private float debugSphereDurationSeconds = 2f;
     [SerializeField] private float debugSphereOpacity = .5f;
 
+    [SerializeField] private GameObject grenadeSpoon;
+    [SerializeField] private GameObject[] _bulletHolePrefab;
+    [SerializeField] private Vector3 spawnPoint;
+
     private float fuseTimeSeconds;
     //[SerializeField] private float initialSpeed = 15f; // Initial speed of the fragments
     //[SerializeField] private float fragmentLifetime = 2f; // Lifetime of the fragments before they disappear
@@ -47,9 +54,13 @@ public class LiveGrenade_Script : MonoBehaviour
     private int nextState;
 
     private int layerMaskGround = 1 << 6;
-    private int layerMaskEnemy = 1 << 7;
+    //private int layerMaskEnemy = 1 << 7;
 
     // This script is only used for the grenade prefab after it is primed. The force will be generated upon instatiating in the grenade weapon script attached to the player.
+    private void Awake()
+    {
+        spawnPoint = transform.position;
+    }
 
     private void Start()
     {
@@ -121,15 +132,32 @@ public class LiveGrenade_Script : MonoBehaviour
                     if (castDebugRays) Debug.DrawRay(this.transform.position, direction * hit.distance, Color.blue, debugRayCastDurationSecondsGround);
                     // Additional code if ground layer is hit
                     //Debug.Log("Hit Ground!");
+                    GameObject obj = Instantiate(_bulletHolePrefab[Random.Range(0,_bulletHolePrefab.Length)], hit.point, Quaternion.LookRotation(hit.normal));
+                    //obj.transform.parent = hit.transform;
+                    obj.transform.position += obj.transform.forward / 1000;
                 }
-                else if ((layerMaskEnemy & (1 << hit.collider.gameObject.layer)) != 0)
+                else if (hit.transform.gameObject.GetComponent<Mortality_Script>() != null)
                 {
-                    if(castDebugRays) Debug.DrawRay(this.transform.position, direction * hit.distance, Color.red, debugRayCastDurationSecondsEnemy);
+                    //Debug.Log("Hit a mortal object.");
+                    if (castDebugRays) Debug.DrawRay(this.transform.position, direction * hit.distance, Color.red, debugRayCastDurationSecondsEnemy);
                     Mortality_Script mortalObj = hit.transform.GetComponent<Mortality_Script>(); // we create a new variable "mortalObj" of the class Mortal, which we define as what the raycasthit "hit" has found.
                     mortalObj.TakeDamage(damagePerFragment);
-                    // Additional code if enemy layer is hit
-                    //Debug.Log("Hit Enemy!");
+
                 }
+                 else if (damagePlayer && hit.transform.gameObject.name == "Player")
+                {
+                    PlayerController_Script playerScript = hit.transform.GetComponent<PlayerController_Script>();
+                    if (castDebugRays) Debug.DrawRay(this.transform.position, direction * hit.distance, Color.yellow, debugRayCastDurationSecondsEnemy);
+                    playerScript.currentHealth -= damagePerFragment;
+                }
+                //else if ((layerMaskEnemy & (1 << hit.collider.gameObject.layer)) != 0)
+                //{
+                //    if(castDebugRays) Debug.DrawRay(this.transform.position, direction * hit.distance, Color.red, debugRayCastDurationSecondsEnemy);
+                //    Mortality_Script mortalObj = hit.transform.GetComponent<Mortality_Script>(); // we create a new variable "mortalObj" of the class Mortal, which we define as what the raycasthit "hit" has found.
+                //    mortalObj.TakeDamage(damagePerFragment);
+                //    // Additional code if enemy layer is hit
+                //    //Debug.Log("Hit Enemy!");
+                //}
             }
             else
             {
@@ -197,6 +225,11 @@ public class LiveGrenade_Script : MonoBehaviour
         Destroy(gameObject);
     }
 
+    void SetExplosionLight()
+    {
+
+    }
+
     #region States
     void SetState(int nextState)
     {
@@ -221,7 +254,8 @@ public class LiveGrenade_Script : MonoBehaviour
             case 1:
                 Fragmentation();
                 RadialExplosion(this.transform.position, explosionRadius);
-                Instantiate(explosionParticles, this.transform.position, new Quaternion(0f, 0f, 0f, 0f));
+                
+                if(castExplosionParticles) Instantiate(explosionParticles, this.transform.position, new Quaternion(0f, 0f, 0f, 0f));
                 break;
         }
     }

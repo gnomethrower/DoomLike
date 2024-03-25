@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 8822879744721117875}
   - component: {fileID: 1981604438051528088}
   - component: {fileID: 3798510545965349864}
-  - component: {fileID: 7200613942582714721}
   m_Layer: 0
   m_Name: LiveGrenade
   m_TagString: Untagged
@@ -50,10 +49,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a33b7d78ebb7b8d4084cb4b06abb14ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damagePlayer: 1
+  castExplosionParticles: 1
   explosionParticles: {fileID: 2721957981084330377, guid: 8296cc32210d5bd41b0aee0d8d7fef99, type: 3}
   explosionRadiusDebugSpherePrefab: {fileID: 1295637174832647074, guid: c9ce21f2ff7027842b1b5ca9f3f19e8e, type: 3}
   timer: 0
-  numberOfFragSplinters: 6500
+  numberOfFragSplinters: 1000
   damagePerFragment: 5
   explosionDamage: 50
   explosionRadius: 5
@@ -61,13 +62,19 @@ MonoBehaviour:
   explosionForceFallOffDistance: 0
   splinterCastRange: 25
   destroyObjectAfterSeconds: 0
-  castDebugRays: 0
+  castDebugRays: 1
   debugRayCastDurationSecondsGround: 0.5
   debugRayCastDurationSecondsEnemy: 10
   debugRayCastDurationSecondsAir: 0.5
   castDebugSphere: 0
   debugSphereDurationSeconds: 2
   debugSphereOpacity: 0.1
+  grenadeSpoon: {fileID: 5356810027303161472, guid: 216ff3bade45d8040afbb0061139a454, type: 3}
+  _bulletHolePrefab:
+  - {fileID: 527510035486878884, guid: c655fed82fddd3d4c9f688f190e29861, type: 3}
+  - {fileID: 3551155499097504944, guid: bfe3c6f0b6a96e4459f30f17b7d4c420, type: 3}
+  - {fileID: 8480960933635774758, guid: 0aa25a39542ca4146a9609a4fe46340d, type: 3}
+  spawnPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &8822879744721117875
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -125,7 +132,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2075704281985921814}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -170,18 +177,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &7200613942582714721
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2075704281985921814}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1297bf1106e9c04f9929525150d108f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2662266689383444152
 GameObject:
   m_ObjectHideFlags: 0

@@ -4,6 +4,7 @@ using BehaviorDesigner.Runtime.Tasks.Unity.UnityPhysics;
 using BehaviorDesigner.Runtime.Tasks.Unity.UnityQuaternion;
 using System;
 using System.Collections;
+using System.Net;
 using Unity.Burst.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -59,6 +60,17 @@ public class PlayerController_Script : MonoBehaviour
     [SerializeField] private float exhaustedWalkspeed = 3.5f;
     [SerializeField] private float sprintMultiplierValue = 2f;
     [SerializeField] private float activeSprintMultiplier = 1f;
+
+    private float bobAmplitude = 1f;    // The maximum distance the object moves from the cameraMidPoint
+    private float bobFrequency = 1f;    // The bobFrequency of the sine wave
+    [SerializeField] private float bobAmpWalk;
+    [SerializeField] private float bobAmpSprint;
+    [SerializeField] private float bobFreqWalk;
+    [SerializeField] private float bobFreqSprint;
+    [SerializeField] private float cameraMidPoint;     // The cameraMidPoint of the sine wave
+    [SerializeField] private float timeOffset;       // A time offset to ensure objects don't move in sync
+    [SerializeField] private Vector3 cameraInitialLocalPosition;
+
     public Vector3 playerVelocity;
     private Vector3 lastKnownPosition;
     private Vector3 currentPosition;
@@ -123,6 +135,9 @@ public class PlayerController_Script : MonoBehaviour
     public GameObject deathScreen;
     public GameObject uiCanvas;
     public CharacterController playerController;
+    public GameObject fpsCameraObject;
+    public Camera fpsCamera;
+    public Animator fpsCamAnimator;
     public Animator viewCamAnim;
     public AudioController_Script audioInstance;
     private GameObject leaningPivotPoint;
@@ -143,6 +158,7 @@ public class PlayerController_Script : MonoBehaviour
     [Header("Checkbools")]
     [SerializeField] public bool isGrounded;
     [SerializeField] public bool isMoving;
+    [SerializeField] public bool isSprinting;
     [SerializeField] public bool isExhausted;
     [SerializeField] private bool isCrouching = false;
     [SerializeField] public bool leanAnimPlaying;
@@ -159,8 +175,11 @@ public class PlayerController_Script : MonoBehaviour
         playerCapsuleCollider = this.GetComponent <CapsuleCollider>();
         leaningPivotPoint = GameObject.Find("LeaningPivotPoint");
         playerController = this.GetComponent<CharacterController>();
+        fpsCameraObject = GameObject.Find("Main Camera");
+        fpsCamera = fpsCameraObject.GetComponent<Camera>();
+        fpsCamAnimator = fpsCamera.GetComponent<Animator>();
+        cameraInitialLocalPosition = fpsCamera.transform.localPosition;
         playerHeadTip = GameObject.Find("player_TipOfHead");
-
         gameEventManagerScript = GameObject.Find("GameHandler").GetComponent<GameHandler>();
 
         currentStamina = maxStamina;
@@ -209,6 +228,7 @@ public class PlayerController_Script : MonoBehaviour
             Flashlight();
             CalculateSpreadMP();
             MoveAndJump();
+            HeadBobbing();
         }
         if (isCrouching) CheckForUncrouchable();
     }
@@ -242,15 +262,15 @@ public class PlayerController_Script : MonoBehaviour
             switch (flashLightMode)
             {
                 case 0:
-                    Debug.Log("Flaslight = off");
+                    //Debug.Log("Flaslight = off");
                     flashLightSpotlight.intensity = 0;
                     break;
                 case 1:
-                    Debug.Log("Flaslight = half-light");
+                    //Debug.Log("Flaslight = half-light");
                     flashLightSpotlight.intensity = 75000 / 2;
                     break;
                 case 2:
-                    Debug.Log("Flaslight = full force");
+                    //Debug.Log("Flaslight = full force");
                     flashLightSpotlight.intensity = 75000;
                     break;
             }
@@ -288,12 +308,14 @@ public class PlayerController_Script : MonoBehaviour
                     if (UnityEngine.Input.GetKey(sprintKey) && isMoving && currentStamina > 0 && !isExhausted)
                     {
                         if (!staminaTimerRunning) StartStaminaTimer(staminaRecTimeFresh);
+                        isSprinting = true;
                         currentStamina -= (Time.deltaTime * staminaDepletionMultiplier);
                         activeSprintMultiplier = sprintMultiplierValue;
                     }
                     else
                     {
                         activeSprintMultiplier = 1f;
+                        isSprinting = false;
                     }
                 }
                 break;
@@ -567,9 +589,6 @@ public class PlayerController_Script : MonoBehaviour
 
     private void MoveAndJump()
     {
-        //jumping with groundcheck
-        //isGrounded = Physics.CheckBox(groundCheck.position, new Vector3(groundCheckSize, groundCheckSize, groundCheckSize), groundCheck.transform.rotation, groundMask);
-
         if (playerController.isGrounded) jumpingSpread = 1f;
         else jumpingSpread = 3f;
 
@@ -599,6 +618,31 @@ public class PlayerController_Script : MonoBehaviour
         playerController.Move((move * playerSpeed) * Time.deltaTime);
 
         playerController.Move(playerVelocity * Time.deltaTime);
+    }
+
+    private void HeadBobbing()
+    {
+        if(isSprinting)
+        {
+            bobAmplitude = bobAmpSprint;
+            bobFrequency = bobFreqSprint;
+        }
+        else
+        {
+            bobAmplitude = bobAmpWalk;
+            bobFrequency = bobFreqWalk;
+        }
+
+        if (isMoving && playerController.isGrounded)
+        {
+            // Calculate the vertical position based on a sine wave
+            float newY = cameraMidPoint + bobAmplitude * Mathf.Sin((Time.time + timeOffset) * bobFrequency);
+
+            // Move the object towards the new position relative to the initial position
+            fpsCameraObject.transform.localPosition = cameraInitialLocalPosition + Vector3.up * newY;
+        }
+        else fpsCameraObject.transform.localPosition = cameraInitialLocalPosition;
+        
     }
 
     private void DebugFunctions()
